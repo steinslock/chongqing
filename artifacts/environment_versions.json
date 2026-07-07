@@ -1,0 +1,33 @@
+{
+  "generated_at_utc": "2026-07-07T09:55:09.739053+00:00",
+  "python": {
+    "version": "3.11.5 (main, Sep 11 2023, 13:54:46) [GCC 11.2.0]",
+    "executable": "/home/qiangminc/codes/data4_qiangminc/code/.venvs/chongqing_v1/bin/python",
+    "platform": "Linux-5.4.0-169-generic-x86_64-with-glibc2.31"
+  },
+  "dependencies": {
+    "numpy": "2.4.6",
+    "pandas": "3.0.3",
+    "scipy": "1.17.1",
+    "scikit-learn": "1.9.0",
+    "mne": "1.12.1",
+    "pyyaml": "6.0.3",
+    "joblib": "1.5.3",
+    "torch": "2.5.1+cu121",
+    "torchvision": "0.20.1+cu121",
+    "torchaudio": "2.5.1+cu121",
+    "lightgbm": "4.6.0",
+    "matplotlib": "3.11.0",
+    "seaborn": "0.13.2",
+    "tqdm": "4.68.3",
+    "einops": "0.8.2"
+  },
+  "cuda": {
+    "available": true,
+    "torch_cuda_version": "12.1",
+    "device_count": 2
+  },
+  "pytorch": {
+    "version": "2.5.1+cu121"
+  }
+}

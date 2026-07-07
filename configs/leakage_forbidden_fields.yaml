@@ -1,0 +1,23 @@
+forbidden_feature_exact:
+  - diag3
+  - primary_label_nonhealthy
+  - sensitivity_label_clear_diagnosis
+  - sensitivity_label_mdd_highrisk
+  - CDRS_score
+
+forbidden_feature_patterns:
+  - "(?i)cdrs"
+  - "(?i)ces[-_ ]?dc"
+  - "(?i)hama"
+  - "(?i)scared"
+  - "(?i)suicid"
+  - "(?i)diagn"
+  - "(?i)label"
+  - "诊断"
+  - "量表"
+  - "总分"
+  - "自杀"
+  - "自伤"
+  - "复核"
+  - "人工"
+

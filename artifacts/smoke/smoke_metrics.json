@@ -1,0 +1,34 @@
+{
+  "purpose": "Goal0 manifest-only smoke test; not a full model training run.",
+  "label_column": "primary_label_nonhealthy",
+  "feature_columns": [
+    "has_EEG",
+    "has_fNIRS",
+    "has_face",
+    "has_eye_direct",
+    "has_eye_name_mapped",
+    "modality_count_direct",
+    "modality_count_with_eye_name_map"
+  ],
+  "n_sample": 32,
+  "n_train": 24,
+  "n_test": 8,
+  "model": "MajorityClassModel",
+  "metrics": {
+    "n": 8,
+    "threshold": 0.5,
+    "positive_rate": 0.5,
+    "predicted_positive_rate": 1.0,
+    "accuracy": 0.5,
+    "balanced_accuracy": 0.5,
+    "sensitivity": 1.0,
+    "specificity": 0.0,
+    "f1": 0.6666666666666666,
+    "brier": 0.25,
+    "auroc": 0.5,
+    "tn": 0,
+    "fp": 4,
+    "fn": 0,
+    "tp": 4
+  }
+}

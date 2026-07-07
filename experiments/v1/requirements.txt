@@ -1,0 +1,17 @@
+mne
+numpy
+pandas
+scipy
+scikit-learn
+joblib
+pyyaml
+tqdm
+matplotlib
+seaborn
+lightgbm
+tabulate
+torch
+torchvision
+torchaudio
+tensorboard
+einops

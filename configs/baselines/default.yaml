@@ -1,0 +1,86 @@
+project_config: configs/default.yaml
+
+run:
+  seed: 20260707
+  threshold: 0.5
+  n_bootstrap: 1000
+  calibration_bins: 10
+  smoke_limit_per_dataset: null
+  save_checkpoints: true
+
+paths:
+  split_file: artifacts/splits/subject_splits_v1.csv
+
+outputs:
+  results_csv: results/baseline_results.csv
+  predictions_csv: artifacts/baselines/baseline_predictions.csv
+  fold_metrics_csv: artifacts/baselines/baseline_fold_metrics.csv
+  feature_availability_json: artifacts/baselines/feature_availability.json
+  run_manifest_json: artifacts/baselines/baseline_run_manifest.json
+  report_md: reports/baseline_report.md
+  checkpoints_dir: checkpoints/baselines
+
+datasets:
+  demographics:
+    enabled: true
+    source: fixed_split_demographics
+    description: Cleaned ordinary demographics from subject_splits_v1 only.
+    numeric_columns:
+      - age_clean
+    categorical_columns:
+      - sex_clean
+      - grade_clean
+      - grade_group_clean
+    optional_columns:
+      - BMI
+      - bmi
+    age_min: 9
+    age_max: 20
+
+  eeg_rest:
+    enabled: true
+    source: csv
+    description: Existing v1 EEG Rest traditional feature table.
+    path: experiments/v1/eeg/artifacts/features/eeg_rest_features.csv
+    id_column: L_id
+    feature_prefixes:
+      - qc_
+      - bp_
+      - region_
+      - asym_
+      - spectral_entropy
+      - hjorth_
+    metadata_columns:
+      - L_id
+      - task
+      - data_file
+
+  fnirs:
+    enabled: false
+    source: csv
+    description: Reusable placeholder for future reliable fNIRS traditional features.
+    path: null
+    id_column: L_id
+    feature_prefixes: []
+    skip_reason: No reliable subject-level fNIRS traditional feature table is currently available in the organized project tree.
+
+  face:
+    enabled: false
+    source: csv
+    description: Reusable placeholder for future reliable Face traditional features.
+    path: null
+    id_column: L_id
+    feature_prefixes: []
+    skip_reason: No reliable subject-level Face traditional feature table is currently available in the organized project tree.
+
+models:
+  no_information:
+    - majority
+    - stratified_random
+  demographics:
+    - logistic_regression
+    - lightgbm
+  tabular_numeric:
+    - logistic_regression
+    - random_forest
+    - lightgbm

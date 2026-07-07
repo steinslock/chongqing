@@ -1,0 +1,61 @@
+project:
+  name: chongqing_binary_diagnosis
+  seed: 20260707
+
+paths:
+  raw_data_dir: /home/qiangminc/codes/data4_qiangminc/datasets_qiangmin/chongqing
+  report_input_dir: /home/qiangminc/codes/data4_qiangminc/code/chongqing/inputs/derived_reports/chongqing_binary_diagnosis_report
+  subject_manifest: /home/qiangminc/codes/data4_qiangminc/code/chongqing/inputs/derived_reports/chongqing_binary_diagnosis_report/data/subject_manifest.csv
+  artifacts_dir: artifacts
+  results_dir: results
+  reports_dir: reports
+  checkpoints_dir: checkpoints
+
+readonly_inputs:
+  - /home/qiangminc/codes/data4_qiangminc/datasets_qiangmin/chongqing
+  - /home/qiangminc/codes/data4_qiangminc/code/chongqing/inputs/derived_reports/chongqing_binary_diagnosis_report
+
+labels:
+  primary: primary_label_nonhealthy
+  negative: "0"
+  positive: "1"
+  excluded:
+    - ""
+
+features:
+  allowed_smoke_columns:
+    - has_EEG
+    - has_fNIRS
+    - has_face
+    - has_eye_direct
+    - has_eye_name_mapped
+    - modality_count_direct
+    - modality_count_with_eye_name_map
+
+safety:
+  forbidden_feature_exact:
+    - diag3
+    - primary_label_nonhealthy
+    - sensitivity_label_clear_diagnosis
+    - sensitivity_label_mdd_highrisk
+    - CDRS_score
+  forbidden_feature_patterns:
+    - "(?i)cdrs"
+    - "(?i)ces[-_ ]?dc"
+    - "(?i)hama"
+    - "(?i)scared"
+    - "(?i)suicid"
+    - "(?i)diagn"
+    - "(?i)label"
+    - "诊断"
+    - "量表"
+    - "总分"
+    - "自杀"
+    - "自伤"
+    - "复核"
+    - "人工"
+
+smoke:
+  limit_subjects: 32
+  test_fraction: 0.25
+

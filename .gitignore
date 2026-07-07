@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Large generated array dumps stay out of git; metrics, reports,
+# predictions, manifests, and small model artifacts are kept.
+*.npy
+*.npz

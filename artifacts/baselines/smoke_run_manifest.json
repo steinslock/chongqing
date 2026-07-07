@@ -1,0 +1,18 @@
+{
+  "config": "/data4/qiangminc/code/chongqing/configs/baselines/smoke.yaml",
+  "project_config": "/data4/qiangminc/code/chongqing/configs/default.yaml",
+  "split_file": "/data4/qiangminc/code/chongqing/artifacts/splits/subject_splits_v1.csv",
+  "split_sha256": "50680a42e69a0331e47fe59686050c6a01e385784b182f88f07a64aa6bc5f12c",
+  "seed": 20260707,
+  "threshold": 0.5,
+  "n_bootstrap": 50,
+  "calibration_bins": 10,
+  "smoke_limit_per_dataset": 96,
+  "results_csv": "/data4/qiangminc/code/chongqing/results/baseline_smoke_results.csv",
+  "predictions_csv": "/data4/qiangminc/code/chongqing/artifacts/baselines/smoke_predictions.csv",
+  "fold_metrics_csv": "/data4/qiangminc/code/chongqing/artifacts/baselines/smoke_fold_metrics.csv",
+  "feature_availability_json": "/data4/qiangminc/code/chongqing/artifacts/baselines/smoke_feature_availability.json",
+  "report_md": "/data4/qiangminc/code/chongqing/reports/baseline_smoke_report.md",
+  "checkpoints_dir": "/data4/qiangminc/code/chongqing/checkpoints/baselines/smoke",
+  "checkpoints": []
+}

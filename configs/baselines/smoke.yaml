@@ -1,0 +1,15 @@
+extends: default.yaml
+
+run:
+  n_bootstrap: 50
+  smoke_limit_per_dataset: 96
+  save_checkpoints: false
+
+outputs:
+  results_csv: results/baseline_smoke_results.csv
+  predictions_csv: artifacts/baselines/smoke_predictions.csv
+  fold_metrics_csv: artifacts/baselines/smoke_fold_metrics.csv
+  feature_availability_json: artifacts/baselines/smoke_feature_availability.json
+  run_manifest_json: artifacts/baselines/smoke_run_manifest.json
+  report_md: reports/baseline_smoke_report.md
+  checkpoints_dir: checkpoints/baselines/smoke

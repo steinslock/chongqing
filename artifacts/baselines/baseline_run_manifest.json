@@ -1,0 +1,61 @@
+{
+  "config": "/data4/qiangminc/code/chongqing/configs/baselines/default.yaml",
+  "project_config": "/data4/qiangminc/code/chongqing/configs/default.yaml",
+  "split_file": "/data4/qiangminc/code/chongqing/artifacts/splits/subject_splits_v1.csv",
+  "split_sha256": "50680a42e69a0331e47fe59686050c6a01e385784b182f88f07a64aa6bc5f12c",
+  "seed": 20260707,
+  "threshold": 0.5,
+  "n_bootstrap": 1000,
+  "calibration_bins": 10,
+  "smoke_limit_per_dataset": null,
+  "results_csv": "/data4/qiangminc/code/chongqing/results/baseline_results.csv",
+  "predictions_csv": "/data4/qiangminc/code/chongqing/artifacts/baselines/baseline_predictions.csv",
+  "fold_metrics_csv": "/data4/qiangminc/code/chongqing/artifacts/baselines/baseline_fold_metrics.csv",
+  "feature_availability_json": "/data4/qiangminc/code/chongqing/artifacts/baselines/feature_availability.json",
+  "report_md": "/data4/qiangminc/code/chongqing/reports/baseline_report.md",
+  "checkpoints_dir": "/data4/qiangminc/code/chongqing/checkpoints/baselines",
+  "checkpoints": [
+    {
+      "dataset": "no_information",
+      "model": "no_information_majority",
+      "path": "/data4/qiangminc/code/chongqing/checkpoints/baselines/no_information__no_information_majority.joblib",
+      "sha256": "7c166a8cefc7ac7ebebe87884037031dd1bfc8c822c41ebd3276e9c3b2c0dc15"
+    },
+    {
+      "dataset": "no_information",
+      "model": "no_information_stratified_random",
+      "path": "/data4/qiangminc/code/chongqing/checkpoints/baselines/no_information__no_information_stratified_random.joblib",
+      "sha256": "e5865ef34d54f3801419d2195a77971af90b90b54f8ac8a0ab319a1106269526"
+    },
+    {
+      "dataset": "demographics",
+      "model": "demographics_logistic_regression",
+      "path": "/data4/qiangminc/code/chongqing/checkpoints/baselines/demographics__demographics_logistic_regression.joblib",
+      "sha256": "e860eeb2ccf1d187e143382a788fc24ad4f1b7bdb5135b5ee748c391e654680c"
+    },
+    {
+      "dataset": "demographics",
+      "model": "demographics_lightgbm",
+      "path": "/data4/qiangminc/code/chongqing/checkpoints/baselines/demographics__demographics_lightgbm.joblib",
+      "sha256": "da12463ce894f540d142576df7dbf6cb8771c56db4d087fc893c636547cbf6fe"
+    },
+    {
+      "dataset": "eeg_rest",
+      "model": "eeg_rest_logistic_regression",
+      "path": "/data4/qiangminc/code/chongqing/checkpoints/baselines/eeg_rest__eeg_rest_logistic_regression.joblib",
+      "sha256": "89940e66960f87ea2413134e34d373270f4d09e1496d6ca622dbafae52f04ffc"
+    },
+    {
+      "dataset": "eeg_rest",
+      "model": "eeg_rest_random_forest",
+      "path": "/data4/qiangminc/code/chongqing/checkpoints/baselines/eeg_rest__eeg_rest_random_forest.joblib",
+      "sha256": "5efac8e06d7f6497ac6d61c0c463374309d2fbcfc2200cdef63fa9e4ca2fb26b"
+    },
+    {
+      "dataset": "eeg_rest",
+      "model": "eeg_rest_lightgbm",
+      "path": "/data4/qiangminc/code/chongqing/checkpoints/baselines/eeg_rest__eeg_rest_lightgbm.joblib",
+      "sha256": "dd753e3f618a9a3addd067c4f8938238f738226996521ef88a81b3ab1571cda7"
+    }
+  ]
+}

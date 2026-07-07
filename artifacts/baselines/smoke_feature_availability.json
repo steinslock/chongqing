@@ -1,0 +1,54 @@
+[
+  {
+    "dataset": "no_information",
+    "enabled": true,
+    "status": "available",
+    "subjects": 96,
+    "feature_count": 0,
+    "description": "No feature table required."
+  },
+  {
+    "dataset": "demographics",
+    "enabled": true,
+    "status": "available",
+    "subjects": 96,
+    "feature_count": 4,
+    "description": "Cleaned ordinary demographics from subject_splits_v1 only.",
+    "numeric_columns": [
+      "age_clean"
+    ],
+    "categorical_columns": [
+      "sex_clean",
+      "grade_clean",
+      "grade_group_clean"
+    ]
+  },
+  {
+    "dataset": "eeg_rest",
+    "enabled": true,
+    "status": "available",
+    "subjects": 96,
+    "feature_count": 533,
+    "description": "Existing v1 EEG Rest traditional feature table.",
+    "path": "/data4/qiangminc/code/chongqing/experiments/v1/eeg/artifacts/features/eeg_rest_features.csv",
+    "source_rows": 1279
+  },
+  {
+    "dataset": "fnirs",
+    "enabled": false,
+    "status": "skipped",
+    "subjects": 0,
+    "feature_count": 0,
+    "description": "Reusable placeholder for future reliable fNIRS traditional features.",
+    "reason": "No reliable subject-level fNIRS traditional feature table is currently available in the organized project tree."
+  },
+  {
+    "dataset": "face",
+    "enabled": false,
+    "status": "skipped",
+    "subjects": 0,
+    "feature_count": 0,
+    "description": "Reusable placeholder for future reliable Face traditional features.",
+    "reason": "No reliable subject-level Face traditional feature table is currently available in the organized project tree."
+  }
+]

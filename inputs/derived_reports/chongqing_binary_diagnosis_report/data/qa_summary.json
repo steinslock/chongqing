@@ -1,0 +1,463 @@
+{
+  "dataset_root": "/home/qiangminc/codes/data4_qiangminc/datasets_qiangmin/chongqing",
+  "output_dir": "/home/qiangminc/codes/data4_qiangminc/outputs/chongqing_binary_diagnosis_report",
+  "clinical_file": "/home/qiangminc/codes/data4_qiangminc/datasets_qiangmin/chongqing/临床信息-重医6.3.xlsx",
+  "clinical_sheet": "中小学复核问卷",
+  "clinical_rows": 4610,
+  "clinical_columns": 433,
+  "duplicate_A_id_keys": 0,
+  "duplicate_L_id_keys": 0,
+  "diag3_counts": {
+    "健康": 3126,
+    "高危": 744,
+    "多动症": 25,
+    "MDD": 490,
+    "焦虑症": 57,
+    "精分": 14,
+    "-": 107,
+    "双相": 9,
+    "无基线信息，排除": 5,
+    "孤独症": 1,
+    "PTSD": 8,
+    "强迫症": 12,
+    "品行障碍": 1,
+    "抽动障碍": 2,
+    "对立违抗": 9
+  },
+  "label_policy_summary": {
+    "primary_label_nonhealthy": {
+      "negative_0": 3126,
+      "positive_1": 1372,
+      "excluded_null": 112
+    },
+    "sensitivity_label_clear_diagnosis": {
+      "negative_0": 3126,
+      "positive_1": 628,
+      "excluded_null": 856
+    },
+    "sensitivity_label_mdd_highrisk": {
+      "negative_0": 3126,
+      "positive_1": 1234,
+      "excluded_null": 250
+    }
+  },
+  "cdrs_consistency": {
+    "consistent_or_non_threshold_diag": 4498,
+    "missing_score": 107,
+    "excluded_with_score": 5
+  },
+  "sex_counts": {
+    "女": 2863,
+    "男": 1741,
+    "#N/A": 6
+  },
+  "age_counts_top": [
+    [
+      "13",
+      711
+    ],
+    [
+      "15",
+      651
+    ],
+    [
+      "14",
+      612
+    ],
+    [
+      "12",
+      572
+    ],
+    [
+      "16",
+      535
+    ],
+    [
+      "17",
+      451
+    ],
+    [
+      "11",
+      370
+    ],
+    [
+      "10",
+      305
+    ],
+    [
+      "9",
+      207
+    ],
+    [
+      "18",
+      169
+    ],
+    [
+      "19",
+      16
+    ],
+    [
+      "#N/A",
+      6
+    ],
+    [
+      "20",
+      3
+    ],
+    [
+      "33",
+      1
+    ],
+    [
+      "36",
+      1
+    ]
+  ],
+  "grade_counts": {
+    "六年级": 384,
+    "四年级": 356,
+    "五年级": 389,
+    "七年级": 727,
+    "八年级": 593,
+    "九年级": 706,
+    "null": 6,
+    "十年级": 563,
+    "十一年级": 504,
+    "十二年级": 382
+  },
+  "modality_coverage": [
+    {
+      "modality": "EEG",
+      "ids_seen": 2498,
+      "matched_L": 2498,
+      "matched_A": 0,
+      "matched_subject_rows": 2498,
+      "diag3_counts": {
+        "健康": 1622,
+        "高危": 445,
+        "MDD": 298,
+        "焦虑症": 38,
+        "-": 49,
+        "精分": 9,
+        "强迫症": 6,
+        "多动症": 13,
+        "PTSD": 3,
+        "品行障碍": 1,
+        "双相": 6,
+        "对立违抗": 6,
+        "抽动障碍": 1,
+        "无基线信息，排除": 1
+      }
+    },
+    {
+      "modality": "fNIRS",
+      "ids_seen": 3367,
+      "matched_L": 3284,
+      "matched_A": 82,
+      "matched_subject_rows": 3284,
+      "diag3_counts": {
+        "健康": 2054,
+        "高危": 617,
+        "MDD": 410,
+        "焦虑症": 53,
+        "精分": 13,
+        "-": 78,
+        "强迫症": 9,
+        "多动症": 21,
+        "PTSD": 5,
+        "品行障碍": 1,
+        "双相": 8,
+        "抽动障碍": 2,
+        "对立违抗": 9,
+        "无基线信息，排除": 4
+      }
+    },
+    {
+      "modality": "Eye_direct",
+      "ids_seen": 303,
+      "matched_L": 10,
+      "matched_A": 286,
+      "matched_subject_rows": 291,
+      "diag3_counts": {
+        "健康": 197,
+        "高危": 50,
+        "MDD": 27,
+        "焦虑症": 1,
+        "-": 10,
+        "精分": 1,
+        "强迫症": 2,
+        "PTSD": 1,
+        "多动症": 1,
+        "双相": 1
+      }
+    },
+    {
+      "modality": "Face",
+      "ids_seen": 4574,
+      "matched_L": 4573,
+      "matched_A": 0,
+      "matched_subject_rows": 4573,
+      "diag3_counts": {
+        "健康": 3112,
+        "高危": 737,
+        "多动症": 25,
+        "MDD": 481,
+        "焦虑症": 57,
+        "精分": 14,
+        "-": 100,
+        "双相": 9,
+        "无基线信息，排除": 5,
+        "孤独症": 1,
+        "PTSD": 8,
+        "强迫症": 12,
+        "品行障碍": 1,
+        "抽动障碍": 2,
+        "对立违抗": 9
+      }
+    },
+    {
+      "modality": "Eye_name_mapped",
+      "ids_seen": 871,
+      "matched_L": 0,
+      "matched_A": 871,
+      "matched_subject_rows": 871,
+      "diag3_counts": {
+        "健康": 556,
+        "MDD": 100,
+        "高危": 169,
+        "精分": 3,
+        "PTSD": 2,
+        "-": 19,
+        "强迫症": 1,
+        "焦虑症": 13,
+        "多动症": 5,
+        "双相": 3
+      }
+    }
+  ],
+  "webdata_mapping_stats": {
+    "web_rows_with_id": 4574,
+    "unique_names": 4481,
+    "duplicate_name_keys": 86
+  },
+  "eye_name_mapping_stats": {
+    "eye_subject_dirs_with_name_pattern": 2581,
+    "eye_dirs_name_matched_to_webdata": 2547,
+    "ambiguous_name_match_dirs": 111,
+    "eye_unique_a_reachable_by_name": 871,
+    "eye_code_prefix_counts": [
+      [
+        "B",
+        619
+      ],
+      [
+        "E",
+        571
+      ],
+      [
+        "C",
+        516
+      ],
+      [
+        "A",
+        515
+      ],
+      [
+        "D",
+        360
+      ]
+    ],
+    "eye_task_parent_counts": [
+      [
+        "平滑追随",
+        885
+      ],
+      [
+        "扫视",
+        850
+      ],
+      [
+        "自由观看",
+        846
+      ]
+    ]
+  },
+  "modality_tasks": {
+    "EEG": {
+      "4_1BACK-1810": 1810,
+      "1_rest-1334": 1334,
+      "2_Oldball-2358": 2358
+    },
+    "fNIRS": {
+      "必可明近红外": 1391,
+      "依瑞德近红外": 1977
+    },
+    "Eye": {
+      "平滑追随": 885,
+      "扫视": 850,
+      "自由观看": 846
+    },
+    "Face": {
+      "[2023.10.24] 对照_视频不跳转_q键点击": 0,
+      "面部1-自我介绍1分钟": 4574,
+      "面部2-任务": 4568
+    }
+  },
+  "file_summary": {
+    "total_files": 170098,
+    "top_extensions": [
+      [
+        ".csv",
+        62447
+      ],
+      [
+        ".data",
+        19172
+      ],
+      [
+        ".index",
+        17216
+      ],
+      [
+        ".bdf",
+        16506
+      ],
+      [
+        ".mp4",
+        11909
+      ],
+      [
+        ".nirs",
+        7444
+      ],
+      [
+        "<noext>",
+        6405
+      ],
+      [
+        ".png",
+        5314
+      ],
+      [
+        ".xml",
+        5172
+      ],
+      [
+        ".txt",
+        5123
+      ],
+      [
+        ".psydat",
+        3736
+      ],
+      [
+        ".exp",
+        2863
+      ],
+      [
+        ".edat2",
+        2565
+      ],
+      [
+        ".rec",
+        1076
+      ],
+      [
+        ".xlsx",
+        1022
+      ],
+      [
+        ".log",
+        745
+      ],
+      [
+        ".json",
+        520
+      ],
+      [
+        ".jpg",
+        345
+      ],
+      [
+        ".avi",
+        182
+      ],
+      [
+        ".inprogress",
+        160
+      ],
+      [
+        ".project",
+        26
+      ],
+      [
+        ".db",
+        26
+      ],
+      [
+        ".projectmd",
+        26
+      ],
+      [
+        ".wav",
+        14
+      ],
+      [
+        ".exe",
+        11
+      ],
+      [
+        ".msi",
+        9
+      ],
+      [
+        ".dll",
+        7
+      ],
+      [
+        ".js",
+        6
+      ],
+      [
+        ".py",
+        5
+      ],
+      [
+        ".wndpos",
+        5
+      ]
+    ],
+    "top_level_file_counts": [
+      [
+        "眼动",
+        83093
+      ],
+      [
+        "近红外",
+        61098
+      ],
+      [
+        "脑电",
+        16506
+      ],
+      [
+        "面部",
+        9180
+      ],
+      [
+        "附件",
+        219
+      ],
+      [
+        "临床信息-重医6.3.xlsx",
+        1
+      ],
+      [
+        "临床信息-重医.xlsx",
+        1
+      ]
+    ]
+  },
+  "privacy_note": "Names are used only transiently for eye-tracking alignment and are not written to subject_manifest.csv.",
+  "raw_data_mutation_policy": "Read-only input; derived artifacts are written only outside DATA_ROOT."
+}
