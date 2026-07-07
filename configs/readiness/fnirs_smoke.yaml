@@ -1,0 +1,11 @@
+extends: default.yaml
+
+run:
+  modality: fNIRS
+  seed: 20260707
+  smoke_limit_per_class: 2
+  split_group: cv
+
+outputs:
+  artifact_dir: artifacts/fnirs/smoke
+  report_md: reports/fnirs_smoke_report.md

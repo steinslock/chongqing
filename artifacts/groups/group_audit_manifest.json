@@ -1,0 +1,30 @@
+{
+  "config_path": "/data4/qiangminc/code/chongqing/configs/readiness/default.yaml",
+  "environment": {
+    "cuda": {
+      "nvidia_smi": [
+        "0, NVIDIA RTX A6000, 49140 MiB, 12 MiB, 0 %",
+        "1, NVIDIA RTX A6000, 49140 MiB, 2725 MiB, 0 %"
+      ],
+      "torch_cuda_available": true,
+      "torch_cuda_version": "11.7",
+      "torch_device_count": 2
+    },
+    "executable": "/home/qiangminc/miniconda3/envs/avmoe/bin/python",
+    "packages": {
+      "cv2": "4.6.0",
+      "numpy": "1.21.5",
+      "pandas": "1.5.2",
+      "scipy": "1.9.3",
+      "sklearn": "1.1.3",
+      "torch": "1.13.0+cu117",
+      "torchvision": "0.14.0+cu117",
+      "yaml": "6.0.3"
+    },
+    "platform": "Linux-5.4.0-169-generic-x86_64-with-glibc2.31",
+    "python": "3.9.25 (main, Nov  3 2025, 22:33:05)  [GCC 11.2.0]"
+  },
+  "n_groups": 51,
+  "n_subjects": 4497,
+  "seed": 20260707
+}

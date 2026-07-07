@@ -350,3 +350,56 @@ Notes:
 - Raw dataset files were not modified.
 - Read-only derived input files were not modified.
 - No deep model training was run.
+
+## 2026-07-07 - Goal 2.5 EEG/fNIRS/Face Readiness
+
+Completed Goal 2.5 readiness work:
+
+- Updated `AGENTS.md`, `PROJECT_SPEC.md`, and `EXPERIMENT_PROTOCOL.md` for Goal 2.5, baseline-exposed pilot holdout policy, CV-pool OOF development, modality readiness gates, and Goal 3-7 roadmap.
+- Added modular code under `src/chongqing_binary/cohorts.py`, `groups.py`, `eeg/`, `fnirs/`, `face/`, and `readiness.py`.
+- Added readiness configs under `configs/readiness/`.
+- Added scripts: `audit_eeg_readiness.py`, `audit_fnirs_readiness.py`, `audit_face_readiness.py`, `build_cohorts_v2.py`, `audit_groups.py`, `generate_goal2_5_reports.py`.
+- Generated EEG, fNIRS, and Face task/video availability tables, smoke artifacts, cohort reconciliation, group/confound audit, modality design docs, and multimodal readiness report.
+
+Commands run:
+
+- `/home/qiangminc/miniconda3/envs/avmoe/bin/python scripts/audit_eeg_readiness.py --config configs/readiness/eeg_smoke.yaml --smoke-limit 2 --seed 20260707`
+- `/home/qiangminc/miniconda3/envs/avmoe/bin/python scripts/audit_fnirs_readiness.py --config configs/readiness/fnirs_smoke.yaml --smoke-limit 2 --seed 20260707`
+- `/home/qiangminc/miniconda3/envs/avmoe/bin/python scripts/audit_face_readiness.py --config configs/readiness/face_smoke.yaml --smoke-limit 2 --seed 20260707`
+- `/home/qiangminc/miniconda3/envs/avmoe/bin/python scripts/build_cohorts_v2.py --config configs/readiness/default.yaml --seed 20260707`
+- `/home/qiangminc/miniconda3/envs/avmoe/bin/python scripts/audit_groups.py --config configs/readiness/default.yaml --seed 20260707`
+- `/home/qiangminc/miniconda3/envs/avmoe/bin/python scripts/generate_goal2_5_reports.py`
+- `/home/qiangminc/miniconda3/envs/avmoe/bin/python -m compileall -q src scripts tests`
+- `/home/qiangminc/miniconda3/envs/avmoe/bin/python -m unittest discover -s tests -v`
+- `/home/qiangminc/miniconda3/envs/avmoe/bin/python scripts/check_leakage.py --config configs/smoke.yaml`
+
+Key counts:
+
+- EEG flag/file/QC: 2448/2448/2437
+- fNIRS flag/file/QC: 3202/3190/3190
+- Face flag/file/QC: 4468/4468/4468
+- core3 flag/file/QC complete: 2376/2365/2354
+- 2376 is reproduced as current core3 flag-complete. 2189 is not reproduced from the canonical manifest and is recorded as an older/stricter unresolved denominator.
+
+Readiness:
+
+- EEG: `READY_WITH_FIXES`.
+- fNIRS: `READY_WITH_FIXES`.
+- Face: `READY_WITH_FIXES`.
+
+Blocking items before formal training:
+
+- EEG: refactor old v1 code to fixed split, add inner validation, clean imbalance handling, and subject-balanced windows.
+- fNIRS: confirm event/channel/region alignment and keep device-specific modeling until merge conditions are met.
+- Face: expand full face detection/QC and run shortcut controls for background/device/video metadata.
+
+Recommended next Goal: Goal 3 EEG fixed-split formal single-modality experiment, with Face QC/shortcut work as the strongest parallel candidate.
+
+Verification:
+
+- Compile check passed with no errors.
+- Unit tests passed: `Ran 50 tests ... OK`.
+- Leakage guard passed for configured smoke feature columns.
+- EEG smoke, fNIRS smoke, and Face smoke all recorded `passed: true` and `pilot_holdout_used: false`.
+- `subject_splits_v1.csv` SHA256 still matches `artifacts/splits/subject_splits_v1.sha256`.
+- Raw dataset remains protected by the read-only input guard; no script writes under the raw input tree.

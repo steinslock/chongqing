@@ -1,0 +1,100 @@
+project_config: configs/default.yaml
+
+run:
+  stage: Goal 2.5
+  seed: 20260707
+  smoke_limit_per_class: 2
+  overwrite: true
+  pilot_holdout_policy: baseline-exposed pilot holdout; never used in Goal 2.5 smoke/model selection
+
+paths:
+  split_file: artifacts/splits/subject_splits_v1.csv
+  cohorts_v2_dir: artifacts/cohorts_v2
+  groups_dir: artifacts/groups
+  eeg_dir: artifacts/eeg
+  fnirs_dir: artifacts/fnirs
+  face_dir: artifacts/face
+
+eeg:
+  tasks:
+    rest:
+      raw_dir: 脑电/1_rest-1334
+      output_csv: artifacts/eeg/task_availability_rest.csv
+      expected_min_duration_seconds: 30
+    oddball:
+      raw_dir: 脑电/2_Oldball-2358
+      output_csv: artifacts/eeg/task_availability_oddball.csv
+      expected_min_duration_seconds: 30
+    1back:
+      raw_dir: 脑电/4_1BACK-1810
+      output_csv: artifacts/eeg/task_availability_1back.csv
+      expected_min_duration_seconds: 30
+  required_channels:
+    - Fp1
+    - Fp2
+    - F3
+    - F4
+    - C3
+    - C4
+    - P3
+    - P4
+    - O1
+    - O2
+    - F7
+    - F8
+    - T7
+    - T8
+    - P7
+    - P8
+    - Fz
+    - Cz
+    - Pz
+
+fnirs:
+  tasks:
+    rest: Rest
+    oddball: Oddball
+    vft: VFT
+    1back: 1BACK
+    doors: Doors
+  devices:
+    yiruid:
+      label: 依瑞德
+      dirs:
+        rest: 近红外/依瑞德近红外/1.Rest_1949
+        oddball: 近红外/依瑞德近红外/2.Oddball_702
+        vft: 近红外/依瑞德近红外/3.VFT_1904
+        1back: 近红外/依瑞德近红外/4.1_back_1824
+        doors: 近红外/依瑞德近红外/5.Doors_1065
+    bikom:
+      label: 必可明
+      dirs:
+        rest: 近红外/必可明近红外/1.Rest_1302
+        oddball: 近红外/必可明近红外/2.Oddball_644
+        vft: 近红外/必可明近红外/3.VFT_1308
+        1back: 近红外/必可明近红外/4.1-Back_1272
+        doors: 近红外/必可明近红外/5.Doors_649
+
+face:
+  tasks:
+    self_intro:
+      label: self_intro
+      raw_dir: 面部/面部1-自我介绍1分钟
+      output_csv: artifacts/face/video_availability_self_intro.csv
+      expected_min_duration_seconds: 30
+    task:
+      label: task
+      raw_dir: 面部/面部2-任务
+      output_csv: artifacts/face/video_availability_task.csv
+      expected_min_duration_seconds: 30
+  full_audit_sample_frames: 0
+  smoke_sample_frames: 4
+
+protocol:
+  core3_modalities:
+    - EEG
+    - fNIRS
+    - Face
+  eye_extension_only: true
+  smoke_split_group: cv
+  pilot_holdout_name: baseline-exposed pilot holdout

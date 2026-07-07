@@ -1,0 +1,11 @@
+extends: default.yaml
+
+run:
+  modality: Face
+  seed: 20260707
+  smoke_limit_per_class: 2
+  split_group: cv
+
+outputs:
+  artifact_dir: artifacts/face/smoke
+  report_md: reports/face_smoke_report.md

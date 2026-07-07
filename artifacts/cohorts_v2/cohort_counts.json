@@ -1,0 +1,18 @@
+{
+  "at_least_one_core3_flag": 4497,
+  "core3_file_complete": 2365,
+  "core3_flag_complete": 2376,
+  "core3_qc_complete": 2354,
+  "eeg_file": 2448,
+  "eeg_flag": 2448,
+  "eeg_qc": 2437,
+  "face_file": 4468,
+  "face_flag": 4468,
+  "face_qc": 4468,
+  "fnirs_file": 3190,
+  "fnirs_flag": 3202,
+  "fnirs_qc": 3190,
+  "four_modality_complete_direct_flag": 227,
+  "four_modality_complete_name_mapped_flag": 660,
+  "primary_label_valid": 4497
+}

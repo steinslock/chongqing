@@ -6,8 +6,6 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Mapping
 
-import yaml
-
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_CONFIG_PATH = PROJECT_ROOT / "configs" / "default.yaml"
@@ -24,8 +22,15 @@ def _deep_merge(base: dict[str, Any], override: Mapping[str, Any]) -> dict[str, 
 
 
 def _read_yaml(path: Path) -> dict[str, Any]:
-    with path.open("r", encoding="utf-8") as handle:
-        data = yaml.safe_load(handle) or {}
+    try:
+        import yaml  # type: ignore
+
+        with path.open("r", encoding="utf-8") as handle:
+            data = yaml.safe_load(handle) or {}
+    except ModuleNotFoundError:
+        from .readiness import read_yaml
+
+        data = read_yaml(path)
     if not isinstance(data, dict):
         raise ValueError(f"Config must be a mapping: {path}")
     return data
@@ -127,4 +132,3 @@ def load_config(path: str | Path | None = None) -> ProjectConfig:
         base = _read_yaml(parent_path)
         data = _deep_merge(base, data)
     return ProjectConfig(path=config_path, data=data)
-

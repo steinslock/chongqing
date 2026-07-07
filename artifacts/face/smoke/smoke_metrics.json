@@ -1,0 +1,198 @@
+{
+  "checks": [
+    {
+      "L_id": "L1007",
+      "embedding_shape": [
+        4,
+        14
+      ],
+      "face_detection_attempted": true,
+      "frames_decoded": 4,
+      "frames_with_face": 4,
+      "label": "0",
+      "lightweight_temporal_forward_shape": [
+        1,
+        14
+      ],
+      "mean_pool_shape": [
+        14
+      ],
+      "split_group": "cv",
+      "video_task": "self_intro"
+    },
+    {
+      "L_id": "L1011",
+      "embedding_shape": [
+        4,
+        14
+      ],
+      "face_detection_attempted": true,
+      "frames_decoded": 4,
+      "frames_with_face": 4,
+      "label": "0",
+      "lightweight_temporal_forward_shape": [
+        1,
+        14
+      ],
+      "mean_pool_shape": [
+        14
+      ],
+      "split_group": "cv",
+      "video_task": "self_intro"
+    },
+    {
+      "L_id": "L103",
+      "embedding_shape": [
+        4,
+        14
+      ],
+      "face_detection_attempted": true,
+      "frames_decoded": 4,
+      "frames_with_face": 4,
+      "label": "1",
+      "lightweight_temporal_forward_shape": [
+        1,
+        14
+      ],
+      "mean_pool_shape": [
+        14
+      ],
+      "split_group": "cv",
+      "video_task": "self_intro"
+    },
+    {
+      "L_id": "L1088",
+      "embedding_shape": [
+        4,
+        14
+      ],
+      "face_detection_attempted": true,
+      "frames_decoded": 4,
+      "frames_with_face": 4,
+      "label": "1",
+      "lightweight_temporal_forward_shape": [
+        1,
+        14
+      ],
+      "mean_pool_shape": [
+        14
+      ],
+      "split_group": "cv",
+      "video_task": "self_intro"
+    },
+    {
+      "L_id": "L1007",
+      "embedding_shape": [
+        4,
+        14
+      ],
+      "face_detection_attempted": true,
+      "frames_decoded": 4,
+      "frames_with_face": 4,
+      "label": "0",
+      "lightweight_temporal_forward_shape": [
+        1,
+        14
+      ],
+      "mean_pool_shape": [
+        14
+      ],
+      "split_group": "cv",
+      "video_task": "task"
+    },
+    {
+      "L_id": "L1011",
+      "embedding_shape": [
+        4,
+        14
+      ],
+      "face_detection_attempted": true,
+      "frames_decoded": 4,
+      "frames_with_face": 4,
+      "label": "0",
+      "lightweight_temporal_forward_shape": [
+        1,
+        14
+      ],
+      "mean_pool_shape": [
+        14
+      ],
+      "split_group": "cv",
+      "video_task": "task"
+    },
+    {
+      "L_id": "L103",
+      "embedding_shape": [
+        4,
+        14
+      ],
+      "face_detection_attempted": true,
+      "frames_decoded": 4,
+      "frames_with_face": 4,
+      "label": "1",
+      "lightweight_temporal_forward_shape": [
+        1,
+        14
+      ],
+      "mean_pool_shape": [
+        14
+      ],
+      "split_group": "cv",
+      "video_task": "task"
+    },
+    {
+      "L_id": "L1088",
+      "embedding_shape": [
+        4,
+        14
+      ],
+      "face_detection_attempted": true,
+      "frames_decoded": 4,
+      "frames_with_face": 4,
+      "label": "1",
+      "lightweight_temporal_forward_shape": [
+        1,
+        14
+      ],
+      "mean_pool_shape": [
+        14
+      ],
+      "split_group": "cv",
+      "video_task": "task"
+    }
+  ],
+  "config": {
+    "path": "configs/readiness/face_smoke.yaml",
+    "seed": 20260707
+  },
+  "environment": {
+    "cuda": {
+      "nvidia_smi": [
+        "0, NVIDIA RTX A6000, 49140 MiB, 275 MiB, 0 %",
+        "1, NVIDIA RTX A6000, 49140 MiB, 5519 MiB, 14 %"
+      ],
+      "torch_cuda_available": true,
+      "torch_cuda_version": "11.7",
+      "torch_device_count": 2
+    },
+    "executable": "/home/qiangminc/miniconda3/envs/avmoe/bin/python",
+    "packages": {
+      "cv2": "4.6.0",
+      "numpy": "1.21.5",
+      "pandas": "1.5.2",
+      "scipy": "1.9.3",
+      "sklearn": "1.1.3",
+      "torch": "1.13.0+cu117",
+      "torchvision": "0.14.0+cu117",
+      "yaml": "6.0.3"
+    },
+    "platform": "Linux-5.4.0-169-generic-x86_64-with-glibc2.31",
+    "python": "3.9.25 (main, Nov  3 2025, 22:33:05)  [GCC 11.2.0]"
+  },
+  "failure_reason": "",
+  "formal_training": false,
+  "passed": true,
+  "pilot_holdout_used": false,
+  "stage": "Goal 2.5 Face smoke",
+  "visual_only_no_audio": true
+}

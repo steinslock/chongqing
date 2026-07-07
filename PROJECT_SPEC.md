@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Build a reproducible, subject-level engineering framework for health/non-health binary diagnosis using the Chongqing multimodal dataset. Goal0 only initializes the framework; it does not perform full training.
+Build a reproducible, subject-level engineering framework for health/non-health binary diagnosis using the Chongqing multimodal dataset. The current stage is Goal 2.5: repair the experimental protocol and establish reliable EEG, fNIRS, and Face data readiness before formal single-modality training.
 
 ## Data Sources
 
@@ -14,15 +14,15 @@ Read-only existing report bundle:
 
 `/home/qiangminc/codes/data4_qiangminc/code/chongqing/inputs/derived_reports/chongqing_binary_diagnosis_report`
 
-Primary dataset description:
-
-`inputs/derived_reports/chongqing_binary_diagnosis_report/DATASET_DESCRIPTION.md`
-
-Canonical manifest:
+Canonical subject manifest:
 
 `inputs/derived_reports/chongqing_binary_diagnosis_report/data/subject_manifest.csv`
 
-The manifest is the initial subject-level interface. It contains anonymous `A_id` and `L_id` identifiers, diagnosis labels, demographic fields, and modality coverage flags.
+Fixed global split:
+
+`artifacts/splits/subject_splits_v1.csv`
+
+The fixed split was already used in the baseline stage. Its locked test portion is therefore a **baseline-exposed pilot holdout** and is not available for future model development decisions.
 
 ## Task Definition
 
@@ -40,8 +40,6 @@ Label semantics:
 - `1`: non-healthy/high-risk/disease
 - empty: excluded from supervised training/evaluation
 
-The positive class includes high-risk, MDD, anxiety disorder, ADHD, schizophrenia, OCD, bipolar disorder, PTSD, and other non-healthy states. It is not a pure MDD label.
-
 Sensitivity labels:
 
 - `sensitivity_label_clear_diagnosis`: healthy vs clear diagnosis, excluding high-risk.
@@ -49,44 +47,50 @@ Sensitivity labels:
 
 ## Engineering Structure
 
-Root-level directories:
-
 | Directory | Purpose |
 |---|---|
-| `configs/` | YAML experiment and smoke-test configs |
+| `configs/` | YAML configs for baselines, readiness, and future experiments |
 | `src/` | Reusable Python interfaces and framework code |
 | `scripts/` | Command-line entry points |
-| `tests/` | Standard-library unit tests |
-| `artifacts/` | Intermediate generated artifacts |
+| `tests/` | Unit and protocol tests |
+| `artifacts/` | Generated indexes, cohorts, QC tables, smoke outputs |
 | `results/` | Predictions, metrics, and result tables |
-| `reports/` | Generated project reports and environment records |
+| `reports/` | Project reports and design documents |
 | `checkpoints/` | Future model checkpoints |
-
-Organized legacy and versioned workspaces:
-
-- `inputs/derived_reports/chongqing_binary_diagnosis_report/`: read-only derived dataset report and manifest.
-- `experiments/v1/`: prior EEG baseline work.
-- `experiments/v2/`: reserved for future work.
+| `inputs/derived_reports/` | Read-only existing dataset reports |
+| `experiments/v1/` | Prior exploratory EEG work, not directly comparable to fixed-split formal results |
 
 ## Required Interfaces
 
-Goal0 establishes these interfaces under `src/chongqing_binary`:
+Existing interfaces:
 
-- Subject-level data interface: manifest loading, schema validation, label filtering, modality flags, and smoke sampling.
-- Configuration interface: YAML loading, path resolution, defaults, and read-only input declarations.
-- Logging interface: reproducible console/file logging setup.
-- Model interface: small protocol for binary classifiers plus a smoke-only majority baseline.
-- Evaluation interface: subject-level binary metrics from labels and probabilities.
-- Leakage guard: automatic validation that forbidden clinical/diagnosis fields are not used as feature columns.
+- Subject-level data interface.
+- Configuration interface.
+- Logging interface.
+- Model interface.
+- Evaluation interface.
+- Leakage guard.
+
+Goal 2.5 adds:
+
+- `src/chongqing_binary/cohorts.py`: core3 and eye-extension cohort reconciliation.
+- `src/chongqing_binary/groups.py`: site/batch/device proxy audit.
+- `src/chongqing_binary/eeg/`: EEG file indexing, BDF header IO, QC, preprocessing plan, feature-family definitions.
+- `src/chongqing_binary/fnirs/`: fNIRS device/task indexing, file probes, QC, preprocessing plan, feature-family definitions, device-alignment policy.
+- `src/chongqing_binary/face/`: Face video indexing, metadata IO, QC, detection, sampling, frozen-feature smoke helpers.
 
 ## Output Policy
 
-New outputs must be written under `artifacts/`, `results/`, `reports/`, or `checkpoints/`.
+Raw data and read-only existing reports must never be modified. Derived full subject-level indexes, QC tables, task availability tables, features, predictions, checkpoints, and reports are allowed under the project root output directories.
 
-Writes under the raw dataset directory or the existing report bundle are blocked by the project path guard.
+`artifacts/splits/subject_splits_v1.csv` must not be overwritten. Additional split files, such as group robustness splits, are allowed only as supplemental analysis artifacts and must not replace the global split.
 
-## Dependency Policy
+## Experiment Roadmap
 
-Goal0 code uses the Python standard library for tests and core interfaces where practical. YAML config loading uses `pyyaml`, which is already present in the existing `chongqing_v1` environment.
+- Goal 3: EEG single-modality formal experiments after Goal 2.5 readiness fixes.
+- Goal 4: fNIRS single-modality formal experiments with device-specific handling.
+- Goal 5: Face single-modality formal experiments starting from frozen visual features.
+- Goal 6: fair same-cohort comparison on core3 complete subjects.
+- Goal 7: multimodal fusion only after single-modality protocols are stable.
 
-No new dependency is installed during Goal0.
+Before any formal modality experiment, the modality must pass file, task/video, QC, split-consistency, leakage, and smoke checks.

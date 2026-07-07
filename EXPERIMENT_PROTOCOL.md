@@ -2,15 +2,28 @@
 
 ## Current Stage
 
-Goal0: project initialization only.
+Current stage: **Goal 2.5, EEG/fNIRS/Face readiness audit and protocol repair**.
 
-No full model training is allowed in this stage. Only unit tests, leakage checks, environment recording, and small smoke tests may run.
+This stage may build indexes, cohorts, task/video availability tables, QC summaries, smoke outputs, and design documents. It must not run formal full-scale EEG, fNIRS, Face, or multimodal training.
 
 ## Subject-Level Unit
 
 The unit of analysis is the subject, keyed by `L_id`.
 
-All future training, validation, and testing must split by subject. Derived units such as EEG windows, fNIRS trials, face frames, video clips, eye-tracking fixations, or task epochs from the same subject must never cross train/test boundaries.
+All modality data inherit `artifacts/splits/subject_splits_v1.csv`. Derived units from the same subject must never cross global splits or CV folds, including EEG windows/epochs, fNIRS trials/time slices, Face frames/clips, and future generated features or representations.
+
+Forbidden split actions:
+
+- random splitting of windows, trials, frames, clips, or epochs;
+- per-task fold generation;
+- per-modality fold generation;
+- overwriting `subject_splits_v1.csv`.
+
+## Pilot Holdout Policy
+
+Goal 2 evaluated the locked test set. It is now the **baseline-exposed pilot holdout**.
+
+Future development must not use the pilot holdout for feature selection, model selection, threshold selection, early stopping, checkpoint selection, hyperparameter search, model retention decisions, or any other development decision. CV-pool fixed fivefold OOF results are the development basis.
 
 ## Label Policy
 
@@ -18,56 +31,60 @@ Default supervised label:
 
 `primary_label_nonhealthy`
 
-Use only rows where the label is `0` or `1`. Empty labels are excluded.
-
-Sensitivity labels are available for future experiments:
+Use only rows where the label is `0` or `1`. Sensitivity labels must be reported separately when used:
 
 - `sensitivity_label_clear_diagnosis`
 - `sensitivity_label_mdd_highrisk`
 
-Any report must state which label was used and how many subjects were excluded.
-
 ## Feature Leakage Policy
 
-Clinical labels and label-proxy fields are forbidden as model inputs. This includes:
+Clinical labels and label-proxy fields are forbidden as objective modality inputs. This includes:
 
-- Diagnosis columns and manual review columns.
-- Label columns such as `primary_label_nonhealthy`, `sensitivity_label_*`, and `diag3`.
-- CDRS, CES-DC, HAMA, SCARED, suicide, self-harm, and clinical scale total fields.
-- Any field whose name includes obvious clinical-scale or diagnosis markers.
+- `diag3`, `primary_label_nonhealthy`, `sensitivity_label_clear_diagnosis`, `sensitivity_label_mdd_highrisk`;
+- CDRS, CES-DC, HAMA, SCARED;
+- suicide/self-harm fields;
+- diagnosis fields;
+- manual review fields;
+- clinical scale totals and other clinical proxy fields.
 
-The leakage guard in `src/chongqing_binary/leakage.py` must be run before any feature set is accepted.
+Demographics may be used for demographics-only baselines, modality+demographics increment experiments, stratification, and confound audits. They must be reported separately from objective modality-only results.
 
-## Read-Only Input Policy
+## Modality Readiness Gates
 
-The following paths are inputs only:
+Before formal training, each modality must have:
 
-- `/home/qiangminc/codes/data4_qiangminc/datasets_qiangmin/chongqing`
-- `/home/qiangminc/codes/data4_qiangminc/code/chongqing/inputs/derived_reports/chongqing_binary_diagnosis_report`
+- one row per `L_id` task/video availability tables;
+- inherited global split role and CV fold;
+- file readability checks;
+- minimum metadata-level QC;
+- failure reasons for missing or unreadable files;
+- smoke test using CV pool only;
+- leakage guard for feature columns;
+- subject-level feature/prediction outputs retaining `L_id`.
 
-Do not write outputs, caches, checkpoints, logs, or transformed datasets into these paths.
+## Comparison Rules
 
-## Smoke Test Protocol
+Different modalities have different coverage. AUROC or other model metrics cannot be fairly ranked across different subject cohorts.
 
-Goal0 smoke tests:
+Each formal modality experiment must report:
 
-- Read `subject_manifest.csv`.
-- Select a small balanced labeled sample.
-- Use only non-clinical modality availability fields.
-- Validate feature columns through the leakage guard.
-- Fit a trivial smoke-only majority baseline through the model interface.
-- Write small metrics and prediction files under `artifacts/smoke/` and `results/smoke/`.
+1. random/no-information baseline on the same modality cohort;
+2. demographics-only on the same modality cohort;
+3. modality-only;
+4. modality+demographics;
+5. QC-only;
+6. signal+QC;
+7. fixed fivefold OOF;
+8. fold mean and standard deviation;
+9. subject-level predictions;
+10. confidence intervals.
 
-The smoke test exists to verify wiring, not model quality.
+Fair cross-modality comparison requires rerunning all modalities on the same core3 complete cohort.
 
-## Future Full Experiment Requirements
+## fNIRS Device Policy
 
-Before any full experiment, add:
+Yiruid and Bikom fNIRS data must not be directly concatenated as the same raw channel input space until the device alignment audit confirms compatibility. Device-specific encoders, channel masks, or region-level HbO/HbR representations are required before cross-device modeling.
 
-- A named config file under `configs/`.
-- A subject-level split file under `artifacts/`.
-- Leakage validation for all feature columns.
-- Logs and environment metadata.
-- Metrics, predictions, and per-fold subject IDs.
-- A report stating label policy, modality coverage, exclusions, split policy, and limitations.
+## Face Shortcut Policy
 
+Face models must test face crop, aligned crop, full frame, masked/background variants, QC-only, codec/resolution/fps-only, demographics-only, and two-video fusion before interpreting performance as face-dynamics signal. All clips from the same source video inherit the subject fold.
