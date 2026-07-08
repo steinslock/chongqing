@@ -1,0 +1,30 @@
+extends: models.yaml
+
+fnirs:
+  preprocessing_version: goal2_6_device_specific_light_preprocessing_v1
+  feature_version: goal2_6_fnirs_traditional_v1
+  tasks:
+    - rest
+    - vft
+    - 1back
+  tier_b_tasks:
+    - 1back
+  devices:
+    yiruid:
+      representation: raw_intensity_and_optical_density
+      dirs:
+        rest: 近红外/依瑞德近红外/1.Rest_1949
+        vft: 近红外/依瑞德近红外/3.VFT_1904
+        1back: 近红外/依瑞德近红外/4.1_back_1824
+    bikom:
+      representation: vendor_hbo_hbr_hbt_csv
+      dirs:
+        rest: 近红外/必可明近红外/1.Rest_1302
+        vft: 近红外/必可明近红外/3.VFT_1308
+        1back: 近红外/必可明近红外/4.1-Back_1272
+  outputs:
+    dir: artifacts/goal2_6/fnirs
+  min_valid_duration_sec: 20
+  max_channel_features: 24
+  bikom_max_rows: 2000
+  task_segment_rule: use_markers_when_present_else_time_blocks

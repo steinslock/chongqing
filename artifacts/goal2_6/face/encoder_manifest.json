@@ -1,0 +1,32 @@
+{
+  "config": "/data4/qiangminc/code/chongqing/configs/goal2_6/face.yaml",
+  "encoder": {
+    "name": "torchvision_resnet18",
+    "checkpoint": "ResNet18_Weights.IMAGENET1K_V1",
+    "feature_dimension": 512,
+    "frozen": true,
+    "checkpoint_source": "torchvision_download_cache",
+    "device": "cuda:0"
+  },
+  "detector": {
+    "name": "opencv_haar_fallback",
+    "threshold": "minNeighbors=4",
+    "note": "MediaPipe/MTCNN/RetinaFace were not installed; Haar crops are reported as fallback and interpreted with shortcut caution."
+  },
+  "tasks": {
+    "self_intro": {
+      "signal_features": "/data4/qiangminc/code/chongqing/artifacts/goal2_6/face/self_intro_signal_features.csv",
+      "qc_features": "/data4/qiangminc/code/chongqing/artifacts/goal2_6/face/self_intro_qc_features.csv",
+      "subjects_signal": 3572,
+      "subjects_qc": 3597,
+      "sample_frames": 8
+    },
+    "task": {
+      "signal_features": "/data4/qiangminc/code/chongqing/artifacts/goal2_6/face/task_signal_features.csv",
+      "qc_features": "/data4/qiangminc/code/chongqing/artifacts/goal2_6/face/task_qc_features.csv",
+      "subjects_signal": 3567,
+      "subjects_qc": 3597,
+      "sample_frames": 8
+    }
+  }
+}

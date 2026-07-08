@@ -8,3 +8,7 @@ __pycache__/
 # predictions, manifests, and small model artifacts are kept.
 *.npy
 *.npz
+
+# Large/intermediate Goal2.6 face feature dumps exceed GitHub's file limit.
+artifacts/goal2_6/face/*_signal_features*.csv
+artifacts/goal2_6/face/*.part.csv

@@ -1,0 +1,19 @@
+modality,file,qc_feature_status,qc_failure_reason,subjects
+eeg,/data4/qiangminc/code/chongqing/artifacts/goal2_6/eeg/rest_qc_features.csv,blocked,too_few_valid_windows,11
+eeg,/data4/qiangminc/code/chongqing/artifacts/goal2_6/eeg/rest_qc_features.csv,ok,,1022
+eeg,/data4/qiangminc/code/chongqing/artifacts/goal2_6/eeg/oddball_qc_features.csv,blocked,too_few_valid_windows,10
+eeg,/data4/qiangminc/code/chongqing/artifacts/goal2_6/eeg/oddball_qc_features.csv,ok,,1827
+eeg,/data4/qiangminc/code/chongqing/artifacts/goal2_6/eeg/1back_qc_features.csv,blocked,too_few_valid_windows,191
+eeg,/data4/qiangminc/code/chongqing/artifacts/goal2_6/eeg/1back_qc_features.csv,ok,,1154
+fnirs,/data4/qiangminc/code/chongqing/artifacts/goal2_6/fnirs/yiruid_rest_qc_features.csv,ok,,1514
+fnirs,/data4/qiangminc/code/chongqing/artifacts/goal2_6/fnirs/yiruid_vft_qc_features.csv,ok,,1480
+fnirs,/data4/qiangminc/code/chongqing/artifacts/goal2_6/fnirs/yiruid_1back_qc_features.csv,blocked,OSError:could not read bytes,1
+fnirs,/data4/qiangminc/code/chongqing/artifacts/goal2_6/fnirs/yiruid_1back_qc_features.csv,ok,,1422
+fnirs,/data4/qiangminc/code/chongqing/artifacts/goal2_6/fnirs/bikom_rest_qc_features.csv,ok,,1017
+fnirs,/data4/qiangminc/code/chongqing/artifacts/goal2_6/fnirs/bikom_vft_qc_features.csv,ok,,1022
+fnirs,/data4/qiangminc/code/chongqing/artifacts/goal2_6/fnirs/bikom_1back_qc_features.csv,blocked,missing_hbo_or_hbr_csv,10
+fnirs,/data4/qiangminc/code/chongqing/artifacts/goal2_6/fnirs/bikom_1back_qc_features.csv,ok,,985
+face,/data4/qiangminc/code/chongqing/artifacts/goal2_6/face/self_intro_qc_features.csv,blocked,video_file_missing,25
+face,/data4/qiangminc/code/chongqing/artifacts/goal2_6/face/self_intro_qc_features.csv,ok,,3572
+face,/data4/qiangminc/code/chongqing/artifacts/goal2_6/face/task_qc_features.csv,blocked,video_file_missing,30
+face,/data4/qiangminc/code/chongqing/artifacts/goal2_6/face/task_qc_features.csv,ok,,3567

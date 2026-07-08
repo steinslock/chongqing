@@ -403,3 +403,138 @@ Verification:
 - EEG smoke, fNIRS smoke, and Face smoke all recorded `passed: true` and `pilot_holdout_used: false`.
 - `subject_splits_v1.csv` SHA256 still matches `artifacts/splits/subject_splits_v1.sha256`.
 - Raw dataset remains protected by the read-only input guard; no script writes under the raw input tree.
+
+## 2026-07-08 - Goal 2.6 Fixed-CV Lightweight Multimodal Baselines
+
+Completed Goal 2.6 under the fixed CV-only protocol:
+
+- Added Goal 2.6 configs under `configs/goal2_6/` for shared protocol, bootstrap, EEG, fNIRS, Face, and model grids.
+- Added reusable implementation under `src/chongqing_binary/goal2_6/`:
+  - `eeg.py`: subject-level EEG signal/QC features from v1 deep-window caches for Rest, Oddball, and 1BACK.
+  - `fnirs.py`: device-aware Yiruid `.nirs` and Bikom vendor CSV features for Rest, VFT, and 1BACK.
+  - `face.py`: frozen `torchvision_resnet18` visual embeddings for self-introduction and task videos, with full-frame, face-crop, and background variants.
+  - `runner.py`: fixed outer CV OOF modeling, inner 3-fold hyperparameter/threshold selection, train-fold PCA for high-dimensional Face embeddings, bootstrap CIs, paired comparisons, core3 same-cohort comparison, shortcut baselines, and group-robustness supplemental checks.
+  - `report.py`: source-backed markdown reports.
+- Added scripts:
+  - `extract_eeg_goal2_6_features.py`
+  - `extract_fnirs_goal2_6_features.py`
+  - `extract_face_goal2_6_features.py`
+  - `run_goal2_6_eeg.py`
+  - `run_goal2_6_fnirs.py`
+  - `run_goal2_6_face.py`
+  - `run_goal2_6_core3.py`
+  - `summarize_goal2_6.py`
+- Added Goal 2.6 protocol tests in `tests/test_goal2_6_protocol.py`, including checks for CV-only predictions, fNIRS 1BACK, Face two-video, PCA diagnostics, group robustness, paired bootstrap, and core3 subject-set identity.
+
+Commands run:
+
+- `/home/qiangminc/miniconda3/envs/avmoe/bin/python scripts/extract_eeg_goal2_6_features.py --config configs/goal2_6/eeg.yaml`
+- `/home/qiangminc/miniconda3/envs/avmoe/bin/python scripts/extract_fnirs_goal2_6_features.py --config configs/goal2_6/fnirs.yaml`
+- `/home/qiangminc/miniconda3/envs/avmoe/bin/python scripts/extract_face_goal2_6_features.py --config configs/goal2_6/face.yaml`
+- `/home/qiangminc/miniconda3/envs/avmoe/bin/python - <<'PY' ... run_goal2_6(['eeg', 'fnirs', 'face', 'core3', 'shortcut']) ... PY`
+- `/home/qiangminc/miniconda3/envs/avmoe/bin/python scripts/summarize_goal2_6.py --config configs/goal2_6/models.yaml`
+- `/home/qiangminc/miniconda3/envs/avmoe/bin/python -m compileall -q src scripts tests`
+- `/home/qiangminc/miniconda3/envs/avmoe/bin/python -m unittest discover -s tests -v`
+- `/home/qiangminc/miniconda3/envs/avmoe/bin/python scripts/check_leakage.py --config configs/smoke.yaml`
+- `sha256sum -c subject_splits_v1.sha256` from `artifacts/splits/`
+
+Feature extraction counts:
+
+- EEG signal/QC:
+  - Rest: 1022/1033 CV subjects; 11 QC-blocked for too few valid windows.
+  - Oddball: 1827/1837 CV subjects; 10 QC-blocked for too few valid windows.
+  - 1BACK: 1154/1345 CV subjects; 191 QC-blocked for too few valid windows.
+- fNIRS signal/QC:
+  - Yiruid Rest: 1514/1514.
+  - Yiruid VFT: 1480/1480.
+  - Yiruid 1BACK: 1422/1423; 1 QC-blocked file read failure.
+  - Bikom Rest: 1017/1017.
+  - Bikom VFT: 1022/1022.
+  - Bikom 1BACK: 985/995; 10 QC-blocked missing HbO/HbR CSV rows.
+- Face signal/QC:
+  - Self-introduction: 3572/3597; 25 video-file-missing QC-blocked rows.
+  - Task video: 3567/3597; 30 video-file-missing QC-blocked rows.
+  - Two-video native cohort: 3567 CV subjects with self-introduction and task signal/QC intersection.
+  - Frozen encoder: `torchvision_resnet18`, ImageNet weights, 8 sampled frames per video, OpenCV Haar fallback detector. Face embedding extraction used `cuda:0`; the sklearn baseline matrix and bootstrap statistics ran on CPU.
+- Core3 same-cohort comparison uses 661 shared CV subjects across EEG Rest, Yiruid VFT, and Face self-introduction.
+
+Model results:
+
+- Unified run wrote:
+  - 105 model datasets and 261 model/feature/cohort groups.
+  - `results/goal2_6/all_oof_predictions.csv`: 453,480 subject-level OOF prediction rows.
+  - `results/goal2_6/all_pooled_metrics.csv`: 522 pooled metric rows, with 261 `inner_cv` and 261 fixed-0.5 threshold rows.
+  - `results/goal2_6/all_fold_metrics.csv`: 2,610 fold metric rows.
+  - `results/goal2_6/bootstrap_confidence_intervals.csv`: 2,610 CI rows, all with 1000 bootstrap resamples.
+  - `results/goal2_6/paired_model_comparisons.csv`: 130 paired comparison rows, all with 1000 paired bootstrap resamples.
+  - `results/goal2_6/selected_hyperparameters.csv`: 1,305 outer-fold selected-parameter rows.
+  - `results/goal2_6/pca_explained_variance.csv`: 1,245 PCA diagnostic rows; high-dimensional Face/Core3 models used at most 64 components.
+  - `results/goal2_6/group_robustness_summary.csv`: 13 supplemental group-robustness rows.
+  - `results/goal2_6/feature_counts.csv`, `native_cohort_summary.csv`, `core3_same_cohort_summary.csv`, `shortcut_baseline_summary.csv`, and `exclusion_summary.csv`.
+- Best inner-CV-threshold rows:
+  - EEG Rest: best overall demographics HGB, n=1022, AUROC 0.6012, AUPRC 0.4174; best signal-like signal+demographics LR, AUROC 0.5599, AUPRC 0.3831.
+  - EEG Oddball: best overall demographics LR, n=1827, AUROC 0.6024, AUPRC 0.4242; best signal-like signal+QC+demographics HGB, AUROC 0.5873, AUPRC 0.3944.
+  - EEG 1BACK: best overall demographics LR, n=1154, AUROC 0.5981, AUPRC 0.3557; best signal-like signal+demographics LR, AUROC 0.5399, AUPRC 0.3190.
+  - EEG old Rest v1 fixed-split control: best signal HGB, n=999, AUROC 0.5459, AUPRC 0.3697; demographics LR reached AUROC 0.5954.
+  - fNIRS Yiruid Rest: best overall demographics RF, n=1514, AUROC 0.5924, AUPRC 0.4498; best signal-like signal+demographics HGB, AUROC 0.5882, AUPRC 0.4630.
+  - fNIRS Yiruid VFT: best overall and signal-like signal+QC RF, n=1480, AUROC 0.5908, AUPRC 0.4684; demographics LR AUROC 0.5873.
+  - fNIRS Yiruid 1BACK: best overall demographics LR, n=1422, AUROC 0.5859, AUPRC 0.4399; best signal-like signal+demographics LR, AUROC 0.5604, AUPRC 0.4305.
+  - fNIRS Bikom Rest: best overall demographics LR, n=1017, AUROC 0.6243, AUPRC 0.4360; best signal-like signal+demographics LR, AUROC 0.5542, AUPRC 0.3476.
+  - fNIRS Bikom VFT: best overall demographics LR, n=1022, AUROC 0.6212, AUPRC 0.4261; best signal-like signal+demographics LR, AUROC 0.5735, AUPRC 0.3975.
+  - fNIRS Bikom 1BACK: best overall demographics LR, n=985, AUROC 0.6258, AUPRC 0.4395; best signal-like signal+demographics LR, AUROC 0.5865, AUPRC 0.4014.
+  - Face self-introduction: best overall demographics LR, n=3572, AUROC 0.6702, AUPRC 0.4305; best face signal-like face+demographics LR, AUROC 0.6404, AUPRC 0.4097; background-only LR AUROC 0.6028.
+  - Face task video: best overall demographics LR, n=3567, AUROC 0.6693, AUPRC 0.4290; best face signal-like face+demographics LR, AUROC 0.6452, AUPRC 0.4176; background-only LR AUROC 0.6230.
+  - Face two-video: best overall demographics LR, n=3567, AUROC 0.6694, AUPRC 0.4291; best face signal-like face+demographics LR, AUROC 0.6458, AUPRC 0.4173; background-only LR AUROC 0.6179.
+  - Shortcut group/device: logistic regression, n=3597, AUROC 0.6778, AUPRC 0.4671.
+- Core3 same-cohort:
+  - The 24 core3 prediction groups all share the same 661 `L_id` subject set.
+  - EEG Rest: demographics LR AUROC 0.5754; EEG modality-only LR AUROC 0.5143.
+  - fNIRS Yiruid VFT: modality-only RF AUROC 0.5845; demographics LR AUROC 0.5754.
+  - Face self-introduction: demographics LR AUROC 0.5754; Face modality-only LR AUROC 0.5670.
+- Paired bootstrap examples:
+  - No signal-only EEG/fNIRS feature set significantly beat demographics; 23 signal-vs-demographics comparisons had AUROC CIs entirely below zero.
+  - Oddball signal vs QC improved for HGB by AUROC +0.0458, 95% CI [0.0103, 0.0860], and signal+QC+demographics improved over signal by +0.0633, CI [0.0308, 0.0951].
+  - Face crop beat background in 5 comparisons, but with modest AUROC gains of about +0.0248 to +0.0409.
+  - Face self-introduction face-crop vs metadata improved AUROC by +0.1345, 95% CI [0.1067, 0.1627], 5/5 fold direction consistency.
+  - Face task face-crop vs metadata improved AUROC by +0.0878 to +0.0902 depending on model, CI excluding zero.
+- Group robustness:
+  - EEG Oddball signal+demographics best robustness AUROC 0.5892.
+  - fNIRS Yiruid VFT signal+QC best robustness AUROC 0.5840.
+  - Face task face+demographics best robustness AUROC 0.6197.
+  - Face two-video face+demographics best robustness AUROC 0.6247.
+  - Shortcut group/device robustness still reached AUROC 0.6023 with HGB.
+
+Reports generated:
+
+- `reports/goal2_6_eeg_results.md`
+- `reports/goal2_6_fnirs_results.md`
+- `reports/goal2_6_face_results.md`
+- `reports/goal2_6_shortcut_analysis.md`
+- `reports/goal2_6_core3_comparison.md`
+- `reports/goal2_6_final_report.md`
+
+Protocol and QA evidence:
+
+- Predictions are CV-only: `split_group` in predictions is `{'cv': 453480}` after merge with `subject_splits_v1.csv`.
+- Locked-test subjects are absent from all OOF predictions: locked sum `0`.
+- Outer folds are `[0, 1, 2, 3, 4]`; prediction fold assignments exactly match `subject_splits_v1.csv`.
+- All 261 model/feature/cohort OOF groups have one row per `L_id`; no duplicate subject predictions under the full cohort/modality/device/task/feature/model/seed/fold key.
+- Bootstrap and paired comparisons both use 1000 resamples.
+- Required post-audit scopes are present in `feature_counts.csv`: `fnirs_yiruid_1back_native`, `fnirs_bikom_1back_native`, and `face_two_video_native`.
+- `pca_explained_variance.csv` and `group_robustness_summary.csv` are nonempty and covered by tests.
+- `subject_splits_v1.csv` SHA256 still matches `artifacts/splits/subject_splits_v1.sha256`.
+- Final verification:
+  - Compile check passed.
+  - Unit tests passed: `Ran 60 tests ... OK`.
+  - Leakage guard passed for configured smoke feature columns.
+
+Limitations and interpretation:
+
+- The baseline-exposed pilot holdout remains excluded from feature extraction, model selection, threshold selection, and reporting.
+- LightGBM/XGBoost are not installed in the `avmoe` environment; `HistGradientBoostingClassifier` is recorded as the boosting fallback, with a lightweight grid (`max_iter=10`, `max_leaf_nodes=7`) for tractable full-matrix runs.
+- Yiruid fNIRS features do not claim formal HbO/HbR conversion; they use raw/log-intensity and OD-like summaries. Bikom uses vendor HbO/HbR/HbT CSV channels with a configured row cap.
+- Face uses OpenCV Haar as a fallback detector because MediaPipe/MTCNN/RetinaFace are unavailable. Face shortcut controls are therefore central to interpretation.
+- Shortcut signal is substantial: group/device reaches AUROC 0.6778, and Face background reaches AUROC about 0.603 to 0.623. Any apparent Face signal gains should be treated as shortcut-sensitive until source/site/background effects are further controlled.
+- Final modality statuses in `reports/goal2_6_final_report.md`: EEG `WEAK_OR_UNCERTAIN_SIGNAL`; fNIRS `WEAK_OR_UNCERTAIN_SIGNAL`; Face `SHORTCUT_RISK`.
+
+Recommended next Goal: Goal 3 EEG fixed-CV formal single-modality modeling, while carrying forward shortcut mitigation for Face and Hb/event validation for fNIRS before stronger modality-specific deep models.

@@ -1,0 +1,74 @@
+extends: models.yaml
+
+eeg:
+  preprocessing_version: v1_deep_window_cache_rederived_goal2_6
+  feature_version: goal2_6_eeg_window_traditional_v1
+  channels:
+    - Fp1
+    - Fp2
+    - Fz
+    - F3
+    - F4
+    - F7
+    - F8
+    - FC1
+    - FC2
+    - FC5
+    - FC6
+    - Cz
+    - C3
+    - C4
+    - T7
+    - T8
+    - A1
+    - A2
+    - CP1
+    - CP2
+    - CP5
+    - CP6
+    - Pz
+    - P3
+    - P4
+    - P7
+    - P8
+    - PO3
+    - PO4
+    - Oz
+    - O1
+    - O2
+  tasks:
+    rest:
+      signal_features: artifacts/goal2_6/eeg/rest_signal_features.csv
+      qc_features: artifacts/goal2_6/eeg/rest_qc_features.csv
+      metadata_csv: experiments/v1/eeg/artifacts/deep/windows/metadata_rest.csv
+      qa_csv: experiments/v1/eeg/artifacts/deep/windows/qa_rest.csv
+      window_npy: experiments/v1/eeg/artifacts/deep/windows/X_rest.npy
+      sfreq: 250.0
+      min_valid_windows: 10
+      max_feature_windows: 16
+      task_status: event_free_rest
+    oddball:
+      signal_features: artifacts/goal2_6/eeg/oddball_signal_features.csv
+      qc_features: artifacts/goal2_6/eeg/oddball_qc_features.csv
+      metadata_csv: experiments/v1/eeg/artifacts/deep/windows/metadata_oddball.csv
+      qa_csv: experiments/v1/eeg/artifacts/deep/windows/qa_oddball.csv
+      window_npy: experiments/v1/eeg/artifacts/deep/windows/X_oddball.npy
+      sfreq: 250.0
+      min_valid_windows: 8
+      max_feature_windows: 24
+      event_codes: ["22"]
+      task_status: event_code_inherited_from_v1_cache
+    1back:
+      signal_features: artifacts/goal2_6/eeg/1back_signal_features.csv
+      qc_features: artifacts/goal2_6/eeg/1back_qc_features.csv
+      metadata_csv: experiments/v1/eeg/artifacts/deep/windows/metadata_1back.csv
+      qa_csv: experiments/v1/eeg/artifacts/deep/windows/qa_1back.csv
+      window_npy: experiments/v1/eeg/artifacts/deep/windows/X_1back.npy
+      sfreq: 250.0
+      min_valid_windows: 6
+      max_feature_windows: 24
+      event_codes: ["18", "19"]
+      task_status: event_code_inherited_from_v1_cache
+  v1_rest_control:
+    path: experiments/v1/eeg/artifacts/features/eeg_rest_features.csv
+    output_name: eeg_rest_v1_features_fixed_split

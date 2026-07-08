@@ -1,0 +1,37 @@
+{
+  "config": "/data4/qiangminc/code/chongqing/configs/goal2_6/eeg.yaml",
+  "preprocessing_version": "v1_deep_window_cache_rederived_goal2_6",
+  "feature_version": "goal2_6_eeg_window_traditional_v1",
+  "tasks": {
+    "rest": {
+      "signal_features": "/data4/qiangminc/code/chongqing/artifacts/goal2_6/eeg/rest_signal_features.csv",
+      "qc_features": "/data4/qiangminc/code/chongqing/artifacts/goal2_6/eeg/rest_qc_features.csv",
+      "subjects_signal": 1022,
+      "subjects_qc": 1033,
+      "source_window_npy": "/data4/qiangminc/code/chongqing/experiments/v1/eeg/artifacts/deep/windows/X_rest.npy",
+      "source_metadata_csv": "/data4/qiangminc/code/chongqing/experiments/v1/eeg/artifacts/deep/windows/metadata_rest.csv",
+      "source_qa_csv": "/data4/qiangminc/code/chongqing/experiments/v1/eeg/artifacts/deep/windows/qa_rest.csv",
+      "task_status": "event_free_rest"
+    },
+    "oddball": {
+      "signal_features": "/data4/qiangminc/code/chongqing/artifacts/goal2_6/eeg/oddball_signal_features.csv",
+      "qc_features": "/data4/qiangminc/code/chongqing/artifacts/goal2_6/eeg/oddball_qc_features.csv",
+      "subjects_signal": 1827,
+      "subjects_qc": 1837,
+      "source_window_npy": "/data4/qiangminc/code/chongqing/experiments/v1/eeg/artifacts/deep/windows/X_oddball.npy",
+      "source_metadata_csv": "/data4/qiangminc/code/chongqing/experiments/v1/eeg/artifacts/deep/windows/metadata_oddball.csv",
+      "source_qa_csv": "/data4/qiangminc/code/chongqing/experiments/v1/eeg/artifacts/deep/windows/qa_oddball.csv",
+      "task_status": "event_code_inherited_from_v1_cache"
+    },
+    "1back": {
+      "signal_features": "/data4/qiangminc/code/chongqing/artifacts/goal2_6/eeg/1back_signal_features.csv",
+      "qc_features": "/data4/qiangminc/code/chongqing/artifacts/goal2_6/eeg/1back_qc_features.csv",
+      "subjects_signal": 1154,
+      "subjects_qc": 1345,
+      "source_window_npy": "/data4/qiangminc/code/chongqing/experiments/v1/eeg/artifacts/deep/windows/X_1back.npy",
+      "source_metadata_csv": "/data4/qiangminc/code/chongqing/experiments/v1/eeg/artifacts/deep/windows/metadata_1back.csv",
+      "source_qa_csv": "/data4/qiangminc/code/chongqing/experiments/v1/eeg/artifacts/deep/windows/qa_1back.csv",
+      "task_status": "event_code_inherited_from_v1_cache"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+extends: common.yaml
+
+bootstrap:
+  n_resamples: 1000
+  seed: 20260707
+  ci: 0.95
+  paired_n_resamples: 1000
+  paired_seed: 20260708

@@ -1,0 +1,10 @@
+{
+  "device": "yiruid",
+  "task": "vft",
+  "subjects_found": 1480,
+  "signal_rows": 1480,
+  "qc_rows": 1480,
+  "representation": "raw_intensity_and_optical_density",
+  "task_segment_rule": "use_markers_when_present_else_time_blocks",
+  "raw_channel_merge": "forbidden"
+}

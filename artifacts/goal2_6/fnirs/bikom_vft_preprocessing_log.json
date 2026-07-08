@@ -1,0 +1,10 @@
+{
+  "device": "bikom",
+  "task": "vft",
+  "subjects_found": 1022,
+  "signal_rows": 1022,
+  "qc_rows": 1022,
+  "representation": "vendor_hbo_hbr_hbt_csv",
+  "task_segment_rule": "use_markers_when_present_else_time_blocks",
+  "raw_channel_merge": "forbidden"
+}

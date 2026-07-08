@@ -1,0 +1,26 @@
+{
+  "config": "/data4/qiangminc/code/chongqing/configs/goal2_6/models.yaml",
+  "n_datasets": 105,
+  "n_prediction_rows": 453480,
+  "n_pooled_rows": 522,
+  "lightgbm_fallback": {
+    "lightgbm": "hist_gradient_boosting",
+    "reason": "LightGBM and XGBoost are not installed in the current avmoe environment; sklearn HistGradientBoostingClassifier is used as the documented boosting fallback."
+  },
+  "outputs": {
+    "all_fold_metrics": "/data4/qiangminc/code/chongqing/results/goal2_6/all_fold_metrics.csv",
+    "all_oof_predictions": "/data4/qiangminc/code/chongqing/results/goal2_6/all_oof_predictions.csv",
+    "all_pooled_metrics": "/data4/qiangminc/code/chongqing/results/goal2_6/all_pooled_metrics.csv",
+    "bootstrap_ci": "/data4/qiangminc/code/chongqing/results/goal2_6/bootstrap_confidence_intervals.csv",
+    "paired_comparisons": "/data4/qiangminc/code/chongqing/results/goal2_6/paired_model_comparisons.csv",
+    "native_cohort_summary": "/data4/qiangminc/code/chongqing/results/goal2_6/native_cohort_summary.csv",
+    "core3_same_cohort_summary": "/data4/qiangminc/code/chongqing/results/goal2_6/core3_same_cohort_summary.csv",
+    "shortcut_baseline_summary": "/data4/qiangminc/code/chongqing/results/goal2_6/shortcut_baseline_summary.csv",
+    "selected_hyperparameters": "/data4/qiangminc/code/chongqing/results/goal2_6/selected_hyperparameters.csv",
+    "pca_explained_variance": "/data4/qiangminc/code/chongqing/results/goal2_6/pca_explained_variance.csv",
+    "feature_counts": "/data4/qiangminc/code/chongqing/results/goal2_6/feature_counts.csv",
+    "exclusion_summary": "/data4/qiangminc/code/chongqing/results/goal2_6/exclusion_summary.csv",
+    "group_robustness_summary": "/data4/qiangminc/code/chongqing/results/goal2_6/group_robustness_summary.csv",
+    "manifest": "/data4/qiangminc/code/chongqing/artifacts/goal2_6/run_manifest.json"
+  }
+}
