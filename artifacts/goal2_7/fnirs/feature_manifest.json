@@ -1,0 +1,91 @@
+{
+  "config": "/data4/qiangminc/code/chongqing/configs/goal2_7/fnirs.yaml",
+  "preprocessing_version": "goal2_7_device_specific_full_read_event_audited_v1",
+  "feature_version": "goal2_7_fnirs_whole_recording_and_event_validity_v1",
+  "tasks": {
+    "yiruid_rest": {
+      "signal_features": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/yiruid_rest_signal_features.csv",
+      "qc_features": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/yiruid_rest_qc_features.csv",
+      "preprocessing_log": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/yiruid_rest_preprocessing_log.json",
+      "excluded_subjects": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/yiruid_rest_excluded_subjects.csv",
+      "device": "yiruid",
+      "task": "rest",
+      "subjects_found": 1514,
+      "signal_rows": 1514,
+      "qc_rows": 1514,
+      "representation": "raw_intensity_and_optical_density",
+      "task_segment_rule": "marker_confirmed_or_protocol_confirmed_only",
+      "raw_channel_merge": "forbidden"
+    },
+    "yiruid_vft": {
+      "signal_features": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/yiruid_vft_signal_features.csv",
+      "qc_features": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/yiruid_vft_qc_features.csv",
+      "preprocessing_log": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/yiruid_vft_preprocessing_log.json",
+      "excluded_subjects": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/yiruid_vft_excluded_subjects.csv",
+      "device": "yiruid",
+      "task": "vft",
+      "subjects_found": 1480,
+      "signal_rows": 1480,
+      "qc_rows": 1480,
+      "representation": "raw_intensity_and_optical_density",
+      "task_segment_rule": "marker_confirmed_or_protocol_confirmed_only",
+      "raw_channel_merge": "forbidden"
+    },
+    "yiruid_1back": {
+      "signal_features": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/yiruid_1back_signal_features.csv",
+      "qc_features": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/yiruid_1back_qc_features.csv",
+      "preprocessing_log": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/yiruid_1back_preprocessing_log.json",
+      "excluded_subjects": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/yiruid_1back_excluded_subjects.csv",
+      "device": "yiruid",
+      "task": "1back",
+      "subjects_found": 1423,
+      "signal_rows": 1422,
+      "qc_rows": 1423,
+      "representation": "raw_intensity_and_optical_density",
+      "task_segment_rule": "marker_confirmed_or_protocol_confirmed_only",
+      "raw_channel_merge": "forbidden"
+    },
+    "bikom_rest": {
+      "signal_features": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/bikom_rest_signal_features.csv",
+      "qc_features": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/bikom_rest_qc_features.csv",
+      "preprocessing_log": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/bikom_rest_preprocessing_log.json",
+      "excluded_subjects": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/bikom_rest_excluded_subjects.csv",
+      "device": "bikom",
+      "task": "rest",
+      "subjects_found": 1017,
+      "signal_rows": 1017,
+      "qc_rows": 1017,
+      "representation": "vendor_hbo_hbr_hbt_csv",
+      "task_segment_rule": "marker_confirmed_or_protocol_confirmed_only",
+      "raw_channel_merge": "forbidden"
+    },
+    "bikom_vft": {
+      "signal_features": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/bikom_vft_signal_features.csv",
+      "qc_features": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/bikom_vft_qc_features.csv",
+      "preprocessing_log": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/bikom_vft_preprocessing_log.json",
+      "excluded_subjects": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/bikom_vft_excluded_subjects.csv",
+      "device": "bikom",
+      "task": "vft",
+      "subjects_found": 1022,
+      "signal_rows": 1022,
+      "qc_rows": 1022,
+      "representation": "vendor_hbo_hbr_hbt_csv",
+      "task_segment_rule": "marker_confirmed_or_protocol_confirmed_only",
+      "raw_channel_merge": "forbidden"
+    },
+    "bikom_1back": {
+      "signal_features": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/bikom_1back_signal_features.csv",
+      "qc_features": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/bikom_1back_qc_features.csv",
+      "preprocessing_log": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/bikom_1back_preprocessing_log.json",
+      "excluded_subjects": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/bikom_1back_excluded_subjects.csv",
+      "device": "bikom",
+      "task": "1back",
+      "subjects_found": 995,
+      "signal_rows": 985,
+      "qc_rows": 995,
+      "representation": "vendor_hbo_hbr_hbt_csv",
+      "task_segment_rule": "marker_confirmed_or_protocol_confirmed_only",
+      "raw_channel_merge": "forbidden"
+    }
+  }
+}

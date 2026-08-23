@@ -1,0 +1,39 @@
+{
+  "config": "/data4/qiangminc/code/chongqing/configs/goal2_7/face.yaml",
+  "encoder": {
+    "name": "torchvision_resnet18",
+    "checkpoint": "ResNet18_Weights.IMAGENET1K_V1",
+    "feature_dimension": 512,
+    "frozen": true,
+    "checkpoint_source": "torchvision_download_cache",
+    "device": "cuda:0"
+  },
+  "detector": {
+    "preferred": "opencv_yunet",
+    "fallback": "opencv_haar",
+    "yuNet_checkpoint": "artifacts/goal2_7/face/models/face_detection_yunet_2023mar.onnx",
+    "yuNet_checkpoint_source": "https://github.com/opencv/opencv_zoo/blob/main/models/face_detection_yunet/face_detection_yunet_2023mar.onnx",
+    "score_threshold": 0.6,
+    "nms_threshold": 0.3,
+    "top_k": 5000,
+    "haar_threshold": "minNeighbors=4",
+    "note": "OpenCV YuNet is preferred when the checkpoint is present; Haar is recorded only as fallback/control."
+  },
+  "tasks": {
+    "self_intro": {
+      "signal_features": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/face/self_intro_signal_features.csv",
+      "qc_features": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/face/self_intro_qc_features.csv",
+      "subjects_signal": 3572,
+      "subjects_qc": 3597,
+      "sample_frames": 16
+    },
+    "task": {
+      "signal_features": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/face/task_signal_features.csv",
+      "qc_features": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/face/task_qc_features.csv",
+      "subjects_signal": 3567,
+      "subjects_qc": 3597,
+      "sample_frames": 16
+    }
+  },
+  "contact_sheets_written": 200
+}

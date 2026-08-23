@@ -1,0 +1,14 @@
+device,task,marker_count,subjects,segment_status
+yiruid,vft,1,1904,markers_present_but_timing_semantics_unconfirmed
+yiruid,1back,-1,1,segment_blocked_no_markers
+yiruid,1back,2,1823,markers_present_but_timing_semantics_unconfirmed
+yiruid,rest,0,1949,event_free_whole_recording
+bikom,vft,0,1307,segment_blocked_no_markers
+bikom,vft,1,1,markers_present_but_timing_semantics_unconfirmed
+bikom,1back,0,14,segment_blocked_no_markers
+bikom,1back,5,1,markers_present_but_timing_semantics_unconfirmed
+bikom,1back,6,1257,markers_present_but_timing_semantics_unconfirmed
+bikom,rest,0,81,event_free_whole_recording
+bikom,rest,1,292,event_free_whole_recording
+bikom,rest,2,916,event_free_whole_recording
+bikom,rest,3,13,event_free_whole_recording

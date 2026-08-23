@@ -1,0 +1,42 @@
+extends: models.yaml
+
+face:
+  preprocessing_version: goal2_7_strict_face_resnet18_frozen_v1
+  feature_version: goal2_7_strict_face_background_fullframe_embedding_v1
+  tasks:
+    self_intro:
+      raw_dir: 面部/面部1-自我介绍1分钟
+      availability_csv: artifacts/face/video_availability_self_intro.csv
+      signal_features: artifacts/goal2_7/face/self_intro_signal_features.csv
+      qc_features: artifacts/goal2_7/face/self_intro_qc_features.csv
+    task:
+      raw_dir: 面部/面部2-任务
+      availability_csv: artifacts/face/video_availability_task.csv
+      signal_features: artifacts/goal2_7/face/task_signal_features.csv
+      qc_features: artifacts/goal2_7/face/task_qc_features.csv
+  sample_frames: 16
+  min_valid_face_frames: 4
+  background_main: black_mask
+  background_sensitivity: blur_mask
+  input_size: 224
+  batch_size: 64
+  checkpoint_every_videos: 100
+  detector:
+    preferred: opencv_yunet
+    fallback: opencv_haar
+    yuNet_checkpoint: artifacts/goal2_7/face/models/face_detection_yunet_2023mar.onnx
+    yuNet_checkpoint_source: https://github.com/opencv/opencv_zoo/blob/main/models/face_detection_yunet/face_detection_yunet_2023mar.onnx
+    score_threshold: 0.6
+    nms_threshold: 0.3
+    top_k: 5000
+    haar_threshold: minNeighbors=4
+    note: OpenCV YuNet is preferred when the checkpoint is present; Haar is recorded only as fallback/control.
+  encoder:
+    name: torchvision_resnet18
+    checkpoint: ResNet18_Weights.IMAGENET1K_V1
+    feature_dimension: 512
+    frozen: true
+    checkpoint_source: torchvision_download_cache
+  outputs:
+    contact_sheet_dir: artifacts/goal2_7/face/contact_sheets
+    manifest: artifacts/goal2_7/face/encoder_manifest.json

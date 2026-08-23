@@ -1,0 +1,2217 @@
+{
+  "goal": "Goal 2.7",
+  "release_date": "2026-08-23",
+  "release_policy": {
+    "github_release": "Source, configs, tests, reports, compact features, metrics, manifests, and compressed OOF archives.",
+    "local_only": "Large Face embeddings, .part checkpoints, uncompressed OOF CSVs, and identifiable contact sheets."
+  },
+  "oof_archives": [
+    {
+      "source": "results/goal2_7/all_oof_predictions_standard_cv.csv",
+      "archive": "results/goal2_7/all_oof_predictions_standard_cv.csv.gz",
+      "source_rows": 1528167,
+      "archive_bytes": 14347076,
+      "archive_sha256": "e0dc8745c535a7ad97d3fd33cadacf8dfb787d2a39168893e63f9db4ab8911e3"
+    },
+    {
+      "source": "results/goal2_7/all_oof_predictions_group_cv.csv",
+      "archive": "results/goal2_7/all_oof_predictions_group_cv.csv.gz",
+      "source_rows": 1528167,
+      "archive_bytes": 13323460,
+      "archive_sha256": "50050aa4d8b70d01fcd9538106d7d722b11729029338c4a262db4e8c57051f3d"
+    }
+  ],
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 1024,
+      "sha256": "51d26e12082a9f7e81e55d31dca6d2254df1ca274f6460c9d19ebc7a470c386e",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 5517,
+      "sha256": "5567d8cd54a47505b43b5286cd468c7ba72d46c28b3bd8b1d8d12e856ddcd3a0",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "EXPERIMENT_PROTOCOL.md",
+      "bytes": 5814,
+      "sha256": "a494fcafdec2a385142431785faef22fe60b3d873634a614f86cde36532b40f9",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "PROGRESS.md",
+      "bytes": 40406,
+      "sha256": "0143d67351328a6cbc8222e7cc6e3a8bf66ce1c76994adcf8ff93d314183d35c",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "PROJECT_SPEC.md",
+      "bytes": 5077,
+      "sha256": "e07ab29f10a34fd896e283eed1620536a562fc9d0c058abeba6339dcde8cbb35",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/README.md",
+      "bytes": 729,
+      "sha256": "d2cf17083928ce386edc29e267a3b5bcd268ac593b487bdb5ccab6db123d0378",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/eeg/1back_generic_qc_features.csv",
+      "bytes": 475517,
+      "sha256": "3e9e4a0a896bf8434aa5648f91c55ab6ff4a0070f329a544c29cb8a74060e342",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/eeg/1back_generic_signal_features.csv",
+      "bytes": 5306681,
+      "sha256": "235ce6d6a03205900b5642192088857a82958381de31a42eda6f8be5c48f57b1",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/eeg/event_code_inventory.csv",
+      "bytes": 433,
+      "sha256": "5beab686633ed538173f1455d2ea3402cb3f841d408f42d5cc4a17d940df1a17",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/eeg/event_sequence_examples.csv",
+      "bytes": 4016,
+      "sha256": "35b6bde64d751fbe5f3bb6c9ae1348cb56810ac2e87c1c2421942c5397fa327b",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/eeg/feature_manifest.json",
+      "bytes": 2407,
+      "sha256": "a85802997b8c83977c4039255debf383f251cb6d2523365ec5dc6fcfd5b0f94a",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/eeg/oddball_target_only_proxy_qc_features.csv",
+      "bytes": 707841,
+      "sha256": "486d02eede1bf1735b47dbb1955ecf875de09cad2c9c3b0c2794d27b281a0635",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/eeg/oddball_target_only_proxy_signal_features.csv",
+      "bytes": 8900405,
+      "sha256": "fafebc06faa6688319d5e5e5e038388b765eaf7b320b2ad3b2dbd61b496093f8",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/eeg/rest_qc_features.csv",
+      "bytes": 324506,
+      "sha256": "ca3966c798f11123b55b4a6a33a8e6deba231932b1c7ebec1761061a8687ae56",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/eeg/rest_signal_features.csv",
+      "bytes": 4647906,
+      "sha256": "fa5633aa7479926b15fef0107f93e50cdb2684a1fe80f071020a04cc707dd1e4",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L100.jpg",
+      "bytes": 37922,
+      "sha256": "1cd093e8aec0ae6a9e8cd09060035584e73fc6ea1b5906e3d4b5bef967bae1ea",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1000.jpg",
+      "bytes": 33018,
+      "sha256": "c5ce98c60063bb790a4f74075fc2b0afc05d7ad6da06da74b2762d9f4665d351",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1002.jpg",
+      "bytes": 28367,
+      "sha256": "5b08a4881c300a3ff168a060f5d72acc6a97a63db8054a646c5ba7b527f8670e",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1003.jpg",
+      "bytes": 30600,
+      "sha256": "15473608f5962368cd2b1662975d0fd273e16620fd0c7f1e5144640eabc6e808",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1004.jpg",
+      "bytes": 31687,
+      "sha256": "340272b891593808ea451645cdd5df8fe5784f1c0b6c3bf21b33010fa6c3819c",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1005.jpg",
+      "bytes": 41682,
+      "sha256": "2e43e56272a0bcdcdb57c2c9a2fbc6aa0488c1144bcee5639c293b81acf1c3dd",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1006.jpg",
+      "bytes": 46094,
+      "sha256": "a4480fa3e5b34055773a88753ead1aedd76d36cf070497a3985b9bdfde97d47e",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1007.jpg",
+      "bytes": 40342,
+      "sha256": "a5e064a30ee17cc4a22547e5065e07000dcc22680df5f729be1b92e283341b01",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1008.jpg",
+      "bytes": 40589,
+      "sha256": "ad041ddfbf699cc8009b3bbcf220a829a9a454a6597b33562ebaf57e2eff9c9e",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1010.jpg",
+      "bytes": 42675,
+      "sha256": "0b62ef4bbcf9db93914b46492789b01d66854f70778c9c9dc82bafdb9ad47a9c",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1011.jpg",
+      "bytes": 28040,
+      "sha256": "a1285a60dad3a0983b80eb856dce9a647ce7f991ba481e06556de51f4caba94c",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1012.jpg",
+      "bytes": 45025,
+      "sha256": "43b1845594343ef7c93cc7b1bf18e59aa86b8081ce82d561cbcade50523c24e9",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1013.jpg",
+      "bytes": 32500,
+      "sha256": "54ac830b71c2e22f0bf2e907694535cfeef6ba47b3a3d1c7e95781b629b92c7a",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1014.jpg",
+      "bytes": 45915,
+      "sha256": "a7206f22e9431f486a881788a992c5c7d607462dba9c782dd1d8583ae4e3368e",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1015.jpg",
+      "bytes": 47425,
+      "sha256": "8a832cb8c42253f0d0807aa8b62f34ce5993375e83d8fb88d8093928337f71da",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1016.jpg",
+      "bytes": 38703,
+      "sha256": "1091965a674e7f77d6cd5b6ddf2bbe1f5e54490872e008b159dd73b8cf3ce7f1",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1018.jpg",
+      "bytes": 42618,
+      "sha256": "1676004b6872137948a3330c24152ba742e29103e18e01a58828d44afdf6dd2f",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1019.jpg",
+      "bytes": 28860,
+      "sha256": "4b9c77a3ff123c513c60b48c4379d485fb7b164db7d1afd65711a31cd0e391da",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L102.jpg",
+      "bytes": 37406,
+      "sha256": "e054717b2b81650e989d877d8001be13cbbd9f47bfb2c29b72cc2095f6d02079",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1020.jpg",
+      "bytes": 40988,
+      "sha256": "fa95fbe99ae48ac3dedd2f1a78734f1ffe2d057711dff87a5e6240ba3529e73f",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1021.jpg",
+      "bytes": 33242,
+      "sha256": "a3986552e0ccacafbf1d934ebb5d65aa12dfc29cad4d9563410474c1113228fd",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1022.jpg",
+      "bytes": 29839,
+      "sha256": "27a146c6ece1c1af11dbaf9b1e87a0a981c6be2718d47bc0c3f30de59d19dd2a",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1023.jpg",
+      "bytes": 32603,
+      "sha256": "bbcd75c0636d4c4567459a7ad098afdaa7e0045196dfaffd19edc3e941818860",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1024.jpg",
+      "bytes": 27977,
+      "sha256": "4005894744116b17ad154503c19000d66f0c13f2fbc1d89928b2f153e80a22ef",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1026.jpg",
+      "bytes": 33873,
+      "sha256": "810ff89a0565be0e18a13a9ef98fa29199605796b910194ada312abd279ba264",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1027.jpg",
+      "bytes": 27026,
+      "sha256": "38ddc2f38947dbe5419e962938c95a7f1199e1439c3bb138dc10c779e2495ddd",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1029.jpg",
+      "bytes": 42143,
+      "sha256": "705314890661b41cce10e946e5e1cb7a405c85eea5e7b46337b604a9f8b4c82a",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L103.jpg",
+      "bytes": 30218,
+      "sha256": "84de80b43921f2f98b301144e23d01c257df521b8c31b6b0b7ecdf4c4f184a77",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1030.jpg",
+      "bytes": 37595,
+      "sha256": "bf43d0bbc11c0bf436767ae1d719d069d45d7bedd7f146344e048a883d42854d",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1031.jpg",
+      "bytes": 28783,
+      "sha256": "d1fababcdc5bb8ee7a9341f301b0067f345abd546ce3a3479f43738c5d35187c",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1032.jpg",
+      "bytes": 42358,
+      "sha256": "01e0484275aafb3064bf5b7efcfd2aec982c9ba6d89a8d1249b0b8e130f80e87",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1034.jpg",
+      "bytes": 33584,
+      "sha256": "461547c57801b9c1cc8036a94c1e388916e53df7e8959fa874ebc167822f0f3d",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1037.jpg",
+      "bytes": 39739,
+      "sha256": "0f9eab32ab5aff09c68cf268681ecc0734d2e8dc9e095afdf3ee4e932079c037",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1038.jpg",
+      "bytes": 26787,
+      "sha256": "75b28054fce6805b9731cb93ba77450e7096c91785735649e0a430b45e9a7136",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1039.jpg",
+      "bytes": 31538,
+      "sha256": "3d08809b86c1bb4ea8a77bc41ab3c0f147736bfd9c8b363a1dd214b90906a89f",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L104.jpg",
+      "bytes": 28473,
+      "sha256": "3446f9ed4a9de9a6a7d150673e42b8ae1338db15e0b40d5bab76e4b91d51f9a0",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1040.jpg",
+      "bytes": 43835,
+      "sha256": "c1536f340af795eb66bf31cb5887e3ef288c58d1c9e43d5045e757979c80d2aa",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1041.jpg",
+      "bytes": 44468,
+      "sha256": "1c0755c5eaf37a27b4f958038201fb9cec91173cdfb3b548c24056c72ac21b7a",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1042.jpg",
+      "bytes": 28676,
+      "sha256": "028106fe69b7d634a0a59177f62c6d72c250028f63c69038a107cf9452a82bbc",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1043.jpg",
+      "bytes": 43729,
+      "sha256": "19b39658040972f8d392507e8f441dc0d24d4951089a172f3f0068ca32029c7d",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1045.jpg",
+      "bytes": 27364,
+      "sha256": "269b301471066e5ca4c593a3b77270601a9efce2a14198329e752d4203bb37f0",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1046.jpg",
+      "bytes": 29066,
+      "sha256": "e87136a2e0d6889aa829b5fa0a8ede77c8149ca3bf68237477f3a065dca2d437",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1047.jpg",
+      "bytes": 31881,
+      "sha256": "3b5d456c0ca6f91eb24027f1cbaccf8a60ea565c3a98d36004a6ccd72f381ec6",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1048.jpg",
+      "bytes": 44413,
+      "sha256": "92f84f40101720e27f0118a312f644479fa7f91fe944e06f356f78ff5b96b82b",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1049.jpg",
+      "bytes": 34268,
+      "sha256": "06ce550ba6f2c8aa5552f86fcae86228398a44b6557c0cc9b0c268721d2366a4",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L105.jpg",
+      "bytes": 36186,
+      "sha256": "a55ff867c90e8f899c25e4401897b9ef6cab989dfeef20657d40fa5868c38e1e",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1051.jpg",
+      "bytes": 43808,
+      "sha256": "cae1049c971ab29fa47e2791d963ee623a04a7c4c7a205825e06ab4bfe736b29",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1052.jpg",
+      "bytes": 44732,
+      "sha256": "48ee127cdacc0feb57a46d7eb0faee5a3f0a67dc619f696ff2cf396d07b3a381",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1053.jpg",
+      "bytes": 32534,
+      "sha256": "c0ba3221317a68833df9ca1d59f3f65c31929954ae814b7f99bab341993b82e6",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1055.jpg",
+      "bytes": 52508,
+      "sha256": "2942796df2d25c37995ec4cb9093dc335f729696fed0ea90932e6dbf9269637e",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1056.jpg",
+      "bytes": 32670,
+      "sha256": "37606c60bcb163588380c1973b3899b731a5f5c630fbe7225c35bce6eda99d60",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1057.jpg",
+      "bytes": 51157,
+      "sha256": "708d82d0426ecd3452824490ad41c08e6d9b6dbd353daa6a601f2b435e28ecc4",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1058.jpg",
+      "bytes": 45189,
+      "sha256": "d40698010477c9d2b2687e3a049b3be703984d755d240dcd374cc5f324a6910b",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L106.jpg",
+      "bytes": 35191,
+      "sha256": "21a706e01ee1fbbde83d182b5210c096e64aa931093e4daf6465fa06ba3e1c27",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1061.jpg",
+      "bytes": 45462,
+      "sha256": "ca5e97b873576e76948df661c0cc5ebf6e465505603193c66315005ae865ed78",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1063.jpg",
+      "bytes": 43581,
+      "sha256": "0f312d0b295ed6832ff6201676558e520119b87a0af6e5c02257aa0f9b736970",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1065.jpg",
+      "bytes": 51079,
+      "sha256": "b361bcb3350c1e43de9b4cd98917d18f9f1f8736ccb2bae37b7da40f4c5cb619",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1066.jpg",
+      "bytes": 52901,
+      "sha256": "98b5ef416d8e01df8f577003c78601b41ed5bbf06254c11eb2b306773e03a9d1",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1067.jpg",
+      "bytes": 35284,
+      "sha256": "c8d784bec34f6bc51dd1373b8bc89c66cdb0bbf240e6d873295807b4eb7feb5c",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1068.jpg",
+      "bytes": 48250,
+      "sha256": "79f66781c3cd0ebede60cab45903b56210065d633996f20a414b45fcc4d28c60",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1069.jpg",
+      "bytes": 32212,
+      "sha256": "d0117a0eb6c367b1abcd56af8c600549e22714ab02c7bf9d780c89e2075cfb2f",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1070.jpg",
+      "bytes": 52412,
+      "sha256": "64251d519df53f7aefd02d8ac2883b5c3f4b492ca1610cb7bdb7f65637f115d2",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1071.jpg",
+      "bytes": 36247,
+      "sha256": "23e5e8aea064dc7329fc19c1db5810c6db10ab1c044c93ba00aeffff430f7ee7",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1072.jpg",
+      "bytes": 41631,
+      "sha256": "8cea37370325ba5b4f426fbc5f2b67701a6cfb7ef486a566b80bb65ccd5a0a85",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1073.jpg",
+      "bytes": 51644,
+      "sha256": "47ab4bec7dfc815b66de19d9daa841d6e791e9e3d74eaa052a31e8ed72c0db49",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1074.jpg",
+      "bytes": 43739,
+      "sha256": "899211a505b97b06a8c68146a7f4bb315fd113339567979f3a6d019ddce67b9d",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1075.jpg",
+      "bytes": 50911,
+      "sha256": "9531dac591071524972956b347058e9f10daaf41cbc0c16c5c5a0d61fd904e46",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1076.jpg",
+      "bytes": 43139,
+      "sha256": "fbdb410fe6f26f66841f7e541283813f3fe6cce7bd2a94f3edcc484fab038abf",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1077.jpg",
+      "bytes": 44653,
+      "sha256": "7aa0ef87631ef5160db567080e4f58a79a742c6b10390b04112d774b9d97be31",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1079.jpg",
+      "bytes": 35307,
+      "sha256": "3dac507848dc8ae101fb0840373d48cd26bfb9f177588130094993c64f501aaa",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L108.jpg",
+      "bytes": 29961,
+      "sha256": "6710169f06f4c303e2210d219ffef4d85aa0fc718a585ea2d2de189c8c534792",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1080.jpg",
+      "bytes": 35356,
+      "sha256": "a23013cc0f166f73fd4f529fe1be7b78e89e4cd81be285bcba48e701d339daaa",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1081.jpg",
+      "bytes": 47644,
+      "sha256": "e543e1314a5bb2ebf68f96570f462dac492a59b330d18486b7e481d4c0393ff8",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1083.jpg",
+      "bytes": 42825,
+      "sha256": "145e41a05c7cb35515bd190aedc979b84c6bc1f44df00d9ec693f3412847584a",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1085.jpg",
+      "bytes": 53244,
+      "sha256": "2a89411800458db53b8797cec6948f5c77a8f6a0fd475d5fdc4a1888841bc2a9",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1086.jpg",
+      "bytes": 43687,
+      "sha256": "326e5cc93c5643167050588c3e10f398e1e85c825c98d585807850e40692c792",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1087.jpg",
+      "bytes": 53540,
+      "sha256": "734c8bcbd416f2681d038b6973278bf72ca09fb52e3dadde28d5158da7d860e3",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1088.jpg",
+      "bytes": 54072,
+      "sha256": "c2a722ebc443cef768e25ce1f65a35079520ef9401148bc12ad2d2f29d859718",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1089.jpg",
+      "bytes": 36529,
+      "sha256": "035fb9b55afa5a60fd406e48c3a074e6ad8f54411a52711354366f4741cc06c0",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L109.jpg",
+      "bytes": 34723,
+      "sha256": "9718039f0ae8d1a94f5fc5cae4c176c835d0baed0e68678857361cfbdf7231f7",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1090.jpg",
+      "bytes": 51474,
+      "sha256": "c596c16871efcf9fe62c8c8ed103640b462e46201d0d20fc6ec83dfd1e723b1a",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1092.jpg",
+      "bytes": 50542,
+      "sha256": "c1103deb6885ce32e64fe312edc6ea545ad8c58764c34ab50d584bc88ebd3a6b",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1093.jpg",
+      "bytes": 46585,
+      "sha256": "17d5fccf8d53bb2ec852490078ebe862e7445dbc5a1970fbd915280500e6dce8",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1094.jpg",
+      "bytes": 41872,
+      "sha256": "4c3c4f0152560dc5290564970b4c6b18c2874c63e5fc8ff3871d61d7421cad92",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1096.jpg",
+      "bytes": 44054,
+      "sha256": "6b696adda6b79f8cee4725df8db512384072b437ac0554278968d0e8630b329b",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1097.jpg",
+      "bytes": 30765,
+      "sha256": "4c46fe810b8f1596610cc322af1a9d859c683729b851c9fdb2c3fec0ddcfa3f5",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1098.jpg",
+      "bytes": 54279,
+      "sha256": "3b9bf0cfd9bdad1714713dbc0ed817e6521351097b106277e526bf18f2381b12",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1099.jpg",
+      "bytes": 52790,
+      "sha256": "591121467eae06a87d72acfe8ae78b226b4ca870a7157836e337e919ca2c6e33",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1101.jpg",
+      "bytes": 44709,
+      "sha256": "15265b468989fc3a6b186e16c5946948ec0e157eefac0af8abc62b3b4735cc8f",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1102.jpg",
+      "bytes": 32624,
+      "sha256": "78fb6e94bb7c6a297783cf3d1c2826d6522059e73ec62032b0c6f6dfebad235d",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1104.jpg",
+      "bytes": 53965,
+      "sha256": "bc81b8120503518e0b78dfcef5cea49383c1e4856dbe0fdaeeef2e8ec140bcd6",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1106.jpg",
+      "bytes": 32412,
+      "sha256": "e6a57cf8d64a296442dcbc5f2e43f439210a1676b58e10ce02f10318c652e2ad",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1107.jpg",
+      "bytes": 51366,
+      "sha256": "2ae7765d62cf6f851f4e1864914cea95bf986da389c514a686b219b1b931d956",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1110.jpg",
+      "bytes": 33985,
+      "sha256": "16cebce67e94a0be6b0291808a6da2499d3d0bfbad549baa5420780cda237d7f",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1112.jpg",
+      "bytes": 44334,
+      "sha256": "3ae51c733d2e8b1f055b7410cf589aa4282a2f492d5ab4c26c4cf09b79afc561",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1114.jpg",
+      "bytes": 45355,
+      "sha256": "36ac86837b934495f919b900da82afa7fabfaf23ca44b259d24e75bf5deb789d",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1116.jpg",
+      "bytes": 30068,
+      "sha256": "8b825a2152a5919ca81c9f33f939c9d2d5cf4b1d9216b244bf329fc32d3c60c9",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1117.jpg",
+      "bytes": 50481,
+      "sha256": "de962b20517aae9aa6dd8a25c3ea7f4cd4a2db0da4f478c7d38fc55526c657cd",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1118.jpg",
+      "bytes": 52833,
+      "sha256": "8327410fa336ab2e7531640bdaa0c6b3f77dcfb81e26eb83cab2aa18a461fd1f",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1119.jpg",
+      "bytes": 41972,
+      "sha256": "242dc955503bf81fc38f0b256fe7f1e4d70d2b76aba60f113b8df5950b27a0d5",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L112.jpg",
+      "bytes": 29322,
+      "sha256": "5c90246048c69d9efef7e0f73293031eb0b80488abe8ed8bd24167e1b662bc93",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1120.jpg",
+      "bytes": 30887,
+      "sha256": "90a07fde86abf0aafc198845f1dc66bb7e68b4d4baf5e01253b8e07046890990",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1121.jpg",
+      "bytes": 41009,
+      "sha256": "19098232edb2edf31b76d66cbdc0e92ca6b1f2efefaeeee057ee67124939c997",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1122.jpg",
+      "bytes": 53318,
+      "sha256": "159486247a4440cf911fa609d4d36be8c40a00ef565f2ab2a9b3173e1b7299a3",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1123.jpg",
+      "bytes": 40684,
+      "sha256": "7bc3cb263db4b0bc3e34cef34387941bdd097b7deaeeaa873d607c3e3ead0e79",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1125.jpg",
+      "bytes": 32478,
+      "sha256": "57522bd56263658ad3581bd525ae8a4780ac24dadd43d380833953af382783f8",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1127.jpg",
+      "bytes": 56287,
+      "sha256": "3bb4656598974e27d6176218dd233c7809681b34053377cc05e09e84138fbc33",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1128.jpg",
+      "bytes": 47112,
+      "sha256": "5f3d1d9b0977d3562f5b5c0cb4db3621112ad3f9979f9b4dd5ff53bde01781eb",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1129.jpg",
+      "bytes": 54267,
+      "sha256": "a4d4174fc1032a7667eeebe0602cb155ff44044010eea69b68487db333f39743",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L113.jpg",
+      "bytes": 29210,
+      "sha256": "7ff67f135452f5f297fed662bde8386ced3d55398d13cdc27d67ad2fc51b33be",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1130.jpg",
+      "bytes": 38777,
+      "sha256": "eb0e1ec8a94006b04d19005220ef046db88d280e9bb146848433ac17602efb6a",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1131.jpg",
+      "bytes": 46370,
+      "sha256": "aeb07564e1e343dc87009ad2e29dfc5988b52e11f9ae3fc68aa95fcb264a53b1",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1132.jpg",
+      "bytes": 40369,
+      "sha256": "6fb8d3a2ee6d34dd892afccc20853b46766330dac6d7386e9e5c6b7a3ab0692a",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1133.jpg",
+      "bytes": 50096,
+      "sha256": "43bd8676bc63a02fc96ed102cb1ec5c919f47e0b916fb3b4b2d527f424d92025",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1134.jpg",
+      "bytes": 58177,
+      "sha256": "4a2ee2175ccd664b87b82a7d38fa4adcfaad44ea7a0d58fdcfd257919cf131a7",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1137.jpg",
+      "bytes": 35076,
+      "sha256": "be7c6a6dad1fa6002f15e60ef99e3c233056cc98efad1f9957486f3633c52957",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1138.jpg",
+      "bytes": 52795,
+      "sha256": "d49fa397a33537eb4d7489782dff2841c7aa6c573992a283895db28840ad642f",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1139.jpg",
+      "bytes": 47286,
+      "sha256": "48d2a5972ff3b6b3dac004f6f015c393e8148ba73905da8d5d32e7a768d7a5e9",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L114.jpg",
+      "bytes": 26915,
+      "sha256": "0ea8a79cd47fbf49ac919c4a25cc782892558be395573a21e48cc564247e8e65",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1140.jpg",
+      "bytes": 52572,
+      "sha256": "ab62ee7e63ffebabb57697f64955f0034fc492fc5c5fb4c48f3ad030c14f9b65",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1141.jpg",
+      "bytes": 37397,
+      "sha256": "ac1bc5d4f0da1182cef916628eef146cd85a935e70f795ea8635c47656c02cb7",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1143.jpg",
+      "bytes": 55807,
+      "sha256": "00c9190ec4dae3161f45cb6e736ff2d5c72a8afcca60d1ba77c73f7782ed350d",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1144.jpg",
+      "bytes": 52473,
+      "sha256": "da9c5b4f3c38dbf0554f374714173ef3c4245eb95e077678ac829b9605da45d5",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1147.jpg",
+      "bytes": 50343,
+      "sha256": "5e91f9697d8a37b09a8c9ef606e555e8db158893f2cbd8f7074f664026bb89fb",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1148.jpg",
+      "bytes": 40437,
+      "sha256": "caabec984d086d3aff83635af06c414ec8f9a51a23c1a2f186781fd9db4bf004",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1151.jpg",
+      "bytes": 52909,
+      "sha256": "ace8d2066430e01cbbf15eede294c39aa48197dc641eacae96cb5d0a50be630e",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1153.jpg",
+      "bytes": 52612,
+      "sha256": "9d7873b829c5bfaffaf8ea1490f539b3195b12bd18081028023096b797fc1827",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1154.jpg",
+      "bytes": 33885,
+      "sha256": "df00b0fbfc1dc93a769d0fa2468a8c57523e9071bf6621afc2c1f88a9fad62c9",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1155.jpg",
+      "bytes": 54805,
+      "sha256": "ccbd8fdea7615955865cbcc8fa37effb8c4b6a6f9fca361cb202d2803687433a",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1157.jpg",
+      "bytes": 33738,
+      "sha256": "0d377ebe1fb6270a58333a6f94024c5e915cba027786b7064b61eb841092ce62",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1159.jpg",
+      "bytes": 35518,
+      "sha256": "c7292181c5b890b8925116a1cf64f112c004d51c8de58ca24b298b2f45bdcc3f",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1160.jpg",
+      "bytes": 25643,
+      "sha256": "498bae03e29b3f43c9955e37d01d9647cafb1bdd1f4bc188f716355c147ab15a",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1161.jpg",
+      "bytes": 50032,
+      "sha256": "688f3b718ae2908a8a35fee5c63bee923c4c5a40e2f66e7ea6d3d9f1a9f10038",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1162.jpg",
+      "bytes": 54941,
+      "sha256": "3e5b4cb9de731b260d48ab80e81fe63c846ee2462acc8f7f015996084ba35670",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1163.jpg",
+      "bytes": 53052,
+      "sha256": "262a3ba8b488ade53c0ae5fe33ffbb3d573b939a4ceeaeaa3cc9d0b44632dbe7",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1164.jpg",
+      "bytes": 52547,
+      "sha256": "9c80dfab580a35b4f13da00705fe3e3ad9cac4f7f70721ccf27afc8b20b42634",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1165.jpg",
+      "bytes": 30920,
+      "sha256": "fe9c51163fd53bf7aec53c865bc02dec33aa796f44b1c98365900b2eb59366fd",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1166.jpg",
+      "bytes": 56463,
+      "sha256": "04d50a9a538420313b720cfb0adb78842bccd8085f2fbf62aaeb251d3fa30bb7",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1168.jpg",
+      "bytes": 25689,
+      "sha256": "96138dd0c08eab5c77144820d94fa02998ec8a1883d68fdc8a1bf67a98bf040f",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1169.jpg",
+      "bytes": 46294,
+      "sha256": "b42588fbcef4c6af563716ffbdf93488547aac19d7e308e9ab762d6f6e3109fc",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L117.jpg",
+      "bytes": 34341,
+      "sha256": "35a8058de2fd9c18aeb6b3f929566e29bdd33295c81ce6ff842cb2a058001fce",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1170.jpg",
+      "bytes": 48959,
+      "sha256": "18839c29dbf22c7d8ba8745a256ea8571041e72fa15be3e027d601f4de15958b",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1171.jpg",
+      "bytes": 51755,
+      "sha256": "1459976f0a2051d14b414f29a813c011a4902729b24fc22eab75a605abddf91c",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1172.jpg",
+      "bytes": 42439,
+      "sha256": "359070dbc2b6de0c55fcdcf2106ff22475630980aa9d835f1320c9599d34a0f4",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1173.jpg",
+      "bytes": 26757,
+      "sha256": "b3ab912906dd4364a982e7d4c048672588d1d8ce3c386acd40fd9e89fe67936a",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1174.jpg",
+      "bytes": 45164,
+      "sha256": "70a65b21b2393a34b43cad9286d0e927654278074748794c691efc6f6cc6e7ed",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1175.jpg",
+      "bytes": 46040,
+      "sha256": "827b4893614b3e1ab351eefe644d17a7f1c47e9296edaed2ff5b1925f424d354",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1177.jpg",
+      "bytes": 30167,
+      "sha256": "b2c5f875f1dfbdd6ee6dc59836870fbb33229af6cf23d9b47dc5c41f61151f70",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1178.jpg",
+      "bytes": 56705,
+      "sha256": "03aa1bfd0a135878a56021b7389f8b2a4ca1ee96e71c7fe9f7e494b1d08eea58",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1179.jpg",
+      "bytes": 52295,
+      "sha256": "343f1d74ba925481f7509144a4d4a4d803460ef95ed254be7fc093596f8c4044",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L118.jpg",
+      "bytes": 25156,
+      "sha256": "748c9df95b9bd08d3195818cb721ae11a6e63f31b1a6b40b071f98473c387ad1",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1180.jpg",
+      "bytes": 55877,
+      "sha256": "cc3e73b1e840a6129173db9d46c0d88360acc67db1727975bf5e850b42a515fb",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1181.jpg",
+      "bytes": 43052,
+      "sha256": "b673ac12aaa881dfa5549c66416cde092a9707c654fe87c3045ab41a2d0f5ef9",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1182.jpg",
+      "bytes": 40541,
+      "sha256": "06d89d6764d6052a5dbd3ae3acf5709d84ee231368f27c701394d08d072ca70c",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1183.jpg",
+      "bytes": 58360,
+      "sha256": "9968ef56bf62c7beb21c1826f688a4781f4adfc82949a880a72138d3ca4daa6c",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1184.jpg",
+      "bytes": 50496,
+      "sha256": "23e4e29e6746437b384ad6eb5cb86b62621cfc3fb66da47cc72dfc95e8a8d25e",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1185.jpg",
+      "bytes": 32004,
+      "sha256": "26dde917fa2c4f96176f83378f612e0aa5201f79195055c0bc845cc8d6856425",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1186.jpg",
+      "bytes": 49835,
+      "sha256": "d6005928b7d648f43d3110bb5a99966ac4ca7d68b190d63f12ff05bbb4ccf636",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1188.jpg",
+      "bytes": 28493,
+      "sha256": "02f01d1a60e01d583fd5c0f2a98b720ad1619463222bf6c2f9ddec904f4881ec",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1189.jpg",
+      "bytes": 48528,
+      "sha256": "fa5788fbbe13b26836c2444db84f21d2cac66c3c64c2822b6212ae67a6d56bb2",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L119.jpg",
+      "bytes": 26829,
+      "sha256": "0bf1f1d531a2f293e868805ad3b5d0bce45da8d09df196dfb34b351d25fae9ce",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1190.jpg",
+      "bytes": 45317,
+      "sha256": "3607edb3b4bac5d48edae1317c45bbcbfd2fbb8f85d883ba7baf58689786ed71",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1191.jpg",
+      "bytes": 48579,
+      "sha256": "524b66d0a99ec23d8d758c1414cae7860982662335304537c9c05015865ac9dd",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1193.jpg",
+      "bytes": 51038,
+      "sha256": "300dbb9817089928bff9c066023684182805521d5e326dd15de026ecb37d0195",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1194.jpg",
+      "bytes": 41404,
+      "sha256": "6e361cee5d4ab413f9b31d2c14f7d2b1ec99a138eee7053ce1d96ef91e4aea50",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1195.jpg",
+      "bytes": 41653,
+      "sha256": "b056be0cc8036d04124bd26b62b0372326c0e26812eb9d9ae7a2a7918cdf5117",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1196.jpg",
+      "bytes": 29104,
+      "sha256": "b9f29530f800059ca504d8e45af22145b4bab1352c13cda3b693f87b75d2cd57",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1197.jpg",
+      "bytes": 46930,
+      "sha256": "0a7500b4af7600334f3f9ab2cf17a96c8b570e89d5e026e08b8821d24b65966b",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1198.jpg",
+      "bytes": 38481,
+      "sha256": "ea95b3fd28d1dda96a6b25ca20c3618746837a4b9fa4f47b787c57731c45ee79",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1199.jpg",
+      "bytes": 44240,
+      "sha256": "07bee1bcccd01d0598be355f5c781cac48ee024ba77562823d126fcf837252de",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L12.jpg",
+      "bytes": 28309,
+      "sha256": "702d9dc33dcae31dda1876a2812c4bee46d1ba2f4bb5a01c3bd2ceee5bcae854",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L120.jpg",
+      "bytes": 36859,
+      "sha256": "39eb98c2ead718896a7619c1a5226c9ccd743916a817364d567b4a376b5dd16f",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1200.jpg",
+      "bytes": 32865,
+      "sha256": "aca9bbae7d894386ff0377e1c30bbf8b3d10b8707a38d428a05588d16d4d1132",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1201.jpg",
+      "bytes": 45829,
+      "sha256": "aa107293a5e510f86915579e5d72cc85e4b45579a50c1cc490f371f39cecace5",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1202.jpg",
+      "bytes": 50639,
+      "sha256": "202feca0c94300f0b99ec3b332306784c78ef03237887cc376ee4c8fb6d30344",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1203.jpg",
+      "bytes": 53750,
+      "sha256": "29a6c938bcf3429a41a218fbae175aa00ea35d28d6404452569390d04278195f",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1204.jpg",
+      "bytes": 46102,
+      "sha256": "e0f2cc774c7e20eabc15a861a32804dfb995b7bf5732896619b0ecd6e7d8f0cc",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1206.jpg",
+      "bytes": 51826,
+      "sha256": "8f89b61f6fba36a864c91d3a98ec41d68909368de685791ecc54ced53441ad5c",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1207.jpg",
+      "bytes": 50369,
+      "sha256": "91e9380526877edb3b76555686d8fdbebfedb1f994788fb6ad4ec1a7f44555df",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1208.jpg",
+      "bytes": 48961,
+      "sha256": "61eeef76f4207b36e27947731083189a582bf34b217bd41cbd6614720315178e",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L121.jpg",
+      "bytes": 28500,
+      "sha256": "739b960b7579712bfbd62f5d79dedb65ace2834230a69e13b14ff5be3c0ab251",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1211.jpg",
+      "bytes": 45244,
+      "sha256": "a625aa5dfeb86a889bfdaa005227a7cb00a88b730cbd9234361857792b87f5d3",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1212.jpg",
+      "bytes": 54919,
+      "sha256": "335d390da38911cb7aa8eb6341ae1ba19dc0cc57ada2f46cca337b4e87a7c472",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1213.jpg",
+      "bytes": 54990,
+      "sha256": "5951c075dbb5185ffff8cce45421a2406adb28e11578b9d3153cbe7b1bfa55ec",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1214.jpg",
+      "bytes": 34233,
+      "sha256": "2b2255a867e576c7ba3a2466b795844b91dfbcaa3a0293d623136092c947e343",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1215.jpg",
+      "bytes": 42325,
+      "sha256": "10ec5f753a6594c328b3e53e6c05c1ca4bde9b30fde5a8eec0dba1883825c881",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1216.jpg",
+      "bytes": 55531,
+      "sha256": "25ec8ef39130074321dc3411d428c7d875b19db0bf255f7d79919c5287f0171b",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1219.jpg",
+      "bytes": 45740,
+      "sha256": "b32580be309729ea1cda0876ccf57b9023d2148fd009943a815ac64e77ae6dc7",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L122.jpg",
+      "bytes": 36429,
+      "sha256": "3cfc9f27177617c6ef0bafbe651255e0e553f93580b34658eb3ad3dfa5f172dd",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1220.jpg",
+      "bytes": 48079,
+      "sha256": "1c02220396b96a8900b6e38bd64e721d1449146a576db8739034f07aa6ec3aaa",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1222.jpg",
+      "bytes": 52160,
+      "sha256": "08f11e3381bb1eb72caf0d0668bf5e86a040930619db9d82c1c4f224b3f7ded4",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1223.jpg",
+      "bytes": 58490,
+      "sha256": "19f13a587a098a14ce4534b986dcceb52a8c178c436a15a0f52e65250743335f",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1224.jpg",
+      "bytes": 26690,
+      "sha256": "7e51f11205acf5fb804507340601054a0e5d913797f5267371e1693ccc57f679",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1225.jpg",
+      "bytes": 44278,
+      "sha256": "cb20f8c170a39e72fdec74a5b11a8f0793592ddf2bb6d03e7e2cc6b96155b729",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1226.jpg",
+      "bytes": 52444,
+      "sha256": "8f7e05a81af191125d27a1ac5ded5f4c2720dde2589c6de366a87b60e33e72d0",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1228.jpg",
+      "bytes": 32217,
+      "sha256": "33d55cfadd03bbd75b48535da7ae4e17de390fbf1b9247a02a7b2d609d9105b5",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L123.jpg",
+      "bytes": 30137,
+      "sha256": "78c0d8a0675cb25d6d27c1e9c6dac41f3a83b791947a8e8cc740a1138a3a415e",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1230.jpg",
+      "bytes": 43990,
+      "sha256": "78aa95f1137ccb8780c0562e17cefaafc02c5898fef434ef1102cf4fe35af268",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1231.jpg",
+      "bytes": 58159,
+      "sha256": "0ced5879fd17a103759ec9b40a4b1b61b7d2cd561df5cc4528f96d070573d34f",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/contact_sheets/self_intro_L1232.jpg",
+      "bytes": 50935,
+      "sha256": "2398222c5d418ca7a7245abe65d72aa4e78d2dec5a62602ad7624cce3fc0cae5",
+      "disposition": "local_sensitive_audit",
+      "reason": "Identifiable source-video frames are not published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/encoder_manifest.json",
+      "bytes": 1552,
+      "sha256": "55e0f397953ecc83140203a9ce0f079c859a65cad37e9d3a42084fce373dd1be",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/face/models/face_detection_yunet_2023mar.onnx",
+      "bytes": 232589,
+      "sha256": "8f2383e4dd3cfbb4553ea8718107fc0423210dc964f9f4280604804ed2552fa4",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/face/self_intro_qc_features.csv",
+      "bytes": 2163437,
+      "sha256": "918c4db36703b0414b8abd40b5d9eef1a3327e9d275a4759c59887138c871da6",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/face/self_intro_qc_features.part.csv",
+      "bytes": 1928488,
+      "sha256": "1bc03ed2606939b925f3c3346691c69d90c017af0476a99035be98053aab36d7",
+      "disposition": "local_intermediate",
+      "reason": "Restart checkpoint; final output or summary is published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/self_intro_signal_features.csv",
+      "bytes": 285925126,
+      "sha256": "608fd1da9ee21c49a18983979aa2896ccf4760b37c7361cd4f199756c567606f",
+      "disposition": "local_large_regenerable",
+      "reason": "Frozen visual embeddings exceed the normal Git release budget and are reproducible from config."
+    },
+    {
+      "path": "artifacts/goal2_7/face/self_intro_signal_features.part.csv",
+      "bytes": 285691814,
+      "sha256": "2a94f12ea5969d312ecd9074c7eaf18546a7784512a0858997a4f62dc6511107",
+      "disposition": "local_intermediate",
+      "reason": "Restart checkpoint; final output or summary is published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/task_qc_features.csv",
+      "bytes": 2138425,
+      "sha256": "4624c8e51997feb3ac9f5f67fe560e05ab0434613cdac51d379c386fb2e4603e",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/face/task_qc_features.part.csv",
+      "bytes": 1903476,
+      "sha256": "a9085a9c3b37dce87cd6a446d0933bc4b4e704f0568fabe88b90d68f291208a9",
+      "disposition": "local_intermediate",
+      "reason": "Restart checkpoint; final output or summary is published."
+    },
+    {
+      "path": "artifacts/goal2_7/face/task_signal_features.csv",
+      "bytes": 284676886,
+      "sha256": "bc28f133e68254b7e68514d94f8754523a795a2d0cdd09a98989c60d29d5d4f1",
+      "disposition": "local_large_regenerable",
+      "reason": "Frozen visual embeddings exceed the normal Git release budget and are reproducible from config."
+    },
+    {
+      "path": "artifacts/goal2_7/face/task_signal_features.part.csv",
+      "bytes": 284443900,
+      "sha256": "3adff70aef52e4cd64e8a72561bfc528ee3f17df5eed6ed5e6d919d35761d1ae",
+      "disposition": "local_intermediate",
+      "reason": "Restart checkpoint; final output or summary is published."
+    },
+    {
+      "path": "artifacts/goal2_7/fnirs/bikom_1back_excluded_subjects.csv",
+      "bytes": 4126,
+      "sha256": "4d7cfcb54f3ead7c7510990cbc4224376274ff9dd76bde99709f6d79a22bf28d",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/fnirs/bikom_1back_preprocessing_log.json",
+      "bytes": 259,
+      "sha256": "81455169e2466f551b965e6c3c1ab4f684c0d2fc3f2ee62d313cb9be577041d9",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/fnirs/bikom_1back_qc_features.csv",
+      "bytes": 558599,
+      "sha256": "247487476b4704da55e92803799035e7831b7527e25efdd5c213f7c2d5cbdf85",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/fnirs/bikom_1back_signal_features.csv",
+      "bytes": 7810030,
+      "sha256": "88a1242ad81d578f74596870e5c249086bf579e02904bd2fac64a345ac5ae9d7",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/fnirs/bikom_rest_excluded_subjects.csv",
+      "bytes": 847,
+      "sha256": "ab201e6e1c8a22f21e2ed44d065562ee87a5e2ee72a2678b4789f568737de307",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/fnirs/bikom_rest_preprocessing_log.json",
+      "bytes": 261,
+      "sha256": "4fb403dd263094eeb9d1b9107d179ff65a2549bcbeef516d5b5375ce841e6216",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/fnirs/bikom_rest_qc_features.csv",
+      "bytes": 513419,
+      "sha256": "25cfe5c39a758f25684b5b4b2b59ceb6c03d892f64fed0a8ed9668f4a2309a3a",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/fnirs/bikom_rest_signal_features.csv",
+      "bytes": 7955888,
+      "sha256": "3a84e6fd903a454d31f0fae2f4d51d56755ee13d7c4d77591d02ee6c284c079b",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/fnirs/bikom_vft_excluded_subjects.csv",
+      "bytes": 847,
+      "sha256": "ab201e6e1c8a22f21e2ed44d065562ee87a5e2ee72a2678b4789f568737de307",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/fnirs/bikom_vft_preprocessing_log.json",
+      "bytes": 260,
+      "sha256": "cfb5038e142e2b4f23788ebee8702e3f51908dbcd6ad01b5ec5f5b94c36b6e33",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/fnirs/bikom_vft_qc_features.csv",
+      "bytes": 535141,
+      "sha256": "ba5adfe7d9006f44285c62988611dd43c6e56a736be31873326a325401703d2e",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/fnirs/bikom_vft_signal_features.csv",
+      "bytes": 8054387,
+      "sha256": "389e9d09caa450fe03c1b513bbb0347fe518817aa4347d1af8a9e9830f175a2a",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/fnirs/feature_manifest.json",
+      "bytes": 4966,
+      "sha256": "3ac3ae07c1056cd6c6eb9f3b9cf262716dfeb3539cc860c7c199f7c1d7006aa3",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/fnirs/marker_inventory.csv",
+      "bytes": 734,
+      "sha256": "221dcfaf8006eaab132d5f105169d35fbddbd630db3758d2b4ebe30d03aab87b",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/fnirs/marker_sequence_examples.csv",
+      "bytes": 11358,
+      "sha256": "3bce4a3919161c719cf7e3dfa410b989624c2a5d5db56c9493bd6bfaab65dcab",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/fnirs/task_timing_summary.csv",
+      "bytes": 798,
+      "sha256": "2400b4ccde83e565bea62d711ad797f32b8997842fc73c8e414b38cfab796e41",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/fnirs/yiruid_1back_excluded_subjects.csv",
+      "bytes": 1009,
+      "sha256": "6efd1fe05bb64ea343caa7549e984bacfac2904990f5348b4cb97819fdf2923f",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/fnirs/yiruid_1back_preprocessing_log.json",
+      "bytes": 274,
+      "sha256": "fdf904749bffdfaee2ba26e72149093f3f8d0f61781f792ef6f1dcd6248525df",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/fnirs/yiruid_1back_qc_features.csv",
+      "bytes": 826641,
+      "sha256": "c1e36c315cd4842d77188c4c4f5debad995bed1e3891091f45ead4c4f99ea094",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/fnirs/yiruid_1back_signal_features.csv",
+      "bytes": 8465126,
+      "sha256": "5f14a6ecbf6ec74517a11204b190687095fb9c509ab9483adcf070f42f20ebf1",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/fnirs/yiruid_rest_excluded_subjects.csv",
+      "bytes": 680,
+      "sha256": "18c7aa212933e0fc977879174b4f186dffb5b70e7efe3ccc2a3fb66e9543e305",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/fnirs/yiruid_rest_preprocessing_log.json",
+      "bytes": 273,
+      "sha256": "610ae9708f346950996e08f371b79f4265d1d1f50be13c55cd0c19180edc0938",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/fnirs/yiruid_rest_qc_features.csv",
+      "bytes": 795941,
+      "sha256": "09b76ee0b89e8b549e758f5e48a7b53b26a127dd4b37bf9d649b05289edfb3ba",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/fnirs/yiruid_rest_signal_features.csv",
+      "bytes": 8911060,
+      "sha256": "7bdf1bd52fd9f058d8e4ef7ebc63c6d91bd023a834d893540a6b007dadbac423",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/fnirs/yiruid_vft_excluded_subjects.csv",
+      "bytes": 680,
+      "sha256": "18c7aa212933e0fc977879174b4f186dffb5b70e7efe3ccc2a3fb66e9543e305",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/fnirs/yiruid_vft_preprocessing_log.json",
+      "bytes": 272,
+      "sha256": "4445d42da3dcd02081c684d9e0cffd5e0a5da6486173ac7452585a4846db8c46",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/fnirs/yiruid_vft_qc_features.csv",
+      "bytes": 819459,
+      "sha256": "a737b31eb602736ecfc1331f3ed393afcdecd3775928b6ddcf7c8b2d99f3fd71",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/fnirs/yiruid_vft_signal_features.csv",
+      "bytes": 8777963,
+      "sha256": "09abde369fe32a5ec1e13b3cae8cdb7d02d2c3b2db0289ed4dca6d03c7f58c94",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "artifacts/goal2_7/run_manifest.json",
+      "bytes": 2673,
+      "sha256": "211439d61d4b77bb5c40f56e2247d3904be2248fcbf5c81a5171398cb97d2284",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "configs/default.yaml",
+      "bytes": 1422,
+      "sha256": "45263f24a0843fd14888ea1a277336744c8dd9935c90b2946ea660035d8d5642",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "configs/goal2_7/bootstrap.yaml",
+      "bytes": 132,
+      "sha256": "1561f2ed42e928b270d29eae248e6019647082d72b3dfa8978bc01c5dc9c63a2",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "configs/goal2_7/common.yaml",
+      "bytes": 4258,
+      "sha256": "3dd22769dc9e50a99a668e44fe44708805047fd077a685b2e4c26ec57db8326d",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "configs/goal2_7/eeg.yaml",
+      "bytes": 2377,
+      "sha256": "42b54513681e05f577256a6d384925b83c111f160ae81d433dfb9528b96a38e4",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "configs/goal2_7/face.yaml",
+      "bytes": 1700,
+      "sha256": "517aef49ef2e151554b4dac0c5cbdc36c2aaa8556cf951ba50d0f498bb61e1ae",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "configs/goal2_7/fnirs.yaml",
+      "bytes": 972,
+      "sha256": "4a63bf197dc1fe8ade9154ece3e76ec9609d081fb4c0ca453093f1859fb896ba",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "configs/goal2_7/models.yaml",
+      "bytes": 1721,
+      "sha256": "08635998366bf51e2e36ea86cc62eadefeefa4793a7edfd857fba056172e321b",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "reports/goal2_7_core3_comparison.md",
+      "bytes": 21012,
+      "sha256": "55201485ad1b2d9de0fc6105f01ce57ebcf14c298426964b6d675c273102473a",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "reports/goal2_7_demographics_and_group_analysis.md",
+      "bytes": 5227,
+      "sha256": "9fda4f864a8b79f1f4807d737460b74aed6e5234f9c6537a7a39bd0832c42c36",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "reports/goal2_7_eeg_event_audit.md",
+      "bytes": 1380,
+      "sha256": "378c8ab61424bbd06848d1bea0aae6877dba08c5ca4e40df65206486681dd1c3",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "reports/goal2_7_eeg_results.md",
+      "bytes": 11480,
+      "sha256": "404cced8bde5d0dcb5db6ee89ae4a6f94f5e498156d6c6c9f4373787b4bc3077",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "reports/goal2_7_face_detection_audit.md",
+      "bytes": 641,
+      "sha256": "6a43b9525b44200c86e46456f00113a2bf13ec7c46290caeaa97c67bf4dc54c9",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "reports/goal2_7_face_results.md",
+      "bytes": 24159,
+      "sha256": "7fd5302801f6fb7b2bd3eee4e4c8009e9931b0bf3be0c8eaa2586e1a06d2a9f5",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "reports/goal2_7_final_report.md",
+      "bytes": 38035,
+      "sha256": "c27789d2e36ea02d4001c9b8cad3c6161cce3231f4729b54272875af29f5a024",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "reports/goal2_7_fnirs_event_audit.md",
+      "bytes": 2609,
+      "sha256": "4dcb5e4006d56bb9e59ba060ba22142ca57e1de79fe37673f0bd3c30850aafb6",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "reports/goal2_7_fnirs_results.md",
+      "bytes": 16509,
+      "sha256": "57d7e2c43492c50b7f12f23a76d44ae1fc89bd29116e6730678756f10b07153a",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "reports/goal2_7_preimplementation_audit.md",
+      "bytes": 16148,
+      "sha256": "9bbe228e8fa7ea5adb397ec68e8c1a43770088d1bf0721b6922e33f8e7545cb9",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "reports/goal2_7_protocol_comparison.md",
+      "bytes": 15302,
+      "sha256": "a4593aa939135c357d0ad67c6184f8288a55bee882b4c064172205eefbcf4128",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "reports/goal2_7_release_notes.md",
+      "bytes": 1835,
+      "sha256": "8cee58a1fd21bcbe4c2f2fbe821b4eacf135e1fc2633eb9a6581c10850d0817f",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "results/goal2_7/README.md",
+      "bytes": 1231,
+      "sha256": "0d5ea9a335328cdd540a475a8e6e8b4f71466cca9dabadb5ec9e923d3de48397",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "results/goal2_7/all_fold_metrics.csv",
+      "bytes": 5621344,
+      "sha256": "98c35d358456e521745896379d9183b9fc67b3b1f76dad1fdfec1f3586595a66",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "results/goal2_7/all_oof_predictions_group_cv.csv",
+      "bytes": 434560502,
+      "sha256": "3c5083b935d4ceee9dc1f4aeba21d1fbd3f757054db3cf9d8a698fd7b03584df",
+      "disposition": "local_uncompressed",
+      "reason": "Uncompressed CSV exceeds GitHub's per-file limit; deterministic .csv.gz archive is published."
+    },
+    {
+      "path": "results/goal2_7/all_oof_predictions_group_cv.csv.gz",
+      "bytes": 13323460,
+      "sha256": "50050aa4d8b70d01fcd9538106d7d722b11729029338c4a262db4e8c57051f3d",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "results/goal2_7/all_oof_predictions_standard_cv.csv",
+      "bytes": 439315223,
+      "sha256": "705b716f17bc93eadce60f0bb0340e5a6510cfd5869342cc884a3d5338f27dd3",
+      "disposition": "local_uncompressed",
+      "reason": "Uncompressed CSV exceeds GitHub's per-file limit; deterministic .csv.gz archive is published."
+    },
+    {
+      "path": "results/goal2_7/all_oof_predictions_standard_cv.csv.gz",
+      "bytes": 14347076,
+      "sha256": "e0dc8745c535a7ad97d3fd33cadacf8dfb787d2a39168893e63f9db4ab8911e3",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "results/goal2_7/all_pooled_metrics.csv",
+      "bytes": 2558066,
+      "sha256": "8b9c1eddfe3002ecd6749fb0f3d373e2b0b6f0af67898e10e27480fa8c2873b5",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "results/goal2_7/bootstrap_confidence_intervals.csv",
+      "bytes": 5777474,
+      "sha256": "f4ead2b82a4d36b5053af3bbfcf9a08ec51a822d5582767b994d078c7515022f",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "results/goal2_7/core3_intersection_summary.csv",
+      "bytes": 460866,
+      "sha256": "e239d49c922223950eb7b652fead7a30873ff3d9d9f15610a9f1563ef2c56114",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "results/goal2_7/demographics_decomposition.csv",
+      "bytes": 823557,
+      "sha256": "50675253428663741f834d2f23c087e454dcb119c9e741865098815540460ac2",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "results/goal2_7/eeg_event_validity_summary.csv",
+      "bytes": 242,
+      "sha256": "3ac9a574756e31d53a2f5d975cdbd8dde9338895bf07c077b8b4e7b1d852a102",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "results/goal2_7/exclusion_summary.csv",
+      "bytes": 1978,
+      "sha256": "390a1362bff09195a8dfe4c5f470c556896de6545b9b038ce7baa119f190664b",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "results/goal2_7/face_strict_control_summary.csv",
+      "bytes": 325,
+      "sha256": "d8db53e2e1a29705c76b747fb6dc48426cc6c5e2bf85d54e114da317459aaafb",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "results/goal2_7/feature_counts.csv",
+      "bytes": 42208,
+      "sha256": "5837fde20b060b9e8e212f7ac0865a603aaf6f028e4cf394ac75b4e55b7648e8",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "results/goal2_7/fnirs_event_validity_summary.csv",
+      "bytes": 597,
+      "sha256": "6f6d15ed15bab66d355a48de9ca53cf6af3e843c475186b99451db8dd5c3546a",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "results/goal2_7/native_cohort_summary.csv",
+      "bytes": 47021,
+      "sha256": "e5cdcd9a307bd6b013710834e050320cee4f390c8126c364b5f558a6ec02f2d3",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "results/goal2_7/paired_increment_comparisons.csv",
+      "bytes": 171137,
+      "sha256": "e142a45821e1c651a98d68002808120e9a3469feab65bb3593c1f4352fe0318d",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "results/goal2_7/pca_diagnostics.csv",
+      "bytes": 992307,
+      "sha256": "2094cb89e789a33ba475e1dccb7b6eaa89c30ac1a6a90946591a90295712b1ae",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "results/goal2_7/selected_hyperparameters.csv",
+      "bytes": 2246668,
+      "sha256": "8612a6b520da5c647bfad7c07bc61ae71ff7f1acec6e1e8a110bdee4653d7ecc",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "results/goal2_7/shortcut_baseline_summary.csv",
+      "bytes": 159079,
+      "sha256": "acfdf6339088b2bba028c6ae4507165959d4b112bb199a345efae200729ab400",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "results/goal2_7/standard_vs_group_cv.csv",
+      "bytes": 289627,
+      "sha256": "4812337edf8dbd77a6cc1eebf0f64870de2bf3ca53b82d67472ed348b5add8ca",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "results/goal2_7/threshold_diagnostics.csv",
+      "bytes": 1350398,
+      "sha256": "07ae4b81c209e2bf4807d96e6088759f7bb8139af9dc213ec26f54eaeff20874",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "scripts/audit_goal2_7_events.py",
+      "bytes": 15635,
+      "sha256": "2511c83e04392eb524892f6948a902bca3adf6e8e43fc888efca4488e0fd526a",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "scripts/build_goal2_7_release_manifest.py",
+      "bytes": 5987,
+      "sha256": "0ae32550710432c87edd7ad41dc524813c1234f4c6e491454311ed1d52aadd43",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "scripts/extract_eeg_goal2_7_features.py",
+      "bytes": 674,
+      "sha256": "ab9069f525f98e25cf6df5f4e897967dea795873b6015f78b8d06bff06788501",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "scripts/extract_face_goal2_7_features.py",
+      "bytes": 674,
+      "sha256": "fd711bcf8a4dd612e3ccf955c6b0c3a779b1b9df5fc42610f96b6c3e01a84c30",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "scripts/extract_fnirs_goal2_7_features.py",
+      "bytes": 680,
+      "sha256": "a17f65ecf2587a97c8480d91ff26f5369677f56c71b1da36f2fcaf4bba414f8f",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "scripts/run_goal2_7.py",
+      "bytes": 1205,
+      "sha256": "b9a098ea8df1f2ff12df2cec46869ddf182bf762fedbffccb88a3b80608d6755",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "scripts/summarize_goal2_7.py",
+      "bytes": 661,
+      "sha256": "cfee20bcc19f670a689ecab9cd2d047aea4eea3edf75941e4f2057415acb1f5f",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "src/chongqing_binary/goal2_7/__init__.py",
+      "bytes": 103,
+      "sha256": "5f71e0b0b22e63f183dc63fcdb3fbe742f6b6d3a485e196b4c79cdfa13bf2362",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "src/chongqing_binary/goal2_7/config.py",
+      "bytes": 2129,
+      "sha256": "488162b8bd83d3ec2b8590e5ab806be1c7b8af31b40ea734985c8b91b0ac6400",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "src/chongqing_binary/goal2_7/eeg.py",
+      "bytes": 11536,
+      "sha256": "62a2e15096a0bb7278102277618743d390e90788c969fbc43e2d5e36a56eb0d9",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "src/chongqing_binary/goal2_7/face.py",
+      "bytes": 22193,
+      "sha256": "be8acfc174d982ec49aef5d03f8b11e5d38ca38bdc48ad0dd446fb54f007f7c1",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "src/chongqing_binary/goal2_7/fnirs.py",
+      "bytes": 21705,
+      "sha256": "f6668ae9c972e0315aa638362eb58496fc336244cdcd6203ef64cd0fc4a5261d",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "src/chongqing_binary/goal2_7/io.py",
+      "bytes": 2977,
+      "sha256": "6c4886a2d92a1a3b7ccfc5a9f87e62b69af152c46b5d833b2ba2d901d76eae6c",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "src/chongqing_binary/goal2_7/report.py",
+      "bytes": 25707,
+      "sha256": "d08d2b723aa02c71d55857464676aac21ae18faaf54eea2d0e4ca2a141b139c7",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "src/chongqing_binary/goal2_7/runner.py",
+      "bytes": 74825,
+      "sha256": "333fc2eadc7a7f3026fbb5ea59de8068e956037b72c0e21618c624ce226fb64a",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "src/chongqing_binary/goal2_7/stats.py",
+      "bytes": 8873,
+      "sha256": "79bec28145ef5ef452abc4dc5b11a7ce13478effba6daf05abcf2fab8b9712e1",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    },
+    {
+      "path": "tests/test_goal2_7_protocol.py",
+      "bytes": 25851,
+      "sha256": "fdaf8adf90a323efa0c3585f2fdf66d36c7f67331b5b9396fb9a25bf858a62f3",
+      "disposition": "github_release",
+      "reason": "Included in the formal Goal 2.7 release."
+    }
+  ],
+  "counts_by_disposition": {
+    "github_release": 104,
+    "local_intermediate": 4,
+    "local_large_regenerable": 2,
+    "local_sensitive_audit": 200,
+    "local_uncompressed": 2
+  }
+}

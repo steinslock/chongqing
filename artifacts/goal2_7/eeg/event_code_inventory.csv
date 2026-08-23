@@ -1,0 +1,5 @@
+task,event_code,window_count,subject_count,semantic_status,epoch_tmin_sec,epoch_tmax_sec,baseline_interval
+rest,,67332,1284,event_free_rest,0.0,5.0,not_confirmed
+oddball,22,52193,2285,blocked_target_nontarget_not_confirmed_cache_code22_only,-0.2,0.8,not_confirmed
+1back,18,22845,1686,blocked_condition_semantics_not_confirmed,-0.2,1.8,not_confirmed
+1back,19,1935,1273,blocked_condition_semantics_not_confirmed,-0.2,1.8,not_confirmed

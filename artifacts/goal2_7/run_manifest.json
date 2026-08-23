@@ -1,0 +1,36 @@
+{
+  "config": "/data4/qiangminc/code/chongqing/configs/goal2_7/models.yaml",
+  "n_datasets": 628,
+  "n_prediction_rows": 3056334,
+  "n_pooled_rows": 3672,
+  "lightgbm_fallback": {
+    "lightgbm": "hist_gradient_boosting",
+    "reason": "LightGBM and XGBoost are not installed in the current avmoe environment; sklearn HistGradientBoostingClassifier is used as the documented boosting fallback with a small predefined Goal 2.7 grid."
+  },
+  "cv_protocols": [
+    "standard_cv",
+    "group_cv"
+  ],
+  "outputs": {
+    "all_oof_predictions_standard_cv": "/data4/qiangminc/code/chongqing/results/goal2_7/all_oof_predictions_standard_cv.csv",
+    "all_oof_predictions_group_cv": "/data4/qiangminc/code/chongqing/results/goal2_7/all_oof_predictions_group_cv.csv",
+    "all_fold_metrics": "/data4/qiangminc/code/chongqing/results/goal2_7/all_fold_metrics.csv",
+    "all_pooled_metrics": "/data4/qiangminc/code/chongqing/results/goal2_7/all_pooled_metrics.csv",
+    "bootstrap_ci": "/data4/qiangminc/code/chongqing/results/goal2_7/bootstrap_confidence_intervals.csv",
+    "paired_comparisons": "/data4/qiangminc/code/chongqing/results/goal2_7/paired_increment_comparisons.csv",
+    "demographics_decomposition": "/data4/qiangminc/code/chongqing/results/goal2_7/demographics_decomposition.csv",
+    "standard_vs_group_cv": "/data4/qiangminc/code/chongqing/results/goal2_7/standard_vs_group_cv.csv",
+    "face_strict_control_summary": "/data4/qiangminc/code/chongqing/results/goal2_7/face_strict_control_summary.csv",
+    "eeg_event_validity_summary": "/data4/qiangminc/code/chongqing/results/goal2_7/eeg_event_validity_summary.csv",
+    "fnirs_event_validity_summary": "/data4/qiangminc/code/chongqing/results/goal2_7/fnirs_event_validity_summary.csv",
+    "core3_intersection_summary": "/data4/qiangminc/code/chongqing/results/goal2_7/core3_intersection_summary.csv",
+    "threshold_diagnostics": "/data4/qiangminc/code/chongqing/results/goal2_7/threshold_diagnostics.csv",
+    "selected_hyperparameters": "/data4/qiangminc/code/chongqing/results/goal2_7/selected_hyperparameters.csv",
+    "pca_diagnostics": "/data4/qiangminc/code/chongqing/results/goal2_7/pca_diagnostics.csv",
+    "feature_counts": "/data4/qiangminc/code/chongqing/results/goal2_7/feature_counts.csv",
+    "exclusion_summary": "/data4/qiangminc/code/chongqing/results/goal2_7/exclusion_summary.csv",
+    "native_cohort_summary": "/data4/qiangminc/code/chongqing/results/goal2_7/native_cohort_summary.csv",
+    "shortcut_baseline_summary": "/data4/qiangminc/code/chongqing/results/goal2_7/shortcut_baseline_summary.csv",
+    "manifest": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/run_manifest.json"
+  }
+}

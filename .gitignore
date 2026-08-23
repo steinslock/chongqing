@@ -12,3 +12,17 @@ __pycache__/
 # Large/intermediate Goal2.6 face feature dumps exceed GitHub's file limit.
 artifacts/goal2_6/face/*_signal_features*.csv
 artifacts/goal2_6/face/*.part.csv
+
+# Goal2.7 release policy: keep reproducible summaries and compressed OOF
+# archives in Git; keep large/regenerable visual features and checkpoints local.
+artifacts/goal2_7/**/*.part.csv
+artifacts/goal2_7/face/*_signal_features*.csv
+
+# Contact sheets contain identifiable source-video frames and are local audit
+# material only. Their aggregate counts remain in reports and manifests.
+artifacts/goal2_7/face/contact_sheets/
+
+# Full Goal2.7 OOF CSVs exceed GitHub's per-file limit. Deterministic .csv.gz
+# release archives with the same rows are tracked instead.
+results/goal2_7/all_oof_predictions_standard_cv.csv
+results/goal2_7/all_oof_predictions_group_cv.csv

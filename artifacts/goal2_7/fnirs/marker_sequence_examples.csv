@@ -1,0 +1,61 @@
+device,task,L_id,raw_rows,duration_sec,marker_count,marker_values,marker_indices_first_20,markers_after_2000,source_file
+yiruid,vft,L101,3000,149.95000000000002,1,1.0,599,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/依瑞德近红外/3.VFT_1904/L101_V/L101_V_20251106085447.nirs
+yiruid,vft,L107,3000,149.95000000000002,1,1.0,599,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/依瑞德近红外/3.VFT_1904/L107_V/L107_V__20251106131235.nirs
+yiruid,vft,L109,3000,149.95000000000002,1,1.0,599,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/依瑞德近红外/3.VFT_1904/L109_V/L109_V_20251106132156.nirs
+yiruid,vft,L110,3000,149.95000000000002,1,1.0,599,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/依瑞德近红外/3.VFT_1904/L110_V/L110_V__20251106105423.nirs
+yiruid,vft,L111,3000,149.95000000000002,1,1.0,599,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/依瑞德近红外/3.VFT_1904/L111_V/L111_V__20251106105828.nirs
+yiruid,vft,L113,3000,149.95000000000002,1,1.0,599,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/依瑞德近红外/3.VFT_1904/L113_V/L113_V__20251106134353.nirs
+yiruid,vft,L114,3000,149.95000000000002,1,1.0,599,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/依瑞德近红外/3.VFT_1904/L114_V/L114_V__20251106134735.nirs
+yiruid,vft,L115,3020,150.95000000000002,1,1.0,599,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/依瑞德近红外/3.VFT_1904/L115_V/L115_V__20251106133817.nirs
+yiruid,vft,L117,3000,149.95000000000002,1,1.0,599,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/依瑞德近红外/3.VFT_1904/L117_V/L117_V_20251106135744.nirs
+yiruid,vft,L120,3000,149.95000000000002,1,1.0,599,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/依瑞德近红外/3.VFT_1904/L120_V/L120_V__20251106141524.nirs
+yiruid,1back,L101,3160,157.95000000000002,2,1.0,599 1839,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/依瑞德近红外/4.1_back_1824/1back_fNIRS/L101_B/L101_B_20251106085832.nirs
+yiruid,1back,L107,3140,156.95000000000002,2,1.0,598 1839,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/依瑞德近红外/4.1_back_1824/1back_fNIRS/L107_B/L107_B__20251106131606.nirs
+yiruid,1back,L109,3100,154.95000000000002,2,1.0,598 1839,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/依瑞德近红外/4.1_back_1824/1back_fNIRS/L109_B/L109_B_20251106132731.nirs
+yiruid,1back,L110,3540,176.95000000000002,2,1.0,599 1839,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/依瑞德近红外/4.1_back_1824/1back_fNIRS/L110_B/L110_B__20251106105932.nirs
+yiruid,1back,L111,3260,162.95000000000002,2,1.0,598 1839,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/依瑞德近红外/4.1_back_1824/1back_fNIRS/L111_B/L111_B__20251106110241.nirs
+yiruid,1back,L113,3400,169.95000000000002,2,1.0,599 1839,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/依瑞德近红外/4.1_back_1824/1back_fNIRS/L113_B/L113_B__20251106134702.nirs
+yiruid,1back,L114,3200,159.95000000000002,2,1.0,599 1839,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/依瑞德近红外/4.1_back_1824/1back_fNIRS/L114_B/L114_B__20251106135208.nirs
+yiruid,1back,L115,3080,153.95000000000002,2,1.0,599 1839,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/依瑞德近红外/4.1_back_1824/1back_fNIRS/L115_B/L115_B__20251106134203.nirs
+yiruid,1back,L117,3100,154.95000000000002,2,1.0,598 1839,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/依瑞德近红外/4.1_back_1824/1back_fNIRS/L117_B/L117_B_20251106140237.nirs
+yiruid,1back,L120,3380,168.95000000000002,2,1.0,599 1839,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/依瑞德近红外/4.1_back_1824/1back_fNIRS/L120_B/L120_B__20251106143149.nirs
+yiruid,rest,L101,6980,348.95000000000005,0,,,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/依瑞德近红外/1.Rest_1949/rest_fNIRS/L101_R/L101_R_20251106084811.nirs
+yiruid,rest,L107,6980,348.95000000000005,0,,,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/依瑞德近红外/1.Rest_1949/rest_fNIRS/L107_R/L107_R__20251106130534.nirs
+yiruid,rest,L109,7000,349.95000000000005,0,,,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/依瑞德近红外/1.Rest_1949/rest_fNIRS/L109_R/L109_R_20251106131408.nirs
+yiruid,rest,L110,7000,349.95000000000005,0,,,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/依瑞德近红外/1.Rest_1949/rest_fNIRS/L110_R/L110_R__20251106104513.nirs
+yiruid,rest,L111,6980,348.95000000000005,0,,,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/依瑞德近红外/1.Rest_1949/rest_fNIRS/L111_R/L111_R__20251106105105.nirs
+yiruid,rest,L113,7000,349.95000000000005,0,,,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/依瑞德近红外/1.Rest_1949/rest_fNIRS/L113_R/L113_R__20251106133623.nirs
+yiruid,rest,L114,6980,348.95000000000005,0,,,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/依瑞德近红外/1.Rest_1949/rest_fNIRS/L114_R/L114_R__20251106134055.nirs
+yiruid,rest,L115,6980,348.95000000000005,0,,,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/依瑞德近红外/1.Rest_1949/rest_fNIRS/L115_R/L115_R__20251106133133.nirs
+yiruid,rest,L117,7000,349.95000000000005,0,,,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/依瑞德近红外/1.Rest_1949/rest_fNIRS/L117_R/L117_R_20251106135041.nirs
+yiruid,rest,L120,7000,349.95000000000005,0,,,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/依瑞德近红外/1.Rest_1949/rest_fNIRS/L120_R/L120_R__20251106140830.nirs
+bikom,vft,L100,1700,169.9,0,,,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/必可明近红外/3.VFT_1308/L100_V/L100_V_HBA_Oxy_20251106 125945_A02175_XYX_VFT.csv
+bikom,vft,L102,1700,169.9,0,,,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/必可明近红外/3.VFT_1308/L102_V/L102_V_HBA_Oxy_20251106 085659_A02177_YYY_VFT.csv
+bikom,vft,L103,1700,169.9,0,,,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/必可明近红外/3.VFT_1308/L103_V/L103_V_HBA_Oxy_20251106 104103_A02178_CXR_VFT.csv
+bikom,vft,L104,1700,169.9,0,,,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/必可明近红外/3.VFT_1308/L104_V/L104_V_HBA_Oxy_20251106 111906_A02179_TX_VFT.csv
+bikom,vft,L105,1700,169.9,0,,,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/必可明近红外/3.VFT_1308/L105_V/L105_V_HBA_Oxy_20251106 102617_A02180_zyf_VFT.csv
+bikom,vft,L106,1700,169.9,0,,,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/必可明近红外/3.VFT_1308/L106_V/L106_V_HBA_Oxy_20251106 111947_A02181_lhx_VFT.csv
+bikom,vft,L108,1700,169.9,0,,,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/必可明近红外/3.VFT_1308/L108_V/L108_V_HBA_Oxy_20251106 104652_A02183_QCJ_VFT.csv
+bikom,vft,L10,1700,169.9,0,,,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/必可明近红外/3.VFT_1308/L10_V/L10_V_HBA_Oxy_20251105 131911_A02020_ZYX_VFT.csv
+bikom,vft,L112,1700,169.9,0,,,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/必可明近红外/3.VFT_1308/L112_V/L112_V_HBA_Oxy_20251106 134040_A02188_wty_VFT.csv
+bikom,vft,L116,1700,169.9,0,,,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/必可明近红外/3.VFT_1308/L116_V/L116_V_HBA_Oxy_20251106 131659_A02193_ycx_VFT.csv
+bikom,1back,L102,1553,155.2,6,A0 A1 B0 B1 ED ST,0 293 622 921 1248 1549,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/必可明近红外/4.1-Back_1272/L102_B/L102_B_HBA_Oxy_20251106 090216_A02177_YYY_1-Back.csv
+bikom,1back,L103,1553,155.2,6,A0 A1 B0 B1 ED ST,0 293 621 921 1249 1549,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/必可明近红外/4.1-Back_1272/L103_B/L103_B_HBA_Oxy_20251106 104632_A02178_CXR_1-Back.csv
+bikom,1back,L104,1553,155.2,6,A0 A1 B0 B1 ED ST,0 294 621 921 1249 1549,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/必可明近红外/4.1-Back_1272/L104_B/L104_B_HBA_Oxy_20251106 112437_A02179_TX_1-Back.csv
+bikom,1back,L105,1553,155.2,6,A0 A1 B0 B1 ED ST,0 293 621 922 1249 1549,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/必可明近红外/4.1-Back_1272/L105_B/L105_B_HBA_Oxy_20251106 103105_A02180_zyf_1-Back.csv
+bikom,1back,L106,1554,155.3,6,A0 A1 B0 B1 ED ST,0 293 621 922 1249 1550,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/必可明近红外/4.1-Back_1272/L106_B/L106_B_HBA_Oxy_20251106 112417_A02181_lhx_1-Back.csv
+bikom,1back,L108,1552,155.1,6,A0 A1 B0 B1 ED ST,0 293 620 922 1249 1550,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/必可明近红外/4.1-Back_1272/L108_B/L108_B_HBA_Oxy_20251106 105200_A02183_QCJ_1-Back.csv
+bikom,1back,L10,1554,155.3,6,A0 A1 B0 B1 ED ST,0 293 621 921 1249 1549,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/必可明近红外/4.1-Back_1272/L10_B/L10_B_HBA_Oxy_20251105 132438_A02020_ZYX_1-Back.csv
+bikom,1back,L112,1553,155.2,6,A0 A1 B0 B1 ED ST,0 294 621 921 1249 1549,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/必可明近红外/4.1-Back_1272/L112_B/L112_B_HBA_Oxy_20251106 134531_A02188_wty_1-Back.csv
+bikom,1back,L116,1554,155.3,6,A0 A1 B0 B1 ED ST,0 293 620 921 1249 1550,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/必可明近红外/4.1-Back_1272/L116_B/L116_B_HBA_Oxy_20251106 132119_A02193_ycx_1-Back.csv
+bikom,1back,L118,1553,155.2,6,A0 A1 B0 B1 ED ST,0 294 621 922 1249 1549,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/必可明近红外/4.1-Back_1272/L118_B/L118_B_HBA_Oxy_20251106 134050_A02195_ZJY_1-Back.csv
+bikom,rest,L100,3497,349.6,2,ED ST,0 3493,1,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/必可明近红外/1.Rest_1302/L100_R/L100_R_HBA_Oxy_20251106 125309_A02175_XYX_rest.csv
+bikom,rest,L102,3594,359.3,1,ST,0,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/必可明近红外/1.Rest_1302/L102_R/L102_R_HBA_Oxy_20251106 084955_A02177_YYY_rest.csv
+bikom,rest,L103,3559,355.8,1,ST,0,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/必可明近红外/1.Rest_1302/L103_R/L103_R_HBA_Oxy_20251106 103343_A02178_CXR_rest.csv
+bikom,rest,L104,3999,399.8,1,ST,0,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/必可明近红外/1.Rest_1302/L104_R/L104_R_HBA_Oxy_20251106 111218_A02179_TX_rest.csv
+bikom,rest,L105,3497,349.6,2,ED ST,0 3493,1,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/必可明近红外/1.Rest_1302/L105_R/L105_R_HBA_Oxy_20251106 101945_A02180_zyf_rest.csv
+bikom,rest,L106,3499,349.8,2,ED ST,0 3493,1,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/必可明近红外/1.Rest_1302/L106_R/L106_R_HBA_Oxy_20251106 111320_A02181_lhx_rest.csv
+bikom,rest,L108,3497,349.6,2,ED ST,0 3493,1,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/必可明近红外/1.Rest_1302/L108_R/L108_R_HBA_Oxy_20251106 103657_A02183_QCJ_rest.csv
+bikom,rest,L10,3554,355.3,1,ST,0,0,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/必可明近红外/1.Rest_1302/L10_R/L10_R_HBA_Oxy_20251105 131238_A02020_ZYX_rest.csv
+bikom,rest,L112,3498,349.7,2,ED ST,0 3494,1,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/必可明近红外/1.Rest_1302/L112_R/L112_R_HBA_Oxy_20251106 132615_A02188_wty_rest.csv
+bikom,rest,L116,3495,349.4,2,ED ST,0 3494,1,/data4/qiangminc/datasets_qiangmin/chongqing/近红外/必可明近红外/1.Rest_1302/L116_R/L116_R_HBA_Oxy_20251106 131024_A02193_ycx_rest.csv

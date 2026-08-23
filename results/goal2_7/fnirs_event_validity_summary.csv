@@ -1,0 +1,9 @@
+modality,device,task,event_validity_status,subjects
+fnirs,yiruid,rest,event_free_rest_whole_recording,1514
+fnirs,yiruid,vft,yiruid_vft_markers_present_timing_semantics_unconfirmed,1480
+fnirs,yiruid,1back,yiruid_1back_markers_present_timing_semantics_unconfirmed,1422
+fnirs,yiruid,1back,yiruid_1back_no_markers_task_response_blocked,1
+fnirs,bikom,rest,event_free_rest_whole_recording,1017
+fnirs,bikom,vft,bikom_vft_no_markers_task_response_blocked,1022
+fnirs,bikom,1back,bikom_1back_markers_present_timing_semantics_unconfirmed,985
+fnirs,bikom,1back,bikom_1back_no_markers_task_response_blocked,10

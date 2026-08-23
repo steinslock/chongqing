@@ -1,0 +1,4 @@
+modality,device,task,event_validity_status,subjects
+eeg,,rest,event_free_rest,1033
+eeg,,oddball,blocked_target_nontarget_semantics_unconfirmed_target_only_proxy,1837
+eeg,,1back,blocked_condition_semantics_unconfirmed_generic_signal_only,1345

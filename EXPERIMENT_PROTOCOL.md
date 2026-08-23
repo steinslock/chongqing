@@ -2,89 +2,142 @@
 
 ## Current Stage
 
-Current stage: **Goal 2.5, EEG/fNIRS/Face readiness audit and protocol repair**.
-
-This stage may build indexes, cohorts, task/video availability tables, QC summaries, smoke outputs, and design documents. It must not run formal full-scale EEG, fNIRS, Face, or multimodal training.
+Goal 2.7 is complete and is the current formal evidence baseline. Goal 2.8 is the
+next decision gate. Do not start Goal 3, Goal 4, Goal 5, or multimodal fusion
+without an explicit new goal and a go/no-go decision grounded in Goal 2.8.
 
 ## Subject-Level Unit
 
-The unit of analysis is the subject, keyed by `L_id`.
+The unit of analysis is the subject, keyed by `L_id`. Windows, epochs, trials,
+time slices, frames, clips, videos, and derived representations inherit the
+subject split and may not be randomized independently.
 
-All modality data inherit `artifacts/splits/subject_splits_v1.csv`. Derived units from the same subject must never cross global splits or CV folds, including EEG windows/epochs, fNIRS trials/time slices, Face frames/clips, and future generated features or representations.
+## Co-Primary Outer CV
 
-Forbidden split actions:
+Protocol A, Standard fixed CV:
 
-- random splitting of windows, trials, frames, clips, or epochs;
-- per-task fold generation;
-- per-modality fold generation;
-- overwriting `subject_splits_v1.csv`.
+- split file: `artifacts/splits/subject_splits_v1.csv`
+- development rows: `split_group == cv`
+- outer fold: `cv_fold`
+
+Protocol B, Group-aware fixed CV:
+
+- split file: `artifacts/splits/subject_splits_group_robustness_v1.csv`
+- development rows: `split_group == cv`
+- outer fold: `robustness_fold`
+
+Both protocols use the same predefined feature sets and model families. Results
+from one protocol must not choose models or settings for the other.
+
+## Inner CV and Preprocessing
+
+Each outer training fold uses three-fold subject-level inner CV. Hyperparameters,
+visual PCA dimensions, thresholds, imputation, scaling, categorical encoding,
+variance filtering, and any feature selection are fit on outer-train only.
+
+The outer validation labels are unavailable to model and threshold selection.
+Every eligible `L_id` receives exactly one OOF prediction per
+protocol/cohort/modality/device/task/feature-set/model/seed combination.
 
 ## Pilot Holdout Policy
 
-Goal 2 evaluated the locked test set. It is now the **baseline-exposed pilot holdout**.
+The locked test set is a baseline-exposed pilot holdout. It is excluded from
+feature extraction decisions, model development, threshold selection, early
+stopping, checkpoint selection, result ranking, and Goal 2.7 reporting.
 
-Future development must not use the pilot holdout for feature selection, model selection, threshold selection, early stopping, checkpoint selection, hyperparameter search, model retention decisions, or any other development decision. CV-pool fixed fivefold OOF results are the development basis.
+## Labels and Leakage
 
-## Label Policy
+Use `primary_label_nonhealthy` only as the supervised outcome. Diagnosis fields,
+clinical scales, self-harm/suicide variables, manual review, labels, and clinical
+proxy totals are forbidden predictors.
 
-Default supervised label:
+Main demographics is age + sex + grade. Report these separately from objective
+signal. `grade_group`, group proxy, and device are sensitivity/shortcut features,
+not part of the minimal demographics baseline.
 
-`primary_label_nonhealthy`
+## Required Feature Comparisons
 
-Use only rows where the label is `0` or `1`. Sensitivity labels must be reported separately when used:
+EEG and fNIRS include:
 
-- `sensitivity_label_clear_diagnosis`
-- `sensitivity_label_mdd_highrisk`
+- signal vs demographics;
+- signal+demographics vs demographics;
+- signal+QC vs QC;
+- signal+QC+demographics vs QC+demographics;
+- signal+QC+demographics vs demographics;
+- signal+demographics vs signal;
+- signal+QC+demographics vs signal+QC.
 
-## Feature Leakage Policy
+Face additionally includes strict face vs background, full frame, metadata, and
+QC, plus face+demographics vs background+demographics.
 
-Clinical labels and label-proxy fields are forbidden as objective modality inputs. This includes:
+Each paired comparison uses identical subjects, outer folds, model family, seed,
+and CV protocol, with at least 1000 paired subject bootstrap resamples for AUROC
+and AUPRC differences.
 
-- `diag3`, `primary_label_nonhealthy`, `sensitivity_label_clear_diagnosis`, `sensitivity_label_mdd_highrisk`;
-- CDRS, CES-DC, HAMA, SCARED;
-- suicide/self-harm fields;
-- diagnosis fields;
-- manual review fields;
-- clinical scale totals and other clinical proxy fields.
+## Metrics and Thresholds
 
-Demographics may be used for demographics-only baselines, modality+demographics increment experiments, stratification, and confound audits. They must be reported separately from objective modality-only results.
+Primary metrics are AUROC and AUPRC. Secondary metrics are balanced accuracy,
+macro F1, sensitivity, specificity, accuracy, Brier score, ECE, and positive
+prediction rate.
 
-## Modality Readiness Gates
+Report pooled OOF, per-fold, fold mean/std, and 95% subject bootstrap CI. For
+threshold-dependent pooled metrics, apply each subject's fold-specific threshold
+selected from that outer fold's inner OOF predictions. Keep fixed threshold 0.5
+as a separate result.
 
-Before formal training, each modality must have:
+## EEG Event Validity
 
-- one row per `L_id` task/video availability tables;
-- inherited global split role and CV fold;
-- file readability checks;
-- minimum metadata-level QC;
-- failure reasons for missing or unreadable files;
-- smoke test using CV pool only;
-- leakage guard for feature columns;
-- subject-level feature/prediction outputs retaining `L_id`.
+- Rest is event-free and may use whole-recording/window-generic features.
+- Oddball cached code `22` is `oddball_target_only_proxy`; target/non-target ERP
+  and condition differences are blocked.
+- 1BACK codes `18` and `19` are not semantically confirmed; condition-difference
+  features are blocked and only generic task features are allowed.
 
-## Comparison Rules
+## fNIRS Timing and Device Validity
 
-Different modalities have different coverage. AUROC or other model metrics cannot be fairly ranked across different subject cohorts.
+- Yiruid and Bikom remain device-specific.
+- Rest may use whole-recording features.
+- Task response requires marker-confirmed or protocol-confirmed timing.
+- The 20/60/20 segmentation fallback is forbidden for formal results.
+- Bikom files are read in full; a fixed 2000-row cap is forbidden.
+- Yiruid raw/log-intensity and OD-like features may not be described as HbO/HbR
+  without wavelength and geometry confirmation.
 
-Each formal modality experiment must report:
+## Face Protocol
 
-1. random/no-information baseline on the same modality cohort;
-2. demographics-only on the same modality cohort;
-3. modality-only;
-4. modality+demographics;
-5. QC-only;
-6. signal+QC;
-7. fixed fivefold OOF;
-8. fold mean and standard deviation;
-9. subject-level predictions;
-10. confidence intervals.
+- Use 16 uniformly sampled frames per video and at least 4 valid detected-face
+  frames for strict face embeddings.
+- Failed detections are excluded from strict face and strict background inputs.
+- Strict background masks or blurs the detected face box.
+- The frozen visual encoder does not use audio.
+- Only visual embedding columns enter train-fold PCA; demographics, QC, metadata,
+  and categorical one-hot features bypass PCA.
+- Detector, checkpoint, threshold, detection rate, blocked count, and fallback
+  usage must be recorded.
 
-Fair cross-modality comparison requires rerunning all modalities on the same core3 complete cohort.
+## Interpretation Rules
 
-## fNIRS Device Policy
+`INDEPENDENT_SIGNAL_SUPPORTED` requires a positive paired independent increment
+whose AUROC CI excludes zero, at least 4/5 positive folds, positive Group CV
+increment, and no dominant shortcut explanation.
 
-Yiruid and Bikom fNIRS data must not be directly concatenated as the same raw channel input space until the device alignment audit confirms compatibility. Device-specific encoders, channel masks, or region-level HbO/HbR representations are required before cross-device modeling.
+Unsupported task semantics produce `BLOCKED_BY_INVALID_TASK_SEMANTICS` regardless
+of point-estimate performance. Background/group/device performance near the
+modality signal supports `SHORTCUT_DOMINATED` or a shortcut warning.
 
-## Face Shortcut Policy
+Goal 2.7 decisions:
 
-Face models must test face crop, aligned crop, full frame, masked/background variants, QC-only, codec/resolution/fps-only, demographics-only, and two-video fusion before interpreting performance as face-dynamics signal. All clips from the same source video inherit the subject fold.
+- EEG: `BLOCKED_BY_INVALID_TASK_SEMANTICS + NO_CLEAR_SIGNAL`.
+- fNIRS: `BLOCKED_BY_INVALID_TASK_SEMANTICS + NO_CLEAR_SIGNAL`.
+- Face: `SHORTCUT_DOMINATED`.
+- No modality reached `INDEPENDENT_SIGNAL_SUPPORTED`.
+
+## Reproducibility and Release
+
+Run in the `avmoe` environment with `PYTHONPATH=src`. The full model matrix can
+be followed by restartable supplemental statistics from saved OOF predictions.
+`scripts/build_goal2_7_release_manifest.py` creates deterministic compressed OOF
+archives and a SHA-256 release manifest.
+
+Large Face embeddings, intermediate checkpoints, uncompressed >100 MB OOF files,
+and identifiable Face contact sheets remain local and are excluded from Git.

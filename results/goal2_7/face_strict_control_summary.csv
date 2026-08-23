@@ -1,0 +1,3 @@
+task,n_videos,strict_face_valid_videos,blocked_videos,mean_detection_rate,mean_effective_face_frames,fallback_videos,multi_face_rate_mean,audio_used_sum
+self_intro,3597,3565,32,0.9903940369540873,15.836506159014558,3572,0.0234054217991788,0
+task,3597,3558,39,0.9831295806800432,15.719932716568545,3567,0.021713090899381903,0

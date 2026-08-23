@@ -538,3 +538,163 @@ Limitations and interpretation:
 - Final modality statuses in `reports/goal2_6_final_report.md`: EEG `WEAK_OR_UNCERTAIN_SIGNAL`; fNIRS `WEAK_OR_UNCERTAIN_SIGNAL`; Face `SHORTCUT_RISK`.
 
 Recommended next Goal: Goal 3 EEG fixed-CV formal single-modality modeling, while carrying forward shortcut mitigation for Face and Hb/event validation for fNIRS before stronger modality-specific deep models.
+
+## 2026-07-09 - Goal 2.7 Protocol Repair, Independent Increment, and Shortcut Calibration
+
+Completed Goal 2.7 as a co-primary Standard CV and Group-aware CV rerun:
+
+- Added Goal 2.7 configs under `configs/goal2_7/` for shared protocol, bootstrap, EEG, fNIRS, Face, and model grids.
+- Added `src/chongqing_binary/goal2_7/` with repaired feature loading, Standard/Group protocol cloning, fold-specific threshold metrics, Face visual-only PCA branching, paired bootstrap, supplemental restart support, and source-backed markdown reports.
+- Added scripts:
+  - `scripts/extract_eeg_goal2_7_features.py`
+  - `scripts/extract_fnirs_goal2_7_features.py`
+  - `scripts/extract_face_goal2_7_features.py`
+  - `scripts/audit_goal2_7_events.py`
+  - `scripts/run_goal2_7.py`
+  - `scripts/summarize_goal2_7.py`
+- Added `tests/test_goal2_7_protocol.py`; full test discovery now covers Goal 2.7 result integrity, double-CV outputs, event blocked status, Face strict controls, bootstrap/paired requirements, Core3 naming, and leakage guards.
+
+Commands run:
+
+- `/home/qiangminc/miniconda3/envs/avmoe/bin/python scripts/extract_eeg_goal2_7_features.py --config configs/goal2_7/eeg.yaml`
+- `/home/qiangminc/miniconda3/envs/avmoe/bin/python scripts/extract_fnirs_goal2_7_features.py --config configs/goal2_7/fnirs.yaml`
+- `/home/qiangminc/miniconda3/envs/avmoe/bin/python scripts/extract_face_goal2_7_features.py --config configs/goal2_7/face.yaml`
+- `/home/qiangminc/miniconda3/envs/avmoe/bin/python scripts/audit_goal2_7_events.py`
+- `PYTHONPATH=src PYTHONUNBUFFERED=1 /home/qiangminc/miniconda3/envs/avmoe/bin/python scripts/run_goal2_7.py --skip-supplemental`
+- `PYTHONPATH=src PYTHONUNBUFFERED=1 /home/qiangminc/miniconda3/envs/avmoe/bin/python scripts/run_goal2_7.py --supplemental-only`
+- `PYTHONPATH=src PYTHONUNBUFFERED=1 /home/qiangminc/miniconda3/envs/avmoe/bin/python scripts/summarize_goal2_7.py`
+- `PYTHONPATH=src /home/qiangminc/miniconda3/envs/avmoe/bin/python -m compileall -q src scripts tests`
+- `PYTHONPATH=src /home/qiangminc/miniconda3/envs/avmoe/bin/python -m unittest discover -s tests`
+
+Feature and audit outputs:
+
+- Preimplementation audit: `reports/goal2_7_preimplementation_audit.md`.
+- EEG event audit:
+  - Rest is event-free.
+  - Oddball cache contains only code `22`; formal target/non-target ERP is blocked and retained only as `oddball_target_only_proxy`.
+  - 1BACK codes `18`/`19` lack confirmed condition semantics; condition-difference features are blocked and only generic features are used.
+- fNIRS event/timing audit:
+  - Rest is modeled as whole-recording.
+  - Yiruid VFT/1BACK markers are present but timing semantics are unconfirmed.
+  - Bikom VFT has no usable task markers for formal task-response modeling.
+  - Bikom full files are read; the Goal 2.6 fixed 2000-row cap is removed. Bikom Rest audit records rows beyond 2000 and markers after row 2000.
+  - Yiruid features remain raw/log-intensity or OD-like; no HbO/HbR claim is made.
+- Face strict extraction:
+  - Frozen encoder: `torchvision_resnet18`, `ResNet18_Weights.IMAGENET1K_V1`, 512-dimensional features, frozen, device `cuda:0`.
+  - Detector preference: OpenCV YuNet checkpoint; actual fallback detector usage is recorded as OpenCV Haar in this environment.
+  - `sample_frames: 16`, `min_valid_face_frames: 4`, strict face frames do not use center-crop fallback, and strict background masks detected face boxes.
+  - Contact sheets written: 200.
+  - Self-introduction: 3597 QC videos, 3565 strict-face-valid, 32 blocked, mean detection rate 0.9904, fallback videos 3572, audio used 0.
+  - Task video: 3597 QC videos, 3558 strict-face-valid, 39 blocked, mean detection rate 0.9831, fallback videos 3567, audio used 0.
+
+Result outputs:
+
+- `results/goal2_7/all_oof_predictions_standard_cv.csv`: 1,528,167 rows.
+- `results/goal2_7/all_oof_predictions_group_cv.csv`: 1,528,167 rows.
+- `results/goal2_7/all_pooled_metrics.csv`: 3,672 rows.
+- `results/goal2_7/all_fold_metrics.csv`: 18,360 rows.
+- `results/goal2_7/bootstrap_confidence_intervals.csv`: 36,720 rows, all with 1000 resamples and 10 metrics.
+- `results/goal2_7/paired_increment_comparisons.csv`: 618 rows, all with 1000 paired subject bootstrap resamples.
+- `results/goal2_7/demographics_decomposition.csv`: 1,188 rows.
+- `results/goal2_7/standard_vs_group_cv.csv`: 918 rows.
+- `results/goal2_7/pca_diagnostics.csv`: 9,060 rows.
+- `results/goal2_7/threshold_diagnostics.csv`: 9,180 rows.
+- Required OOF fields are present, including `selected_threshold_per_subject`, `selected_threshold_per_fold`, and `threshold_source`.
+
+Key results:
+
+- No native EEG, fNIRS, or Face required independent-increment comparison had AUROC 95% CI fully above 0.
+- Positive significant required increment rows were limited to Core3 Face sensitivity rows, not native-cohort evidence.
+- EEG:
+  - Standard CV best demographics-like rows reached about 0.64 AUROC with group variables; signal-only was weaker.
+  - Group CV best signal rows were around 0.52-0.57 AUROC.
+  - Required signal+demographics vs demographics and signal+QC+demographics vs QC+demographics comparisons were mostly negative and often significantly below zero.
+- fNIRS:
+  - Yiruid VFT remained the least weak signal candidate by point estimate: best signal+QC+demographics around 0.5887 AUROC in Standard CV and 0.5846 in Group CV.
+  - Demographics/group rows stayed stronger than signal rows; required increments did not clear paired bootstrap.
+- Face:
+  - Standard CV best face-only AUROC was about 0.645; Group CV best face-only AUROC was about 0.634.
+  - Standard CV demographics_group reached 0.7083 AUROC, and group_proxy_only reached 0.6768 AUROC.
+  - Face-only significantly beat background/metadata/QC in many paired controls, but face+demographics did not reliably beat demographics and was close to background+demographics.
+- Demographics decomposition:
+  - In the largest Face cohorts, age_only reached about 0.624 AUROC, sex_only about 0.593, grade_only about 0.637, age+sex+grade about 0.673, group_proxy_only about 0.677, and demographics_group about 0.708 in Standard CV.
+  - Group-aware CV reduced group-proxy-heavy rows, confirming acquisition-group shortcut risk.
+- Core3:
+  - Cohort name is fixed to `core3_rest_yiruidvft_selfintro_intersection`, n=661.
+  - Core3 is not reported as the full 2354-person core3 pool.
+  - Face had the only positive required Core3 increments, but this did not override native-cohort shortcut risk.
+
+Reports generated:
+
+- `reports/goal2_7_preimplementation_audit.md`
+- `reports/goal2_7_eeg_event_audit.md`
+- `reports/goal2_7_fnirs_event_audit.md`
+- `reports/goal2_7_face_detection_audit.md`
+- `reports/goal2_7_demographics_and_group_analysis.md`
+- `reports/goal2_7_eeg_results.md`
+- `reports/goal2_7_fnirs_results.md`
+- `reports/goal2_7_face_results.md`
+- `reports/goal2_7_core3_comparison.md`
+- `reports/goal2_7_protocol_comparison.md`
+- `reports/goal2_7_final_report.md`
+
+Verification:
+
+- Compile check passed.
+- Unit test discovery passed: `Ran 105 tests ... OK`.
+- Supplemental bootstrap/paired outputs are restartable from saved OOF predictions; the full model matrix does not need to be rerun for CI refresh.
+- Both OOF files contain only their expected protocol labels: `standard_cv` and `group_cv`.
+- Bootstrap and paired outputs use 1000 resamples.
+- No native required independent-increment row has AUROC CI fully above 0.
+
+Compute note:
+
+- GPU was used for Face frozen embedding extraction (`cuda:0`).
+- Traditional classifiers (Logistic Regression, Random Forest, HistGradientBoosting), OOF metric aggregation, bootstrap CIs, and paired comparisons are CPU-bound sklearn/statistical workloads.
+
+Final modality statuses:
+
+- EEG: `BLOCKED_BY_INVALID_TASK_SEMANTICS + NO_CLEAR_SIGNAL`.
+- fNIRS: `BLOCKED_BY_INVALID_TASK_SEMANTICS + NO_CLEAR_SIGNAL`.
+- Face: `SHORTCUT_DOMINATED`.
+- No modality reaches `INDEPENDENT_SIGNAL_SUPPORTED`.
+
+Recommended next Goal: a Goal 2.8 remediation/decision gate before Goal 3/4/5 deep modeling. It should recover and document EEG/fNIRS event timing, add group-balanced or residualized demographic baselines, and decide whether Face warrants stricter shortcut-controlled replication.
+
+## 2026-08-23 - Goal 2.7 Formalization and GitHub Release
+
+Goal 2.7 was promoted from a completed local experiment to the project's formal
+lightweight multimodal evidence baseline.
+
+Documentation updates:
+
+- Updated `AGENTS.md`, `PROJECT_SPEC.md`, and `EXPERIMENT_PROTOCOL.md` from
+  the stale Goal 2.5 stage to the completed Goal 2.7 protocol and decisions.
+- Made Goal 2.8 the explicit remediation/decision gate before Goal 3/4/5.
+- Added `reports/goal2_7_release_notes.md`,
+  `results/goal2_7/README.md`, and `artifacts/goal2_7/README.md`.
+- Canonicalized project/raw-data documentation and default config paths to
+  `/data4/qiangminc`.
+
+Release engineering:
+
+- Added `scripts/build_goal2_7_release_manifest.py`.
+- Added deterministic gzip archives for the two complete OOF prediction files.
+- Added `artifacts/goal2_7/release_manifest.json` with row counts, byte sizes,
+  SHA-256 hashes, release disposition, and local-only reasons.
+- Added supplemental-run fallback so pandas can read tracked `.csv.gz` OOF
+  archives when uncompressed CSVs are absent.
+- Updated `.gitignore` so uncompressed >100 MB OOF CSVs, large Face embeddings,
+  `.part.csv` checkpoints, and identifiable Face contact sheets remain local.
+
+The formal release preserves all compact features, metrics, CIs, paired tests,
+reports, code, configs, and complete compressed OOF predictions. Face contact
+sheets are deliberately excluded from Git because they contain identifiable
+source-video frames.
+
+Formal-release verification:
+
+- Full unit test discovery passed: `Ran 107 tests ... OK`.
+- Goal 2.7 protocol tests passed: `Ran 47 tests ... OK`.
+- Leakage audit, fixed-split SHA-256 validation, gzip integrity, archive row
+  counts, and release-manifest hashes passed.

@@ -1,0 +1,124 @@
+project_config: configs/default.yaml
+
+run:
+  stage: Goal 2.7
+  seed: 20260707
+  split_group: cv
+  label_column: primary_label_nonhealthy
+  n_jobs: 4
+  smoke_limit_per_class:
+  overwrite: true
+
+paths:
+  split_file: artifacts/splits/subject_splits_v1.csv
+  group_split_file: artifacts/splits/subject_splits_group_robustness_v1.csv
+  core3_qc_file: artifacts/cohorts_v2/core3_complete_qc.csv
+  groups_file: artifacts/groups/subject_groups.csv
+  artifacts_dir: artifacts/goal2_7
+  results_dir: results/goal2_7
+  reports_dir: reports
+
+outputs:
+  all_oof_predictions_standard_cv: results/goal2_7/all_oof_predictions_standard_cv.csv
+  all_oof_predictions_group_cv: results/goal2_7/all_oof_predictions_group_cv.csv
+  all_fold_metrics: results/goal2_7/all_fold_metrics.csv
+  all_pooled_metrics: results/goal2_7/all_pooled_metrics.csv
+  bootstrap_ci: results/goal2_7/bootstrap_confidence_intervals.csv
+  paired_comparisons: results/goal2_7/paired_increment_comparisons.csv
+  demographics_decomposition: results/goal2_7/demographics_decomposition.csv
+  standard_vs_group_cv: results/goal2_7/standard_vs_group_cv.csv
+  face_strict_control_summary: results/goal2_7/face_strict_control_summary.csv
+  eeg_event_validity_summary: results/goal2_7/eeg_event_validity_summary.csv
+  fnirs_event_validity_summary: results/goal2_7/fnirs_event_validity_summary.csv
+  core3_intersection_summary: results/goal2_7/core3_intersection_summary.csv
+  threshold_diagnostics: results/goal2_7/threshold_diagnostics.csv
+  selected_hyperparameters: results/goal2_7/selected_hyperparameters.csv
+  pca_diagnostics: results/goal2_7/pca_diagnostics.csv
+  feature_counts: results/goal2_7/feature_counts.csv
+  exclusion_summary: results/goal2_7/exclusion_summary.csv
+  native_cohort_summary: results/goal2_7/native_cohort_summary.csv
+  shortcut_baseline_summary: results/goal2_7/shortcut_baseline_summary.csv
+  manifest: artifacts/goal2_7/run_manifest.json
+
+protocol:
+  pilot_holdout_policy: baseline-exposed pilot holdout is excluded from Goal 2.7 feature extraction, model development, model selection, threshold selection, and reporting
+  outer_folds: [0, 1, 2, 3, 4]
+  inner_cv_folds: 3
+  threshold_grid: [0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8]
+  calibration_bins: 10
+  max_pca_components: 128
+  face_pca_components: [32, 64, 128]
+  random_state: 20260707
+  cv_protocols:
+    standard_cv:
+      split_file: artifacts/splits/subject_splits_v1.csv
+      fold_column: cv_fold
+    group_cv:
+      split_file: artifacts/splits/subject_splits_group_robustness_v1.csv
+      fold_column: robustness_fold
+
+feature_sets:
+  base:
+    - demographics
+    - qc
+    - signal
+  increments:
+    - signal_qc
+    - signal_demographics
+    - qc_demographics
+    - signal_qc_demographics
+
+demographics:
+  main_numeric_columns:
+    - age_clean
+  main_categorical_columns:
+    - sex_clean
+    - grade_clean
+  numeric_columns:
+    - age_clean
+  categorical_columns:
+    - sex_clean
+    - grade_clean
+    - grade_group_clean
+  decomposition_sets:
+    age_only:
+      numeric: [age_clean]
+      categorical: []
+    sex_only:
+      numeric: []
+      categorical: [sex_clean]
+    grade_only:
+      numeric: []
+      categorical: [grade_clean]
+    grade_group_only:
+      numeric: []
+      categorical: [grade_group_clean]
+    age_sex:
+      numeric: [age_clean]
+      categorical: [sex_clean]
+    age_grade:
+      numeric: [age_clean]
+      categorical: [grade_clean]
+    sex_grade:
+      numeric: []
+      categorical: [sex_clean, grade_clean]
+    age_sex_grade:
+      numeric: [age_clean]
+      categorical: [sex_clean, grade_clean]
+    age_sex_grade_group:
+      numeric: [age_clean]
+      categorical: [sex_clean, grade_clean, grade_group_clean]
+    group_proxy_only:
+      numeric: []
+      categorical: [group_code, group_family, group_prefix2, group_prefix3]
+    fnirs_device_only:
+      numeric: []
+      categorical: [fnirs_device]
+    demographics_group:
+      numeric: [age_clean]
+      categorical: [sex_clean, grade_clean, group_code, group_family, group_prefix2, group_prefix3]
+    demographics_group_device:
+      numeric: [age_clean]
+      categorical: [sex_clean, grade_clean, group_code, group_family, group_prefix2, group_prefix3, fnirs_device]
+  age_min: 9
+  age_max: 20

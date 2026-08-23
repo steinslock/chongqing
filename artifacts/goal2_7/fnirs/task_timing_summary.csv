@@ -1,0 +1,7 @@
+device,task,subjects,raw_rows_min,raw_rows_median,raw_rows_max,duration_min_sec,duration_median_sec,duration_max_sec,rows_gt_2000,markers_after_2000,formal_task_response_status
+yiruid,vft,1904,3000,3000.0,3020,149.95000000000002,149.95000000000002,150.95000000000002,1904,0,blocked_without_confirmed_timing
+yiruid,1back,1824,3080,3140.0,6720,153.95000000000002,156.95000000000002,335.95000000000005,1823,1,blocked_without_confirmed_timing
+yiruid,rest,1949,6500,7000.0,9260,324.95000000000005,349.95000000000005,462.95000000000005,1949,0,whole_recording
+bikom,vft,1308,1251,1700.0,1709,125.0,169.9,170.8,0,0,blocked_without_confirmed_timing
+bikom,1back,1272,0,1553.0,1559,124.3,155.2,155.8,0,0,blocked_without_confirmed_timing
+bikom,rest,1302,57,3497.0,6771,5.6,349.6,677.0,1295,939,whole_recording
