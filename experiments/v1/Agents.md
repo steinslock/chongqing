@@ -8,7 +8,8 @@ Build v1 single-modality baselines for the Chongqing multimodal health/disease b
 
 ## Non-Negotiable Constraints
 
-- Treat `/home/qiangminc/codes/data4_qiangminc/datasets_qiangmin/chongqing` as read-only.
+- Treat `${CHONGQING_RAW_DATA_DIR}` as read-only. The current-host default is
+  `/data4/qiangminc/datasets_qiangmin/chongqing`.
 - Never delete, move, rename, rewrite, normalize, or cache raw dataset files in place.
 - Do not copy raw BDF, video, fNIRS, or eye-tracking source files into `experiments/v1` artifacts.
 - Do not write names, phone numbers, school/class identity fields, or other direct identifiers to `experiments/v1` outputs.
@@ -17,8 +18,8 @@ Build v1 single-modality baselines for the Chongqing multimodal health/disease b
 
 ## Canonical Inputs
 
-- Dataset root: `/home/qiangminc/codes/data4_qiangminc/datasets_qiangmin/chongqing`
-- Manifest: `/home/qiangminc/codes/data4_qiangminc/code/chongqing/inputs/derived_reports/chongqing_binary_diagnosis_report/data/subject_manifest.csv`
+- Dataset root: `${CHONGQING_RAW_DATA_DIR}`
+- Manifest: `inputs/derived_reports/chongqing_binary_diagnosis_report/data/subject_manifest.csv`
 - Primary label: `primary_label_nonhealthy`
 - Positive class: non-healthy/high-risk/disease `1`
 - Negative class: healthy `0`
@@ -26,7 +27,7 @@ Build v1 single-modality baselines for the Chongqing multimodal health/disease b
 
 ## Output Policy
 
-- v1 project root: `/home/qiangminc/codes/data4_qiangminc/code/chongqing/experiments/v1`
+- v1 project root: `experiments/v1` relative to the project root
 - EEG artifacts: `experiments/v1/eeg/artifacts/`
 - EEG reports: `experiments/v1/eeg/reports/`
 - All generated features, predictions, metrics, splits, and reports must stay under `experiments/v1`.

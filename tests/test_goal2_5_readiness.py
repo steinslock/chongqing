@@ -42,7 +42,7 @@ class Goal25ReadinessTests(unittest.TestCase):
         config = load_config("configs/default.yaml")
         guard = ReadOnlyInputGuard(config.readonly_inputs)
         with self.assertRaises(PermissionError):
-            guard.assert_write_allowed(Path("/home/qiangminc/codes/data4_qiangminc/datasets_qiangmin/chongqing") / "should_not_write.txt")
+            guard.assert_write_allowed(config.paths["raw_data_dir"] / "should_not_write.txt")
 
     def test_core3_definition_excludes_eye(self) -> None:
         self.assertEqual(CORE3, ("eeg", "fnirs", "face"))

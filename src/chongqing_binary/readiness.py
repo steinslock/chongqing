@@ -14,6 +14,8 @@ from collections import Counter
 from pathlib import Path
 from typing import Any, Iterable, Mapping, Sequence
 
+from .paths import DEFAULT_RAW_DATA_DIR, apply_raw_data_override
+
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 L_ID_RE = re.compile(r"(?<![A-Za-z0-9])L\d+(?![A-Za-z0-9])", re.IGNORECASE)
@@ -97,7 +99,7 @@ def _parse_scalar(value: str) -> Any:
 
 
 def resolve_project_path(path: str | Path) -> Path:
-    value = Path(path)
+    value = Path(path).expanduser()
     if not value.is_absolute():
         value = PROJECT_ROOT / value
     return value.resolve()
@@ -115,6 +117,7 @@ def load_readiness_config(path: str | Path | None = None) -> dict[str, Any]:
     parent = data.get("project_config")
     if parent:
         data = _deep_merge(read_yaml(parent), data)
+    data = apply_raw_data_override(data)
     data["_config_path"] = str(cfg_path)
     return data
 
@@ -135,7 +138,7 @@ def readonly_roots(config: Mapping[str, Any] | None = None) -> list[Path]:
     values = list(config.get("readonly_inputs", []))
     if not values:
         values = [
-            "/home/qiangminc/codes/data4_qiangminc/datasets_qiangmin/chongqing",
+            str(DEFAULT_RAW_DATA_DIR),
             "inputs/derived_reports/chongqing_binary_diagnosis_report",
         ]
     return [resolve_project_path(str(value)) for value in values]
@@ -286,7 +289,7 @@ def raw_data_dir(config: Mapping[str, Any] | None = None) -> Path:
     return resolve_project_path(
         config.get("paths", {}).get(
             "raw_data_dir",
-            "/home/qiangminc/codes/data4_qiangminc/datasets_qiangmin/chongqing",
+            str(DEFAULT_RAW_DATA_DIR),
         )
     )
 

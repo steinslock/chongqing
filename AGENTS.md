@@ -4,13 +4,15 @@ Last updated: 2026-08-23
 
 ## Project Root
 
-Use this directory as the project root:
+Use the directory containing this file as the project root. The current host
+uses:
 
 `/data4/qiangminc/code/chongqing`
 
-The historical `/home/qiangminc/codes/data4_qiangminc/...` path resolves to the
-same storage, but new documentation and manifests use the canonical `/data4`
-path.
+The project is relocatable and does not require this path on another host. Set
+`CHONGQING_RAW_DATA_DIR` to the absolute raw-dataset path before running an
+entry point when the new host does not use the current default. See
+`MIGRATION.md`.
 
 ## Current Stage
 
@@ -42,10 +44,11 @@ Before stronger modality-specific models, Goal 2.8 should:
 
 ## Read-Only Inputs
 
-Treat these as read-only:
+Treat these as read-only. On a relocated host, the raw dataset is the path in
+`CHONGQING_RAW_DATA_DIR`:
 
-- Raw dataset: `/data4/qiangminc/datasets_qiangmin/chongqing`
-- Existing report bundle: `/data4/qiangminc/code/chongqing/inputs/derived_reports/chongqing_binary_diagnosis_report`
+- Raw dataset: `${CHONGQING_RAW_DATA_DIR}` (current default: `/data4/qiangminc/datasets_qiangmin/chongqing`)
+- Existing report bundle: `inputs/derived_reports/chongqing_binary_diagnosis_report`
 
 All generated features, caches, predictions, metrics, models, logs, and reports
 must remain under the project root, primarily in `artifacts/`, `results/`,

@@ -1,0 +1,436 @@
+{
+  "surface": "report",
+  "manifest": {
+    "version": 1,
+    "surface": "report",
+    "title": "重庆多模态二分类项目：现状汇报",
+    "description": "面向零项目背景读者的项目目标、实际进度、证据结论、风险和下一步汇报。",
+    "generatedAt": "2026-08-23T21:19:39+09:00",
+    "charts": [
+      {
+        "id": "audited_subject_coverage",
+        "title": "Goal 2.7 各数据流覆盖规模",
+        "subtitle": "每行是一个任务级受试者记录；Face 为严格人脸检测有效的唯一受试者视频。不同数据流的队列并不相同。",
+        "showDescription": true,
+        "intent": "comparison",
+        "question": "Goal 2.7 实际审计或严格提取覆盖了多少受试者？",
+        "rationale": "各数据流标签较长且需要按规模比较，横向条形图能清楚展示覆盖差异，同时不暗示跨模态性能排名。",
+        "comparisonContext": {
+          "grain": "任务级受试者记录",
+          "unit": "人"
+        },
+        "type": "horizontalBar",
+        "dataset": "coverage_by_stream",
+        "sourceId": "cohort_audits",
+        "encodings": {
+          "x": {
+            "field": "stream",
+            "type": "nominal",
+            "label": "数据流"
+          },
+          "y": {
+            "field": "subjects",
+            "type": "quantitative",
+            "label": "覆盖人数",
+            "format": "number",
+            "unit": "人"
+          },
+          "tooltip": [
+            {
+              "field": "modality",
+              "type": "nominal",
+              "label": "模态"
+            },
+            {
+              "field": "validity_note",
+              "type": "text",
+              "label": "有效性说明"
+            },
+            {
+              "field": "subjects",
+              "type": "quantitative",
+              "label": "覆盖人数",
+              "format": "number",
+              "unit": "人"
+            }
+          ]
+        },
+        "valueFormat": "number",
+        "unit": "人",
+        "layout": "full",
+        "maxRows": 10,
+        "surface": {
+          "surface": "card",
+          "interactiveLegend": false,
+          "showControls": false,
+          "viewMode": "both"
+        }
+      }
+    ],
+    "tables": [
+      {
+        "id": "roadmap_status",
+        "title": "项目阶段状态",
+        "subtitle": "按实际产物、Git 历史和最新进展日志判断；Goal 2.7 已跑完但尚未提交。",
+        "showDescription": true,
+        "dataset": "roadmap_status",
+        "sourceId": "roadmap_status_source",
+        "defaultSort": {
+          "field": "sequence",
+          "direction": "asc"
+        },
+        "density": "spacious",
+        "layout": "full",
+        "columns": [
+          {
+            "field": "sequence",
+            "label": "序号",
+            "format": "number"
+          },
+          {
+            "field": "stage",
+            "label": "阶段",
+            "type": "text"
+          },
+          {
+            "field": "status",
+            "label": "状态",
+            "type": "text"
+          },
+          {
+            "field": "meaning",
+            "label": "实际含义",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "id": "modality_decisions",
+        "title": "三类模态的当前决策",
+        "subtitle": "结论来自 Goal 2.7 的原生队列独立增益比较、事件语义审计和快捷特征控制。",
+        "showDescription": true,
+        "dataset": "modality_decisions",
+        "sourceId": "modality_status_source",
+        "defaultSort": {
+          "field": "modality",
+          "direction": "asc"
+        },
+        "density": "spacious",
+        "layout": "full",
+        "columns": [
+          {
+            "field": "modality",
+            "label": "模态",
+            "type": "text"
+          },
+          {
+            "field": "status",
+            "label": "当前状态",
+            "type": "text"
+          },
+          {
+            "field": "evidence",
+            "label": "为什么",
+            "type": "text"
+          },
+          {
+            "field": "decision",
+            "label": "现在该做什么",
+            "type": "text"
+          }
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "id": "status_bundle",
+        "label": "项目进展日志、Goal 2.7 报告和运行清单",
+        "path": "PROGRESS.md"
+      },
+      {
+        "id": "cohort_audits",
+        "label": "Goal 2.7 EEG、fNIRS 和 Face 有效性审计",
+        "path": "results/goal2_7/eeg_event_validity_summary.csv"
+      },
+      {
+        "id": "roadmap_status_source",
+        "label": "项目阶段状态（由进展日志与 Git 状态整理）",
+        "path": "PROGRESS.md"
+      },
+      {
+        "id": "modality_status_source",
+        "label": "Goal 2.7 模态结论整理",
+        "path": "reports/goal2_7_final_report.md"
+      },
+      {
+        "id": "workspace_verification",
+        "label": "2026年8月23日当前工作区验证",
+        "path": "tests/test_goal2_7_protocol.py"
+      }
+    ],
+    "blocks": [
+      {
+        "id": "title",
+        "type": "markdown",
+        "body": "# 重庆多模态二分类项目：现状汇报"
+      },
+      {
+        "id": "executive_summary",
+        "type": "markdown",
+        "sourceId": "status_bundle",
+        "body": "## Executive Summary（执行摘要）\n\n- **工程上已经做到 Goal 2.7。** 数据清点、固定受试者拆分、防泄漏、传统基线、多模态轻量特征、双协议交叉验证、置信区间和快捷特征审计都已经有可复现产物。\n- **科学结论仍然是否定/待修复。** EEG、fNIRS、Face 三类模态都没有在原生队列中证明对人口学或质量控制基线有稳定、独立的预测增益；当前不适合直接进入深度模型或多模态融合。\n- **最大的风险不是算力，而是数据语义和混杂。** EEG/fNIRS 的任务事件或时间语义不完整；Face 的成绩容易被年龄、年级、采集批次、背景等快捷特征解释。\n- **项目下一步应是 Goal 2.8 决策门，而不是 Goal 3/4/5 深度训练。** 先补齐事件协议，做更严格的分组/残差化复验，并把 Goal 2.7 正式提交、更新过时的项目说明。"
+      },
+      {
+        "id": "project_definition",
+        "type": "markdown",
+        "sourceId": "status_bundle",
+        "body": "## 这个项目到底在做什么\n\n项目目标是使用重庆多模态数据，在**受试者层面**区分健康与非健康/高风险/疾病人群。核心客观模态是 EEG（脑电）、fNIRS（功能近红外）和 Face（视频人脸）；人口学变量只能作为单独基线、增益比较或混杂控制，临床量表、诊断和自伤/自杀等字段被明确禁止作为模型输入。\n\n这里的“完成”主要指研究工程和实验协议完成，**不等于模型已经具备临床使用价值**。项目目前还没有外部临床验证，也没有可以宣称稳定独立诊断价值的模态。"
+      },
+      {
+        "id": "roadmap_takeaway",
+        "type": "markdown",
+        "sourceId": "status_bundle",
+        "body": "## 实际进度：实验已到 2.7，治理基线仍停在 2.5–2.6\n\n主分支当前只包含到 Goal 2.6 的同步提交；Goal 2.7 的代码、配置、结果和报告都存在于工作区，但仍是 **1 个已修改文件和 22 个未跟踪项**。与此同时，`AGENTS.md` 和 `PROJECT_SPEC.md` 仍把“当前阶段”写成 Goal 2.5。\n\n**所以最准确的说法是：研究实验完成到 2.7，但版本治理、项目说明和正式基线尚未跟上。** 这会影响其他人接手、复现和判断哪个结论是正式结论。"
+      },
+      {
+        "id": "roadmap_table_block",
+        "type": "table",
+        "tableId": "roadmap_status"
+      },
+      {
+        "id": "coverage_takeaway",
+        "type": "markdown",
+        "sourceId": "cohort_audits",
+        "body": "## 数据覆盖不小，但跨模态公平比较队列明显收缩\n\nFace 两类视频的严格检测有效样本约 3.56k，EEG/fNIRS 各任务大多覆盖约 1.0k–1.8k。规模本身足以支持严格的传统交叉验证，但各任务并不是同一批人；真正把 EEG Rest、Yiruid VFT 和 Face 自我介绍对齐后的 Core3 公平比较队列只有 **661 人**。\n\n下图展示的是数据覆盖，不是模型性能。它说明项目的主要难题已经从“有没有数据”转向“事件语义是否可信、不同设备是否可比、是否存在采集组/背景捷径”。"
+      },
+      {
+        "id": "coverage_chart_block",
+        "type": "chart",
+        "chartId": "audited_subject_coverage"
+      },
+      {
+        "id": "model_evidence",
+        "type": "markdown",
+        "sourceId": "status_bundle",
+        "body": "## 模型结果：有弱信号，但没有可靠的独立增益\n\n**EEG：** Rest 可以作为无事件任务继续研究，但 Oddball 只有代码 22，无法做正式 target/non-target ERP；1BACK 的 18/19 事件含义也未确认。Group CV 下最好的信号类结果大致在 AUROC 0.52–0.57，且加入信号后通常没有稳定超过人口学或 QC+人口学基线。\n\n**fNIRS：** Yiruid VFT 是点估计最好的候选；signal+QC+demographics 的 AUROC 约为 0.5887（Standard CV）和 0.5846（Group CV），但独立增益的配对置信区间没有越过证据门槛。任务响应时间和 HbO/HbR 语义仍需确认。\n\n**Face：** 严格人脸特征本身在 Standard CV/Group CV 下约达到 AUROC 0.645/0.634，也能超过背景或元数据控制；但人口学+采集组在 Standard CV 可达到约 0.708，Face+人口学很少稳定超过人口学，而且背景+人口学与其接近。这说明视觉分支并非完全无信号，但当前结论仍被快捷特征支配。\n\n**最重要的判断标准不是单个 AUROC 是否大于 0.5，而是模态加入后能否在相同受试者、相同折、相同模型和严格分组协议下稳定超过基线。Goal 2.7 的答案目前是“不能”。**"
+      },
+      {
+        "id": "modality_table_block",
+        "type": "table",
+        "tableId": "modality_decisions"
+      },
+      {
+        "id": "next_steps",
+        "type": "markdown",
+        "sourceId": "status_bundle",
+        "body": "## 建议下一步：先做 Goal 2.8 决策门\n\n1. **先把 Goal 2.7 正式化。** 审核并提交未跟踪代码/结果，更新 `AGENTS.md`、`PROJECT_SPEC.md` 和实验协议，打一个可复现标签；否则团队会继续看到互相冲突的“当前阶段”。\n2. **追回 EEG/fNIRS 原始任务协议。** 找到事件码定义、刺激时序、设备/通道和 HbO/HbR 转换依据；找不到就明确把相关任务响应结论永久降级或停止。\n3. **对 Face 做严格快捷特征复验。** 使用采集组平衡、人口学残差化或匹配、背景控制和更可靠的人脸检测器；只有在这些条件下仍有稳定增益，才值得进入视频深度模型。\n4. **设立明确 Go/No-Go。** Goal 2.8 结束时只做三个决定：EEG 是否仅推进 Rest；fNIRS 是否具备可信任务语义；Face 是否值得复制。任何一项未通过，就不要启动对应的 Goal 3/4/5。\n5. **最后才考虑同队列比较和多模态融合。** Goal 6/7 必须等单模态协议稳定后再做，否则融合模型只会放大混杂。"
+      },
+      {
+        "id": "further_questions",
+        "type": "markdown",
+        "body": "## 还需要负责人回答的四个问题\n\n- 原始 EEG/fNIRS 采集协议、事件码表和刺激时序由谁保管，能否找回？\n- 项目最终目标是论文级研究、内部探索，还是临床产品？三者的证据门槛完全不同。\n- 是否有独立医院、设备或时间段可作为真正的外部验证集？当前固定测试集已经在早期基线阶段暴露，不能再当最终盲测集。\n- Goal 2.7 是否准备作为正式项目基线提交和归档，还是仍属于个人工作区试验？"
+      },
+      {
+        "id": "caveats",
+        "type": "markdown",
+        "sourceId": "workspace_verification",
+        "body": "## Caveats and assumptions（局限与假设）\n\n- 本汇报是对本地项目文件的快照，检查时间为 **2026年8月23日**；最后一批项目产物更新时间为 **2026年7月10日**，之后约六周没有看到新的本地产物。\n- Goal 2.7 结果通过了当前 105 项自动化测试，但该批文件尚未进入 Git 历史；“测试通过”不能替代代码审查、提交归档和独立复现。\n- Goal 2.7 没有使用早期已暴露的 pilot holdout，这是正确做法；但也意味着当前结论仍主要是内部交叉验证结论。\n- 不同模态的 AUROC 来自不同原生队列和特征集合，不能直接当作排行榜。\n- 本报告没有对原始采集协议负责人做访谈，因此事件语义能否找回仍是未知数。"
+      }
+    ]
+  },
+  "snapshot": {
+    "version": 1,
+    "generatedAt": "2026-08-23T21:19:39+09:00",
+    "status": "ready",
+    "datasets": {
+      "roadmap_status": [
+        {
+          "sequence": 1,
+          "stage": "Goal 0–2",
+          "status": "已完成并提交",
+          "meaning": "工程框架、数据审计、固定拆分、防泄漏、传统基线已建立。"
+        },
+        {
+          "sequence": 2,
+          "stage": "Goal 2.5",
+          "status": "已完成",
+          "meaning": "EEG/fNIRS/Face 数据就绪审计和多模态队列核对完成；部分总览文档仍停在此阶段。"
+        },
+        {
+          "sequence": 3,
+          "stage": "Goal 2.6",
+          "status": "已完成并提交",
+          "meaning": "固定 CV 的轻量多模态基线完成，发现弱信号和显著快捷特征风险。"
+        },
+        {
+          "sequence": 4,
+          "stage": "Goal 2.7",
+          "status": "实验完成，未提交",
+          "meaning": "协议修复、Standard/Group 双协议、严格 Face 控制、事件审计和独立增益比较均已产出。"
+        },
+        {
+          "sequence": 5,
+          "stage": "Goal 2.8",
+          "status": "尚未开始",
+          "meaning": "建议作为事件语义、快捷特征和是否进入深度模型的决策门。"
+        },
+        {
+          "sequence": 6,
+          "stage": "Goal 3–5",
+          "status": "不应直接启动",
+          "meaning": "EEG、fNIRS、Face 单模态深度实验需等待 Goal 2.8 结论。"
+        },
+        {
+          "sequence": 7,
+          "stage": "Goal 6–7",
+          "status": "未开始",
+          "meaning": "同队列公平比较和多模态融合必须等待单模态协议稳定。"
+        }
+      ],
+      "coverage_by_stream": [
+        {
+          "stream": "Face 自我介绍（严格有效）",
+          "modality": "Face",
+          "subjects": 3565,
+          "validity_note": "严格人脸检测有效；32 个视频被阻断。"
+        },
+        {
+          "stream": "Face 任务视频（严格有效）",
+          "modality": "Face",
+          "subjects": 3558,
+          "validity_note": "严格人脸检测有效；39 个视频被阻断。"
+        },
+        {
+          "stream": "EEG Oddball（已审计）",
+          "modality": "EEG",
+          "subjects": 1837,
+          "validity_note": "只有 target-only proxy；target/non-target 正式语义被阻断。"
+        },
+        {
+          "stream": "fNIRS Yiruid Rest",
+          "modality": "fNIRS",
+          "subjects": 1514,
+          "validity_note": "无事件 Rest，按整段记录处理。"
+        },
+        {
+          "stream": "fNIRS Yiruid VFT",
+          "modality": "fNIRS",
+          "subjects": 1480,
+          "validity_note": "有标记但时间语义未确认。"
+        },
+        {
+          "stream": "fNIRS Yiruid 1BACK",
+          "modality": "fNIRS",
+          "subjects": 1422,
+          "validity_note": "有标记但时间语义未确认；另有 1 人无标记。"
+        },
+        {
+          "stream": "EEG 1BACK（已审计）",
+          "modality": "EEG",
+          "subjects": 1345,
+          "validity_note": "18/19 条件语义未确认，只保留通用信号。"
+        },
+        {
+          "stream": "EEG Rest（已审计）",
+          "modality": "EEG",
+          "subjects": 1033,
+          "validity_note": "无事件 Rest。"
+        },
+        {
+          "stream": "fNIRS Bikom VFT",
+          "modality": "fNIRS",
+          "subjects": 1022,
+          "validity_note": "无可用任务标记，正式任务响应被阻断。"
+        },
+        {
+          "stream": "fNIRS Bikom Rest",
+          "modality": "fNIRS",
+          "subjects": 1017,
+          "validity_note": "无事件 Rest，按整段记录处理。"
+        }
+      ],
+      "modality_decisions": [
+        {
+          "modality": "EEG",
+          "status": "事件语义受阻 + 无清晰独立信号",
+          "evidence": "Oddball 与 1BACK 条件定义未确认；加入信号后没有稳定超过人口学/QC 基线。",
+          "decision": "先找回事件码和协议；可把无事件 Rest 作为唯一候选。"
+        },
+        {
+          "modality": "Face",
+          "status": "快捷特征主导",
+          "evidence": "严格人脸有弱信号，但人口学、采集组和背景解释力更强，增益不稳定。",
+          "decision": "先做分组平衡、残差化和更严格背景/检测器复验。"
+        },
+        {
+          "modality": "fNIRS",
+          "status": "任务时间语义受阻 + 无清晰独立信号",
+          "evidence": "Yiruid VFT 点估计最好，但时间/Hb 语义未确认，配对增益置信区间未达标。",
+          "decision": "先确认任务时序、通道和 HbO/HbR 语义；继续保持设备分开。"
+        }
+      ]
+    }
+  },
+  "sources": [
+    {
+      "id": "status_bundle",
+      "label": "项目进展日志、Goal 2.7 报告和运行清单",
+      "path": "PROGRESS.md"
+    },
+    {
+      "id": "cohort_audits",
+      "label": "Goal 2.7 EEG、fNIRS 和 Face 有效性审计",
+      "path": "results/goal2_7/eeg_event_validity_summary.csv",
+      "query": {
+        "engine": "sqlite",
+        "sql": "WITH coverage(stream, modality, subjects, validity_note) AS (VALUES ('Face 自我介绍（严格有效）','Face',3565,'严格人脸检测有效；32 个视频被阻断。'),('Face 任务视频（严格有效）','Face',3558,'严格人脸检测有效；39 个视频被阻断。'),('EEG Oddball（已审计）','EEG',1837,'只有 target-only proxy；target/non-target 正式语义被阻断。'),('fNIRS Yiruid Rest','fNIRS',1514,'无事件 Rest，按整段记录处理。'),('fNIRS Yiruid VFT','fNIRS',1480,'有标记但时间语义未确认。'),('fNIRS Yiruid 1BACK','fNIRS',1422,'有标记但时间语义未确认；另有 1 人无标记。'),('EEG 1BACK（已审计）','EEG',1345,'18/19 条件语义未确认，只保留通用信号。'),('EEG Rest（已审计）','EEG',1033,'无事件 Rest。'),('fNIRS Bikom VFT','fNIRS',1022,'无可用任务标记，正式任务响应被阻断。'),('fNIRS Bikom Rest','fNIRS',1017,'无事件 Rest，按整段记录处理。')) SELECT stream, modality, subjects, validity_note FROM coverage ORDER BY subjects DESC",
+        "description": "把已审阅的三份 Goal 2.7 有效性审计整理为报告覆盖图数据。",
+        "executed_at": "2026-08-23T21:19:39+09:00",
+        "language": "sql",
+        "tables_used": [
+          "results/goal2_7/eeg_event_validity_summary.csv",
+          "results/goal2_7/fnirs_event_validity_summary.csv",
+          "results/goal2_7/face_strict_control_summary.csv"
+        ]
+      }
+    },
+    {
+      "id": "roadmap_status_source",
+      "label": "项目阶段状态（由进展日志与 Git 状态整理）",
+      "path": "PROGRESS.md",
+      "query": {
+        "engine": "sqlite",
+        "sql": "WITH roadmap(sequence, stage, status, meaning) AS (VALUES (1,'Goal 0–2','已完成并提交','工程框架、数据审计、固定拆分、防泄漏、传统基线已建立。'),(2,'Goal 2.5','已完成','EEG/fNIRS/Face 数据就绪审计和多模态队列核对完成；部分总览文档仍停在此阶段。'),(3,'Goal 2.6','已完成并提交','固定 CV 的轻量多模态基线完成，发现弱信号和显著快捷特征风险。'),(4,'Goal 2.7','实验完成，未提交','协议修复、Standard/Group 双协议、严格 Face 控制、事件审计和独立增益比较均已产出。'),(5,'Goal 2.8','尚未开始','建议作为事件语义、快捷特征和是否进入深度模型的决策门。'),(6,'Goal 3–5','不应直接启动','EEG、fNIRS、Face 单模态深度实验需等待 Goal 2.8 结论。'),(7,'Goal 6–7','未开始','同队列公平比较和多模态融合必须等待单模态协议稳定。')) SELECT sequence, stage, status, meaning FROM roadmap ORDER BY sequence",
+        "description": "根据进展日志、Git 历史和当前工作区状态整理的项目阶段表。",
+        "executed_at": "2026-08-23T21:19:39+09:00",
+        "language": "sql",
+        "tables_used": [
+          "PROGRESS.md",
+          ".git/HEAD"
+        ]
+      }
+    },
+    {
+      "id": "modality_status_source",
+      "label": "Goal 2.7 模态结论整理",
+      "path": "reports/goal2_7_final_report.md",
+      "query": {
+        "engine": "sqlite",
+        "sql": "WITH decisions(modality, status, evidence, decision) AS (VALUES ('EEG','事件语义受阻 + 无清晰独立信号','Oddball 与 1BACK 条件定义未确认；加入信号后没有稳定超过人口学/QC 基线。','先找回事件码和协议；可把无事件 Rest 作为唯一候选。'),('Face','快捷特征主导','严格人脸有弱信号，但人口学、采集组和背景解释力更强，增益不稳定。','先做分组平衡、残差化和更严格背景/检测器复验。'),('fNIRS','任务时间语义受阻 + 无清晰独立信号','Yiruid VFT 点估计最好，但时间/Hb 语义未确认，配对增益置信区间未达标。','先确认任务时序、通道和 HbO/HbR 语义；继续保持设备分开。')) SELECT modality, status, evidence, decision FROM decisions ORDER BY modality",
+        "description": "把 Goal 2.7 最终报告中的三类模态结论整理为决策表。",
+        "executed_at": "2026-08-23T21:19:39+09:00",
+        "language": "sql",
+        "tables_used": [
+          "reports/goal2_7_final_report.md",
+          "results/goal2_7/paired_increment_comparisons.csv"
+        ]
+      }
+    },
+    {
+      "id": "workspace_verification",
+      "label": "2026年8月23日当前工作区验证",
+      "path": "tests/test_goal2_7_protocol.py"
+    }
+  ],
+  "package_info": {}
+}

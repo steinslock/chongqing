@@ -8,11 +8,13 @@ from typing import Any
 
 import yaml
 
+from ..paths import apply_raw_data_override
+
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 
 
 def project_path(path: str | Path) -> Path:
-    value = Path(path)
+    value = Path(path).expanduser()
     if not value.is_absolute():
         value = PROJECT_ROOT / value
     return value.resolve()
@@ -33,6 +35,7 @@ def load_goal_config(path: str | Path) -> dict[str, Any]:
         project_data = _read_yaml(project_path(project_config))
         data = _deep_merge(project_data, data)
         data["_project_config_loaded"] = True
+    data = apply_raw_data_override(data)
     data["_config_path"] = str(cfg_path)
     return data
 

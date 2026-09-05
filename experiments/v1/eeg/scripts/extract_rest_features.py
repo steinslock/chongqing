@@ -15,8 +15,8 @@ from joblib import Parallel, delayed
 from scipy.signal import welch
 from tqdm import tqdm
 
+from _paths import V1_ROOT
 
-V1_ROOT = Path("/home/qiangminc/codes/data4_qiangminc/code/chongqing/experiments/v1")
 INDEX_DIR = V1_ROOT / "eeg" / "artifacts" / "index"
 FEATURE_DIR = V1_ROOT / "eeg" / "artifacts" / "features"
 

@@ -6,6 +6,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Mapping
 
+from .paths import apply_raw_data_override
+
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_CONFIG_PATH = PROJECT_ROOT / "configs" / "default.yaml"
@@ -37,7 +39,7 @@ def _read_yaml(path: Path) -> dict[str, Any]:
 
 
 def _resolve_path(path_value: str | Path, root: Path = PROJECT_ROOT) -> Path:
-    path = Path(path_value)
+    path = Path(path_value).expanduser()
     if not path.is_absolute():
         path = root / path
     return path.resolve()
@@ -131,4 +133,5 @@ def load_config(path: str | Path | None = None) -> ProjectConfig:
         parent_path = _resolve_path(parent, config_path.parent)
         base = _read_yaml(parent_path)
         data = _deep_merge(base, data)
+    data = apply_raw_data_override(data)
     return ProjectConfig(path=config_path, data=data)

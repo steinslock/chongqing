@@ -1,0 +1,15 @@
+.F...............................................................................[goal2_7][paired] groups=1 n_resamples=20
+[goal2_7][paired] 1/1 ('standard_cv', 'toy', 'eeg', '', 'rest', 'logistic_regression', np.int64(1))
+............................
+======================================================================
+FAIL: test_manifest_checkpoints_exist (test_baseline_artifacts.BaselineArtifactTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/home/cqm/Project/Code/chongqing/tests/test_baseline_artifacts.py", line 97, in test_manifest_checkpoints_exist
+    self.assertTrue(Path(row["path"]).exists(), row["path"])
+AssertionError: False is not true : /data4/qiangminc/code/chongqing/checkpoints/baselines/no_information__no_information_majority.joblib
+
+----------------------------------------------------------------------
+Ran 109 tests in 23.226s
+
+FAILED (failures=1)

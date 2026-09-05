@@ -7,8 +7,8 @@ from pathlib import Path
 
 import pandas as pd
 
+from _paths import V1_ROOT
 
-V1_ROOT = Path("/home/qiangminc/codes/data4_qiangminc/code/chongqing/experiments/v1")
 EEG_ROOT = V1_ROOT / "eeg"
 TRADITIONAL_METRICS = EEG_ROOT / "artifacts" / "results" / "rest_primary_metrics.csv"
 DEEP_RESULTS = EEG_ROOT / "artifacts" / "deep" / "results"

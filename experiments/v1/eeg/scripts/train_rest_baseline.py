@@ -32,13 +32,9 @@ try:
 except Exception:  # noqa: BLE001
     LGBMClassifier = None
 
+from _paths import MANIFEST, V1_ROOT
 
 SEED = 20260703
-V1_ROOT = Path("/home/qiangminc/codes/data4_qiangminc/code/chongqing/experiments/v1")
-MANIFEST = Path(
-    "/home/qiangminc/codes/data4_qiangminc/code/chongqing/"
-    "inputs/derived_reports/chongqing_binary_diagnosis_report/data/subject_manifest.csv"
-)
 FEATURES = V1_ROOT / "eeg" / "artifacts" / "features" / "eeg_rest_features.csv"
 RESULTS_DIR = V1_ROOT / "eeg" / "artifacts" / "results"
 REPORT_DIR = V1_ROOT / "eeg" / "reports"

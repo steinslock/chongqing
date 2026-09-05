@@ -20,13 +20,8 @@ import numpy as np
 import pandas as pd
 from tqdm import tqdm
 
+from _paths import DATA_ROOT, MANIFEST, V1_ROOT
 
-DATA_ROOT = Path("/home/qiangminc/codes/data4_qiangminc/datasets_qiangmin/chongqing")
-V1_ROOT = Path("/home/qiangminc/codes/data4_qiangminc/code/chongqing/experiments/v1")
-MANIFEST = Path(
-    "/home/qiangminc/codes/data4_qiangminc/code/chongqing/"
-    "inputs/derived_reports/chongqing_binary_diagnosis_report/data/subject_manifest.csv"
-)
 OUT_DIR = V1_ROOT / "eeg" / "artifacts" / "deep" / "windows"
 
 CHANNELS = [
@@ -358,4 +353,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

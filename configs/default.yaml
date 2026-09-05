@@ -4,8 +4,8 @@ project:
 
 paths:
   raw_data_dir: /data4/qiangminc/datasets_qiangmin/chongqing
-  report_input_dir: /data4/qiangminc/code/chongqing/inputs/derived_reports/chongqing_binary_diagnosis_report
-  subject_manifest: /data4/qiangminc/code/chongqing/inputs/derived_reports/chongqing_binary_diagnosis_report/data/subject_manifest.csv
+  report_input_dir: inputs/derived_reports/chongqing_binary_diagnosis_report
+  subject_manifest: inputs/derived_reports/chongqing_binary_diagnosis_report/data/subject_manifest.csv
   artifacts_dir: artifacts
   results_dir: results
   reports_dir: reports
@@ -13,7 +13,7 @@ paths:
 
 readonly_inputs:
   - /data4/qiangminc/datasets_qiangmin/chongqing
-  - /data4/qiangminc/code/chongqing/inputs/derived_reports/chongqing_binary_diagnosis_report
+  - inputs/derived_reports/chongqing_binary_diagnosis_report
 
 labels:
   primary: primary_label_nonhealthy

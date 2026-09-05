@@ -25,9 +25,9 @@ from sklearn.model_selection import StratifiedKFold
 from torch import nn
 from torch.utils.data import DataLoader, Dataset, WeightedRandomSampler
 
+from _paths import V1_ROOT
 
 SEED = 20260703
-V1_ROOT = Path("/home/qiangminc/codes/data4_qiangminc/code/chongqing/experiments/v1")
 WINDOW_DIR = V1_ROOT / "eeg" / "artifacts" / "deep" / "windows"
 RESULT_DIR = V1_ROOT / "eeg" / "artifacts" / "deep" / "results"
 REPORT_DIR = V1_ROOT / "eeg" / "reports"

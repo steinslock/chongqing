@@ -14,9 +14,7 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 
-
-DATA_ROOT = Path("/home/qiangminc/codes/data4_qiangminc/datasets_qiangmin/chongqing")
-V1_ROOT = Path("/home/qiangminc/codes/data4_qiangminc/code/chongqing/experiments/v1")
+from _paths import DATA_ROOT, V1_ROOT
 
 TASKS = {
     "rest": {"dir": "1_rest-1334", "stem": "eeg_rest", "task_label": "rest"},
