@@ -16,8 +16,8 @@ from zipfile import ZipFile
 import xml.etree.ElementTree as ET
 
 
-DATA_ROOT = Path("/home/qiangminc/codes/data4_qiangminc/datasets_qiangmin/chongqing")
-OUT_DIR = Path("/home/qiangminc/codes/data4_qiangminc/outputs/chongqing_binary_diagnosis_report")
+DATA_ROOT = Path("/data/home/cqm/Project/Dataset/Chongqing")
+OUT_DIR = Path("/data/home/cqm/Project/Code/chongqing/reports/chongqing_binary_diagnosis_report")
 DATA_DIR = OUT_DIR / "data"
 
 NS = {

@@ -2,7 +2,7 @@
 
 生成日期：2026-07-07
 
-数据集路径：`/home/qiangminc/codes/data4_qiangminc/datasets_qiangmin/chongqing`
+数据集路径：`/data/home/cqm/Project/Dataset/Chongqing`
 
 本文只说明数据集内容、标签口径、模态覆盖和使用注意事项，不包含模型方案。原始数据目录应按只读处理。
 
@@ -36,7 +36,7 @@
 
 主要临床文件是：
 
-`/home/qiangminc/codes/data4_qiangminc/datasets_qiangmin/chongqing/临床信息-重医6.3.xlsx`
+`/data/home/cqm/Project/Dataset/Chongqing/临床信息-重医6.3.xlsx`
 
 主 sheet 为 `中小学复核问卷`：
 
@@ -60,7 +60,7 @@
 
 派生的匿名受试者级索引位于：
 
-`/home/qiangminc/codes/data4_qiangminc/code/chongqing/inputs/derived_reports/chongqing_binary_diagnosis_report/data/subject_manifest.csv`
+`/data/home/cqm/Project/Code/chongqing/inputs/derived_reports/chongqing_binary_diagnosis_report/data/subject_manifest.csv`
 
 该索引包含 `4610` 行、`17` 列，不包含姓名，字段如下：
 
@@ -143,7 +143,7 @@
 
 目录：
 
-`/home/qiangminc/codes/data4_qiangminc/datasets_qiangmin/chongqing/脑电`
+`/data/home/cqm/Project/Dataset/Chongqing/脑电`
 
 包含 3 个任务目录：
 
@@ -173,7 +173,7 @@
 
 目录：
 
-`/home/qiangminc/codes/data4_qiangminc/datasets_qiangmin/chongqing/近红外`
+`/data/home/cqm/Project/Dataset/Chongqing/近红外`
 
 分两个设备/来源：
 
@@ -209,7 +209,7 @@
 
 目录：
 
-`/home/qiangminc/codes/data4_qiangminc/datasets_qiangmin/chongqing/面部`
+`/data/home/cqm/Project/Dataset/Chongqing/面部`
 
 主要包含两类受试者视频：
 
@@ -230,7 +230,7 @@
 
 目录：
 
-`/home/qiangminc/codes/data4_qiangminc/datasets_qiangmin/chongqing/眼动`
+`/data/home/cqm/Project/Dataset/Chongqing/眼动`
 
 眼动数据组织最复杂，包含多个来源：
 
@@ -254,7 +254,7 @@
 
 目录：
 
-`/home/qiangminc/codes/data4_qiangminc/datasets_qiangmin/chongqing/附件`
+`/data/home/cqm/Project/Dataset/Chongqing/附件`
 
 主要包含：
 
@@ -277,7 +277,7 @@
 
 数据集外已有一个只读扫描生成的报告目录：
 
-`/home/qiangminc/codes/data4_qiangminc/code/chongqing/inputs/derived_reports/chongqing_binary_diagnosis_report`
+`/data/home/cqm/Project/Code/chongqing/inputs/derived_reports/chongqing_binary_diagnosis_report`
 
 关键文件：
 

@@ -1,6 +1,6 @@
 # Goal 2.7 Face Detection Audit
 
-Contact sheet directory: `/data4/qiangminc/code/chongqing/artifacts/goal2_7/face/contact_sheets`
+Contact sheet directory: `/data/home/cqm/Project/Code/chongqing/artifacts/goal2_7/face/contact_sheets`
 Contact sheets found: `200`
 
 | task | status | videos | blocked | mean_detection_rate | fallback_count | multi_face_rate |

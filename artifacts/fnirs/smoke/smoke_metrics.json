@@ -580,7 +580,7 @@
       "torch_cuda_version": "11.7",
       "torch_device_count": 2
     },
-    "executable": "/home/qiangminc/miniconda3/envs/avmoe/bin/python",
+    "executable": "/data/home/cqm/miniconda3/envs/avmoe/bin/python",
     "packages": {
       "cv2": "4.6.0",
       "numpy": "1.21.5",

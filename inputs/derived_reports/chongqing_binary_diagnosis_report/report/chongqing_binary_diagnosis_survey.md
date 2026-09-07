@@ -1,8 +1,8 @@
 # 重庆多模态数据集健康/患病二分类诊断技术调查报告
 
 生成日期：2026-07-03  
-数据集：`/home/qiangminc/codes/data4_qiangminc/datasets_qiangmin/chongqing`  
-输出目录：`/home/qiangminc/codes/data4_qiangminc/outputs/chongqing_binary_diagnosis_report`
+数据集：`/data/home/cqm/Project/Dataset/Chongqing`  
+输出目录：`/data/home/cqm/Project/Code/chongqing/reports/chongqing_binary_diagnosis_report`
 
 ## 1. 技术摘要
 

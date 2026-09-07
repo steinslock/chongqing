@@ -9,7 +9,7 @@ Build v1 single-modality baselines for the Chongqing multimodal health/disease b
 ## Non-Negotiable Constraints
 
 - Treat `${CHONGQING_RAW_DATA_DIR}` as read-only. The current-host default is
-  `/data4/qiangminc/datasets_qiangmin/chongqing`.
+  `/data/home/cqm/Project/Dataset/Chongqing`.
 - Never delete, move, rename, rewrite, normalize, or cache raw dataset files in place.
 - Do not copy raw BDF, video, fNIRS, or eye-tracking source files into `experiments/v1` artifacts.
 - Do not write names, phone numbers, school/class identity fields, or other direct identifiers to `experiments/v1` outputs.

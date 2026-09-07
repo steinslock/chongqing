@@ -7,9 +7,9 @@ Status: complete.
 Completed:
 
 - Read `inputs/derived_reports/chongqing_binary_diagnosis_report/DATASET_DESCRIPTION.md`.
-- Selected `/home/qiangminc/codes/data4_qiangminc/code/chongqing` as the project root.
+- Selected `/data/home/cqm/Project/Code/chongqing` as the project root.
 - Confirmed existing inputs:
-  - Raw dataset at `/home/qiangminc/codes/data4_qiangminc/datasets_qiangmin/chongqing`.
+  - Raw dataset at `/data/home/cqm/Project/Dataset/Chongqing`.
   - Existing derived report bundle at `inputs/derived_reports/chongqing_binary_diagnosis_report/`.
   - Prior EEG v1 baseline under `experiments/v1/`.
 - Created root project documentation:
@@ -31,8 +31,8 @@ Completed:
   - `configs/smoke.yaml`
   - `configs/leakage_forbidden_fields.yaml`
 - Marked read-only inputs in config and docs:
-  - Raw dataset: `/home/qiangminc/codes/data4_qiangminc/datasets_qiangmin/chongqing`
-  - Existing report bundle: `/home/qiangminc/codes/data4_qiangminc/code/chongqing/inputs/derived_reports/chongqing_binary_diagnosis_report`
+  - Raw dataset: `/data/home/cqm/Project/Dataset/Chongqing`
+  - Existing report bundle: `/data/home/cqm/Project/Code/chongqing/inputs/derived_reports/chongqing_binary_diagnosis_report`
 - Created unified framework interfaces under `src/chongqing_binary/`:
   - `config.py`: YAML config loading, path resolution, and read-only write guard.
   - `data.py`: subject-level manifest interface, label filtering, smoke sampling, subject-level split, feature matrix.
@@ -67,16 +67,16 @@ Completed:
 Verification:
 
 - Compile check passed:
-  - `/home/qiangminc/codes/data4_qiangminc/code/.venvs/chongqing_v1/bin/python -m compileall -q src scripts tests`
+  - `/data/home/cqm/miniconda3/envs/chongqing_v1/bin/python -m compileall -q src scripts tests`
 - Unit tests passed:
-  - `/home/qiangminc/codes/data4_qiangminc/code/.venvs/chongqing_v1/bin/python -m unittest discover -s tests`
+  - `/data/home/cqm/miniconda3/envs/chongqing_v1/bin/python -m unittest discover -s tests`
   - Result: `Ran 13 tests ... OK`
 - Leakage script passed:
-  - `/home/qiangminc/codes/data4_qiangminc/code/.venvs/chongqing_v1/bin/python scripts/check_leakage.py --config configs/smoke.yaml`
+  - `/data/home/cqm/miniconda3/envs/chongqing_v1/bin/python scripts/check_leakage.py --config configs/smoke.yaml`
 - Smoke test passed:
-  - `/home/qiangminc/codes/data4_qiangminc/code/.venvs/chongqing_v1/bin/python scripts/smoke_test.py --config configs/smoke.yaml`
+  - `/data/home/cqm/miniconda3/envs/chongqing_v1/bin/python scripts/smoke_test.py --config configs/smoke.yaml`
 - Environment recording passed:
-  - `/home/qiangminc/codes/data4_qiangminc/code/.venvs/chongqing_v1/bin/python scripts/record_environment.py --config configs/default.yaml`
+  - `/data/home/cqm/miniconda3/envs/chongqing_v1/bin/python scripts/record_environment.py --config configs/default.yaml`
 - Read-only input check passed:
   - No smoke, environment, or test output files were found under the raw dataset directory or existing report bundle.
 
@@ -127,14 +127,14 @@ Verification:
   - `src/`
   - `tests/`
 - Compile check passed:
-  - `/home/qiangminc/codes/data4_qiangminc/code/.venvs/chongqing_v1/bin/python -m compileall -q src scripts tests experiments/v1/eeg/scripts`
+  - `/data/home/cqm/miniconda3/envs/chongqing_v1/bin/python -m compileall -q src scripts tests experiments/v1/eeg/scripts`
 - Unit tests passed:
-  - `/home/qiangminc/codes/data4_qiangminc/code/.venvs/chongqing_v1/bin/python -m unittest discover -s tests`
+  - `/data/home/cqm/miniconda3/envs/chongqing_v1/bin/python -m unittest discover -s tests`
   - Result: `Ran 13 tests ... OK`
 - Leakage script passed:
-  - `/home/qiangminc/codes/data4_qiangminc/code/.venvs/chongqing_v1/bin/python scripts/check_leakage.py --config configs/smoke.yaml`
+  - `/data/home/cqm/miniconda3/envs/chongqing_v1/bin/python scripts/check_leakage.py --config configs/smoke.yaml`
 - Smoke test passed:
-  - `/home/qiangminc/codes/data4_qiangminc/code/.venvs/chongqing_v1/bin/python scripts/smoke_test.py --config configs/smoke.yaml`
+  - `/data/home/cqm/miniconda3/envs/chongqing_v1/bin/python scripts/smoke_test.py --config configs/smoke.yaml`
 
 Notes:
 
@@ -212,16 +212,16 @@ Fixed split:
 Verification:
 
 - Build command passed:
-  - `/home/qiangminc/codes/data4_qiangminc/code/.venvs/chongqing_v1/bin/python scripts/build_subject_splits.py --config configs/default.yaml`
+  - `/data/home/cqm/miniconda3/envs/chongqing_v1/bin/python scripts/build_subject_splits.py --config configs/default.yaml`
 - Compile check passed:
-  - `/home/qiangminc/codes/data4_qiangminc/code/.venvs/chongqing_v1/bin/python -m compileall -q src scripts tests`
+  - `/data/home/cqm/miniconda3/envs/chongqing_v1/bin/python -m compileall -q src scripts tests`
 - Unit tests passed:
-  - `/home/qiangminc/codes/data4_qiangminc/code/.venvs/chongqing_v1/bin/python -m unittest discover -s tests`
+  - `/data/home/cqm/miniconda3/envs/chongqing_v1/bin/python -m unittest discover -s tests`
   - Result: `Ran 20 tests ... OK`
 - Leakage script passed:
-  - `/home/qiangminc/codes/data4_qiangminc/code/.venvs/chongqing_v1/bin/python scripts/check_leakage.py --config configs/smoke.yaml`
+  - `/data/home/cqm/miniconda3/envs/chongqing_v1/bin/python scripts/check_leakage.py --config configs/smoke.yaml`
 - Smoke test passed:
-  - `/home/qiangminc/codes/data4_qiangminc/code/.venvs/chongqing_v1/bin/python scripts/smoke_test.py --config configs/smoke.yaml`
+  - `/data/home/cqm/miniconda3/envs/chongqing_v1/bin/python scripts/smoke_test.py --config configs/smoke.yaml`
 - SHA256 check passed from `artifacts/splits/`:
   - `sha256sum -c subject_splits_v1.sha256`
 - Automatic split tests confirm:
@@ -323,9 +323,9 @@ Result summary:
 Verification:
 
 - Baseline smoke run passed:
-  - `/home/qiangminc/codes/data4_qiangminc/code/.venvs/chongqing_v1/bin/python scripts/run_baselines.py --config configs/baselines/smoke.yaml`
+  - `/data/home/cqm/miniconda3/envs/chongqing_v1/bin/python scripts/run_baselines.py --config configs/baselines/smoke.yaml`
 - Formal baseline run passed:
-  - `/home/qiangminc/codes/data4_qiangminc/code/.venvs/chongqing_v1/bin/python scripts/run_baselines.py --config configs/baselines/default.yaml`
+  - `/data/home/cqm/miniconda3/envs/chongqing_v1/bin/python scripts/run_baselines.py --config configs/baselines/default.yaml`
 - Completion audit confirmed:
   - All required models are present in `results/baseline_results.csv`.
   - Both `cv_oof` and `locked_test` stages are present for each required model.
@@ -334,14 +334,14 @@ Verification:
   - Prediction rows respect the locked-test boundary.
   - All checkpoint paths recorded in `artifacts/baselines/baseline_run_manifest.json` exist.
 - Compile check passed:
-  - `/home/qiangminc/codes/data4_qiangminc/code/.venvs/chongqing_v1/bin/python -m compileall -q src scripts tests`
+  - `/data/home/cqm/miniconda3/envs/chongqing_v1/bin/python -m compileall -q src scripts tests`
 - Unit tests passed:
-  - `/home/qiangminc/codes/data4_qiangminc/code/.venvs/chongqing_v1/bin/python -m unittest discover -s tests -v`
+  - `/data/home/cqm/miniconda3/envs/chongqing_v1/bin/python -m unittest discover -s tests -v`
   - Result: `Ran 29 tests ... OK`
 - Leakage script passed:
-  - `/home/qiangminc/codes/data4_qiangminc/code/.venvs/chongqing_v1/bin/python scripts/check_leakage.py --config configs/smoke.yaml`
+  - `/data/home/cqm/miniconda3/envs/chongqing_v1/bin/python scripts/check_leakage.py --config configs/smoke.yaml`
 - Goal0 smoke test still passed:
-  - `/home/qiangminc/codes/data4_qiangminc/code/.venvs/chongqing_v1/bin/python scripts/smoke_test.py --config configs/smoke.yaml`
+  - `/data/home/cqm/miniconda3/envs/chongqing_v1/bin/python scripts/smoke_test.py --config configs/smoke.yaml`
 - GPU check:
   - `nvidia-smi` showed two `NVIDIA RTX A6000` GPUs at `0%` utilization and no compute processes during post-run inspection.
 
@@ -363,15 +363,15 @@ Completed Goal 2.5 readiness work:
 
 Commands run:
 
-- `/home/qiangminc/miniconda3/envs/avmoe/bin/python scripts/audit_eeg_readiness.py --config configs/readiness/eeg_smoke.yaml --smoke-limit 2 --seed 20260707`
-- `/home/qiangminc/miniconda3/envs/avmoe/bin/python scripts/audit_fnirs_readiness.py --config configs/readiness/fnirs_smoke.yaml --smoke-limit 2 --seed 20260707`
-- `/home/qiangminc/miniconda3/envs/avmoe/bin/python scripts/audit_face_readiness.py --config configs/readiness/face_smoke.yaml --smoke-limit 2 --seed 20260707`
-- `/home/qiangminc/miniconda3/envs/avmoe/bin/python scripts/build_cohorts_v2.py --config configs/readiness/default.yaml --seed 20260707`
-- `/home/qiangminc/miniconda3/envs/avmoe/bin/python scripts/audit_groups.py --config configs/readiness/default.yaml --seed 20260707`
-- `/home/qiangminc/miniconda3/envs/avmoe/bin/python scripts/generate_goal2_5_reports.py`
-- `/home/qiangminc/miniconda3/envs/avmoe/bin/python -m compileall -q src scripts tests`
-- `/home/qiangminc/miniconda3/envs/avmoe/bin/python -m unittest discover -s tests -v`
-- `/home/qiangminc/miniconda3/envs/avmoe/bin/python scripts/check_leakage.py --config configs/smoke.yaml`
+- `/data/home/cqm/miniconda3/envs/avmoe/bin/python scripts/audit_eeg_readiness.py --config configs/readiness/eeg_smoke.yaml --smoke-limit 2 --seed 20260707`
+- `/data/home/cqm/miniconda3/envs/avmoe/bin/python scripts/audit_fnirs_readiness.py --config configs/readiness/fnirs_smoke.yaml --smoke-limit 2 --seed 20260707`
+- `/data/home/cqm/miniconda3/envs/avmoe/bin/python scripts/audit_face_readiness.py --config configs/readiness/face_smoke.yaml --smoke-limit 2 --seed 20260707`
+- `/data/home/cqm/miniconda3/envs/avmoe/bin/python scripts/build_cohorts_v2.py --config configs/readiness/default.yaml --seed 20260707`
+- `/data/home/cqm/miniconda3/envs/avmoe/bin/python scripts/audit_groups.py --config configs/readiness/default.yaml --seed 20260707`
+- `/data/home/cqm/miniconda3/envs/avmoe/bin/python scripts/generate_goal2_5_reports.py`
+- `/data/home/cqm/miniconda3/envs/avmoe/bin/python -m compileall -q src scripts tests`
+- `/data/home/cqm/miniconda3/envs/avmoe/bin/python -m unittest discover -s tests -v`
+- `/data/home/cqm/miniconda3/envs/avmoe/bin/python scripts/check_leakage.py --config configs/smoke.yaml`
 
 Key counts:
 
@@ -428,14 +428,14 @@ Completed Goal 2.6 under the fixed CV-only protocol:
 
 Commands run:
 
-- `/home/qiangminc/miniconda3/envs/avmoe/bin/python scripts/extract_eeg_goal2_6_features.py --config configs/goal2_6/eeg.yaml`
-- `/home/qiangminc/miniconda3/envs/avmoe/bin/python scripts/extract_fnirs_goal2_6_features.py --config configs/goal2_6/fnirs.yaml`
-- `/home/qiangminc/miniconda3/envs/avmoe/bin/python scripts/extract_face_goal2_6_features.py --config configs/goal2_6/face.yaml`
-- `/home/qiangminc/miniconda3/envs/avmoe/bin/python - <<'PY' ... run_goal2_6(['eeg', 'fnirs', 'face', 'core3', 'shortcut']) ... PY`
-- `/home/qiangminc/miniconda3/envs/avmoe/bin/python scripts/summarize_goal2_6.py --config configs/goal2_6/models.yaml`
-- `/home/qiangminc/miniconda3/envs/avmoe/bin/python -m compileall -q src scripts tests`
-- `/home/qiangminc/miniconda3/envs/avmoe/bin/python -m unittest discover -s tests -v`
-- `/home/qiangminc/miniconda3/envs/avmoe/bin/python scripts/check_leakage.py --config configs/smoke.yaml`
+- `/data/home/cqm/miniconda3/envs/avmoe/bin/python scripts/extract_eeg_goal2_6_features.py --config configs/goal2_6/eeg.yaml`
+- `/data/home/cqm/miniconda3/envs/avmoe/bin/python scripts/extract_fnirs_goal2_6_features.py --config configs/goal2_6/fnirs.yaml`
+- `/data/home/cqm/miniconda3/envs/avmoe/bin/python scripts/extract_face_goal2_6_features.py --config configs/goal2_6/face.yaml`
+- `/data/home/cqm/miniconda3/envs/avmoe/bin/python - <<'PY' ... run_goal2_6(['eeg', 'fnirs', 'face', 'core3', 'shortcut']) ... PY`
+- `/data/home/cqm/miniconda3/envs/avmoe/bin/python scripts/summarize_goal2_6.py --config configs/goal2_6/models.yaml`
+- `/data/home/cqm/miniconda3/envs/avmoe/bin/python -m compileall -q src scripts tests`
+- `/data/home/cqm/miniconda3/envs/avmoe/bin/python -m unittest discover -s tests -v`
+- `/data/home/cqm/miniconda3/envs/avmoe/bin/python scripts/check_leakage.py --config configs/smoke.yaml`
 - `sha256sum -c subject_splits_v1.sha256` from `artifacts/splits/`
 
 Feature extraction counts:
@@ -556,15 +556,15 @@ Completed Goal 2.7 as a co-primary Standard CV and Group-aware CV rerun:
 
 Commands run:
 
-- `/home/qiangminc/miniconda3/envs/avmoe/bin/python scripts/extract_eeg_goal2_7_features.py --config configs/goal2_7/eeg.yaml`
-- `/home/qiangminc/miniconda3/envs/avmoe/bin/python scripts/extract_fnirs_goal2_7_features.py --config configs/goal2_7/fnirs.yaml`
-- `/home/qiangminc/miniconda3/envs/avmoe/bin/python scripts/extract_face_goal2_7_features.py --config configs/goal2_7/face.yaml`
-- `/home/qiangminc/miniconda3/envs/avmoe/bin/python scripts/audit_goal2_7_events.py`
-- `PYTHONPATH=src PYTHONUNBUFFERED=1 /home/qiangminc/miniconda3/envs/avmoe/bin/python scripts/run_goal2_7.py --skip-supplemental`
-- `PYTHONPATH=src PYTHONUNBUFFERED=1 /home/qiangminc/miniconda3/envs/avmoe/bin/python scripts/run_goal2_7.py --supplemental-only`
-- `PYTHONPATH=src PYTHONUNBUFFERED=1 /home/qiangminc/miniconda3/envs/avmoe/bin/python scripts/summarize_goal2_7.py`
-- `PYTHONPATH=src /home/qiangminc/miniconda3/envs/avmoe/bin/python -m compileall -q src scripts tests`
-- `PYTHONPATH=src /home/qiangminc/miniconda3/envs/avmoe/bin/python -m unittest discover -s tests`
+- `/data/home/cqm/miniconda3/envs/avmoe/bin/python scripts/extract_eeg_goal2_7_features.py --config configs/goal2_7/eeg.yaml`
+- `/data/home/cqm/miniconda3/envs/avmoe/bin/python scripts/extract_fnirs_goal2_7_features.py --config configs/goal2_7/fnirs.yaml`
+- `/data/home/cqm/miniconda3/envs/avmoe/bin/python scripts/extract_face_goal2_7_features.py --config configs/goal2_7/face.yaml`
+- `/data/home/cqm/miniconda3/envs/avmoe/bin/python scripts/audit_goal2_7_events.py`
+- `PYTHONPATH=src PYTHONUNBUFFERED=1 /data/home/cqm/miniconda3/envs/avmoe/bin/python scripts/run_goal2_7.py --skip-supplemental`
+- `PYTHONPATH=src PYTHONUNBUFFERED=1 /data/home/cqm/miniconda3/envs/avmoe/bin/python scripts/run_goal2_7.py --supplemental-only`
+- `PYTHONPATH=src PYTHONUNBUFFERED=1 /data/home/cqm/miniconda3/envs/avmoe/bin/python scripts/summarize_goal2_7.py`
+- `PYTHONPATH=src /data/home/cqm/miniconda3/envs/avmoe/bin/python -m compileall -q src scripts tests`
+- `PYTHONPATH=src /data/home/cqm/miniconda3/envs/avmoe/bin/python -m unittest discover -s tests`
 
 Feature and audit outputs:
 
@@ -674,7 +674,7 @@ Documentation updates:
 - Added `reports/goal2_7_release_notes.md`,
   `results/goal2_7/README.md`, and `artifacts/goal2_7/README.md`.
 - Canonicalized project/raw-data documentation and default config paths to
-  `/data4/qiangminc`.
+  `/data/home/cqm/Project`.
 
 Release engineering:
 

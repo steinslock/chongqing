@@ -7,7 +7,7 @@ Last updated: 2026-08-23
 Use the directory containing this file as the project root. The current host
 uses:
 
-`/data4/qiangminc/code/chongqing`
+`/data/home/cqm/Project/Code/chongqing`
 
 The project is relocatable and does not require this path on another host. Set
 `CHONGQING_RAW_DATA_DIR` to the absolute raw-dataset path before running an
@@ -47,7 +47,7 @@ Before stronger modality-specific models, Goal 2.8 should:
 Treat these as read-only. On a relocated host, the raw dataset is the path in
 `CHONGQING_RAW_DATA_DIR`:
 
-- Raw dataset: `${CHONGQING_RAW_DATA_DIR}` (current default: `/data4/qiangminc/datasets_qiangmin/chongqing`)
+- Raw dataset: `${CHONGQING_RAW_DATA_DIR}` (current default: `/data/home/cqm/Project/Dataset/Chongqing`)
 - Existing report bundle: `inputs/derived_reports/chongqing_binary_diagnosis_report`
 
 All generated features, caches, predictions, metrics, models, logs, and reports

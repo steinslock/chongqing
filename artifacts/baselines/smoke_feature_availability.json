@@ -30,7 +30,7 @@
     "subjects": 96,
     "feature_count": 533,
     "description": "Existing v1 EEG Rest traditional feature table.",
-    "path": "/data4/qiangminc/code/chongqing/experiments/v1/eeg/artifacts/features/eeg_rest_features.csv",
+    "path": "/data/home/cqm/Project/Code/chongqing/experiments/v1/eeg/artifacts/features/eeg_rest_features.csv",
     "source_rows": 1279
   },
   {

@@ -10,5 +10,5 @@ This directory holds project inputs that are used by the reproducible framework 
 
 - Treat everything under `inputs/` as read-only unless a future task explicitly asks to regenerate or repair an input bundle.
 - Do not write model outputs, checkpoints, predictions, caches, logs, or temporary files here.
-- Raw multimodal data stays outside this project root at `/home/qiangminc/codes/data4_qiangminc/datasets_qiangmin/chongqing`.
+- Raw multimodal data stays outside this project root at `/data/home/cqm/Project/Dataset/Chongqing`.
 

@@ -8,7 +8,7 @@ from typing import Any
 
 
 RAW_DATA_ENV = "CHONGQING_RAW_DATA_DIR"
-DEFAULT_RAW_DATA_DIR = Path("/data4/qiangminc/datasets_qiangmin/chongqing")
+DEFAULT_RAW_DATA_DIR = Path("/data/home/cqm/Project/Dataset/Chongqing")
 
 
 def raw_data_override() -> Path | None:

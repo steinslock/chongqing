@@ -2,9 +2,9 @@
 
 Captured on 2026-08-27 in Asia/Tokyo for the Chongqing migration archive.
 
-## Source state
+## Restored project state
 
-- Project root on source host: `/data4/qiangminc/code/chongqing`
+- Project root on this host: `/data/home/cqm/Project/Code/chongqing`
 - Git commit: `fd07ba1570b993c7008a321673e14e7988832899`
 - Branch: `main`
 - Remote: `https://github.com/steinslock/chongqing.git`

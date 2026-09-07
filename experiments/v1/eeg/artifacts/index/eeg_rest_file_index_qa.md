@@ -1,6 +1,6 @@
 # EEG rest File Index QA
 
-- Data root: `/home/qiangminc/codes/data4_qiangminc/datasets_qiangmin/chongqing`
+- Data root: `/data/home/cqm/Project/Dataset/Chongqing`
 - Task directory: `1_rest-1334`
 - Subject directories indexed: 1334
 - QC status counts: `{"ok": 1332, "warn": 2}`

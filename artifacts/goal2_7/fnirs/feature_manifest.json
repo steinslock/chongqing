@@ -1,13 +1,13 @@
 {
-  "config": "/data4/qiangminc/code/chongqing/configs/goal2_7/fnirs.yaml",
+  "config": "/data/home/cqm/Project/Code/chongqing/configs/goal2_7/fnirs.yaml",
   "preprocessing_version": "goal2_7_device_specific_full_read_event_audited_v1",
   "feature_version": "goal2_7_fnirs_whole_recording_and_event_validity_v1",
   "tasks": {
     "yiruid_rest": {
-      "signal_features": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/yiruid_rest_signal_features.csv",
-      "qc_features": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/yiruid_rest_qc_features.csv",
-      "preprocessing_log": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/yiruid_rest_preprocessing_log.json",
-      "excluded_subjects": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/yiruid_rest_excluded_subjects.csv",
+      "signal_features": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_7/fnirs/yiruid_rest_signal_features.csv",
+      "qc_features": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_7/fnirs/yiruid_rest_qc_features.csv",
+      "preprocessing_log": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_7/fnirs/yiruid_rest_preprocessing_log.json",
+      "excluded_subjects": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_7/fnirs/yiruid_rest_excluded_subjects.csv",
       "device": "yiruid",
       "task": "rest",
       "subjects_found": 1514,
@@ -18,10 +18,10 @@
       "raw_channel_merge": "forbidden"
     },
     "yiruid_vft": {
-      "signal_features": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/yiruid_vft_signal_features.csv",
-      "qc_features": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/yiruid_vft_qc_features.csv",
-      "preprocessing_log": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/yiruid_vft_preprocessing_log.json",
-      "excluded_subjects": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/yiruid_vft_excluded_subjects.csv",
+      "signal_features": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_7/fnirs/yiruid_vft_signal_features.csv",
+      "qc_features": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_7/fnirs/yiruid_vft_qc_features.csv",
+      "preprocessing_log": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_7/fnirs/yiruid_vft_preprocessing_log.json",
+      "excluded_subjects": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_7/fnirs/yiruid_vft_excluded_subjects.csv",
       "device": "yiruid",
       "task": "vft",
       "subjects_found": 1480,
@@ -32,10 +32,10 @@
       "raw_channel_merge": "forbidden"
     },
     "yiruid_1back": {
-      "signal_features": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/yiruid_1back_signal_features.csv",
-      "qc_features": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/yiruid_1back_qc_features.csv",
-      "preprocessing_log": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/yiruid_1back_preprocessing_log.json",
-      "excluded_subjects": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/yiruid_1back_excluded_subjects.csv",
+      "signal_features": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_7/fnirs/yiruid_1back_signal_features.csv",
+      "qc_features": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_7/fnirs/yiruid_1back_qc_features.csv",
+      "preprocessing_log": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_7/fnirs/yiruid_1back_preprocessing_log.json",
+      "excluded_subjects": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_7/fnirs/yiruid_1back_excluded_subjects.csv",
       "device": "yiruid",
       "task": "1back",
       "subjects_found": 1423,
@@ -46,10 +46,10 @@
       "raw_channel_merge": "forbidden"
     },
     "bikom_rest": {
-      "signal_features": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/bikom_rest_signal_features.csv",
-      "qc_features": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/bikom_rest_qc_features.csv",
-      "preprocessing_log": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/bikom_rest_preprocessing_log.json",
-      "excluded_subjects": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/bikom_rest_excluded_subjects.csv",
+      "signal_features": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_7/fnirs/bikom_rest_signal_features.csv",
+      "qc_features": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_7/fnirs/bikom_rest_qc_features.csv",
+      "preprocessing_log": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_7/fnirs/bikom_rest_preprocessing_log.json",
+      "excluded_subjects": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_7/fnirs/bikom_rest_excluded_subjects.csv",
       "device": "bikom",
       "task": "rest",
       "subjects_found": 1017,
@@ -60,10 +60,10 @@
       "raw_channel_merge": "forbidden"
     },
     "bikom_vft": {
-      "signal_features": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/bikom_vft_signal_features.csv",
-      "qc_features": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/bikom_vft_qc_features.csv",
-      "preprocessing_log": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/bikom_vft_preprocessing_log.json",
-      "excluded_subjects": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/bikom_vft_excluded_subjects.csv",
+      "signal_features": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_7/fnirs/bikom_vft_signal_features.csv",
+      "qc_features": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_7/fnirs/bikom_vft_qc_features.csv",
+      "preprocessing_log": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_7/fnirs/bikom_vft_preprocessing_log.json",
+      "excluded_subjects": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_7/fnirs/bikom_vft_excluded_subjects.csv",
       "device": "bikom",
       "task": "vft",
       "subjects_found": 1022,
@@ -74,10 +74,10 @@
       "raw_channel_merge": "forbidden"
     },
     "bikom_1back": {
-      "signal_features": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/bikom_1back_signal_features.csv",
-      "qc_features": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/bikom_1back_qc_features.csv",
-      "preprocessing_log": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/bikom_1back_preprocessing_log.json",
-      "excluded_subjects": "/data4/qiangminc/code/chongqing/artifacts/goal2_7/fnirs/bikom_1back_excluded_subjects.csv",
+      "signal_features": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_7/fnirs/bikom_1back_signal_features.csv",
+      "qc_features": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_7/fnirs/bikom_1back_qc_features.csv",
+      "preprocessing_log": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_7/fnirs/bikom_1back_preprocessing_log.json",
+      "excluded_subjects": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_7/fnirs/bikom_1back_excluded_subjects.csv",
       "device": "bikom",
       "task": "1back",
       "subjects_found": 995,

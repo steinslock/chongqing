@@ -1,4 +1,4 @@
-# Exact pip freeze from /data4/qiangminc/code/.venvs/chongqing_v1 on 2026-08-27.
+# Exact pip freeze from /data/home/cqm/miniconda3/envs/chongqing_v1 on 2026-08-27.
 absl-py==2.5.0
 certifi==2026.6.17
 charset-normalizer==3.4.7

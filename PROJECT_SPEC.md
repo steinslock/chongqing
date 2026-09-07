@@ -20,11 +20,11 @@ blocked by semantics, and Face remains shortcut-dominated.
 
 Read-only raw dataset:
 
-`/data4/qiangminc/datasets_qiangmin/chongqing`
+`/data/home/cqm/Project/Dataset/Chongqing`
 
 Read-only existing report bundle:
 
-`/data4/qiangminc/code/chongqing/inputs/derived_reports/chongqing_binary_diagnosis_report`
+`/data/home/cqm/Project/Code/chongqing/inputs/derived_reports/chongqing_binary_diagnosis_report`
 
 Canonical subject manifest:
 

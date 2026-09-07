@@ -3,7 +3,7 @@
 ## Source-tree checks
 
 Run on 2026-08-27 with
-`CHONGQING_RAW_DATA_DIR=/data4/qiangminc/datasets_qiangmin/chongqing`:
+`CHONGQING_RAW_DATA_DIR=/data/home/cqm/Project/Dataset/Chongqing`:
 
 - Python AST parsing for `src/`, `scripts/`, `tests/`, and legacy v1 EEG
   scripts: passed.

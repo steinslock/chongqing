@@ -13,7 +13,7 @@ MANIFEST = PROJECT_ROOT / "inputs" / "derived_reports" / "chongqing_binary_diagn
 
 
 def _raw_data_root() -> Path:
-    value = os.environ.get(RAW_DATA_ENV, "/data4/qiangminc/datasets_qiangmin/chongqing")
+    value = os.environ.get(RAW_DATA_ENV, "/data/home/cqm/Project/Dataset/Chongqing")
     path = Path(value).expanduser()
     if not path.is_absolute():
         raise ValueError(f"{RAW_DATA_ENV} must be an absolute path: {value}")

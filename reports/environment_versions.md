@@ -4,7 +4,7 @@ Generated UTC: `2026-07-07T09:55:09.739053+00:00`
 
 ## Python
 
-- Executable: `/home/qiangminc/codes/data4_qiangminc/code/.venvs/chongqing_v1/bin/python`
+- Executable: `/data/home/cqm/miniconda3/envs/chongqing_v1/bin/python`
 - Version: `3.11.5 (main, Sep 11 2023, 13:54:46) [GCC 11.2.0]`
 - Platform: `Linux-5.4.0-169-generic-x86_64-with-glibc2.31`
 

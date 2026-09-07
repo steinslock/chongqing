@@ -1,7 +1,7 @@
 {
-  "dataset_root": "/home/qiangminc/codes/data4_qiangminc/datasets_qiangmin/chongqing",
-  "output_dir": "/home/qiangminc/codes/data4_qiangminc/outputs/chongqing_binary_diagnosis_report",
-  "clinical_file": "/home/qiangminc/codes/data4_qiangminc/datasets_qiangmin/chongqing/临床信息-重医6.3.xlsx",
+  "dataset_root": "/data/home/cqm/Project/Dataset/Chongqing",
+  "output_dir": "/data/home/cqm/Project/Code/chongqing/reports/chongqing_binary_diagnosis_report",
+  "clinical_file": "/data/home/cqm/Project/Dataset/Chongqing/临床信息-重医6.3.xlsx",
   "clinical_sheet": "中小学复核问卷",
   "clinical_rows": 4610,
   "clinical_columns": 433,

@@ -1,6 +1,6 @@
 # EEG Rest Feature Extraction QA
 
-- Index CSV: `/home/qiangminc/codes/data4_qiangminc/code/chongqing/experiments/v1/eeg/artifacts/index/eeg_rest_file_index.csv`
+- Index CSV: `/data/home/cqm/Project/Code/chongqing/experiments/v1/eeg/artifacts/index/eeg_rest_file_index.csv`
 - Subjects attempted: 1334
 - Feature rows written: 1279
 - Feature status counts: `{"ok": 1279, "fail": 55}`

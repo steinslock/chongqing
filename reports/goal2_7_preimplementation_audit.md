@@ -2,9 +2,9 @@
 
 Date: 2026-07-09
 
-Project root: `/home/qiangminc/codes/data4_qiangminc/code/chongqing`
+Project root: `/data/home/cqm/Project/Code/chongqing`
 
-Raw data root: `/home/qiangminc/codes/data4_qiangminc/datasets_qiangmin/chongqing`
+Raw data root: `/data/home/cqm/Project/Dataset/Chongqing`
 
 This audit was written before Goal 2.7 code changes. It records the current Goal 2.6 implementation issues, the affected outputs that must be rerun, which features can be reused, which features must be regenerated, and where task-event semantics are supported or still missing.
 

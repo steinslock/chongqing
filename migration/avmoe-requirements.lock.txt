@@ -1,4 +1,4 @@
-# Exact pip freeze from /home/qiangminc/miniconda3/envs/avmoe on 2026-08-27.
+# Exact pip freeze from /data/home/cqm/miniconda3/envs/avmoe on 2026-08-27.
 absl-py==2.3.1
 annotated-types==0.7.0
 asttokens==3.0.1
