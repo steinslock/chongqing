@@ -2,14 +2,16 @@
 
 ## Current Stage
 
-Goal 2.8 is the current model matrix. Goal 2.7's modality conclusions are
-superseded: the EEG and fNIRS blockers were pipeline artifacts, not properties of
-the data, and Face was evaluated on unsegmented session video. See
-`reports/goal2_7_superseded_notice.md`.
+Goal 2.9 is the current model matrix. Goal 2.8's measurement is complete and its
+results are recorded in `reports/goal2_8_final_report.md`; Goal 2.7's modality
+conclusions are superseded, see `reports/goal2_7_superseded_notice.md`.
 
-Goal 2.8's measurement is complete and its results are recorded in
-`reports/goal2_8_final_report.md`. No go/no-go decision has been issued. Do not
-start Goal 3, Goal 4, Goal 5, or multimodal fusion until one is.
+Goal 2.9 keeps this protocol unchanged and adds one feature layer: the
+trial-level behavioural logs. Its measurement is complete and recorded in
+`reports/goal2_9_final_report.md`: 0 of 168 increments over demographics are
+credited. It is not Goal 3, Goal 4, Goal 5 or fusion, and it does not lift their
+gate. No go/no-go decision has been issued. Do not start Goal 3, Goal 4, Goal 5,
+or multimodal fusion until one is.
 
 An increment is only credited over demographics. Wins against background or QC
 are shortcut controls and are reported separately.
@@ -112,6 +114,30 @@ must follow them.
   and log-intensity summaries must still be named as intensity.
 - Bikom files are read in full; a fixed 2000-row cap is forbidden.
 
+## Behavioural Log Validity
+
+The paradigms wrote a trial-level log next to every fNIRS task that takes a
+keypress. Structure, column names, condition coding and defects come from the
+`behaviour:` section of each task in `configs/goal2_8/paradigm_spec.yaml`.
+
+- Usable units are Yiruid 1BACK, Oddball and Doors, and Bikom 1BACK and Doors,
+  plus one combined cohort per device.
+- Bikom Oddball is excluded: that build never collected the keypress, in the
+  vendor's own reference run as well as in 610 of 640 recorded subjects.
+- 1BACK match/non-match is derived from the stimulus sequence, not read from the
+  logged condition column, and the agreement between the two is recorded per
+  subject. Block-initial trials are excluded; lag-1 measures never cross a block
+  boundary.
+- Doors feedback code `1` is loss and `2` is win on both devices, from the
+  stimulus images. Feedback is predetermined and independent of the door chosen.
+- Yiruid Doors is sensitivity-only: its 1 s response window closes 0.5 s after
+  the doors appear, so only 38 percent of choices are recorded and RT is censored
+  at 1 s. Bikom Doors is the primary device for reward behaviour.
+- The 50 Bikom 1BACK subjects on the arrow-key build have no match trials at all
+  and are excluded rather than coerced.
+- The behaviour QC table carries log integrity only. Task performance stays on
+  the signal side so the `signal_qc vs qc` comparison remains a real control.
+
 ## Face Protocol
 
 - `面部2-任务` is segmented with `附件/网页数据.xlsx` before feature extraction.
@@ -133,6 +159,9 @@ must follow them.
   usage must be recorded.
 
 ## Required Feature Comparisons
+
+Behaviour uses the same required list as EEG and fNIRS, per device/task unit and
+per combined cohort.
 
 EEG and fNIRS include:
 
@@ -171,6 +200,22 @@ as a separate result.
 `INDEPENDENT_SIGNAL_SUPPORTED` requires a positive paired independent increment
 whose AUROC CI excludes zero, at least 4/5 positive folds, positive Group CV
 increment, and no dominant shortcut explanation.
+
+It further requires the comparator to be **above chance** in that cohort and
+protocol. An increment over a demographics baseline sitting at or below 0.5
+AUROC is a statement about the comparator, not about the signal. Record
+`comparator_auroc` and `comparator_above_chance` alongside every required
+increment.
+
+The paired bootstrap resamples subjects, not folds, so it captures subject
+sampling noise and is blind to the instability of the fit itself. In a small
+cohort that instability can push a weak baseline below chance and manufacture a
+difference the interval then certifies. Any credited increment from a cohort
+under about 500 subjects must therefore be verified by **label permutation** on
+that cohort before it is reported: shuffle the outcome, refit, and measure how
+often the observed gap appears under the null. Goal 2.9 found eight such rows in
+a 342-subject cohort; permutation reproduced their gap 12 to 18 percent of the
+time and all eight were withdrawn. See `scripts/verify_goal2_9_positive.py`.
 
 `SUPERSEDED` marks a conclusion whose premises were later shown to be wrong. A
 superseded conclusion is not evidence and must not be cited as a constraint on

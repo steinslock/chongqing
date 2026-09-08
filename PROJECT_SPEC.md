@@ -82,11 +82,37 @@ Goal 2.8 is event-semantics recovery and feature re-derivation. It includes:
 It excludes pilot-holdout evaluation, neural-network training, multimodal
 fusion, visual encoder fine-tuning, and post-result model expansion.
 
+## Goal 2.9 Scope
+
+Goal 2.9 is the behavioural feature layer. Every fNIRS task that takes a keypress
+wrote a trial-level log next to the recording, and no earlier goal used any of
+it. Goal 2.9 reads those logs and derives subject-level measures of working
+memory, attention, impulse control and reward reactivity:
+
+- accuracy, hit and false-alarm rates, d-prime and criterion;
+- reaction-time central tendency, dispersion, skew and drift across blocks;
+- post-error slowing and the match-minus-non-match contrast in 1BACK;
+- vigilance decrement across the ten Oddball blocks;
+- win-stay, lose-shift, switch rate and post-feedback slowing in Doors, the one
+  reward paradigm in the battery.
+
+It keeps the protocol, the splits, the controls and the decision rule unchanged,
+and adds a paradigm-conformance layer for the logs in the same specification the
+neural features already read. It excludes pilot-holdout evaluation, deep
+training, multimodal fusion, and any change to the Goal 2.8 gate.
+
 ## Engineering Structure
 
 | Directory | Purpose |
 |---|---|
 | `configs/goal2_8/` | Goal 2.8 protocol, model grids, and the paradigm specification |
+| `configs/goal2_9/` | Goal 2.9 protocol and model grids |
+| `src/chongqing_binary/goal2_9/` | Behavioural log readers, features, runner, and report code |
+| `scripts/*goal2_9*.py` | Behavioural extraction, experiment, and report entry points |
+| `tests/test_goal2_9_behaviour.py` | Behavioural log, feature, and matrix-config tests |
+| `artifacts/goal2_9/` | Behavioural feature and QC tables |
+| `results/goal2_9/` | OOF predictions, metrics, CIs, paired tests, and decisions |
+| `reports/goal2_9_*.md` | Behavioural results reports |
 | `src/chongqing_binary/paradigm/` | Paradigm specification loader and conformance checking |
 | `src/chongqing_binary/goal2_8/` | Goal 2.8 feature, runner, and report code |
 | `scripts/*goal2_8*.py` | Audits, extraction, experiment, and report entry points |
@@ -128,6 +154,20 @@ measurement is complete and recorded in `reports/goal2_8_final_report.md`: over
 wins against background, which are shortcut controls, not increments over
 demographics. No go/no-go decision has been issued.
 
+Goal 2.9 added the behavioural feature layer under the same protocol. Its
+measurement is complete and recorded in `reports/goal2_9_final_report.md`: over
+168 increments over demographics, 8 intervals excluded zero on the positive side
+and none is credited, because every one beat a demographics baseline that was
+itself below chance in a 342-subject cohort whose age range had been compressed
+by task intersection. 25 were significantly negative. The behavioural measures
+are demonstrably valid — post-error slowing replicates at 76.5 percent in two
+disjoint device cohorts, 1BACK d-prime is 2.6 to 2.9 and Oddball d-prime 4.5 —
+and they carry univariate label information up to AUROC 0.57, but they add
+nothing over age, sex and grade.
+
+The decision rule gained one clause as a result: a credited increment must beat
+a comparator that is itself above chance.
+
 ## Output and Publication Policy
 
 Raw data and the existing input report bundle must never be modified. The split
@@ -145,6 +185,9 @@ contact sheets.
 
 - Goal 2.8: event-semantics recovery and feature re-derivation. Measurement
   complete and recorded; the go/no-go decision is still open.
+- Goal 2.9: behavioural feature layer from the paradigm trial logs, under the
+  unchanged protocol. Measurement complete and recorded; 0 of 168 increments
+  over demographics credited. It does not lift the Goal 2.8 gate.
 - Goal 3: EEG deep/single-modality experiments only after an explicit Goal 2.8 go.
 - Goal 4: fNIRS deep/single-modality experiments only after a Goal 2.8 go.
 - Goal 5: Face deep/single-modality experiments only after a Goal 2.8 go.

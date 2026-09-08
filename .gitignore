@@ -33,5 +33,9 @@ results/goal2_7/all_oof_predictions_group_cv.csv
 results/goal2_8/all_oof_predictions_standard_cv.csv
 results/goal2_8/all_oof_predictions_group_cv.csv
 
+# Goal2.9 follows the same policy.
+results/goal2_9/all_oof_predictions_standard_cv.csv
+results/goal2_9/all_oof_predictions_group_cv.csv
+
 # Scratch space for landmark extraction; regenerated on demand.
 artifacts/goal2_8/face/_scratch/

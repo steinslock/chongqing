@@ -1,0 +1,50 @@
+{
+  "stage": "Goal 2.9",
+  "n_datasets": 294,
+  "n_prediction_rows": 622688,
+  "n_pooled_rows": 1708,
+  "units": [
+    "yiruid_1back",
+    "yiruid_oddball",
+    "yiruid_doors",
+    "bikom_1back",
+    "bikom_doors"
+  ],
+  "combined_units": {
+    "yiruid": [
+      "1back",
+      "oddball",
+      "doors"
+    ],
+    "bikom": [
+      "1back",
+      "doors"
+    ]
+  },
+  "cv_protocols": [
+    "standard_cv",
+    "group_cv"
+  ],
+  "outputs": {
+    "all_oof_predictions_standard_cv": "/data/home/cqm/Project/Code/chongqing/results/goal2_9/all_oof_predictions_standard_cv.csv",
+    "all_oof_predictions_group_cv": "/data/home/cqm/Project/Code/chongqing/results/goal2_9/all_oof_predictions_group_cv.csv",
+    "all_fold_metrics": "/data/home/cqm/Project/Code/chongqing/results/goal2_9/all_fold_metrics.csv",
+    "all_pooled_metrics": "/data/home/cqm/Project/Code/chongqing/results/goal2_9/all_pooled_metrics.csv",
+    "bootstrap_ci": "/data/home/cqm/Project/Code/chongqing/results/goal2_9/bootstrap_confidence_intervals.csv",
+    "paired_comparisons": "/data/home/cqm/Project/Code/chongqing/results/goal2_9/paired_increment_comparisons.csv",
+    "demographics_decomposition": "/data/home/cqm/Project/Code/chongqing/results/goal2_9/demographics_decomposition.csv",
+    "standard_vs_group_cv": "/data/home/cqm/Project/Code/chongqing/results/goal2_9/standard_vs_group_cv.csv",
+    "face_strict_control_summary": "/data/home/cqm/Project/Code/chongqing/results/goal2_9/face_strict_control_summary.csv",
+    "eeg_event_validity_summary": "/data/home/cqm/Project/Code/chongqing/results/goal2_9/eeg_event_validity_summary.csv",
+    "fnirs_event_validity_summary": "/data/home/cqm/Project/Code/chongqing/results/goal2_9/fnirs_event_validity_summary.csv",
+    "core3_intersection_summary": "/data/home/cqm/Project/Code/chongqing/results/goal2_9/core3_intersection_summary.csv",
+    "threshold_diagnostics": "/data/home/cqm/Project/Code/chongqing/results/goal2_9/threshold_diagnostics.csv",
+    "selected_hyperparameters": "/data/home/cqm/Project/Code/chongqing/results/goal2_9/selected_hyperparameters.csv",
+    "pca_diagnostics": "/data/home/cqm/Project/Code/chongqing/results/goal2_9/pca_diagnostics.csv",
+    "feature_counts": "/data/home/cqm/Project/Code/chongqing/results/goal2_9/feature_counts.csv",
+    "exclusion_summary": "/data/home/cqm/Project/Code/chongqing/results/goal2_9/exclusion_summary.csv",
+    "native_cohort_summary": "/data/home/cqm/Project/Code/chongqing/results/goal2_9/native_cohort_summary.csv",
+    "shortcut_baseline_summary": "/data/home/cqm/Project/Code/chongqing/results/goal2_9/shortcut_baseline_summary.csv",
+    "manifest": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_9/run_manifest.json"
+  }
+}

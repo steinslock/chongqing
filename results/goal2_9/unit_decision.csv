@@ -1,0 +1,9 @@
+unit,demographic_increment_rows,positive_over_demographics_standard_cv,positive_over_demographics_group_cv,uncredited_positive_comparator_at_chance,negative_over_demographics,positive_over_qc_controls,decision
+bikom_1back,24,0,0,0,9,0,NO_INDEPENDENT_SIGNAL
+bikom_combined,24,0,0,0,0,0,NO_INDEPENDENT_SIGNAL
+bikom_doors,24,0,0,0,0,0,NO_INDEPENDENT_SIGNAL
+yiruid_1back,24,0,0,0,3,0,NO_INDEPENDENT_SIGNAL
+yiruid_combined,24,0,0,8,0,0,NO_INDEPENDENT_SIGNAL
+yiruid_doors,24,0,0,0,7,0,NO_INDEPENDENT_SIGNAL
+yiruid_oddball,24,0,0,0,6,0,NO_INDEPENDENT_SIGNAL
+behaviour_overall,168,0,0,8,25,0,NO_INDEPENDENT_SIGNAL

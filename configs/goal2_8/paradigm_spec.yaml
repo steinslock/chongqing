@@ -41,6 +41,24 @@ antipatterns:
     reason: >-
       A hardcoded cache filter, not a property of the data. The raw event files
       contain code 11 as well.
+  protocol_pdf_doors_description:
+    value: '脑机接口.pdf 近红外-Doors任务: 3 区块 x 20 试次, 赢 +50 元 / 亏 -25 元, 点击左门或右门'
+    must_ignore: true
+    reason: >-
+      The PDF describes an earlier Doors design that was not the one run. Both
+      executed builds use 6 blocks of 10 trials, a keyboard 1/2 choice, and
+      feedback images reading "+2" and "-1". Where the PDF and the recorded data
+      disagree the recorded data is preferred, as the protocol requires.
+    correction: 'task_blocks 6, trials_per_block 10, feedback_amounts +2 / -1'
+  doors_feedback_code_1_is_not_win:
+    value: 'condition_map {1: win, 2: loss}'
+    location: 'an earlier revision of this specification'
+    must_ignore: true
+    reason: >-
+      The feedback codes are the other way round. stim/1.png is a red downward
+      arrow reading "-1" and stim/2.png is a green upward arrow reading "+2", on
+      both devices. Corrected to feedback_code_map {1: loss, 2: win} on
+      2026-09-08. No Goal 2.8 code read the old mapping.
 
 structural_facts:
   fnirs_device_cohorts_are_disjoint:
@@ -76,6 +94,23 @@ known_gaps:
       The EEG-side condition files carrying the `mark` column and the per-subject
       PsychoPy logs are not in the dataset. Match/non-match cannot be recovered
       for EEG 1BACK and must not be fabricated. The fNIRS side does have logs.
+  bikom_oddball_behaviour:
+    recoverable: false
+    reason: >-
+      The Bikom Oddball E-Prime build never collects the keypress. Slide3.RESP is
+      empty for 549 of 640 subjects and the target hit rate is 0.0 for 610 of
+      them, and the vendor's own reference run logs 0 responses over 50 trials.
+      No behavioural feature is derived for this unit; the fNIRS signal for the
+      same task is unaffected.
+  yiruid_doors_choice_censored:
+    recoverable: partial
+    reason: >-
+      The Yiruid Doors response window runs 0.0 to 1.0 s while the door image is
+      on screen from 0.5 to 4.5 s, so only choices made within 0.5 s of the doors
+      appearing are recorded. The observed response rate is 0.381 with RT
+      censored at 0.9785 s. Choice-based measures on this device are a fastest-
+      responder subsample and are sensitivity-only. Bikom Doors records the same
+      task with a 4 s window at a 0.96 response rate.
   bikom_vft_timing:
     recoverable: partial
     reason: >-
@@ -317,11 +352,43 @@ fnirs:
         task_blocks: 2
         block_duration_sec: 30
         recovery_sec: 30
-        behaviour_dir: 近红外/依瑞德近红外/4.1_back_1824/1back_beh
-        behaviour_glob: '*_stim_loop.csv'
-        condition_column: correct_resp
-        condition_map: {1: non_match, 2: match, '': block_initial}
         source: 'nback_animal_marker_lastrun.py + per-subject marker CSV timings'
+        behaviour:
+          log_format: psychopy_trial_csv
+          dir: 近红外/依瑞德近红外/4.1_back_1824/1back_beh
+          subject_dir_glob: 'L*_B_beh'
+          trial_file_rule: >-
+            any *.csv in the subject directory that does not end in _stim_loop.csv,
+            _task_loop.csv, _all_loop.csv or _rep.csv. Two naming conventions
+            coexist, `<L_id>_B_beh_marker_<date>.csv` and `<L_id>_B_beh_<time>.csv`,
+            so a glob on the `_marker_` form alone drops subjects.
+          trial_row_column: task_image
+          block_column: rep.thisN
+          trial_index_column: stim_loop.thisN
+          onset_column: stim_plot.started
+          condition_column: correct_resp
+          condition_map: {1: non_match, 2: match, '': block_initial}
+          response_column: task_resp.keys
+          accuracy_column: task_resp.corr
+          rt_column: task_resp.rt
+          response_window_sec: 2.0
+          response_window_covers_trial: true
+          trials_per_block: 15
+          block_initial_trial_excluded: true
+          expected_trials: 30
+          condition_verification: >-
+            correct_resp is 2 exactly when task_image repeats the previous
+            stimulus within the block and 1 otherwise, so it is a genuine
+            match/non-match label rather than a positional one. This is the
+            contrast that EEG 1BACK cannot supply.
+          observed: >-
+            1821 of 1825 subject directories carry a trial file; 1782 have the
+            full 30 trials over 2 blocks. Median response rate 0.933, median RT
+            0.631 s, maximum RT 1.967 s, inside the 2 s window.
+          source: >-
+            nback_animal_marker_lastrun.py task_resp component (0-2 s window,
+            correct_resp from condition<N>.xlsx); counts measured over all 1825
+            subject directories on 2026-09-08.
       oddball:
         dir: 近红外/依瑞德近红外/2.Oddball_702
         duration_sec: 633
@@ -331,7 +398,42 @@ fnirs:
         baseline_sec: 30
         task_blocks: 10
         block_duration_sec: 30
-        behaviour_dir: 近红外/依瑞德近红外/2.Oddball_702/oldball_beh
+        behaviour:
+          log_format: psychopy_trial_csv
+          dir: 近红外/依瑞德近红外/2.Oddball_702/oldball_beh
+          subject_dir_glob: 'L*_O_beh'
+          trial_file_rule: >-
+            any *.csv in the subject directory that does not end in _task_loop.csv
+            or _all_loop.csv. Two naming conventions coexist,
+            `<L_id>_O_beh_oddball_<date>.csv` and `<L_id>_O_beh_<time>.csv`; only
+            92 of 701 subjects use the first, so a glob on `_oddball_` drops most
+            of the cohort and instead matches the `_task_loop.csv` sibling.
+          trial_row_column: pick_audio
+          block_column: all_loop.thisN
+          trial_index_column: task_loop.thisN
+          onset_column: task.started
+          stimulus_column: pick_audio
+          stimulus_map:
+            stim/frequency_500hz.wav: standard
+            stim/frequency_1000hz.wav: target
+          condition_column: correct_resp
+          condition_map: {1: target_requires_keypress, '': standard_no_response}
+          response_column: task_resp.keys
+          accuracy_column: task_resp.corr
+          rt_column: task_resp.rt
+          response_window_sec: 1.0
+          response_window_covers_trial: true
+          trials_per_block: 30
+          targets_per_block: 5
+          expected_trials: 300
+          observed: >-
+            701 of 701 subject directories carry a trial file; 683 have the full
+            300 trials over 10 blocks. Median response rate 0.1667, exactly the
+            50/300 target proportion, and median RT 0.353 s.
+          source: >-
+            oddball_device_lastrun.py task_resp component (0-1 s window equal to
+            the 1 s SOA); counts measured over all 701 subject directories on
+            2026-09-08.
       doors:
         dir: 近红外/依瑞德近红外/5.Doors_1065
         duration_sec: 570
@@ -343,10 +445,57 @@ fnirs:
         block_duration_sec: 60
         trials_per_block: 10
         trial_duration_sec: 6
-        behaviour_dir: 近红外/依瑞德近红外/5.Doors_1065/door_beh
-        condition_map: {1: win, 2: loss}
-        feedback_amounts: {win: '+50 元', loss: '-25 元'}
-        source: 'door_marker_lastrun.py task_block.xlsx feedback 1/2; 脑机接口.pdf Doors 说明'
+        feedback_code_map: {1: loss, 2: win}
+        feedback_amounts: {win: '+2', loss: '-1'}
+        feedback_is_predetermined: true
+        feedback_source: >-
+          stim/1.png is a red downward arrow reading "-1" and stim/2.png is a
+          green upward arrow reading "+2", read from
+          伊瑞德近红外范式-执行版.zip door/door_marker/stim/. The identical pair
+          appears as 1.jpg / 2.jpg in 附件/必可明范式_eprime/door_/, so both
+          devices use the same coding. The feedback sequence comes from
+          task_block.xlsx and does not depend on which door the subject picks.
+        source: 'door_marker_lastrun.py task_block.xlsx feedback 1/2; stimulus images for the win/loss coding'
+        behaviour:
+          log_format: psychopy_trial_csv
+          dir: 近红外/依瑞德近红外/5.Doors_1065/door_beh
+          subject_dir_glob: 'L*_D_beh'
+          trial_file_rule: >-
+            any *.csv in the subject directory that does not end in _task_loop.csv
+            or _all_loop.csv.
+          trial_row_column: feedback
+          block_column: all_loop.thisN
+          trial_index_column: task_loop.thisN
+          onset_column: task.started
+          feedback_column: feedback
+          feedback_map: {1: loss, 2: win}
+          response_column: task_resp.keys
+          rt_column: task_resp.rt
+          response_window_sec: 1.0
+          response_window_covers_trial: false
+          door_visible_from_sec: 0.5
+          door_visible_to_sec: 4.5
+          trials_per_block: 10
+          expected_trials: 60
+          timing_confidence: low
+          sensitivity_only: true
+          defect: response_window_misaligned_with_stimulus
+          defect_detail: >-
+            The task_resp component runs from 0.0 s to 1.0 s while the door image
+            is only on screen from 0.5 s to 4.5 s, so a choice made more than
+            0.5 s after the doors appear is never recorded. Observed response
+            rate is 0.381 with a maximum RT of 0.9785 s, censored exactly at the
+            1 s boundary. Yiruid Doors choices are therefore a censored sample of
+            the fastest responses, not the subject's full choice record, and the
+            device carries them as sensitivity-only. The Bikom Doors log has the
+            same task with a 4 s window and a 0.96 response rate.
+          observed: >-
+            1089 of 1089 subject directories carry a trial file; 1058 have the
+            full 60 trials over 6 blocks.
+          source: >-
+            door_marker_lastrun.py component timings (text 0-0.5 s, door_image
+            0.5-4.5 s, text_2 4.5-5.0 s, feedback 5.0-6.0 s, task_resp 0-1.0 s);
+            counts measured over all 1089 subject directories on 2026-09-08.
 
   bikom:
     representation: vendor_hbo_hbr_hbt_csv
@@ -390,17 +539,136 @@ fnirs:
         duration_sec: 155
         marker_sequence: [ST, A0, A1, B0, B1, ED]
         task_blocks: 2
-        behaviour_glob: '*_Block_Trial_*.txt'
+        behaviour:
+          log_format: eprime_block_trial_txt
+          dir: 近红外/必可明近红外/4.1-Back_1272
+          subject_dir_glob: 'L*_B'
+          trial_file_glob: '*_Block_Trial_*.txt'
+          encoding: utf-16
+          trial_frame_rule: >-
+            a LogFrame carrying a `<object>.RT` key. The response object is named
+            per subject (nback, nback1, nback3, nback5, nback8, ...), so the
+            prefix must be discovered from the frame rather than hardcoded.
+          block_from: response_object_prefix
+          stimulus_column: pic
+          condition_column: YN
+          condition_map: {1: non_match, 2: match}
+          response_suffix: .RESP
+          accuracy_suffix: .ACC
+          rt_suffix: .RT
+          rt_units: milliseconds
+          response_window_sec: 1.5
+          trials_per_block: 15
+          expected_trials: 30
+          match_trials_per_subject: 8
+          block_initial_trial_excluded: true
+          block_initial_defect: >-
+            The block-initial trial still carries a YN value, 1 in 254 and 2 in
+            46 of 300 sampled blocks, even though no preceding stimulus exists.
+            E-Prime scores that trial against it, so its logged ACC is
+            meaningless. Exclude every block-initial trial and derive the
+            condition from the stimulus sequence.
+          condition_verification: >-
+            Over 200 sampled subjects, YN equals the stimulus-adjacency label on
+            every non-block-initial trial with zero mismatches, so YN 1 is
+            non-match and 2 is match, the same coding as Yiruid.
+          excluded_variant:
+            name: arrow_key_variant
+            detect: 'YN begins with "{"'
+            subjects: 50
+            reason: >-
+              50 of 1271 subjects ran an earlier build whose condition list
+              contains no repeated stimulus at all: YN and CRESP are
+              {LEFTARROW} on all 30 trials and the adjacency label is non-match
+              everywhere. There is no match/non-match contrast to compute, so
+              these subjects are excluded rather than coerced.
+          observed: >-
+            1271 of 1272 subject directories yield 30 trials; 1221 use the
+            numeric variant. Median response rate 0.933, mean accuracy 0.82,
+            median RT 647 ms, maximum 1499 ms.
+          source: >-
+            附件/必可明范式_eprime/1back/ plus the recorded Block_Trial logs;
+            counts measured over all 1272 subject directories on 2026-09-08.
       oddball:
         dir: 近红外/必可明近红外/2.Oddball_644
         duration_sec: 630
         marker_pairs: 10
         task_blocks: 10
+        behaviour:
+          log_format: eprime_block_trial_txt
+          dir: 近红外/必可明近红外/2.Oddball_644
+          trial_file_glob: '*_Block_Trial_*.txt'
+          usable: false
+          unusable_reason: response_never_collected
+          unusable_detail: >-
+            Slide3 logs RT, RESP, ACC and CRESP on all 250 trials, but
+            Slide3.RESP is empty for 549 of 640 subjects and the target hit rate
+            is exactly 0.0 for 610 of them; Slide3.CRESP is empty even on target
+            trials, so E-Prime scores every target as an error and every standard
+            as a correct rejection. The same pattern appears in the vendor's own
+            reference run 附件/必可明范式_eprime/oddball/oddball-1-1.txt, which
+            has 0 responses over 50 trials. The response was never collected by
+            this build; it is not a property of the subjects. No behavioural
+            feature is derived for this unit.
+          structure_for_the_record:
+            trials: 250
+            trials_per_block: 50
+            task_blocks: 5
+            targets_per_block: 10
+            soa_sec: 0.5
+            note: >-
+              This differs from the Yiruid Oddball (300 trials, 10 blocks of 30,
+              1 s SOA). The two devices ran different Oddball builds.
+          source: >-
+            recorded Block_Trial logs over all 644 subject directories plus the
+            vendor reference run, measured 2026-09-08.
       doors:
         dir: 近红外/必可明近红外/5.Doors_649
         duration_sec: 570
         marker_pairs: 6
         task_blocks: 6
+        feedback_code_map: {1: loss, 2: win}
+        feedback_amounts: {win: '+2', loss: '-1'}
+        feedback_is_predetermined: true
+        behaviour:
+          log_format: eprime_block_trial_txt
+          dir: 近红外/必可明近红外/5.Doors_649
+          subject_dir_glob: 'L*_D'
+          trial_file_glob: '*_Block_Trial_*.txt'
+          encoding: utf-16
+          trial_frame_rule: 'a LogFrame whose Procedure is `blocke`'
+          trial_procedure: blocke
+          block_column: List2.Cycle
+          trial_index_column: List2.Sample
+          onset_column: ImageDisplay9.OnsetTime
+          onset_units: milliseconds
+          feedback_column: pic3
+          feedback_map: {1.jpg: loss, 2.jpg: win}
+          response_suffix: .RESP
+          rt_suffix: .RT
+          rt_units: milliseconds
+          response_window_sec: 4.0
+          trials_per_block: 10
+          expected_trials: 60
+          wins_per_subject: 30
+          losses_per_subject: 30
+          feedback_independent_of_choice: true
+          observed: >-
+            644 of 649 subject directories carry a log and every one of them has
+            exactly 60 trials, 30 wins and 30 losses, over 6 blocks of 10 at a
+            6 s inter-trial interval. Median response rate 1.000, mean 0.962,
+            median RT 779 ms, maximum 3999 ms inside the 4 s window. Choice is
+            biased towards door 2 (20500 of 37189 recorded choices).
+          note: >-
+            This is the intact Doors choice record. The Yiruid Doors log truncates
+            its response window at 1 s and keeps only 38 percent of choices, so
+            Bikom is the primary device for reward behaviour and Yiruid is
+            sensitivity-only. That is the reverse of the fNIRS signal, where
+            Yiruid is primary.
+          source: >-
+            附件/必可明范式_eprime/door_/ stimulus images plus the recorded
+            Block_Trial logs; counts measured over all 649 subject directories on
+            2026-09-08.
 
 face:
   self_intro:

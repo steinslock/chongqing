@@ -1035,3 +1035,141 @@ committed state.
 Reports: `reports/goal2_8_final_report.md`, `reports/goal2_8_results.md`.
 Machine-readable: `results/goal2_8/`, including `required_increments.csv` and
 `modality_decision.csv`.
+
+## 2026-09-08 - Goal 2.9: Behavioural Features from the Paradigm Trial Logs
+
+Status: measurement complete, results recorded. No go/no-go decision is issued
+here; that remains open.
+
+Every fNIRS task that takes a keypress wrote a trial-level log next to the
+recording, and no earlier goal read any of it. Goal 2.9 reads them under the
+unchanged Goal 2.7 protocol: same fixed splits, same inner CV, same model
+families and grids, same 1000-resample bootstrap and paired tests, same
+pilot-holdout exclusion. Only the features are new.
+
+Coverage and usability, measured over every subject directory:
+
+| device | task | dirs | trials | response rate | usable |
+|---|---|---|---|---|---|
+| yiruid | 1back | 1821/1825 | 30 | 0.93 median | yes |
+| yiruid | oddball | 701/701 | 300 | 0.167, the target proportion | yes |
+| yiruid | doors | 1089/1089 | 60 | 0.38 | sensitivity only |
+| bikom | 1back | 1271/1272 | 30 | 0.93 median | yes, minus 50 |
+| bikom | oddball | 644/644 | 250 | 0.01 | no |
+| bikom | doors | 644/649 | 60 | 1.00 median | yes |
+
+Feature tables: yiruid 1back 1412 subjects / 38 features, oddball 524 / 25,
+doors 843 / 28; bikom 1back 955 / 38, doors 515 / 28; plus one combined cohort
+per device, yiruid 342 / 91 and bikom 513 / 66.
+
+Four defects found in the logs, all recorded in the specification:
+
+- Bikom Oddball never collected the keypress. `Slide3.RESP` is empty for 549 of
+  640 subjects, the target hit rate is exactly 0.0 for 610, and `Slide3.CRESP`
+  is empty even on target trials. The vendor's own reference run logs 0
+  responses over 50 trials. The unit is excluded, not coerced.
+- Yiruid Doors truncates its response window: `task_resp` runs 0 to 1.0 s while
+  the doors are on screen 0.5 to 4.5 s. Response rate 0.383 against 0.983 on
+  Bikom, median RT identical at 0.786 vs 0.765 s, RT skew reversed from -0.65 to
+  +1.31, 6 usable choice pairs against 24. Bikom is therefore the primary device
+  for reward behaviour, the reverse of the fNIRS signal.
+- 50 Bikom 1BACK subjects ran a build whose condition list contains no repeated
+  stimulus at all, so there is no match/non-match contrast to compute.
+- The Bikom block-initial trial carries a meaningless condition (`YN` 1 in 254
+  and 2 in 46 of 300 sampled blocks) that E-Prime scores accuracy against. The
+  1BACK condition is derived from the stimulus sequence instead; it agrees with
+  the logged column on every non-block-initial trial on both devices, and the
+  per-subject agreement median is 1.000.
+
+Two corrections to `configs/goal2_8/paradigm_spec.yaml`:
+
+- Doors feedback code `1` is **loss** and `2` is **win**, from the stimulus
+  images (`stim/1.png` is a red "-1", `stim/2.png` a green "+2", identical on
+  both devices). The earlier revision had `{1: win, 2: loss}` with `+50/-25`
+  amounts. No code had read it.
+- `脑机接口.pdf` describes a Doors design that was not run (3 blocks of 20,
+  mouse clicks, +50/-25). Recorded as an antipattern; the executed design is 6
+  blocks of 10 with a keyboard 1/2 choice and +2/-1.
+
+Label-free validity replicates across the two disjoint device cohorts and two
+independent log readers. Yiruid vs Bikom 1BACK: accuracy 0.929 / 0.964, d-prime
+2.57 / 2.95, criterion +0.25 / +0.19, RT 0.657 / 0.683 s, post-error slowing +98
+/ +121 ms and positive in 76.5% / 76.4% of subjects, RT faster in block 2 in
+76.5% / 76.5%. Yiruid Oddball: d-prime 4.53, hit rate 0.99, false-alarm rate
+0.004, hit RT 370 ms.
+
+Matrix: 294 datasets across both protocols, 1708 pooled metric rows, 622,688 OOF
+predictions, 294 paired comparisons.
+
+Result: over the 168 increments **over demographics**, 8 intervals excluded zero
+on the positive side and **0 are credited**; 25 were significantly negative.
+Behaviour reaches 0.51 to 0.59 AUROC, above chance everywhere but below
+demographics in every cohort except one.
+
+A positive result was found and withdrawn. The combined Yiruid cohort returned
+`INDEPENDENT_SIGNAL_SUPPORTED` on 6 Standard-CV and 2 Group-CV increments with
+point estimates +0.079 to +0.089 and all 24 of its rows positive in sign. Every
+one of the eight beat a demographics baseline that was itself **below chance**:
+0.472-0.520 under Standard CV and 0.429-0.467 under Group CV, against about 0.67
+in the full cohort. That cohort is the intersection of three Yiruid tasks, drawn
+from 10 sites instead of 51, with age compressed to 12-20 (sd 1.66) against 9-20
+(sd 2.38) and univariate age AUROC down from 0.620 to 0.549. Behaviour's own
+AUROC there is 0.585 / 0.534, below the site proxy's 0.669 in the same cohort.
+The comparator collapsed; the signal did not rise.
+
+The withdrawal was verified with three independent checks, all reproducible via
+`python scripts/verify_goal2_9_positive.py` and recorded in
+`results/goal2_9/positive_result_verification.json`:
+
+- **Transfer.** The same 342 subjects scored by models trained on the larger
+  per-task cohorts show demographics 0.507-0.550 and behaviour 0.462-0.545, with
+  no gap. Only models trained inside the 342 produce one (0.484 vs 0.573). The
+  effect belongs to the fitting, not to the subjects; the subgroup is not
+  inherently demographics-proof.
+- **Pooling.** The zero-information model scores exactly 0.500 in every fold of
+  this cohort but 0.404 pooled under Standard CV and 0.347 under Group CV, whose
+  folds hold 74/169/37/55/7 subjects at prevalences 0.19 to 0.56. Pooling across
+  folds that unbalanced pushes uninformative predictors below chance
+  mechanically.
+- **Permutation.** Shuffling the diagnoses on the exact cohort, features and
+  folds, 100 times: demographics falls below chance in 58 to 67 percent of runs,
+  the behaviour-minus-demographics gap averages +0.014 to +0.019 with sd 0.067,
+  and it reaches the observed +0.079 in **17 to 18 percent** of runs. The
+  reported increment sits about 1.2 sd above the null mean.
+
+Behaviour's own bootstrap AUROC interval in this cohort includes 0.5 in 5 of 6
+model-by-protocol combinations.
+
+Why the paired test missed it: the bootstrap resamples subjects, not folds, so
+it measures subject sampling noise and is blind to the instability of the fit
+itself. In a cohort this small the demographics fit is unstable enough to land
+below chance, and a below-chance comparator manufactures a positive difference
+that the interval then certifies. Fold-direction consistency does not help,
+because the same unstable fit is unstable in the same direction in every fold —
+all eight rows passed the 4/5-fold requirement.
+
+The decision rule now requires a credited increment to beat a comparator that is
+itself above chance. `results/goal2_9/required_increments.csv` carries
+`comparator_auroc`, `comparator_above_chance` and
+`significant_positive_credited`, and a test constructs a comparator-at-chance
+win and asserts it is not credited. `EXPERIMENT_PROTOCOL.md` additionally
+requires label-permutation verification for any credited increment from a cohort
+under about 500 subjects. This is the second decision-rule hole this project has
+closed after finding it in a live result; Goal 2.8's first rule credited Face
+for beating a background control.
+
+Control rows behave as they should: `signal_qc vs qc` positive in 11 of 42 rows
+and `signal_demographics vs signal` in 19 of 42. Adding demographics to
+behaviour helps; adding behaviour to demographics does not.
+
+Behaviour correlates with age in the expected direction, Spearman rho -0.22 for
+RT dispersion, -0.18 for RT means and +0.18 for Oddball d-prime, which is the
+developmental effect age already captures.
+
+Verification: `Ran 182 tests ... OK`. All feature tables and OOF predictions are
+CV-only with zero pilot-holdout rows. Split files are byte-identical to their
+committed state.
+
+Reports: `reports/goal2_9_final_report.md`, `reports/goal2_9_results.md`.
+Machine-readable: `results/goal2_9/`, including `required_increments.csv` and
+`unit_decision.csv`.

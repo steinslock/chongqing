@@ -1,0 +1,18 @@
+{
+  "device": "bikom",
+  "task": "1back",
+  "feature_version": "goal2_9_behaviour_trial_level_v1",
+  "status": "extracted",
+  "timing_confidence": "high",
+  "sensitivity_only": false,
+  "subjects_attempted": 995,
+  "subjects_signal": 955,
+  "subjects_qc": 995,
+  "signal_feature_columns": 38,
+  "block_reasons": {
+    "excluded_variant:arrow_key_variant": 39,
+    "no_trial_rows": 1
+  },
+  "signal_features": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_9/behaviour/bikom_1back_signal_features.csv",
+  "qc_features": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_9/behaviour/bikom_1back_qc_features.csv"
+}

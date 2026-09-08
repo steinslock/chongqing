@@ -1,0 +1,92 @@
+{
+  "pooled_rows": 1708,
+  "paired_rows": 294,
+  "required_rows": 168,
+  "demographic_increment_rows": 168,
+  "positive_required": 8,
+  "credited_required": 0,
+  "negative_required": 25,
+  "decision": [
+    {
+      "unit": "bikom_1back",
+      "demographic_increment_rows": 24,
+      "positive_over_demographics_standard_cv": 0,
+      "positive_over_demographics_group_cv": 0,
+      "uncredited_positive_comparator_at_chance": 0,
+      "negative_over_demographics": 9,
+      "positive_over_qc_controls": 0,
+      "decision": "NO_INDEPENDENT_SIGNAL"
+    },
+    {
+      "unit": "bikom_combined",
+      "demographic_increment_rows": 24,
+      "positive_over_demographics_standard_cv": 0,
+      "positive_over_demographics_group_cv": 0,
+      "uncredited_positive_comparator_at_chance": 0,
+      "negative_over_demographics": 0,
+      "positive_over_qc_controls": 0,
+      "decision": "NO_INDEPENDENT_SIGNAL"
+    },
+    {
+      "unit": "bikom_doors",
+      "demographic_increment_rows": 24,
+      "positive_over_demographics_standard_cv": 0,
+      "positive_over_demographics_group_cv": 0,
+      "uncredited_positive_comparator_at_chance": 0,
+      "negative_over_demographics": 0,
+      "positive_over_qc_controls": 0,
+      "decision": "NO_INDEPENDENT_SIGNAL"
+    },
+    {
+      "unit": "yiruid_1back",
+      "demographic_increment_rows": 24,
+      "positive_over_demographics_standard_cv": 0,
+      "positive_over_demographics_group_cv": 0,
+      "uncredited_positive_comparator_at_chance": 0,
+      "negative_over_demographics": 3,
+      "positive_over_qc_controls": 0,
+      "decision": "NO_INDEPENDENT_SIGNAL"
+    },
+    {
+      "unit": "yiruid_combined",
+      "demographic_increment_rows": 24,
+      "positive_over_demographics_standard_cv": 0,
+      "positive_over_demographics_group_cv": 0,
+      "uncredited_positive_comparator_at_chance": 8,
+      "negative_over_demographics": 0,
+      "positive_over_qc_controls": 0,
+      "decision": "NO_INDEPENDENT_SIGNAL"
+    },
+    {
+      "unit": "yiruid_doors",
+      "demographic_increment_rows": 24,
+      "positive_over_demographics_standard_cv": 0,
+      "positive_over_demographics_group_cv": 0,
+      "uncredited_positive_comparator_at_chance": 0,
+      "negative_over_demographics": 7,
+      "positive_over_qc_controls": 0,
+      "decision": "NO_INDEPENDENT_SIGNAL"
+    },
+    {
+      "unit": "yiruid_oddball",
+      "demographic_increment_rows": 24,
+      "positive_over_demographics_standard_cv": 0,
+      "positive_over_demographics_group_cv": 0,
+      "uncredited_positive_comparator_at_chance": 0,
+      "negative_over_demographics": 6,
+      "positive_over_qc_controls": 0,
+      "decision": "NO_INDEPENDENT_SIGNAL"
+    },
+    {
+      "unit": "behaviour_overall",
+      "demographic_increment_rows": 168,
+      "positive_over_demographics_standard_cv": 0,
+      "positive_over_demographics_group_cv": 0,
+      "uncredited_positive_comparator_at_chance": 8,
+      "negative_over_demographics": 25,
+      "positive_over_qc_controls": 0,
+      "decision": "NO_INDEPENDENT_SIGNAL"
+    }
+  ],
+  "report": "/data/home/cqm/Project/Code/chongqing/reports/goal2_9_results.md"
+}

@@ -1,0 +1,13 @@
+extends: common.yaml
+
+# Trial structure, column names, condition coding and the known log defects live
+# in configs/goal2_8/paradigm_spec.yaml. Only processing choices belong here.
+behaviour:
+  feature_version: goal2_9_behaviour_trial_level_v1
+  outputs_dir: artifacts/goal2_9/behaviour
+  condition_source: derived_from_stimulus_sequence
+  condition_source_note: >-
+    The 1BACK match/non-match label is derived from the stimulus sequence rather
+    than the logged condition column, because the Bikom log writes an arbitrary
+    condition on the block-initial trial where no predecessor exists. Agreement
+    between the derived and logged labels is recorded per subject in QC.

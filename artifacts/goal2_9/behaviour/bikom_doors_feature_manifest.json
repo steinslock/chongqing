@@ -1,0 +1,17 @@
+{
+  "device": "bikom",
+  "task": "doors",
+  "feature_version": "goal2_9_behaviour_trial_level_v1",
+  "status": "extracted",
+  "timing_confidence": "high",
+  "sensitivity_only": false,
+  "subjects_attempted": 518,
+  "subjects_signal": 515,
+  "subjects_qc": 518,
+  "signal_feature_columns": 28,
+  "block_reasons": {
+    "no_trial_log": 3
+  },
+  "signal_features": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_9/behaviour/bikom_doors_signal_features.csv",
+  "qc_features": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_9/behaviour/bikom_doors_qc_features.csv"
+}

@@ -48,8 +48,9 @@ Do not extend, regenerate, or validate against them.
 
 ## Current Stage
 
-Goal 2.7 is complete but its modality conclusions are **superseded**. Goal 2.8
-is the active stage.
+Goal 2.7 is complete but its modality conclusions are **superseded**. Goal 2.8's
+measurement is complete and its go/no-go decision is still open. Goal 2.9, the
+behavioural feature layer, is the active stage.
 
 Goal 2.7 concluded that no modality carried independent signal. That conclusion
 rested on three incorrect readings of the raw data, each verified against the
@@ -101,6 +102,71 @@ demographics.
 
 No go/no-go decision has been issued. Do not start Goal 3, Goal 4, Goal 5, deep
 training, or multimodal fusion until one is.
+
+## Goal 2.9
+
+Goal 2.9 adds the one feature layer no earlier goal used: the trial-level
+keypresses the paradigms recorded next to every fNIRS task. It changes nothing
+else. Same fixed splits, same inner CV, same model families and grids, same
+1000-resample bootstrap and paired tests, same pilot-holdout exclusion.
+
+Five units carry usable behaviour: Yiruid 1BACK, Oddball and Doors, and Bikom
+1BACK and Doors, plus one combined cohort per device. Bikom Oddball is excluded
+because that build never collected the keypress.
+
+Goal 2.9 is not Goal 3/4/5 and not fusion. It is a feature layer under the
+existing gate, and it does not lift that gate.
+
+Goal 2.9's measurement is complete and its results are recorded in
+`reports/goal2_9_final_report.md`. Over the 168 increments over demographics, 8
+intervals excluded zero on the positive side and **none is credited**, because
+every one of them beat a demographics baseline that was itself below chance; 25
+were significantly negative. No go/no-go decision has been issued.
+
+A credited increment now requires the comparator it beat to be **above chance**
+in that cohort and protocol. Beating a broken baseline is not an increment. See
+`chongqing_binary.goal2_9.report.credit_increments`; this rule applies to any
+future stage, not only Goal 2.9.
+
+The paired bootstrap resamples subjects, not folds, so it does not see how
+unstable the fit itself is. Any credited increment from a cohort under about 500
+subjects must be verified by label permutation on that cohort before it is
+reported. `python scripts/verify_goal2_9_positive.py` is the worked example: it
+runs a transfer check, a pooling check and a 100-permutation null on the cohort
+that produced Goal 2.9's positive result.
+
+## Behaviour Rules
+
+- Trial structure, column names, condition coding and the known log defects come
+  from the `behaviour:` section of each fNIRS task in
+  `configs/goal2_8/paradigm_spec.yaml`, through
+  `chongqing_binary.paradigm.spec.BehaviourTaskSpec`. Do not hardcode them.
+- The 1BACK match/non-match label is **derived from the stimulus sequence**, not
+  read from the logged condition column. Both devices write an authoritative
+  condition on every non-block-initial trial and they agree with the sequence
+  exactly, but Bikom writes an arbitrary condition on the block-initial trial
+  where no predecessor exists. Agreement is recorded per subject in QC.
+- Block-initial trials are excluded from every 1BACK contrast, and lag-1
+  measures never cross a block boundary.
+- Doors feedback code `1` is **loss** (`-1`, red down arrow) and `2` is **win**
+  (`+2`, green up arrow), on both devices. An earlier revision of the
+  specification had this reversed; no code had read it.
+- Doors feedback is predetermined by the condition file and does not depend on
+  the door chosen, so win-stay/lose-shift measures reactivity to feedback, not
+  learning.
+- Yiruid Doors is **sensitivity-only**: its response window runs 0 to 1.0 s while
+  the doors are on screen from 0.5 to 4.5 s, so only 38 percent of choices are
+  recorded and RT is censored at 1 s. Bikom Doors records the same task with a
+  4 s window at a 98 percent response rate and is the primary device for reward
+  behaviour. That is the reverse of the fNIRS signal, where Yiruid is primary.
+- Bikom 1BACK has 50 subjects on an earlier arrow-key build whose condition list
+  contains no repeated stimulus at all. They are excluded, not coerced.
+- The behaviour QC table records log integrity only: files found, trials found
+  and expected, block count, conformance, condition agreement. Task performance
+  such as response rate belongs to the signal side, otherwise the `signal_qc vs
+  qc` comparison tests nothing.
+- `脑机接口.pdf` describes an older Doors design (3 blocks of 20, +50/-25, mouse
+  clicks) that was not the one run. It is recorded as an antipattern.
 
 ## Paradigm-Conformance Rules
 
@@ -231,6 +297,13 @@ fNIRS:
 - Model matrix: `python scripts/run_goal2_8.py`
 - Reports: `python scripts/summarize_goal2_8.py`
 - Unit tests: `python -m unittest discover -s tests`
+
+## Goal 2.9 Entry Points
+
+- Behavioural features: `python scripts/extract_behaviour_goal2_9_features.py`
+- Model matrix: `python scripts/run_goal2_9.py --n-workers 24`
+- Reports: `python scripts/summarize_goal2_9.py`
+- Positive-result verification: `python scripts/verify_goal2_9_positive.py`
 
 ## Goal 2.7 Entry Points (historical)
 

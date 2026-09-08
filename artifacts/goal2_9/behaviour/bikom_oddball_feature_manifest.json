@@ -1,0 +1,8 @@
+{
+  "device": "bikom",
+  "task": "oddball",
+  "feature_version": "goal2_9_behaviour_trial_level_v1",
+  "status": "not_extracted",
+  "reason": "response_never_collected",
+  "detail": "Slide3 logs RT, RESP, ACC and CRESP on all 250 trials, but Slide3.RESP is empty for 549 of 640 subjects and the target hit rate is exactly 0.0 for 610 of them; Slide3.CRESP is empty even on target trials, so E-Prime scores every target as an error and every standard as a correct rejection. The same pattern appears in the vendor's own reference run 附件/必可明范式_eprime/oddball/oddball-1-1.txt, which has 0 responses over 50 trials. The response was never collected by this build; it is not a property of the subjects. No behavioural feature is derived for this unit."
+}

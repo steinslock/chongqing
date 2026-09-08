@@ -174,6 +174,70 @@ class FnirsTaskSpec:
 
 
 @dataclass(frozen=True)
+class BehaviourTaskSpec:
+    """The behavioural log of one fNIRS task on one device.
+
+    The paradigm scripts write a trial-level log alongside every task that takes
+    a keypress. Goal 2.8 used none of it. Structure, column names and the known
+    defects live in the specification so feature code does not hardcode them.
+    """
+
+    device: str
+    task: str
+    raw: dict[str, Any] = field(repr=False, default_factory=dict)
+
+    @property
+    def log_format(self) -> str:
+        return str(self.raw.get("log_format", ""))
+
+    @property
+    def raw_dir(self) -> str:
+        return str(self.raw.get("dir", ""))
+
+    @property
+    def usable(self) -> bool:
+        return bool(self.raw.get("usable", True))
+
+    @property
+    def unusable_reason(self) -> str:
+        return str(self.raw.get("unusable_reason", ""))
+
+    @property
+    def timing_confidence(self) -> str:
+        return str(self.raw.get("timing_confidence", "high"))
+
+    @property
+    def sensitivity_only(self) -> bool:
+        return bool(self.raw.get("sensitivity_only", False))
+
+    @property
+    def expected_trials(self) -> int | None:
+        value = self.raw.get("expected_trials")
+        return None if value is None else int(value)
+
+    @property
+    def trials_per_block(self) -> int | None:
+        value = self.raw.get("trials_per_block")
+        return None if value is None else int(value)
+
+    @property
+    def response_window_sec(self) -> float | None:
+        value = self.raw.get("response_window_sec")
+        return None if value is None else float(value)
+
+    @property
+    def block_initial_trial_excluded(self) -> bool:
+        return bool(self.raw.get("block_initial_trial_excluded", False))
+
+    def column(self, key: str, default: str = "") -> str:
+        return str(self.raw.get(key, default))
+
+    def mapping(self, key: str) -> dict[str, str]:
+        """A `{code: label}` map with string keys, as YAML may parse 1 as int."""
+        return {str(k): str(v) for k, v in (self.raw.get(key) or {}).items()}
+
+
+@dataclass(frozen=True)
 class ParadigmSpec:
     """The whole specification."""
 
@@ -234,6 +298,22 @@ class ParadigmSpec:
             raw=raw,
             device_raw=device_raw,
         )
+
+    # -- Behaviour ---------------------------------------------------------
+    def behaviour_units(self) -> list[tuple[str, str]]:
+        """Every (device, task) pair that declares a behavioural log."""
+        out: list[tuple[str, str]] = []
+        for device in self.fnirs_devices():
+            for task in self.fnirs_tasks(device):
+                if self.data["fnirs"][device]["tasks"][task].get("behaviour"):
+                    out.append((device, task))
+        return out
+
+    def behaviour(self, device: str, task: str) -> BehaviourTaskSpec:
+        raw = self.data["fnirs"][device]["tasks"][task].get("behaviour")
+        if raw is None:
+            raise KeyError(f"No behavioural log specified for {device}/{task}")
+        return BehaviourTaskSpec(device=device, task=task, raw=dict(raw))
 
     # -- Face --------------------------------------------------------------
     @property

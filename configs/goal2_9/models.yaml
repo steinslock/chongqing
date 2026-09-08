@@ -1,0 +1,78 @@
+# Reuses the Goal 2.7 model grids, demographics decomposition and bootstrap
+# settings unchanged, so Goal 2.9 is directly comparable with Goal 2.7 and
+# Goal 2.8. Only paths, outputs, units and run metadata are overridden.
+extends: ../goal2_7/models.yaml
+
+run:
+  stage: Goal 2.9
+  seed: 20260908
+  split_group: cv
+  label_column: primary_label_nonhealthy
+  n_jobs: 8
+  # HistGradientBoosting is OpenMP-backed and oversubscribes on a many-core
+  # host, so each fit is capped and throughput comes from concurrent datasets.
+  model_n_jobs: 4
+  dataset_workers: 24
+
+paths:
+  split_file: artifacts/splits/subject_splits_v1.csv
+  group_split_file: artifacts/splits/subject_splits_group_robustness_v1.csv
+  groups_file: artifacts/groups/subject_groups.csv
+  paradigm_spec: configs/goal2_8/paradigm_spec.yaml
+  behaviour_dir: artifacts/goal2_9/behaviour
+  artifacts_dir: artifacts/goal2_9
+  results_dir: results/goal2_9
+  reports_dir: reports
+
+# Identical to configs/goal2_7/bootstrap.yaml so the confidence intervals and
+# paired tests are comparable across goals. Declared here because YAML `extends`
+# takes a single parent and the model grids come from goal2_7/models.yaml.
+bootstrap:
+  n_resamples: 1000
+  seed: 20260707
+  ci: 0.95
+  paired_n_resamples: 1000
+  paired_seed: 20260708
+
+goal2_9:
+  # Both devices are in the primary matrix here, unlike Goal 2.8. The reason the
+  # Bikom fNIRS signal was excluded was that it carried no univariate label
+  # information; its behavioural log does, and for Doors it is the only intact
+  # choice record because the Yiruid response window is truncated.
+  # bikom/oddball is absent: that build never collected the keypress. See
+  # paradigm_spec.yaml known_gaps.bikom_oddball_behaviour.
+  units:
+    - {device: yiruid, task: 1back}
+    - {device: yiruid, task: oddball}
+    - {device: yiruid, task: doors}
+    - {device: bikom, task: 1back}
+    - {device: bikom, task: doors}
+  include_combined: true
+  combined_units:
+    yiruid: [1back, oddball, doors]
+    bikom: [1back, doors]
+
+outputs:
+  all_oof_predictions_standard_cv: results/goal2_9/all_oof_predictions_standard_cv.csv
+  all_oof_predictions_group_cv: results/goal2_9/all_oof_predictions_group_cv.csv
+  all_fold_metrics: results/goal2_9/all_fold_metrics.csv
+  all_pooled_metrics: results/goal2_9/all_pooled_metrics.csv
+  bootstrap_ci: results/goal2_9/bootstrap_confidence_intervals.csv
+  paired_comparisons: results/goal2_9/paired_increment_comparisons.csv
+  demographics_decomposition: results/goal2_9/demographics_decomposition.csv
+  standard_vs_group_cv: results/goal2_9/standard_vs_group_cv.csv
+  selected_hyperparameters: results/goal2_9/selected_hyperparameters.csv
+  pca_diagnostics: results/goal2_9/pca_diagnostics.csv
+  feature_counts: results/goal2_9/feature_counts.csv
+  native_cohort_summary: results/goal2_9/native_cohort_summary.csv
+  threshold_diagnostics: results/goal2_9/threshold_diagnostics.csv
+  manifest: artifacts/goal2_9/run_manifest.json
+  # Inherited from goal2_7/common.yaml. Goal 2.9's writer does not emit them,
+  # but they are redirected so no code path holding this config can overwrite a
+  # Goal 2.7 or Goal 2.8 result file.
+  core3_intersection_summary: results/goal2_9/core3_intersection_summary.csv
+  shortcut_baseline_summary: results/goal2_9/shortcut_baseline_summary.csv
+  face_strict_control_summary: results/goal2_9/face_strict_control_summary.csv
+  eeg_event_validity_summary: results/goal2_9/eeg_event_validity_summary.csv
+  fnirs_event_validity_summary: results/goal2_9/fnirs_event_validity_summary.csv
+  exclusion_summary: results/goal2_9/exclusion_summary.csv

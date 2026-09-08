@@ -6,6 +6,7 @@ Paradigm-Conformance Rules.
 """
 
 from .spec import (
+    BehaviourTaskSpec,
     EegTaskSpec,
     FnirsTaskSpec,
     ParadigmSpec,
@@ -13,6 +14,7 @@ from .spec import (
 )
 
 __all__ = [
+    "BehaviourTaskSpec",
     "EegTaskSpec",
     "FnirsTaskSpec",
     "ParadigmSpec",
