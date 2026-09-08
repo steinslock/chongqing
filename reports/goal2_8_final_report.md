@@ -65,18 +65,39 @@ Bikom was excluded from the primary matrix (see Device Confound below).
 
 Best pooled AUROC by feature-set family, inner-CV thresholds:
 
-| modality | protocol | signal / face | shortcut (background, group proxy, full frame) | demographics |
-|---|---|---|---|---|
-| eeg | standard_cv | 0.5904 | 0.6245 | 0.6470 |
-| eeg | group_cv | 0.5640 | 0.5532 | 0.5947 |
-| fnirs | standard_cv | 0.6003 | 0.6756 | 0.6943 |
-| fnirs | group_cv | 0.5940 | 0.6042 | 0.6235 |
-| face | standard_cv | 0.6685 | 0.6798 | 0.6721 |
-| face | group_cv | 0.6659 | 0.6573 | 0.6602 |
+| modality | protocol | signal / face | shortcut (background, group proxy, full frame) | demographics (age+sex+grade) | demographics + site proxy |
+|---|---|---|---|---|---|
+| eeg | standard_cv | 0.5904 | 0.6245 | 0.6074 | 0.6480 |
+| eeg | group_cv | 0.5640 | 0.5532 | 0.5947 | 0.5981 |
+| fnirs | standard_cv | 0.6003 | 0.6756 | 0.5960 | 0.6943 |
+| fnirs | group_cv | 0.5940 | 0.6042 | 0.5934 | 0.6235 |
+| face | standard_cv | 0.6685 | 0.6798 | 0.6721 | not run |
+| face | group_cv | 0.6659 | 0.6573 | 0.6602 | not run |
+
+**Corrected on 2026-09-08.** The `demographics` column previously held 0.6470
+for EEG and 0.6943 for fNIRS. Those rows are `demographics_group_device` and
+`demographics_group`, which add the acquisition-site proxy; pure age+sex+grade
+reaches 0.6074 and 0.5960 in those cohorts. The Face figure was already pure
+demographics. The two are now separate columns.
+
+Every demographics figure above is measured *inside* a modality cohort, which is
+what each comparison requires but is not a reference value. On the full 3597
+subject development cohort, age+sex+grade reaches **0.643 to 0.671** across all
+three models and both protocols. The modality cohorts are 500 to 1800 subjects
+drawn from a subset of sites and grades, and demographics predicts less well
+there. See `scripts/verify_demographics_baseline.py` and
+`results/demographics_reference/`.
 
 Demographic decomposition in the largest cohorts, Standard CV: age alone 0.52 to
 0.53, sex alone 0.57, grade alone 0.54 to 0.56, age+sex+grade 0.59 to 0.60,
 acquisition-group proxy alone 0.60 to 0.63, demographics plus group 0.64 to 0.66.
+
+On the full development cohort the same decomposition is stronger and is the
+reference the modality cohorts should be read against: age alone 0.57 to 0.62,
+sex alone 0.54 to 0.59, grade alone 0.60 to 0.63, age+sex 0.63 to 0.67,
+age+sex+grade 0.643 to 0.671, site proxy alone 0.67 under Standard CV but exactly
+0.500 per fold under Group CV, which is Group CV working as designed since it
+holds out whole sites.
 
 ## Paired Increments
 

@@ -1173,3 +1173,65 @@ committed state.
 Reports: `reports/goal2_9_final_report.md`, `reports/goal2_9_results.md`.
 Machine-readable: `results/goal2_9/`, including `required_increments.csv` and
 `unit_decision.csv`.
+
+## 2026-09-08 - Demographics Baseline Re-verified
+
+Status: verification only, no new modelling decisions.
+
+The demographics baseline was recomputed independently of every result table,
+rebuilding the cohort from the split file and rerunning the project's own
+pipeline and grids. `scripts/verify_demographics_baseline.py` reproduces it and
+writes `results/demographics_reference/`.
+
+On the full 3597-subject development cohort, age + sex + grade:
+
+| protocol | logistic regression | random forest | hist gradient boosting |
+|---|---|---|---|
+| standard_cv | 0.6688 | 0.6708 | 0.6689 |
+| group_cv | 0.6596 | 0.6551 | 0.6430 |
+
+Per-fold values run 0.61 to 0.73 with no fold below 0.60, so the figure is
+stable. Decomposition: age alone 0.57-0.62, sex alone 0.54-0.59, grade alone
+0.60-0.63, age+sex 0.63-0.67. The site proxy alone reaches 0.67 under Standard
+CV and exactly 0.500 in every fold under Group CV, which is Group CV working as
+designed because it holds out whole sites. Demographics plus site proxy reaches
+0.706 / 0.666. Input quality is not a limitation: 99.92 percent of ages parse
+inside 9-20, sex has one missing value, grade has nine real levels.
+
+Two things this corrected.
+
+**A conflated column in the Goal 2.8 final report.** Its best-row table listed
+the `demographics` figure as 0.6470 for EEG and 0.6943 for fNIRS. Those rows are
+`demographics_group_device` and `demographics_group`, which include the
+acquisition-site proxy. Pure age+sex+grade reaches 0.6074 and 0.5960 in those
+cohorts. The Face figure, 0.6721, was already pure demographics. The table now
+carries the two as separate columns and the report states the correction.
+
+**The absence of a reference baseline.** Every demographics number in every
+result table is measured inside a modality cohort, because that is what the
+paired comparison needs. No run had ever measured demographics on the full
+development cohort, so 0.55 in a 524-subject fNIRS cohort and 0.67 in a
+3381-subject Face cohort had nothing to be read against. They differ because the
+modality cohorts are restricted samples, not because anything is wrong.
+
+Why adding a modality to demographics often lowers it. Over the 90 comparable
+rows in Goal 2.8 and Goal 2.9, adding demographics to a modality helps in 85.6
+percent of rows, while adding a modality to demographics hurts in 65.6 percent,
+by a mean of -0.03 to +0.005 and at worst -0.077. The size of the drop tracks how
+uninformative the added features are (correlation 0.64 with the modality's own
+AUROC): when the modality is at or below chance the mean drop is -0.045, and when
+it reaches 0.55-0.60 the combination gains +0.015. It is worst for random forest,
+which samples sqrt(p) features per split and so rarely sees the three demographic
+columns among 324.
+
+This is dilution, not a defect, and the pipeline has no mechanism to avoid it:
+impute, scale, fit over the whole feature block, with inner CV selecting
+hyperparameters and never features. Bolting columns of pure random noise onto
+demographics on the full cohort costs -0.008 to -0.055 depending on count and
+model, which brackets the observed drops. Feature counts were checked and are
+exact: `signal_demographics` always equals the signal block plus one numeric and
+two categorical columns.
+
+`EXPERIMENT_PROTOCOL.md` now records that a negative increment means absence of
+signal, not damage, and that a cohort-internal demographics figure must be quoted
+with its cohort.

@@ -224,6 +224,21 @@ new work.
 Background/group/device performance near the modality signal supports
 `SHORTCUT_DOMINATED` or a shortcut warning.
 
+A **negative** increment means the modality features are uninformative, not that
+they are harmful. The pipeline is impute, scale, fit, with the whole feature
+block; inner CV selects hyperparameters, never which features to use, so a model
+handed a block of uninformative columns cannot choose to ignore them and pays
+for them. Bolting columns of pure random noise onto demographics on the full
+development cohort costs 0.008 to 0.055 AUROC depending on how many and which
+model, which brackets the observed drops. Report negative increments as absence
+of signal, never as damage.
+
+Demographics figures in the result tables are measured inside each modality
+cohort, which is what the comparison requires but is not a reference value.
+`scripts/verify_demographics_baseline.py` measures the reference on the full
+development cohort and writes `results/demographics_reference/`. Quote a
+cohort-internal demographics number only alongside the cohort it came from.
+
 Goal 2.7 decisions, all now `SUPERSEDED`:
 
 - EEG: `BLOCKED_BY_INVALID_TASK_SEMANTICS + NO_CLEAR_SIGNAL`.

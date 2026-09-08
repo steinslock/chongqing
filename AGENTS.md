@@ -224,7 +224,15 @@ clinical-scale totals.
 Main demographics is age + sex + grade. `grade_group`, acquisition-group proxies,
 and fNIRS device are separate sensitivity/shortcut variables. Report objective
 modality-only, demographics-only, QC-only, and incremental combinations
-separately.
+separately. Never fold the site proxy into a figure labelled `demographics`:
+`demographics_group` and `demographics_group_device` are different feature sets,
+and the Goal 2.8 report originally conflated them (corrected 2026-09-08).
+
+On the full 3597-subject development cohort age+sex+grade reaches 0.643 to 0.671
+under both protocols and all three model families. Every demographics figure in
+the result tables is measured inside a modality cohort of 342 to 3381 subjects
+and is lower; quote it with its cohort. `scripts/verify_demographics_baseline.py`
+produces the reference.
 
 ## Task-Semantics Rules
 
@@ -304,6 +312,7 @@ fNIRS:
 - Model matrix: `python scripts/run_goal2_9.py --n-workers 24`
 - Reports: `python scripts/summarize_goal2_9.py`
 - Positive-result verification: `python scripts/verify_goal2_9_positive.py`
+- Demographics reference baseline: `python scripts/verify_demographics_baseline.py`
 
 ## Goal 2.7 Entry Points (historical)
 

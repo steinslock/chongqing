@@ -1,0 +1,16 @@
+n_noise_columns,model,auroc,drop
+0,logistic_regression,0.6688,0.0
+0,random_forest,0.6708,0.0
+0,hist_gradient_boosting,0.6689,0.0
+25,logistic_regression,0.656,-0.0128
+25,random_forest,0.659,-0.0118
+25,hist_gradient_boosting,0.6613,-0.0076
+40,logistic_regression,0.6599,-0.0089
+40,random_forest,0.653,-0.0177
+40,hist_gradient_boosting,0.65,-0.0189
+80,logistic_regression,0.6503,-0.0185
+80,random_forest,0.6556,-0.0152
+80,hist_gradient_boosting,0.6531,-0.0159
+320,logistic_regression,0.6136,-0.0552
+320,random_forest,0.6583,-0.0125
+320,hist_gradient_boosting,0.6437,-0.0252
