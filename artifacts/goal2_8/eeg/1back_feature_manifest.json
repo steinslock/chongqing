@@ -1,0 +1,41 @@
+{
+  "task": "1back",
+  "feature_version": "goal2_8_eeg_condition_erp_v1",
+  "conditions": {
+    "18": "subsequent_stimulus"
+  },
+  "primary_contrast": null,
+  "erp_channels": [
+    "Pz",
+    "Cz",
+    "CP1",
+    "CP2",
+    "P3",
+    "P4",
+    "Fz",
+    "Oz"
+  ],
+  "erp_windows": {
+    "p200": [
+      0.15,
+      0.28
+    ],
+    "p300": [
+      0.3,
+      0.6
+    ],
+    "late_positive": [
+      0.6,
+      1.0
+    ],
+    "slow_wave": [
+      1.0,
+      1.8
+    ]
+  },
+  "subjects_signal": 1278,
+  "subjects_qc": 1413,
+  "signal_feature_columns": 181,
+  "signal_features": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_8/eeg/1back_signal_features.csv",
+  "qc_features": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_8/eeg/1back_qc_features.csv"
+}

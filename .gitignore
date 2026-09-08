@@ -26,3 +26,12 @@ artifacts/goal2_7/face/contact_sheets/
 # release archives with the same rows are tracked instead.
 results/goal2_7/all_oof_predictions_standard_cv.csv
 results/goal2_7/all_oof_predictions_group_cv.csv
+
+# Goal2.8 follows the same policy: compressed OOF archives and every metric,
+# report and manifest are tracked; the uncompressed OOF CSVs exceed GitHub's
+# per-file limit and the ERP/embedding arrays are large and regenerable.
+results/goal2_8/all_oof_predictions_standard_cv.csv
+results/goal2_8/all_oof_predictions_group_cv.csv
+
+# Scratch space for landmark extraction; regenerated on demand.
+artifacts/goal2_8/face/_scratch/

@@ -1,4 +1,9 @@
-# Exact pip freeze from /data/home/cqm/miniconda3/envs/chongqing_v1 on 2026-08-27.
+# Exact pip freeze from /data/home/cqm/miniconda3/envs/chongqing_v1 on 2026-09-07.
+# Goal 2.8: this environment is now the single unified environment for the project.
+# Added on 2026-09-07 so EEG (mne), Face (cv2/torchvision) and xlsx work run in one env:
+#   opencv-python-headless==4.12.0.88, openpyxl==3.1.5, et_xmlfile==2.0.0
+# Installed with --no-deps via the local clash proxy (http://127.0.0.1:27890).
+# numpy/pandas/scipy/scikit-learn/torch were NOT changed by this install.
 absl-py==2.5.0
 certifi==2026.6.17
 charset-normalizer==3.4.7
@@ -6,6 +11,7 @@ contourpy==1.3.3
 cycler==0.12.1
 decorator==5.3.1
 einops==0.8.2
+et_xmlfile==2.0.0
 filelock==3.29.0
 fonttools==4.63.0
 fsspec==2026.4.0
@@ -36,6 +42,8 @@ nvidia-cusparse-cu12==12.1.0.106
 nvidia-nccl-cu12==2.21.5
 nvidia-nvjitlink-cu12==12.9.86
 nvidia-nvtx-cu12==12.1.105
+opencv-python-headless==4.12.0.88
+openpyxl==3.1.5
 packaging==26.2
 pandas==3.0.3
 pillow==12.3.0

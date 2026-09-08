@@ -1,0 +1,17 @@
+{
+  "subjects_attempted": 3518,
+  "subjects_indexed": 3518,
+  "subjects_all_three_movies": 3382,
+  "landmark_confident": 474,
+  "landmark_median_lead_in_sec": 0.768375,
+  "movie_order": [
+    "positive",
+    "neutral",
+    "negative"
+  ],
+  "block_reasons": {
+    "missing_anchor_timestamp": 136
+  },
+  "duration_mismatch_subjects": 0,
+  "segment_index": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_8/face/segment_index.csv"
+}

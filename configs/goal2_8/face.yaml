@@ -1,0 +1,37 @@
+extends: common.yaml
+
+# Movie order, stimulus durations, the web-log columns and the alignment
+# landmark all live in configs/goal2_8/paradigm_spec.yaml.
+face:
+  preprocessing_version: goal2_8_face_segment_valence_v1
+  outputs_dir: artifacts/goal2_8/face
+
+  # Alignment: the start.mp3 landmark sits within a few seconds of the recording
+  # start. Correlation clears 0.6 on a minority of recordings because the
+  # microphone captures room playback, so confident detections set the cohort
+  # median and the rest inherit it. Movies are 87-125 s long and frames are
+  # sampled from the segment interior, so a few seconds of error is tolerable.
+  landmark_search_sec: 25.0
+  landmark_min_correlation: 0.6
+  landmark_default_lead_in_sec: 0.7
+
+  # Frame sampling stays inside the segment so boundary error cannot leak in.
+  frames_per_segment: 16
+  segment_interior_fraction: 0.8
+  min_valid_face_frames: 4
+
+  detector:
+    preferred: opencv_yunet
+    checkpoint: artifacts/goal2_7/face/models/face_detection_yunet_2023mar.onnx
+    score_threshold: 0.6
+    nms_threshold: 0.3
+    top_k: 5000
+    fallback_is_qc_failure: true
+  encoder:
+    name: torchvision_resnet18
+    checkpoint: ResNet18_Weights.IMAGENET1K_V1
+    feature_dimension: 512
+    frozen: true
+  input_size: 224
+  batch_size: 64
+  background_mode: black_mask

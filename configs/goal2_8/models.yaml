@@ -1,0 +1,72 @@
+# Reuses the Goal 2.7 model grids, hyperparameters, demographics decomposition
+# and bootstrap settings so the two goals stay directly comparable. Only paths,
+# outputs and run metadata are overridden.
+extends: ../goal2_7/models.yaml
+
+run:
+  stage: Goal 2.8
+  seed: 20260907
+  split_group: cv
+  label_column: primary_label_nonhealthy
+  n_jobs: 8
+  # Small problems on a 192-core host: capping worker threads avoids scheduling
+  # overhead that otherwise dominates. Affects speed only, never the fit.
+  model_n_jobs: 4
+  # Datasets run concurrently; 24 x 4 threads fits comfortably in 192 cores.
+  dataset_workers: 24
+
+paths:
+  split_file: artifacts/splits/subject_splits_v1.csv
+  group_split_file: artifacts/splits/subject_splits_group_robustness_v1.csv
+  groups_file: artifacts/groups/subject_groups.csv
+  paradigm_spec: configs/goal2_8/paradigm_spec.yaml
+  eeg_dir: artifacts/goal2_8/eeg
+  fnirs_dir: artifacts/goal2_8/fnirs
+  face_dir: artifacts/goal2_8/face
+  artifacts_dir: artifacts/goal2_8
+  results_dir: results/goal2_8
+  reports_dir: reports
+
+# Identical to configs/goal2_7/bootstrap.yaml so the two goals' confidence
+# intervals and paired tests are directly comparable. Declared here because YAML
+# `extends` takes a single parent and the model grids come from goal2_7/models.yaml.
+bootstrap:
+  n_resamples: 1000
+  seed: 20260707
+  ci: 0.95
+  paired_n_resamples: 1000
+  paired_seed: 20260708
+
+goal2_8:
+  # Bikom is excluded from the primary matrix: its features carry no univariate
+  # label signal and its cohort is disjoint from Yiruid's, so device and site
+  # cannot be separated. See paradigm_spec.yaml structural_facts.
+  fnirs_devices: [yiruid]
+  eeg_tasks: [oddball, 1back, rest]
+  fnirs_tasks: [rest, vft, 1back, oddball, doors]
+  face_cohorts: [face_valence_contrast, face_segment_raw]
+
+outputs:
+  all_oof_predictions_standard_cv: results/goal2_8/all_oof_predictions_standard_cv.csv
+  all_oof_predictions_group_cv: results/goal2_8/all_oof_predictions_group_cv.csv
+  all_fold_metrics: results/goal2_8/all_fold_metrics.csv
+  all_pooled_metrics: results/goal2_8/all_pooled_metrics.csv
+  bootstrap_ci: results/goal2_8/bootstrap_confidence_intervals.csv
+  paired_comparisons: results/goal2_8/paired_increment_comparisons.csv
+  demographics_decomposition: results/goal2_8/demographics_decomposition.csv
+  standard_vs_group_cv: results/goal2_8/standard_vs_group_cv.csv
+  selected_hyperparameters: results/goal2_8/selected_hyperparameters.csv
+  pca_diagnostics: results/goal2_8/pca_diagnostics.csv
+  feature_counts: results/goal2_8/feature_counts.csv
+  native_cohort_summary: results/goal2_8/native_cohort_summary.csv
+  threshold_diagnostics: results/goal2_8/threshold_diagnostics.csv
+  manifest: artifacts/goal2_8/run_manifest.json
+  # These keys are inherited from goal2_7/common.yaml. Goal 2.8's own writer does
+  # not emit them, but they are redirected anyway so that no code path holding
+  # this config can overwrite a Goal 2.7 result file.
+  core3_intersection_summary: results/goal2_8/core3_intersection_summary.csv
+  shortcut_baseline_summary: results/goal2_8/shortcut_baseline_summary.csv
+  face_strict_control_summary: results/goal2_8/face_strict_control_summary.csv
+  eeg_event_validity_summary: results/goal2_8/eeg_event_validity_summary.csv
+  fnirs_event_validity_summary: results/goal2_8/fnirs_event_validity_summary.csv
+  exclusion_summary: results/goal2_8/exclusion_summary.csv

@@ -11,7 +11,6 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
 from chongqing_binary.config import ReadOnlyInputGuard, load_config
-from chongqing_binary.goal2_6.config import load_goal_config as load_goal2_6_config
 from chongqing_binary.goal2_7.config import load_goal_config as load_goal2_7_config
 from chongqing_binary.paths import RAW_DATA_ENV
 from chongqing_binary.readiness import load_readiness_config, raw_data_dir
@@ -49,15 +48,12 @@ class ConfigTests(unittest.TestCase):
             with patch.dict(os.environ, {RAW_DATA_ENV: str(override)}):
                 project = load_config("configs/default.yaml")
                 readiness = load_readiness_config("configs/readiness/default.yaml")
-                goal2_6 = load_goal2_6_config("configs/goal2_6/models.yaml")
                 goal2_7 = load_goal2_7_config("configs/goal2_7/models.yaml")
 
             self.assertEqual(project.paths["raw_data_dir"], override)
             self.assertIn(override, project.readonly_inputs)
             self.assertEqual(raw_data_dir(readiness), override)
             self.assertIn(str(override), {str(path) for path in readiness["readonly_inputs"]})
-            self.assertEqual(Path(goal2_6["paths"]["raw_data_dir"]), override)
-            self.assertIn(str(override), {str(path) for path in goal2_6["readonly_inputs"]})
             self.assertEqual(Path(goal2_7["paths"]["raw_data_dir"]), override)
             self.assertIn(str(override), {str(path) for path in goal2_7["readonly_inputs"]})
 

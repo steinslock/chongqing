@@ -1,0 +1,14 @@
+{
+  "device": "yiruid",
+  "task": "doors",
+  "feature_version": "goal2_8_fnirs_mbll_block_v1",
+  "timing_confidence": "high",
+  "sensitivity_only": false,
+  "subjects_attempted": 825,
+  "subjects_signal": 825,
+  "subjects_qc": 825,
+  "signal_feature_columns": 80,
+  "block_reasons": {},
+  "signal_features": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_8/fnirs/yiruid_doors_signal_features.csv",
+  "qc_features": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_8/fnirs/yiruid_doors_qc_features.csv"
+}

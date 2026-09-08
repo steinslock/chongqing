@@ -1,0 +1,69 @@
+modality,device,task,check,expected,observed,status,n_subjects
+eeg,,rest,event_file_coverage,>= 80%,92% (11/12 have a readable event file),pass,11
+eeg,,oddball,event_file_coverage,>= 70%,75% (9/12 have a readable event file),pass,9
+eeg,,oddball,code_11_present (standard),all_subjects (>= 100%),median 124/subject in 9/9 subjects,pass,9
+eeg,,oddball,code_11_count,125,median 124,pass,9
+eeg,,oddball,code_22_present (deviant_target),all_subjects (>= 100%),median 25/subject in 9/9 subjects,pass,9
+eeg,,oddball,code_22_count,25,median 25,pass,9
+eeg,,oddball,soa_sec,1.0,1.000,pass,9
+eeg,,1back,event_file_coverage,>= 95%,100% (12/12 have a readable event file),pass,12
+eeg,,1back,code_18_present (subsequent_stimulus),all_subjects (>= 100%),median 23/subject in 12/12 subjects,pass,12
+eeg,,1back,code_19_present (block_initial_stimulus),all_subjects (>= 100%),median 2/subject in 12/12 subjects,pass,12
+eeg,,1back,code_66_present (response_correct),most_subjects (>= 80%),median 20/subject in 12/12 subjects,pass,12
+eeg,,1back,code_77_present (response_incorrect),optional (>= 0%),median 2/subject in 10/12 subjects,pass,12
+eeg,,1back,code_88_present (unresolved),optional (>= 0%),median 0/subject in 3/12 subjects,pass,12
+eeg,,1back,soa_sec,2.0,2.000,pass,12
+fnirs,yiruid,rest,files_readable,12,12,pass,12
+fnirs,yiruid,rest,duration_sec,350,349.95,pass,12
+fnirs,yiruid,rest,n_measurements,106,106,pass,12
+fnirs,yiruid,rest,wavelengths_nm,"[690.0, 830.0]","[690.0, 830.0]",pass,12
+fnirs,yiruid,rest,marker_count,0,0,pass,12
+fnirs,yiruid,vft,files_readable,12,12,pass,12
+fnirs,yiruid,vft,duration_sec,150,149.95,pass,12
+fnirs,yiruid,vft,n_measurements,106,106,pass,12
+fnirs,yiruid,vft,wavelengths_nm,"[690.0, 830.0]","[690.0, 830.0]",pass,12
+fnirs,yiruid,vft,marker_count,1,1,pass,12
+fnirs,yiruid,vft,marker_onsets_sec,[30.0],12/12 within 2 s,pass,12
+fnirs,yiruid,1back,files_readable,12,12,pass,12
+fnirs,yiruid,1back,duration_sec,157,157.45,pass,12
+fnirs,yiruid,1back,n_measurements,106,106,pass,12
+fnirs,yiruid,1back,wavelengths_nm,"[690.0, 830.0]","[690.0, 830.0]",pass,12
+fnirs,yiruid,1back,marker_count,2,2,pass,12
+fnirs,yiruid,1back,marker_onsets_sec,"[30.0, 92.0]",12/12 within 2 s,pass,12
+fnirs,yiruid,oddball,files_readable,12,12,pass,12
+fnirs,yiruid,oddball,duration_sec,633,632.95,pass,12
+fnirs,yiruid,oddball,n_measurements,106,106,pass,12
+fnirs,yiruid,oddball,wavelengths_nm,"[690.0, 830.0]","[690.0, 830.0]",pass,12
+fnirs,yiruid,oddball,marker_count,10,10,pass,12
+fnirs,yiruid,oddball,marker_onsets_sec,"[30.0, 90.0, 150.0, 210.0, 270.0, 330.0]",12/12 within 2 s,pass,12
+fnirs,yiruid,doors,files_readable,12,12,pass,12
+fnirs,yiruid,doors,duration_sec,570,569.95,pass,12
+fnirs,yiruid,doors,n_measurements,106,106,pass,12
+fnirs,yiruid,doors,wavelengths_nm,"[690.0, 830.0]","[690.0, 830.0]",pass,12
+fnirs,yiruid,doors,marker_count,6,6,pass,12
+fnirs,yiruid,doors,marker_onsets_sec,"[30.0, 120.0, 210.0, 300.0, 390.0, 480.0]",12/12 within 2 s,pass,12
+fnirs,bikom,rest,files_readable,12,12,pass,12
+fnirs,bikom,rest,duration_sec,350,349.7,pass,12
+fnirs,bikom,rest,n_channels,52,52,pass,12
+fnirs,bikom,rest,marker_sequence,"['ST', 'ED'] (['ED'] optional)","12/12 acceptable (8 exact); most common ['ST', 'ED']",pass,12
+fnirs,bikom,vft,files_readable,12,12,pass,12
+fnirs,bikom,vft,duration_sec,170,170,pass,12
+fnirs,bikom,vft,n_channels,52,52,pass,12
+fnirs,bikom,vft,marker_sequence,[] (no markers),12/12 acceptable (12 exact); most common [],pass,12
+fnirs,bikom,1back,files_readable,12,12,pass,12
+fnirs,bikom,1back,duration_sec,155,155.3,pass,12
+fnirs,bikom,1back,n_channels,52,52,pass,12
+fnirs,bikom,1back,marker_sequence,"['ST', 'A0', 'A1', 'B0', 'B1', 'ED'] (['ED'] optional)","12/12 acceptable (12 exact); most common ['ST', 'A0', 'A1', 'B0', 'B1', 'ED']",pass,12
+fnirs,bikom,oddball,files_readable,12,12,pass,12
+fnirs,bikom,oddball,duration_sec,630,630.7,pass,12
+fnirs,bikom,oddball,n_channels,52,52,pass,12
+fnirs,bikom,oddball,marker_count,22 (ST + 10 A0/A1 pairs + ED),12/12,pass,12
+fnirs,bikom,doors,files_readable,12,12,pass,12
+fnirs,bikom,doors,duration_sec,570,570.2,pass,12
+fnirs,bikom,doors,n_channels,52,52,pass,12
+fnirs,bikom,doors,marker_count,14 (ST + 6 A0/A1 pairs + ED),12/12,pass,12
+face,,task,subjects_in_log,4574,4574,pass,4574
+face,,task,ids_unique,4574,4574,pass,4574
+face,,movie_positive,segment_duration_matches_stimulus,93.16 s +/- 10 s,median 94.8 s; 4394/4394 within tolerance,pass,4394
+face,,movie_neutral,segment_duration_matches_stimulus,86.64 s +/- 10 s,median 87.8 s; 4394/4394 within tolerance,pass,4394
+face,,movie_negative,segment_duration_matches_stimulus,125.00 s +/- 10 s,median 126.1 s; 4394/4394 within tolerance,pass,4394

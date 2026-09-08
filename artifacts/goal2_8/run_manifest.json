@@ -1,0 +1,35 @@
+{
+  "stage": "Goal 2.8",
+  "n_datasets": 380,
+  "n_prediction_rows": 1623018,
+  "n_pooled_rows": 2200,
+  "fnirs_devices": [
+    "yiruid"
+  ],
+  "cv_protocols": [
+    "standard_cv",
+    "group_cv"
+  ],
+  "outputs": {
+    "all_oof_predictions_standard_cv": "/data/home/cqm/Project/Code/chongqing/results/goal2_8/all_oof_predictions_standard_cv.csv",
+    "all_oof_predictions_group_cv": "/data/home/cqm/Project/Code/chongqing/results/goal2_8/all_oof_predictions_group_cv.csv",
+    "all_fold_metrics": "/data/home/cqm/Project/Code/chongqing/results/goal2_8/all_fold_metrics.csv",
+    "all_pooled_metrics": "/data/home/cqm/Project/Code/chongqing/results/goal2_8/all_pooled_metrics.csv",
+    "bootstrap_ci": "/data/home/cqm/Project/Code/chongqing/results/goal2_8/bootstrap_confidence_intervals.csv",
+    "paired_comparisons": "/data/home/cqm/Project/Code/chongqing/results/goal2_8/paired_increment_comparisons.csv",
+    "demographics_decomposition": "/data/home/cqm/Project/Code/chongqing/results/goal2_8/demographics_decomposition.csv",
+    "standard_vs_group_cv": "/data/home/cqm/Project/Code/chongqing/results/goal2_8/standard_vs_group_cv.csv",
+    "face_strict_control_summary": "/data/home/cqm/Project/Code/chongqing/results/goal2_7/face_strict_control_summary.csv",
+    "eeg_event_validity_summary": "/data/home/cqm/Project/Code/chongqing/results/goal2_7/eeg_event_validity_summary.csv",
+    "fnirs_event_validity_summary": "/data/home/cqm/Project/Code/chongqing/results/goal2_7/fnirs_event_validity_summary.csv",
+    "core3_intersection_summary": "/data/home/cqm/Project/Code/chongqing/results/goal2_7/core3_intersection_summary.csv",
+    "threshold_diagnostics": "/data/home/cqm/Project/Code/chongqing/results/goal2_8/threshold_diagnostics.csv",
+    "selected_hyperparameters": "/data/home/cqm/Project/Code/chongqing/results/goal2_8/selected_hyperparameters.csv",
+    "pca_diagnostics": "/data/home/cqm/Project/Code/chongqing/results/goal2_8/pca_diagnostics.csv",
+    "feature_counts": "/data/home/cqm/Project/Code/chongqing/results/goal2_8/feature_counts.csv",
+    "exclusion_summary": "/data/home/cqm/Project/Code/chongqing/results/goal2_7/exclusion_summary.csv",
+    "native_cohort_summary": "/data/home/cqm/Project/Code/chongqing/results/goal2_8/native_cohort_summary.csv",
+    "shortcut_baseline_summary": "/data/home/cqm/Project/Code/chongqing/results/goal2_7/shortcut_baseline_summary.csv",
+    "manifest": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_8/run_manifest.json"
+  }
+}

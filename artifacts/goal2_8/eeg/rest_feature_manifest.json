@@ -1,0 +1,13 @@
+{
+  "task": "rest",
+  "feature_version": "goal2_8_eeg_rest_spectral_v1",
+  "subjects_attempted": 1043,
+  "subjects_signal": 1003,
+  "subjects_qc": 1043,
+  "signal_feature_columns": 63,
+  "block_reasons": {
+    "too_few_valid_windows": 40
+  },
+  "signal_features": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_8/eeg/rest_signal_features.csv",
+  "qc_features": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_8/eeg/rest_qc_features.csv"
+}

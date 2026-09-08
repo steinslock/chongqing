@@ -721,11 +721,15 @@ def _build_pipeline(dataset: GoalDataset, model_name: str, config: dict[str, Any
     if model_name == "logistic_regression":
         classifier = LogisticRegression(class_weight="balanced", max_iter=2000, random_state=seed)
     elif model_name == "random_forest":
+        # n_jobs=-1 spawns one worker per core. On a 192-core host that costs
+        # about 0.8 s of scheduling per fit regardless of problem size, which
+        # dominated the runtime (40 s per model job at p=3 as well as p=63).
+        # The value only affects speed, never the fitted model.
         classifier = RandomForestClassifier(
             n_estimators=120,
             min_samples_leaf=5,
             class_weight="balanced_subsample",
-            n_jobs=-1,
+            n_jobs=int(config.get("run", {}).get("model_n_jobs", 4)),
             random_state=seed,
         )
     elif model_name == "hist_gradient_boosting":

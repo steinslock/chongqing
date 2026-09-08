@@ -23,6 +23,13 @@ def raw_data_override() -> Path | None:
     return path.resolve()
 
 
+def raw_data_root() -> Path:
+    """Return the raw-dataset root, honouring the environment override."""
+
+    override = raw_data_override()
+    return override if override is not None else DEFAULT_RAW_DATA_DIR
+
+
 def apply_raw_data_override(config: dict[str, Any]) -> dict[str, Any]:
     """Apply the raw-data override and keep that input read-only."""
 

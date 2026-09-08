@@ -1,0 +1,14 @@
+{
+  "device": "bikom",
+  "task": "1back",
+  "feature_version": "goal2_8_fnirs_mbll_block_v1",
+  "timing_confidence": "high",
+  "sensitivity_only": false,
+  "subjects_attempted": 995,
+  "subjects_signal": 995,
+  "subjects_qc": 995,
+  "signal_feature_columns": 87,
+  "block_reasons": {},
+  "signal_features": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_8/fnirs/bikom_1back_signal_features.csv",
+  "qc_features": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_8/fnirs/bikom_1back_qc_features.csv"
+}

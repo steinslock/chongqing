@@ -1,0 +1,59 @@
+extends: common.yaml
+
+# Preprocessing only. Task structure (event codes, SOA, epoch windows) lives in
+# configs/goal2_8/paradigm_spec.yaml and must not be duplicated here.
+eeg:
+  preprocessing_version: goal2_8_raw_bdf_event_aware_v1
+  bdf_physical_dimension: uV/mm
+  bdf_to_volts_scale: 1.0e-6
+  bdf_scale_note: >-
+    Neuracle BDF headers declare the physical dimension as "uV/mm" with a unit
+    gain, so MNE returns microvolts while labelling them volts. Multiply by 1e-6
+    once at load so downstream MNE conventions and reject thresholds are correct.
+  reference: [A1, A2]
+  reference_note: linked mastoids
+  highpass_hz: 0.1
+  lowpass_hz: 40.0
+  resample_hz: 250
+  # Peak-to-peak rejection scales with epoch length: a 2 s 1BACK epoch has far
+  # more opportunity to exceed a threshold than a 1 s Oddball epoch.
+  reject_peak_to_peak_volts:
+    oddball: 150.0e-6      # 1.0 s epochs
+    1back: 250.0e-6        # 2.0 s epochs
+    rest: 300.0e-6         # 5.0 s continuous windows
+  reject_exclude_channels: [Fp1, Fp2]
+  reject_exclude_note: >-
+    Blinks dominate the frontopolar channels, and at a single shared threshold
+    they rejected 65 percent of 1BACK epochs while the centro-parietal signal of
+    interest was intact. Fp1 and Fp2 stay in the data but do not drive
+    whole-epoch rejection. Measured on 20 subjects: at 250 uV, retention rises
+    from 72 percent to 92 percent and every subject clears the trial minimum.
+  min_trials:
+    oddball: {'11': 20, '22': 5}
+    1back: {'18': 10}
+  # Rest is event-free, so it uses continuous windows and spectral features
+  # rather than the event-locked ERP path.
+  rest:
+    highpass_hz: 1.0
+    lowpass_hz: 45.0
+    window_sec: 5.0
+    min_valid_windows: 20
+    max_windows: 60
+    bands:
+      delta: [1.0, 4.0]
+      theta: [4.0, 8.0]
+      alpha: [8.0, 13.0]
+      beta: [13.0, 30.0]
+      gamma: [30.0, 45.0]
+    alpha_peak_search_hz: [7.0, 14.0]
+    asymmetry_pairs:
+      frontal: [F3, F4]
+      frontal_lateral: [F7, F8]
+      central: [C3, C4]
+      parietal: [P3, P4]
+    asymmetry_note: >-
+      log(right) - log(left) alpha power. Frontal alpha asymmetry is a
+      long-standing depression marker, so it is computed explicitly rather than
+      left to emerge from a generic channel dump.
+
+  outputs_dir: artifacts/goal2_8/eeg

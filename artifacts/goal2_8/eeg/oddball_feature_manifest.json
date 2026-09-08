@@ -1,0 +1,40 @@
+{
+  "task": "oddball",
+  "feature_version": "goal2_8_eeg_condition_erp_v1",
+  "conditions": {
+    "11": "standard",
+    "22": "deviant_target"
+  },
+  "primary_contrast": {
+    "name": "target_minus_standard",
+    "minuend": "22",
+    "subtrahend": "11"
+  },
+  "erp_channels": [
+    "Pz",
+    "Cz",
+    "CP1",
+    "CP2",
+    "P3",
+    "P4"
+  ],
+  "erp_windows": {
+    "p200": [
+      0.18,
+      0.28
+    ],
+    "p300": [
+      0.28,
+      0.55
+    ],
+    "late": [
+      0.55,
+      0.8
+    ]
+  },
+  "subjects_signal": 1820,
+  "subjects_qc": 1853,
+  "signal_feature_columns": 321,
+  "signal_features": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_8/eeg/oddball_signal_features.csv",
+  "qc_features": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_8/eeg/oddball_qc_features.csv"
+}

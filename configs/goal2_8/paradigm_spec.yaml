@@ -1,0 +1,444 @@
+# Goal 2.8 paradigm specification.
+#
+# Single source of truth for how each experiment was actually run. Every value
+# carries a `source` naming the dataset attachment it came from, and every
+# claim is checked against sampled raw files by
+# scripts/check_paradigm_conformance.py.
+#
+# Feature code MUST read task structure from here (via
+# chongqing_binary.paradigm.spec) and MUST NOT hardcode event codes, block
+# counts, durations, or segment boundaries. See AGENTS.md, Paradigm-Conformance
+# Rules.
+
+spec_version: goal2_8_paradigm_v1
+verified_on: '2026-09-07'
+
+sources:
+  eeg_oddball_script: 附件/oddball_device_lastrun.py
+  eeg_1back_script: 附件/nback_animal_marker_lastrun.py
+  fnirs_paradigm_zip: 附件/伊瑞德近红外范式-执行版.zip
+  protocol_pdf: 附件/脑机接口.pdf
+  yiruid_probe_geometry: 附件/前额叶_20260106093254/
+  bikom_network_partition: 附件/FC_Matrix_Inf_3D.xlsx
+  bikom_eprime: 附件/必可明范式_eprime/
+  face_web_log: 附件/网页数据.xlsx
+  face_video_splitter: 附件/run_video_process.py
+  face_stimulus_bundle: 面部/面部任务.zip
+
+# Facts that look authoritative but are not. Recorded so nobody re-derives
+# structure from them.
+antipatterns:
+  bikom_stim_time_header:
+    value: 'Stim Time[s] A,51,B,15,C,15,D,15,E,15,F,15,G,15,H,15,I,15,J,15'
+    must_ignore: true
+    reason: >-
+      Identical across all five Bikom tasks including Rest, so it is a leftover
+      device template rather than the design of any one task.
+  v1_oddball_cache_event_codes:
+    value: '["22"]'
+    location: experiments/v1/eeg/scripts/cache_deep_windows.py:78
+    must_ignore: true
+    reason: >-
+      A hardcoded cache filter, not a property of the data. The raw event files
+      contain code 11 as well.
+
+structural_facts:
+  fnirs_device_cohorts_are_disjoint:
+    overlap_subjects: 1
+    yiruid_subjects: 1527
+    bikom_subjects: 1022
+    sites_using_both_devices: 5
+    sites_total: 22
+    label_prevalence: {yiruid: 0.387, bikom: 0.315}
+    consequence: >-
+      Each subject was measured on one fNIRS device only, so device is almost
+      perfectly confounded with acquisition site. Device effects and site effects
+      cannot be separated, no within-subject device comparison is possible, and
+      `fnirs_device` functions as a site proxy rather than an instrument
+      variable. The split file records this itself as fnirs_device = both for
+      exactly one subject.
+    source: 'measured 2026-09-07 from the Goal 2.8 feature tables and subject_splits_v1.csv'
+  bikom_carries_no_univariate_label_signal:
+    median_univariate_auroc: 0.502
+    features_beyond_0.03_of_chance: '2 of 22 (yiruid: 44 of 77)'
+    consequence: >-
+      Bikom parsing is validated (group-mean HbO shows a change point at 29.5 s,
+      mark sequences match exactly, Oddball block responses are canonical) and the
+      feature distributions are well formed, but the features carry essentially no
+      label information. Under group-aware CV they fall below chance, which is
+      what fitting site structure and then testing on different sites produces.
+    source: 'measured 2026-09-07 after equalising regional resolution between devices'
+
+known_gaps:
+  eeg_1back_match_nonmatch:
+    recoverable: false
+    reason: >-
+      The EEG-side condition files carrying the `mark` column and the per-subject
+      PsychoPy logs are not in the dataset. Match/non-match cannot be recovered
+      for EEG 1BACK and must not be fabricated. The fNIRS side does have logs.
+  bikom_vft_timing:
+    recoverable: partial
+    reason: >-
+      Bikom VFT records no markers. Baseline end is empirically supported by a
+      group-mean HbO change point near 29.5 s, but the task end is not directly
+      evidenced.
+
+eeg:
+  common:
+    raw_dir: 脑电
+    data_file_patterns: ['*_data.bdf', 'data.bdf']
+    event_file_patterns: ['*_evt.bdf', 'evt.bdf']
+    file_naming_note: >-
+      Two naming conventions coexist. Most subject directories use
+      "<L_id>_data.bdf" / "<L_id>_evt.bdf", but a subset uses bare "data.bdf" /
+      "evt.bdf". A glob of "*_data.bdf" alone silently drops the second group,
+      which cost 329 Oddball subjects on the first Goal 2.8 run.
+    identifiable_file_note: >-
+      Each directory also holds a third BDF named after the participant. It is
+      the same recording as data.bdf and must never be read or referenced.
+    events_share_meas_date_with_data: true
+    sfreq_hz: 1000
+    n_channels: 32
+    channels: [Fp1, Fp2, Fz, F3, F4, F7, F8, FC1, FC2, FC5, FC6, Cz, C3, C4,
+               T7, T8, A1, A2, CP1, CP2, CP5, CP6, Pz, P3, P4, P7, P8, PO3, PO4,
+               Oz, O1, O2]
+    reference_channels: [A1, A2]
+    source: 'measured from raw BDF headers, 2026-09-07'
+
+  rest:
+    dir: 1_rest-1334
+    event_free: true
+    optional_annotations: ['Eyes Closed']
+    expected_duration_sec: {min: 280, typical: 310, max: 400}
+    min_event_file_coverage: 0.80
+    coverage_note: >-
+      Some Rest subject directories carry no _evt.bdf. Rest is event-free, so a
+      missing event file does not block feature extraction.
+    source: '脑机接口.pdf 流程图 静息态; durations measured from raw BDF'
+
+  oddball:
+    dir: 2_Oldball-2358
+    blocks: 10
+    blocks_observed_in_eeg: 5
+    trials_per_block: 30
+    soa_sec: 1.0
+    block_rest_sec: 30
+    first_n_trials_fixed_standard: 5
+    event_codes:
+      '11':
+        condition: standard
+        stimulus: stim/frequency_500hz.wav
+        stimulus_hz: 500
+        response: none
+        per_block: 25
+        presence: all_subjects
+        source: 'oddball_device_lastrun.py:1058-1059; task_block.xlsx pick_audio/correct_resp'
+      '22':
+        condition: deviant_target
+        stimulus: stim/frequency_1000hz.wav
+        stimulus_hz: 1000
+        response: keypress_1
+        per_block: 5
+        presence: all_subjects
+        source: 'oddball_device_lastrun.py:1060-1061; task_block.xlsx pick_audio/correct_resp'
+    expected_total_per_subject: {'11': 125, '22': 25}
+    expected_event_span_sec: 300
+    min_event_file_coverage: 0.70
+    coverage_note: >-
+      Roughly a fifth of Oddball subject directories have no readable _evt.bdf.
+      Those subjects cannot contribute event-locked features and are excluded,
+      not imputed.
+    primary_contrast:
+      name: target_minus_standard
+      minuend: '22'
+      subtrahend: '11'
+    response_keys:
+      '1': target_detected
+      none: no_response_expected_for_standard
+    response_key_source: 'task_block.xlsx correct_resp: 1 for 1000 Hz, empty for 500 Hz'
+    epoch: {tmin: -0.2, tmax: 0.8, baseline: [-0.2, 0.0]}
+    erp_windows:
+      p200: [0.18, 0.28]
+      p300: [0.28, 0.55]
+      late: [0.55, 0.80]
+    erp_channels: [Pz, Cz, CP1, CP2, P3, P4]
+    source: >-
+      oddball_device_lastrun.py + task_block.xlsx + 脑机接口.pdf
+      ("受试者需要在偏差刺激时按键反应，在标准刺激时不反应");
+      counts verified on 313 sampled subjects.
+
+  1back:
+    dir: 4_1BACK-1810
+    blocks: 2
+    trials_per_block: 15
+    soa_sec: 2.0
+    inter_block_gap_sec: 5.0
+    stimulus_on_sec: 0.5
+    fixation_sec: 1.5
+    response_window_sec: 2.0
+    event_codes:
+      '19':
+        condition: block_initial_stimulus
+        per_block: 1
+        use_in_condition_contrast: false
+        presence: all_subjects
+        source: 'nback_animal_marker_lastrun.py:1002-1004 mark column; verified 2/subject on 399 subjects'
+      '18':
+        condition: subsequent_stimulus
+        per_block: 14
+        use_in_condition_contrast: true
+        presence: all_subjects
+        source: 'nback_animal_marker_lastrun.py:1002-1004 mark column'
+      '66':
+        condition: response_correct
+        lag_trials: 1
+        usable_as_condition: false
+        presence: most_subjects
+        source: 'nback_animal_marker_lastrun.py:996-999, emitted at Begin Routine from the previous trial'
+      '77':
+        condition: response_incorrect
+        lag_trials: 1
+        usable_as_condition: false
+        presence: optional
+        presence_note: 'response-contingent; a subject with no errors emits none'
+        source: 'nback_animal_marker_lastrun.py:996-999'
+      '88':
+        condition: unresolved
+        usable: false
+        presence: optional
+        presence_note: 'observed in roughly a quarter of subjects only'
+        source: 'observed in about 25 percent of subjects; not emitted by the archived script'
+    min_event_file_coverage: 0.95
+    block2_truncated:
+      expected: true
+      block1_stimuli: 15
+      block2_stimuli: {min: 3, max: 11, mode: 10}
+      source: 'measured on 300 sampled subjects; do not impute'
+    epoch: {tmin: -0.2, tmax: 1.8, baseline: [-0.2, 0.0]}
+    erp_windows:
+      p200: [0.15, 0.28]
+      p300: [0.30, 0.60]
+      late_positive: [0.60, 1.00]
+      slow_wave: [1.00, 1.80]
+    erp_channels: [Pz, Cz, CP1, CP2, P3, P4, Fz, Oz]
+    erp_window_source: >-
+      Visual 1-back with a 2 s epoch. Windows cover the visual P2, the P300, and
+      the sustained working-memory slow wave; channels add occipital Oz because
+      the stimulus is visual, unlike the auditory Oddball.
+    response_keys:
+      '1': non_match_response
+      '2': match_response
+      none: no_response
+    response_key_source: 'nback_animal_marker condition files correct_resp column'
+    source: >-
+      nback_animal_marker_lastrun.py (EEG variant with the Neuracle trigger box)
+      + 脑机接口.pdf 1-back 说明; code counts and SOA verified on 399 subjects.
+
+fnirs:
+  yiruid:
+    representation: raw_intensity
+    file_format: homer2_nirs_matlab
+    sfreq_hz: 20
+    wavelengths_nm: [690, 830]
+    n_sources: 16
+    n_detectors: 16
+    n_channels: 53
+    n_measurements: 106
+    montage: yrd-53
+    geometry_file: 附件/前额叶_20260106093254/前额叶_pos文件.csv
+    cortical_mni_file: 附件/前额叶_20260106093254/前额叶_皮层MNI.csv
+    reference_points_file: 附件/前额叶_20260106093254/reference.csv
+    geometry:
+      layout: planar_grid
+      optode_spacing_mm: 30
+      channel_midpoint_offset_mm: 15
+      spatial_unit: mm
+      channel_labels: 'CH1..CH53'
+      source_labels: 'S1..S16'
+      detector_labels: 'D1..D16'
+      mni_covers: 'channel midpoints plus every source and detector'
+      note: >-
+        The montage is named 前额叶 (prefrontal) but the MNI projections span
+        x -68..70, y -26..73, z 2..70, so coverage reaches lateral frontal,
+        temporal and central cortex. Do not describe it as prefrontal-only.
+      nominal_separation_mm: 30
+      long_separation_channels: [43, 49]
+      long_separation_mm: 67.1
+      long_separation_note: >-
+        51 of 53 channels sit at exactly 30 mm. CH43 and CH49 bridge 67.1 mm
+        because the bottom optode row is sparser. Long separations have much
+        lower signal-to-noise and a different effective pathlength, so flag them
+        in QC and report any result that depends on them separately.
+      source: 前额叶_pos文件.csv (yrd-53) + 前额叶_皮层MNI.csv; distances computed from SD.SrcPos/SD.DetPos
+    marker_semantics: 'nonzero entries of s mark block onsets; value is always 1'
+    transport: tcp_socket
+    transport_endpoint: '192.168.9.1:9000'
+    transport_values:
+      '0': experiment_start_sent_at_end_of_the_ready_screen
+      '1': block_onset
+      '255': experiment_end
+    transport_source: >-
+      伊瑞德近红外范式-执行版.zip *_lastrun.py client_socket.send calls; the fNIRS
+      variant sends ASCII strings over TCP while the EEG variant writes numeric
+      codes over a Neuracle serial trigger box.
+    clock_offset_note: >-
+      The device clock starts when "0" arrives, at the end of the ready screen.
+      PsychoPy timestamps therefore lead .nirs time by the ready-screen duration
+      (about 3.3 s), which is why block onsets land at 30 s rather than 33 s.
+    source: 'SD.Lambda / SD.nSrcs / SD.nDets / SD.MeasList read from every .nirs file'
+    tasks:
+      rest:
+        dir: 近红外/依瑞德近红外/1.Rest_1949
+        duration_sec: 350
+        markers: 0
+        event_free: true
+      vft:
+        dir: 近红外/依瑞德近红外/3.VFT_1904
+        duration_sec: 150
+        markers: 1
+        marker_onsets_sec: [30.0]
+        baseline_sec: 30
+        task_blocks: 4
+        block_duration_sec: 15
+        recovery_sec: 60
+        categories_total: 6
+        categories_presented: 4
+        categories: [水果, 动物, 花朵, 蔬菜, 颜色, 游戏]
+        category_selection: 'random.sample(range(6), 4) per subject, order is the sampled order'
+        baseline_task: 数数 (counting aloud), an active control rather than silent rest
+        source: 'vft_marker_lastrun.py 数数_30/数数_60 + 15 s per block; 脑机接口.pdf VFT 说明'
+      1back:
+        dir: 近红外/依瑞德近红外/4.1_back_1824
+        duration_sec: 157
+        markers: 2
+        marker_onsets_sec: [30.0, 92.0]
+        baseline_sec: 30
+        intro_sec: 2
+        task_blocks: 2
+        block_duration_sec: 30
+        recovery_sec: 30
+        behaviour_dir: 近红外/依瑞德近红外/4.1_back_1824/1back_beh
+        behaviour_glob: '*_stim_loop.csv'
+        condition_column: correct_resp
+        condition_map: {1: non_match, 2: match, '': block_initial}
+        source: 'nback_animal_marker_lastrun.py + per-subject marker CSV timings'
+      oddball:
+        dir: 近红外/依瑞德近红外/2.Oddball_702
+        duration_sec: 633
+        markers: 10
+        marker_interval_sec: 60
+        first_marker_sec: 30
+        baseline_sec: 30
+        task_blocks: 10
+        block_duration_sec: 30
+        behaviour_dir: 近红外/依瑞德近红外/2.Oddball_702/oldball_beh
+      doors:
+        dir: 近红外/依瑞德近红外/5.Doors_1065
+        duration_sec: 570
+        markers: 6
+        marker_interval_sec: 90
+        first_marker_sec: 30
+        baseline_sec: 30
+        task_blocks: 6
+        block_duration_sec: 60
+        trials_per_block: 10
+        trial_duration_sec: 6
+        behaviour_dir: 近红外/依瑞德近红外/5.Doors_1065/door_beh
+        condition_map: {1: win, 2: loss}
+        feedback_amounts: {win: '+50 元', loss: '-25 元'}
+        source: 'door_marker_lastrun.py task_block.xlsx feedback 1/2; 脑机接口.pdf Doors 说明'
+
+  bikom:
+    representation: vendor_hbo_hbr_hbt_csv
+    file_format: vendor_csv
+    sfreq_hz: 10
+    wavelengths_nm: [695, 830]
+    n_channels: 52
+    probe_mode: 3x11
+    network_partition_file: 附件/FC_Matrix_Inf_3D.xlsx
+    marker_semantics:
+      ST: recording_start
+      ED: recording_end
+      A0: block1_task_on
+      A1: block1_task_off
+      B0: block2_task_on
+      B1: block2_task_off
+    marker_labels_must_be_preserved: true
+    optional_marks: [ED]
+    optional_marks_note: >-
+      A minority of recordings stop without writing the ED mark. Treat ED as
+      optional; ST and the block marks are required.
+    read_full_file: true
+    row_cap_forbidden: true
+    source: 'CSV headers and Mark columns read across sampled subjects per task'
+    tasks:
+      rest:
+        dir: 近红外/必可明近红外/1.Rest_1302
+        duration_sec: 350
+        marker_sequence: [ST, ED]
+        event_free: true
+      vft:
+        dir: 近红外/必可明近红外/3.VFT_1308
+        duration_sec: 170
+        marker_sequence: []
+        timing_confidence: low
+        sensitivity_only: true
+        baseline_sec: 30
+        baseline_end_evidence: 'group-mean HbO change point at about 29.5 s over 60 subjects'
+      1back:
+        dir: 近红外/必可明近红外/4.1-Back_1272
+        duration_sec: 155
+        marker_sequence: [ST, A0, A1, B0, B1, ED]
+        task_blocks: 2
+        behaviour_glob: '*_Block_Trial_*.txt'
+      oddball:
+        dir: 近红外/必可明近红外/2.Oddball_644
+        duration_sec: 630
+        marker_pairs: 10
+        task_blocks: 10
+      doors:
+        dir: 近红外/必可明近红外/5.Doors_649
+        duration_sec: 570
+        marker_pairs: 6
+        task_blocks: 6
+
+face:
+  self_intro:
+    dir: 面部/面部1-自我介绍1分钟
+    single_segment: true
+    duration_sec: {min: 55, typical: 62, max: 90}
+  task:
+    dir: 面部/面部2-任务
+    duration_sec: {min: 600, typical: 700, max: 900}
+    segmented: true
+    segment_source: 附件/网页数据.xlsx
+    key_column: 编号
+    key_is: A_id
+    subjects_in_log: 4574
+    subjects_with_complete_timestamps: 4422
+    alignment_landmark: 面部/面部任务.zip::resource/audio/start.mp3
+    alignment_landmark_duration_sec: 1.28
+    participant_response: 'q key click, per the presentation harness folder name and js/click.js'
+    movie_order: [positive, neutral, negative]
+    movie_order_source: 面部/面部任务.zip::js/index.js:6
+    movies:
+      positive:
+        start_column: timevideostart1
+        end_column: timevideoend1
+        stimulus_duration_sec: 93.16
+      neutral:
+        start_column: timevideostart2
+        end_column: timevideoend2
+        stimulus_duration_sec: 86.64
+      negative:
+        start_column: timevideostart3
+        end_column: timevideoend3
+        stimulus_duration_sec: 125.00
+    stimulus_duration_source: 'ffprobe on 面部任务.zip resource/video/*.mp4'
+    segment_duration_tolerance_sec: 10.0
+    primary_contrast:
+      name: valence_contrast
+      pairs: [[negative, positive], [negative, neutral]]
+    not_segmented_in_this_goal:
+      corpus: {start_columns: [timerbegin1, timerbegin2, timerbegin3], end_columns: [timerend1, timerend2, timerend3]}
+      dialogue: {start_columns_prefix: timequs, n: 18}

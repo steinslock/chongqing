@@ -1,0 +1,14 @@
+{
+  "device": "bikom",
+  "task": "oddball",
+  "feature_version": "goal2_8_fnirs_mbll_block_v1",
+  "timing_confidence": "high",
+  "sensitivity_only": false,
+  "subjects_attempted": 508,
+  "subjects_signal": 508,
+  "subjects_qc": 508,
+  "signal_feature_columns": 87,
+  "block_reasons": {},
+  "signal_features": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_8/fnirs/bikom_oddball_signal_features.csv",
+  "qc_features": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_8/fnirs/bikom_oddball_qc_features.csv"
+}

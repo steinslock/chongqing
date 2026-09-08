@@ -1,0 +1,12 @@
+extends: common.yaml
+
+# Task structure (durations, marker counts and meanings, block layout) lives in
+# configs/goal2_8/paradigm_spec.yaml. Only processing choices belong here.
+fnirs:
+  preprocessing_version: goal2_8_fnirs_full_read_mbll_spec_segmented_v1
+  optical_density_baseline_samples: 100
+  default_age_years: 13.0
+  age_note: >-
+    The differential pathlength factor is age dependent, so each subject's own
+    age is used and 13 is the fallback when age is missing or out of range.
+  outputs_dir: artifacts/goal2_8/fnirs

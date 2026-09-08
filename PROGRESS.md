@@ -698,3 +698,340 @@ Formal-release verification:
 - Goal 2.7 protocol tests passed: `Ran 47 tests ... OK`.
 - Leakage audit, fixed-split SHA-256 validation, gzip integrity, archive row
   counts, and release-manifest hashes passed.
+
+## 2026-09-07 - Goal 2.8 Opened: Environment Merge, Retirement, and Supersession
+
+Status: WP0 complete; WP1 onward pending.
+
+Verified against the raw dataset that the Goal 2.7 modality conclusions rest on
+incorrect readings of the data. Evidence and root causes are recorded in
+`reports/goal2_7_superseded_notice.md`. Summary:
+
+- EEG Oddball raw `*_evt.bdf` contains both code `11` (500 Hz standard, median
+  123/subject) and code `22` (1000 Hz deviant target, median 25/subject) across
+  313 sampled subjects; the target-only cache comes from a hardcoded
+  `event_codes: ["22"]` in `experiments/v1/eeg/scripts/cache_deep_windows.py`.
+- EEG 1BACK codes `18`/`19` are positional: `19` is the block-initial stimulus
+  (exactly 2/subject), `18` every later stimulus, SOA 2.00 s. Codes `66`/`77`
+  lag one trial. Block 2 is systematically truncated.
+- Yiruid `.nirs` files carry `SD.Lambda = [690, 830]`, 16 sources, 16 detectors,
+  3D optode positions and a marker matrix; the old reader only probed headers.
+- fNIRS block timing is confirmed for all five tasks on both devices.
+- `面部2-任务` is an ~11 minute multi-phase session with 24 segments recoverable
+  from `附件/网页数据.xlsx`; Goal 2.7 sampled 16 frames across the whole session.
+
+Environment merge:
+
+- `chongqing_v1` is now the single project environment. Installed
+  `opencv-python-headless==4.12.0.88`, `openpyxl==3.1.5` and `et_xmlfile==2.0.0`
+  with `--no-deps` through the local proxy; numpy, pandas, scipy, scikit-learn
+  and torch were unchanged. `migration/chongqing-v1-requirements.lock.txt`
+  updated to 67 packages.
+- Verified in that environment: OpenCV decodes the face videos, YuNet loads and
+  detects, torchvision ResNet18 loads offline from the local weight cache and
+  moves to CUDA, MNE reads raw BDF and its events, scipy reads `.nirs` including
+  `SD`, and openpyxl reads `网页数据.xlsx`. CUDA reports 8 devices.
+- `activate.local.sh` now activates `chongqing_v1`; `activate.v1.local.sh` is a
+  deprecated shim that sources it.
+
+Retirement and clearing:
+
+- Deleted Goal 2.6 code: `src/chongqing_binary/goal2_6/` (8 files), the 8
+  `scripts/*goal2_6*.py`, and `tests/test_goal2_6_protocol.py`. Retained
+  `configs/goal2_6/`, `results/goal2_6/` and the six `reports/goal2_6_*.md` as
+  the historical record.
+- Removed the Goal 2.6 config-loader assertions from `tests/test_config.py`.
+- Archived four design documents written on superseded premises into
+  `reports/archive/` with a superseded banner: `eeg_goal3_design.md`,
+  `fnirs_goal4_design.md`, `face_goal5_design.md`, `face_shortcut_audit_plan.md`.
+- Hash-based constraints abolished by user decision and written into `AGENTS.md`
+  as the `No Hash Constraints` section. `artifacts/goal2_7/release_manifest.json`
+  and `scripts/build_goal2_7_release_manifest.py` are retired historical files.
+
+Documentation rewritten for Goal 2.8:
+
+- `AGENTS.md`: new `Environment`, `No Hash Constraints`, `Current Stage`,
+  `Goal 2.8`, `Paradigm-Conformance Rules`, rewritten `Task-Semantics Rules` and
+  `Face Rules`, and Goal 2.8 entry points. The old tentative Goal 2.8 Gate is
+  gone.
+- `EXPERIMENT_PROTOCOL.md`: new `Paradigm Conformance`, rewritten EEG and fNIRS
+  validity sections that unblock the confirmed semantics, updated Face protocol,
+  a `SUPERSEDED` interpretation status, and single-environment reproducibility.
+- `PROJECT_SPEC.md`: Goal 2.8 scope, updated engineering structure, and an
+  `Evidence and Decision` section that separates what is superseded from the
+  site/demographics shortcut finding that still stands.
+
+Verification:
+
+- `PYTHONPATH=src python -m unittest discover -s tests` → `Ran 99 tests ... OK`
+  in `chongqing_v1` (down from 109 after removing the 10 Goal 2.6 protocol
+  tests).
+- Both split files are byte-identical to their committed state; no split was
+  regenerated.
+- Working-tree changes are limited to the lock file, the Goal 2.6 deletions,
+  `tests/test_config.py`, the three governing documents, `PROGRESS.md`, the two
+  activation scripts, and the new/archived reports.
+
+Next: WP1, the attachment-sourced paradigm specification and its conformance
+checker, then EEG Oddball re-derivation.
+
+## 2026-09-07 - Goal 2.8 WP1/WP2: Paradigm Spec and EEG Re-derivation
+
+Status: WP1 complete; WP2 complete for all three EEG tasks; WP3 reader complete.
+
+Paradigm specification (WP1):
+
+- `configs/goal2_8/paradigm_spec.yaml` records how every experiment was actually
+  run, with a `source` on each value naming the dataset attachment it came from:
+  event-code meanings, response keys, block structure, marker transport values,
+  optode geometry, VFT categories, Doors win/loss amounts, and the Face movie
+  order and stimulus durations. It also records two antipatterns that look
+  authoritative but are not, and the gaps that are genuinely unrecoverable.
+- `src/chongqing_binary/paradigm/` loads it and derives block windows;
+  `scripts/check_paradigm_conformance.py` validates it against sampled raw files.
+  All 68 checks pass. The first run failed 5 checks, every one of them because
+  the specification was stricter than reality; the specification was corrected.
+- Feature code takes task structure from here and must not hardcode it.
+
+EEG re-derivation from raw BDF (WP2):
+
+| task | subjects | signal features | note |
+|---|---|---|---|
+| oddball | 1820 / 1853 | 321 | target, standard, and the difference wave |
+| 1back | 1278 / 1413 | 181 | code 18 only; 19 excluded as positional |
+| rest | 1003 / 1043 | 63 | continuous windows, spectral path |
+
+The Oddball difference wave over 1820 subjects is a textbook P3b: Pz +6.40 uV in
+the 0.28-0.55 s window, parietal maximum, Fz negative at -2.45 uV, positive in
+88.1 percent of subjects, Cohen d = 1.08. The Goal 2.7 premise that only code 22
+existed is definitively refuted.
+
+Diagnostic signal is nonetheless weak. The Pz P300 difference is +6.56 uV in
+healthy against +6.06 uV in non-healthy, Mann-Whitney p = 0.055, univariate
+AUROC 0.528. Recovering the correct contrast did not by itself produce a strong
+classifier. Whether the multivariate feature set adds an increment over
+demographics is for WP5 to decide under the unchanged protocol.
+
+Defects found and fixed while building this:
+
+- Two BDF naming conventions coexist, `<L_id>_data.bdf` and bare `data.bdf`. A
+  glob of `*_data.bdf` alone dropped 329 Oddball subjects. Recorded in the
+  specification and covered by a test.
+- A single peak-to-peak rejection threshold rejected 65 percent of 1BACK epochs,
+  because its 2 s epochs have far more opportunity to exceed it than 1 s Oddball
+  epochs. Thresholds are now per task, and the blink-dominated Fp1/Fp2 channels
+  no longer drive whole-epoch rejection. 1BACK usable subjects rose from 593 to
+  1278; the epoch-selection alignment was verified against MNE's own selection.
+- The 1BACK section of the specification had no ERP windows or channels, so
+  feature extraction emitted a single column. Windows and channels appropriate
+  to a visual 2 s epoch were added, giving 181 columns.
+- Yiruid channels CH43 and CH49 span 67.1 mm while the other 51 sit at 30 mm.
+  Flagged in the specification because their signal-to-noise and effective
+  pathlength differ.
+
+fNIRS reader (WP3, partial):
+
+- `src/chongqing_binary/goal2_8/fnirs_io.py` reads `.nirs` in full including the
+  `SD` structure, and converts to HbO/HbR by the modified Beer-Lambert law using
+  the recorded 690/830 nm wavelengths, optode distances and an age-dependent
+  DPF. A round-trip test forward-models known concentrations and recovers them.
+- Bikom CSVs keep their `ST`/`A0`/`A1`/`B0`/`B1`/`ED` mark labels rather than
+  being collapsed to a 0/1 indicator.
+
+Verification: `Ran 125 tests ... OK`. All three EEG feature tables are CV-only
+with zero pilot-holdout rows.
+
+## 2026-09-07 - Goal 2.8 WP3: fNIRS Re-derivation, Five Tasks on Both Devices
+
+Status: complete. Task-response features are unblocked and validated.
+
+Goal 2.7 blocked every fNIRS task-response feature. Three separate defects were
+behind that, all now fixed:
+
+- the reader probed `.nirs` headers only, so wavelengths and geometry looked
+  unconfirmed. `fnirs_io.py` now reads the file including `SD`, and applies the
+  modified Beer-Lambert law with the recorded 690/830 nm wavelengths, per-channel
+  source-detector distances and an age-dependent differential pathlength factor;
+- the Bikom `Mark` column was collapsed to a 0/1 indicator, discarding the
+  `A0`/`A1`/`B0`/`B1` labels that encode block on and off. Labels are preserved
+  and block windows come straight from them;
+- `_segments()` took the task window as first-marker-to-last-marker, which
+  degenerates to a single sample for VFT and swallows all ten rest periods for
+  Oddball. Block windows now come from the specification plus recorded markers.
+
+Channel-to-region mapping replaces the old `unconfirmed_channel_global_hemisphere_only`
+status: Yiruid channels are assigned to 11 regions from the yrd-53 MNI
+projections, Bikom to the provider's four-network partition.
+
+| device | task | subjects | signal features | timing |
+|---|---|---|---|---|
+| yiruid | rest | 1514 | 38 | event-free |
+| yiruid | vft | 1480 | 80 | high |
+| yiruid | 1back | 1423 | 80 | high |
+| yiruid | oddball | 524 | 80 | high |
+| yiruid | doors | 825 | 80 | high |
+| bikom | rest | 1017 | 23 | event-free |
+| bikom | vft | 1022 | 23 | low, sensitivity only |
+| bikom | 1back | 995 | 49 | high |
+| bikom | oddball | 508 | 49 | high |
+| bikom | doors | 515 | 49 | high |
+
+Physiological validation. Every Yiruid task shows the canonical haemodynamic
+response, HbO up and HbR down, with block counts exactly matching the
+specification:
+
+- VFT +0.343 / -0.128 uM over 4 blocks, peak at 8.4 s, and left-lateralised,
+  which is what a verbal fluency task should produce;
+- 1BACK +0.632 / -0.215 uM over 2 blocks;
+- Oddball +0.405 / -0.130 uM over 10 blocks;
+- Doors +0.055 / -0.068 uM over 6 blocks.
+
+Bikom Oddball is also canonical. Bikom 1BACK and Doors show much smaller and
+mixed-sign changes, which is consistent with its vendor-processed units being a
+different quantity from MBLL-derived micromolar concentrations; the two devices
+stay separate, as the protocol requires.
+
+Defects found and fixed while building this:
+
+- the `age` column carries sentinels such as `[missing]` and out-of-range values
+  such as 33 and 36. Age drives the DPF, so it is coerced and clipped to the
+  configured 9-20 range with a documented fallback;
+- a subset of Bikom CSVs is exported with every line padded by trailing commas,
+  so `Sampling Period[s]` parsed as `0.1,,,,,,`. Sixteen subjects were being
+  dropped across three tasks; trailing empty fields are now stripped;
+- some recordings carry channels that are NaN throughout, and numpy raises on an
+  all-NaN slice rather than returning NaN. Bikom Doors crashed outright. All
+  reductions now go through a nan-safe guard.
+
+Verification: `Ran 125 tests ... OK`. All ten feature tables are CV-only with
+zero pilot-holdout rows, 9823 subject-task rows in total.
+
+## 2026-09-07 - Goal 2.8 WP4: Face Segmentation and the Valence Contrast
+
+Status: complete. The result does not support the hypothesis that motivated it.
+
+`面部2-任务` was segmented into its three emotion-movie phases using
+`附件/网页数据.xlsx`, and features were extracted per segment plus as
+within-subject valence contrasts.
+
+Alignment. The `template.mp3` and split-point JSON that `run_video_process.py`
+expects are not in the dataset, so `start.mp3` from `面部/面部任务.zip` was used
+as the landmark. It clears a 0.6 correlation on only 474 of 3382 recordings,
+because the microphone captures room playback. Two independent lines of evidence
+fix the offset instead: confident detections give a lead-in of 0.63-0.77 s, and
+`video_duration - (log_span + 60)` has an interquartile range of only 3 s. Both
+say the recording starts under a second before `timevideostart1`. Confident
+subjects use their own offset, the rest inherit the cohort median, and frames are
+sampled from the middle 80 percent of each segment so a few seconds of error
+cannot reach the features. The web log itself is trustworthy: all 3382 subjects'
+segment durations match the stimulus durations, with zero mismatches.
+
+Extraction: 3382 subjects indexed with all three movies, 3381 with features,
+YuNet detection rate 1.000 across 48 frames per subject. Goal 2.7 had fallen back
+to Haar on 99 percent of videos; a fallback is now a recorded QC failure.
+
+The valence contrast has 17.4 percent of the magnitude of a raw segment
+embedding, confirming that most of the raw embedding is subject-constant and
+cancels within subject.
+
+Result, PCA-64 plus logistic regression under the fixed folds:
+
+| block | standard CV | group CV |
+|---|---|---|
+| face_negative | 0.6228 | 0.6096 |
+| full_negative | 0.6250 | 0.5842 |
+| background_negative | 0.6019 | 0.5418 |
+| contrast negative-minus-positive | 0.5499 | 0.5345 |
+| contrast negative-minus-positive background | 0.4962 | 0.4814 |
+| contrast negative-minus-neutral | 0.4964 | not run |
+
+Interpretation. Segmenting the session did **not** unlock a strong emotional
+signal. Removing the subject-constant component drops AUROC from about 0.62 to
+0.53-0.55, which means most of what the raw Face embedding predicts is appearance
+and setting rather than facial dynamics. The Goal 2.7 `SHORTCUT_DOMINATED`
+description was substantively right about Face, even though it was reached from
+unsegmented video.
+
+What the contrast does establish is a shortcut-free floor. Under group-aware CV
+the contrast reaches 0.5345 against 0.4814 for its own background control, a gap
+of about 0.053 that cannot be explained by identity, background or acquisition
+site, because those cancel within subject. Group-aware CV deflates background by
+0.060 and full frame by 0.041 while barely touching the face crop and the
+contrast, which is the signature of an acquisition-site shortcut living in the
+background rather than in the face.
+
+These are single untuned models without inner-CV selection or confidence
+intervals, and all of them sit below the roughly 0.67 that demographics alone
+reached in Goal 2.7. The question that matters is whether Face adds anything
+*over* demographics, which only the WP5 matrix can answer.
+
+Verification: `Ran 137 tests ... OK`.
+
+## 2026-09-08 - Goal 2.8 WP5/WP6: Model Matrix and Results
+
+Status: measurement complete, results recorded. No go/no-go decision is issued
+here; that remains open.
+
+The Goal 2.7 protocol was rerun unmodified over the re-derived features: same
+fixed splits, same inner CV, same model families and grids, same 1000-resample
+bootstrap and paired tests, same pilot-holdout exclusion. Only the features are
+new. Bikom was excluded from the primary matrix.
+
+Matrix: 380 datasets across both protocols, 2200 pooled metric rows, 1,623,018
+OOF predictions, 22,000 bootstrap CI rows, 444 paired comparisons.
+
+Paired increments, 240 required comparisons:
+
+| comparison group | rows | significant positive | significant negative |
+|---|---|---|---|
+| over demographics | 216 | 0 | 78 |
+| over background (shortcut control) | 24 | 14 | 1 |
+
+Per modality, increments over demographics: EEG 72 rows, 0 positive, 43
+negative; fNIRS 120 rows, 0 positive, 19 negative; Face 24 rows, 0 positive, 16
+negative. Face additionally has 14 positive rows against background, the largest
+being Random Forest on the valence contrast under group CV at +0.1153, CI
+[0.0858, 0.1450].
+
+Signal validity was confirmed independently of the label: the Oddball difference
+wave is a textbook P3b (Pz +6.40 uV, parietal maximum, Cohen d = 1.08, positive
+in 88.1 percent of 1820 subjects), every Yiruid fNIRS task shows the canonical
+haemodynamic response with specification-matching block counts, and YuNet face
+detection reached 1.000.
+
+Findings recorded alongside the matrix:
+
+- The two fNIRS devices were used on disjoint cohorts, 1 subject in common, so
+  device and acquisition site cannot be separated. Bikom features carry no
+  univariate label signal (median AUROC 0.502) despite validated parsing.
+- Demographic predictability is the same under all three label definitions
+  (0.6697 / 0.6731 / 0.6730 for age+sex+grade), so removing the 744 high-risk
+  subjects does not lower the demographic baseline.
+- Eye tracking, still unused, matches 666 CV subjects when keyed on `A_id`
+  rather than `L_id`, against the 291 recorded in the manifest.
+
+Corrections made during this stage:
+
+- The first decision rule counted any required comparison as evidence, which
+  credited Face with independent signal on the strength of 14 wins against
+  background. Beating background is a shortcut control, not an increment over
+  demographics. The rule now separates the two groups and requires a positive
+  demographics increment under both protocols; a test constructs a
+  background-only win and asserts it is not credited.
+- `configs/goal2_8/models.yaml` inherits Goal 2.7's grids for comparability, and
+  inherited six `outputs` keys still pointing at `results/goal2_7/`. Nothing had
+  been written through them, but they are redirected and a test now guards it.
+- `RandomForestClassifier(n_jobs=-1)` in the shared runner cost about 0.8 s of
+  scheduling per fit on this 192-core host, independent of problem size. It is
+  now configurable and defaults to 4. Speed only; fitted models are unchanged.
+  Weighted HistGradientBoosting is 57 times slower than unweighted in sklearn
+  1.9, and the weighting was kept because dropping it would break comparability
+  with Goal 2.7.
+
+Verification: `Ran 148 tests ... OK`. All feature tables and OOF predictions are
+CV-only with zero pilot-holdout rows. Split files are byte-identical to their
+committed state.
+
+Reports: `reports/goal2_8_final_report.md`, `reports/goal2_8_results.md`.
+Machine-readable: `results/goal2_8/`, including `required_increments.csv` and
+`modality_decision.csv`.

@@ -1,0 +1,24 @@
+{
+  "feature_version": "goal2_8_face_segment_valence_v1",
+  "shards_merged": 8,
+  "subjects_with_all_segments": 3381,
+  "subjects_qc": 3382,
+  "qc_ok": 3382,
+  "embedding_blocks": [
+    "background_negative",
+    "background_neutral",
+    "background_positive",
+    "contrast_negative_minus_neutral",
+    "contrast_negative_minus_neutral_background",
+    "contrast_negative_minus_positive",
+    "contrast_negative_minus_positive_background",
+    "face_negative",
+    "face_neutral",
+    "face_positive",
+    "full_negative",
+    "full_neutral",
+    "full_positive"
+  ],
+  "embeddings_npz": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_8/face/face_segment_embeddings.npz",
+  "qc_features": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_8/face/face_qc_features.csv"
+}

@@ -1,0 +1,4 @@
+modality,demographic_increment_rows,positive_over_demographics_standard_cv,positive_over_demographics_group_cv,negative_over_demographics,positive_over_shortcut_controls,decision
+eeg,72,0,0,43,0,NO_INDEPENDENT_SIGNAL
+face,24,0,0,16,14,NO_INDEPENDENT_SIGNAL
+fnirs,120,0,0,19,0,NO_INDEPENDENT_SIGNAL

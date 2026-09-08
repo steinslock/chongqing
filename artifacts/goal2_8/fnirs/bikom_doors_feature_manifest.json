@@ -1,0 +1,16 @@
+{
+  "device": "bikom",
+  "task": "doors",
+  "feature_version": "goal2_8_fnirs_mbll_block_v1",
+  "timing_confidence": "high",
+  "sensitivity_only": false,
+  "subjects_attempted": 518,
+  "subjects_signal": 515,
+  "subjects_qc": 518,
+  "signal_feature_columns": 87,
+  "block_reasons": {
+    "missing_hbo_or_hbr_csv": 3
+  },
+  "signal_features": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_8/fnirs/bikom_doors_signal_features.csv",
+  "qc_features": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_8/fnirs/bikom_doors_qc_features.csv"
+}

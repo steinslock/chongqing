@@ -1,0 +1,14 @@
+{
+  "device": "bikom",
+  "task": "vft",
+  "feature_version": "goal2_8_fnirs_mbll_block_v1",
+  "timing_confidence": "low",
+  "sensitivity_only": true,
+  "subjects_attempted": 1022,
+  "subjects_signal": 1022,
+  "subjects_qc": 1022,
+  "signal_feature_columns": 41,
+  "block_reasons": {},
+  "signal_features": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_8/fnirs/bikom_vft_signal_features.csv",
+  "qc_features": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_8/fnirs/bikom_vft_qc_features.csv"
+}
