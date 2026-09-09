@@ -161,6 +161,24 @@ the frequency numbers. The error was in the description, not in the extraction.
 Corrected in `spec_version` 2, with the cycle counts recorded alongside so the
 window ambiguity cannot recur.
 
+The corrected values were then re-measured directly rather than left as an
+arithmetic reconciliation. Re-decoding the video and running the FFT over each
+block's motion alone gives six blocks of 21.000 s with five 2.0 s gaps,
+136.000 s total, and a 1.017 s stationary opening before 19.983 s of motion in
+every block:
+
+| Blocks | x | y | Condition |
+|---|---|---|---|
+| 0, 1 | 7.99 cyc, 0.4001 Hz, A 0.2982 | flat | 水平正弦波 0.4 Hz |
+| 2, 3 | 3.00 cyc, 0.1500 Hz, A 0.2985 | 4.00 cyc, 0.2000 Hz, A 0.4000 | 慢速 Lissajous 0.2 Hz |
+| 4, 5 | 6.00 cyc, 0.3001 Hz, A 0.2985 | 7.99 cyc, 0.4001 Hz, A 0.3996 | 快速 Lissajous 0.4 Hz |
+
+Every corrected figure matches the document to four decimal places, the cycle
+counts are whole, and the x amplitude is constant across all six blocks, so the
+fast-minus-slow contrast does isolate speed. It also confirms the
+block-to-condition mapping, which the document does not state: the order is
+AABBCC, not ABCABC, and only measurement could settle that.
+
 ### 3.2 A visual angle can now be computed
 
 Both the specification and `events.py` stated that viewing distance was never

@@ -587,6 +587,19 @@ tasks:
         decoded track and reads only `blocks` from this mapping, so the error
         was in the description, not in the extraction.
       frequency_basis: motion window, 20 s, excluding the stationary opening
+      frequency_verification: >-
+        Re-decoded per block after the document arrived, measuring each block's
+        stationary opening and running the FFT only over the motion. Six blocks
+        of 21.000 s with five 2.0 s gaps, 136.000 s total; settle 1.017 s and
+        motion 19.983 s in every block (the 17 ms is the displacement threshold
+        triggering slightly late, not a discrepancy). Measured per block:
+        blocks 0,1 x 7.99 cycles 0.4001 Hz with y flat; blocks 2,3 x 3.00
+        cycles 0.1500 Hz and y 4.00 cycles 0.2000 Hz; blocks 4,5 x 6.00 cycles
+        0.3001 Hz and y 7.99 cycles 0.4001 Hz. Amplitudes 0.2982-0.2985 in x
+        across all six and 0.3996-0.4000 in y, so fast and slow really do
+        differ only in speed. This also confirms the block-to-condition mapping
+        below, which the document does not state and which can only be
+        measured.
       conditions:
         horizontal:
           blocks: [0, 1]
