@@ -1,0 +1,11 @@
+control,encoder,cv_protocol,outer_fold,n_train_subjects,n_val_subjects,n_val_trials,stopping_auroc,seed,compute_device,auroc
+pc1_target_vs_standard,eegnet,standard_cv,0,780,357,46528,0.8241493168533625,0,cuda:0,0.8257854623599263
+pc1_target_vs_standard,eegnet,standard_cv,1,774,367,47859,0.8293502091966944,0,cuda:0,0.8247976703190312
+pc1_target_vs_standard,eegnet,standard_cv,2,774,368,47930,0.8299814782018954,0,cuda:5,0.8250317264222925
+pc1_target_vs_standard,eegnet,standard_cv,3,776,363,47593,0.8265537186274284,0,cuda:5,0.819789834303513
+pc1_target_vs_standard,eegnet,standard_cv,4,776,365,47864,0.8205550741282196,0,cuda:5,0.8259727074662728
+pc1_target_vs_standard,eegnet,group_cv,0,726,457,59288,0.828077287907287,0,cuda:5,0.8421834201110712
+pc1_target_vs_standard,eegnet,group_cv,1,740,430,54862,0.8107184716646412,0,cuda:5,0.8257342409810404
+pc1_target_vs_standard,eegnet,group_cv,2,757,399,52014,0.8491600181863111,0,cuda:5,0.8022010076830468
+pc1_target_vs_standard,eegnet,group_cv,3,834,255,34083,0.8312186904530909,0,cuda:5,0.836283669331263
+pc1_target_vs_standard,eegnet,group_cv,4,821,279,37527,0.8302910943437489,0,cuda:5,0.8080013064380221

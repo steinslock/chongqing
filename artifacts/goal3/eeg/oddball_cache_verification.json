@@ -1,0 +1,60 @@
+{
+  "identity": {
+    "subjects_cache": 1820,
+    "subjects_reference": 1820,
+    "subject_sets_identical": true,
+    "channels_identical": true,
+    "times_identical": true,
+    "max_relative_difference": 1.312933430595752e-07,
+    "max_relative_difference_in_float32_eps": 1.101368387936297,
+    "max_abs_difference_volts": 2.3906717881369555e-10,
+    "max_abs_difference_uv": 0.00023906717881369555,
+    "relative_tolerance": 4e-07,
+    "worst_subject": "L3725/code11",
+    "n_mismatched": 0,
+    "mismatches": [],
+    "identity_gate_passed": true
+  },
+  "amplitude": {
+    "model_input_channels_excluded": [
+      "Fp1",
+      "Fp2"
+    ],
+    "model_input_channels": 30,
+    "max_abs_uv_model_input": 144.5337402401492,
+    "max_abs_uv_excluded_channels": 118990.458548069,
+    "note": "the cache keeps all 32 channels and is identical to Goal 2.8; the exclusion is a model-input choice, see amendment 1"
+  },
+  "paradigm_validity": {
+    "n_subjects": 1820,
+    "p300_window_sec": [
+      0.28,
+      0.55
+    ],
+    "Pz_uv_mean": 6.426157304593425,
+    "Pz_cohens_d": 1.0791735521267718,
+    "Pz_fraction_positive": 0.8873626373626373,
+    "Cz_uv_mean": 3.539206506573166,
+    "Cz_cohens_d": 0.5727998740556144,
+    "Cz_fraction_positive": 0.7214285714285714,
+    "Fz_uv_mean": -2.4834773112627984,
+    "Fz_cohens_d": -0.36268009736311857,
+    "Fz_fraction_positive": 0.33681318681318684,
+    "Oz_uv_mean": 4.599547274522561,
+    "Oz_cohens_d": 1.0429374405243068,
+    "Oz_fraction_positive": 0.8923076923076924,
+    "peak_channel": "Pz",
+    "parietal_maximum": true,
+    "frontal_negative": true,
+    "validity_gate_passed": true
+  },
+  "trial_counts": {
+    "deviant_target_mean": 21.91978021978022,
+    "deviant_target_min": 5.0,
+    "deviant_target_max": 29.0,
+    "standard_mean": 108.72527472527473,
+    "standard_min": 20.0,
+    "standard_max": 147.0
+  },
+  "gate_passed": true
+}

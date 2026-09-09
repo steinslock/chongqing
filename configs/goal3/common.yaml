@@ -1,0 +1,122 @@
+# Goal 3: EEG Oddball deep representation benchmark.
+#
+# Opened by CONDITIONAL_GO_FOR_GOAL3_EEG_REPRESENTATION_BENCHMARK, 2026-09-09.
+# Scope is EEG Oddball only.
+#
+# Preprocessing is NOT redefined here. It is read from configs/goal2_8/eeg.yaml
+# and configs/goal2_8/paradigm_spec.yaml unchanged, because Goal 3 is a
+# representation experiment and not a measurement experiment. Anything that
+# looks like a preprocessing knob in this file is a modelling choice applied
+# after the Goal 2.8 epochs exist.
+project_config: configs/default.yaml
+
+run:
+  stage: Goal 3
+  seed: 20260909
+  split_group: cv
+  label_column: primary_label_nonhealthy
+  task: oddball
+
+paths:
+  split_file: artifacts/splits/subject_splits_v1.csv
+  group_split_file: artifacts/splits/subject_splits_group_robustness_v1.csv
+  groups_file: artifacts/groups/subject_groups.csv
+  eeg_preprocessing_config: configs/goal2_8/eeg.yaml
+  paradigm_spec: configs/goal2_8/paradigm_spec.yaml
+  goal2_8_erp_index: artifacts/goal2_8/eeg/oddball_erp_index.csv
+  goal2_8_erp_npz: artifacts/goal2_8/eeg/oddball_erp.npz
+  goal2_8_signal_features: artifacts/goal2_8/eeg/oddball_signal_features.csv
+  goal2_8_qc_features: artifacts/goal2_8/eeg/oddball_qc_features.csv
+  trial_cache_dir: artifacts/goal3/eeg
+  artifacts_dir: artifacts/goal3
+  results_dir: results/goal3
+  reports_dir: reports
+
+protocol:
+  # Unchanged from Goal 2.7/2.8/2.9/2.10.
+  outer_folds: [0, 1, 2, 3, 4]
+  inner_cv_folds: 3
+  cv_protocols:
+    standard_cv:
+      split_file: artifacts/splits/subject_splits_v1.csv
+      fold_column: cv_fold
+    group_cv:
+      split_file: artifacts/splits/subject_splits_group_robustness_v1.csv
+      fold_column: robustness_fold
+  # The third split level. Inside each inner-fit pool, this fraction is carved
+  # out as the stopping subset. It receives every training decision; inner-val
+  # receives none, so the inner-OOF scores that train the meta model are honest.
+  stopping_fraction: 0.2
+  calibration_bins: 10
+  threshold_grid: [0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8]
+  # Declared in reports/goal3_method_design.md. `a_vs_b` throughout.
+  paired_comparison_pairs:
+    - [demographics_eeg_deep, demographics]              # Q3, the decision
+    - [eeg_deep, demographics]                           # Q1 in context
+    - [eeg_deep, eeg_traditional]                        # Q2, like for like
+    - [demographics_eeg_deep, demographics_eeg_traditional]
+    - [demographics_eeg_traditional, demographics]       # what the old features do
+  pilot_holdout_policy: >-
+    the baseline-exposed pilot holdout is excluded from Goal 3 cache
+    construction, model development, early stopping, threshold selection and
+    reporting
+
+demographics:
+  age_min: 9
+  age_max: 20
+
+bootstrap:
+  # Identical to Goal 2.7-2.10 so the intervals are directly comparable.
+  n_resamples: 1000
+  seed: 20260707
+  ci: 0.95
+  paired_n_resamples: 1000
+  paired_seed: 20260708
+
+# Fixed and pre-declared. Not tuned against the disease label; trainability is
+# confirmed once on the label-free condition-decoding control and then frozen.
+deep:
+  # Model input channels. Goal 2.8 excluded Fp1/Fp2 from its artifact-rejection
+  # decision because blinks dominate them, so its 150 uV peak-to-peak bound
+  # never constrained those two channels. Measured over all 237,774 trials on
+  # 2026-09-09, before any model was trained and with no label consulted: every
+  # other channel stays below 144.5 uV, while Fp1 reaches 10,673 uV and Fp2
+  # reaches 118,990 uV, and all 50 highest-amplitude subjects peak on Fp1 or
+  # Fp2. Goal 2.8's ERP features read only [Pz, Cz, CP1, CP2, P3, P4] and were
+  # never exposed to this; an unnormalised network would be. Frontal coverage is
+  # kept through Fz, F3, F4, F7, F8. Recorded as amendment 1 in
+  # reports/goal3_method_design.md.
+  input_channels_excluded: [Fp1, Fp2]
+  train:
+    trial_quota: 8
+    batch_subjects: 16
+    max_epochs: 60
+    patience: 12
+    min_epochs: 8
+    learning_rate: 1.0e-3
+    weight_decay: 1.0e-4
+    eval_draws_stopping: 2
+    eval_draws_final: 8
+    predict_chunk_subjects: 16
+  seeds: [0, 1, 2]
+  # Lower bound on free GPU memory before a card is considered. EEGNet peaks at
+  # about 200 MiB and InceptionTime at 340 MiB; the Conformer needs about 3 GB
+  # and is scheduled at lower concurrency rather than being given a threshold
+  # that would exclude every card from the other two. Compute only.
+  # Take whatever sliver of a shared GPU is free. EEGNet peaks near 200 MiB and
+  # InceptionTime near 340 MiB once inference is chunked; the Conformer needs
+  # about 3 GB and falls back to CPU when no card can hold it. The device list is
+  # re-queried per training, so a card that frees up is picked up within minutes.
+  min_free_mb: 400
+
+outputs:
+  jobs_dir: results/goal3/jobs
+  all_oof_predictions: results/goal3/all_oof_predictions.csv
+  all_pooled_metrics: results/goal3/all_pooled_metrics.csv
+  bootstrap_ci: results/goal3/bootstrap_confidence_intervals.csv
+  paired_comparisons: results/goal3/paired_increment_comparisons.csv
+  training_diagnostics: results/goal3/training_diagnostics.csv
+  positive_controls: results/goal3/positive_controls.csv
+  group_probe: results/goal3/acquisition_group_probe.csv
+  decision: results/goal3/goal3_decision.csv
+  manifest: artifacts/goal3/run_manifest.json

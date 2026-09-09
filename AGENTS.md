@@ -55,9 +55,14 @@ go/no-go decision.
 
 Five feature layers have now returned **no increment over demographics**: EEG,
 fNIRS, Face, behaviour and eye tracking. Goal 2.10 credits 0 of 576 increments
-over demographics across twelve `device x task` units. Do not start Goal 3, Goal
-4, Goal 5, deep training, or multimodal fusion until a go/no-go decision is
-issued.
+over demographics across twelve `device x task` units.
+
+**Goal 3 is measured and complete**; see Goal 3 below. It credits 0 of 26
+decision rows and does not lift any gate. Goal 4, Goal 5 and multimodal fusion
+remain gated and must not be started.
+
+Six feature layers and one representation layer have now returned no increment
+over demographics.
 
 Goal 2.7 concluded that no modality carried independent signal. That conclusion
 rested on three incorrect readings of the raw data, each verified against the
@@ -107,8 +112,9 @@ negative, under both CV protocols. Face has 14 significant wins against
 background, which are shortcut controls rather than increments over
 demographics.
 
-No go/no-go decision has been issued. Do not start Goal 3, Goal 4, Goal 5, deep
-training, or multimodal fusion until one is.
+No unconditional go/no-go decision has been issued. The conditional go of
+2026-09-09 opens Goal 3 for EEG Oddball only and changes nothing else; Goal 4,
+Goal 5 and multimodal fusion stay gated.
 
 ## Goal 2.9
 
@@ -172,6 +178,122 @@ that a credited increment beat a comparator that is itself above chance.
 The design, the literature it rests on, and the predictions recorded before any
 model was run are in `reports/goal2_10_eye_method_design.md`. The readiness
 audit is `reports/eye_readiness_audit.md`.
+
+## Goal 3
+
+Status: **measurement complete**. Over the 26 decision rows,
+**0 credit independent signal**; the confirmatory increment is +0.0016 under
+Standard CV and -0.0031 under Group CV, both intervals containing zero, and 0 of
+24 exploratory rows survive. See `reports/goal3_final_report.md`.
+
+Three results from this stage bind future work.
+
+- **The positive controls make this null readable.** The same EEGNet, the same
+  mean-and-std pooling, the same 1820 subjects and folds reach **0.82 for age**
+  and **0.77 for sex** while the disease label reaches 0.55, and trial-level
+  target-versus-standard reaches 0.82 on held-out subjects. Subject-level
+  aggregation is not the weak link, so this null is about the label and not
+  about the pipeline. Any future deep stage in this project should carry
+  controls of this kind; without them a null cannot be distinguished from a
+  broken model.
+- **Cross-fitted probability stacking removes the dilution artefact.** Goal 2.8
+  recorded 78 significantly negative increments over demographics out of 216;
+  Goal 3 records 0 negative and 0 positive out of 56, spanning -0.0078 to
+  +0.0045. An uninformative component gets a near-zero weight instead of being
+  paid for. Prefer this design over feature concatenation for every future
+  increment test.
+- **A deep score is seed-unstable at a scale that dwarfs these effects.**
+  Between-seed AUROC standard deviation for `eeg_deep` averages 0.0249 under
+  Group CV and reaches 0.0527, against increments of about 0.005. The paired
+  bootstrap resamples subjects and is blind to it. A single-seed deep result on
+  this cohort is not interpretable.
+
+Opened by a conditional go.
+
+```
+CONDITIONAL_GO_FOR_GOAL3_EEG_REPRESENTATION_BENCHMARK
+issued 2026-09-09
+```
+
+Goal 2.8 established that **hand-crafted** EEG features carry no increment over
+age, sex and grade. It did not establish that the **representation** carries
+none: the correctly recovered Oddball has never been given a deep model under a
+protocol this project would accept. The old EEGNet / InceptionTime runs at
+0.50-0.53 used the target-only v1 cache and a different split and stopping
+protocol, so they are historical reference and not evidence about Goal 3.
+
+The conditional go therefore opens EEG Oddball single-modality deep
+representation work, and nothing else. fNIRS, Face, eye tracking, behaviour and
+multimodal fusion keep the Goal 2.8 gate.
+
+Goal 3 answers three questions and stops:
+
+1. does EEG itself carry a reproducible label signal on unseen subjects;
+2. does a deep spatio-temporal representation beat the Goal 2.8 hand-crafted
+   representation on identical subjects and identical folds;
+3. does EEG add anything over `age + sex + grade`.
+
+Question 3 decides go/no-go. It is answered by cross-fitted probability
+stacking, not by concatenating an embedding onto demographics, because this
+project has measured that appending uninformative columns to demographics costs
+0.008 to 0.055 AUROC on its own. The traditional feature block passes through
+the same stacking, so `p_EEG` and `p_traditional` enter the comparison with
+identical dimensionality.
+
+The design and the predictions recorded before any model was trained are in
+`reports/goal3_method_design.md`.
+
+## Goal 3 Rules
+
+- **Scope is EEG Oddball.** Rest and 1BACK are out of scope: the standard-only
+  control already answers whether an effect is deviance processing or general
+  EEG individual difference, and adding tasks multiplies the comparison count
+  without answering a new question.
+- **Preprocessing is Goal 2.8's, unchanged.** Single-trial epochs are re-derived
+  from raw BDF with `configs/goal2_8/eeg.yaml` exactly as written: linked-mastoid
+  reference, 0.1-40 Hz, 250 Hz, 150 uV peak-to-peak with Fp1/Fp2 excluded from
+  the rejection decision, `min_trials` 20 standard and 5 target. Goal 2.8 kept
+  only the condition averages, which is why the cache has to be rebuilt at all.
+- **The measurement gate is numerical identity, not a qualitative check.**
+  Averaging the new single-trial cache by condition must reproduce
+  `artifacts/goal2_8/eeg/oddball_erp.npz` element-wise to floating-point
+  tolerance, over exactly the same 1820 subjects. The P3b checks (Pz +6.43 uV,
+  Cohen d 1.08, 88.7 percent of subjects positive, parietal maximum, Fz
+  negative) are the second layer. A failure stops the goal; it does not get
+  worked around.
+- **Positive controls are mandatory and run before the label.** The same
+  architecture, aggregation, splits and protocol must decode target vs standard
+  at the trial level, and sex and age at the subject level. A null on the
+  disease label may not be reported unless the positive controls pass. This is
+  the deep-model form of the Goal 2.10 rule that a null on an unmeasurable
+  quantity is evidence about the instrument, not about the construct.
+- **Subject-level unit, subject-balanced learning.** Labels are subject-level.
+  Every epoch of training draws a fixed quota of target trials and a fixed quota
+  of standard trials from every subject, sampling with replacement where a
+  subject has too few, so neither trial count nor the 22:109 condition ratio
+  weights a subject. Inference averages over repeated fixed-size draws.
+- **One primary comparison, declared in advance.** The condition-aware
+  representation on the primary architecture, under both CV protocols,
+  `p_Demo + p_EEG` against `p_Demo`. Everything else is secondary and may not be
+  promoted to the headline after the fact.
+- **Three seeds per configuration.** The paired bootstrap resamples subjects and
+  is blind to the instability of the fit, which is larger for deep models than
+  for the sklearn families. The primary score is the seed-averaged one and the
+  spread is reported with it.
+- **Shortcut probes are part of the result, not an appendix.** Report the
+  acquisition-group decoding AUROC of the EEG embedding, and run the amplitude
+  ablation (no per-subject normalisation, which is the primary setting and
+  matches the traditional features, against per-subject robust z-scoring). A
+  result that exists only unnormalised, only under Standard CV, is
+  shortcut-sensitive and cannot support a go.
+- **Cross-fitted scores must come from one generating process.** The three inner
+  models of an outer fold produce the inner-OOF scores that train the meta model
+  and, averaged, the outer-validation score. Training a separate full-outer-train
+  model for the outer prediction would give the meta model train and test scores
+  from different distributions.
+- The fixed splits, the inner-CV-only selection of every hyperparameter,
+  threshold and stopping point, and the exclusion of the baseline-exposed pilot
+  holdout are unchanged from the standing protocol.
 
 ## Eye Rules
 

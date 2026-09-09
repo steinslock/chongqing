@@ -101,11 +101,37 @@ and adds a paradigm-conformance layer for the logs in the same specification the
 neural features already read. It excludes pilot-holdout evaluation, deep
 training, multimodal fusion, and any change to the Goal 2.8 gate.
 
+## Goal 3 Scope
+
+Goal 3 is the EEG Oddball deep representation benchmark, and the first stage in
+this project to train a neural network. It changes no measurement: the single
+trials are re-derived from raw BDF under the Goal 2.8 preprocessing unchanged,
+and the gate for using them is numerical identity with the Goal 2.8 evoked
+arrays rather than a qualitative check.
+
+It answers three questions and stops. Does EEG carry a reproducible label signal
+on unseen subjects; does a deep spatio-temporal representation beat the Goal 2.8
+hand-crafted one on identical subjects and folds; and does EEG add anything over
+age, sex and grade. The third decides go/no-go and is answered by cross-fitted
+probability stacking rather than feature concatenation, because appending
+uninformative columns to demographics has a measured cost in this project.
+
+It excludes Rest and 1BACK, every other modality, multimodal fusion, and
+pilot-holdout evaluation. Its measurement is complete and recorded in
+`reports/goal3_final_report.md`.
+
 ## Engineering Structure
 
 | Directory | Purpose |
 |---|---|
 | `configs/goal2_8/` | Goal 2.8 protocol, model grids, and the paradigm specification |
+| `configs/goal3/` | Goal 3 protocol, deep training settings and the declared model family |
+| `src/chongqing_binary/goal3/` | Trial cache, encoders, training, nested splits, stacking, controls, report |
+| `scripts/*goal3*.py` | Trial build, gate, tabular cross-fit, matrix, controls, summary, permutation |
+| `tests/test_goal3_protocol.py` | Split, sampler, model, stacking, FDR and device-failure tests |
+| `artifacts/goal3/` | Single-trial cache, cross-fitted comparator scores, gate verification |
+| `results/goal3/` | OOF predictions, metrics, CIs, paired tests, controls, decision |
+| `reports/goal3_*.md` | Method design and pre-registration, results, final report |
 | `configs/goal2_9/` | Goal 2.9 protocol and model grids |
 | `src/chongqing_binary/goal2_9/` | Behavioural log readers, features, runner, and report code |
 | `scripts/*goal2_9*.py` | Behavioural extraction, experiment, and report entry points |
@@ -188,7 +214,12 @@ contact sheets.
 - Goal 2.9: behavioural feature layer from the paradigm trial logs, under the
   unchanged protocol. Measurement complete and recorded; 0 of 168 increments
   over demographics credited. It does not lift the Goal 2.8 gate.
-- Goal 3: EEG deep/single-modality experiments only after an explicit Goal 2.8 go.
+- Goal 3: EEG Oddball deep representation benchmark, opened 2026-09-09 under
+  `CONDITIONAL_GO_FOR_GOAL3_EEG_REPRESENTATION_BENCHMARK` on the grounds that
+  Goal 2.8 measured hand-crafted features rather than representations.
+  Measurement complete: **0 of 26 decision rows credit independent signal**,
+  with positive controls on the same pipeline reaching 0.82 for age and 0.77 for
+  sex. It does not lift the gate on Goal 4, Goal 5 or fusion.
 - Goal 4: fNIRS deep/single-modality experiments only after a Goal 2.8 go.
 - Goal 5: Face deep/single-modality experiments only after a Goal 2.8 go.
 - Goal 6: fair same-cohort comparison after eligible single-modality protocols.

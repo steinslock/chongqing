@@ -1,0 +1,21 @@
+# Smoke configuration: the real Goal 3 code path with a two-epoch budget and a
+# scratch output directory. It exists to catch a wiring bug before the matrix is
+# launched, and its numbers are meaningless.
+extends: common.yaml
+
+run:
+  stage: Goal 3 smoke
+
+deep:
+  train:
+    max_epochs: 2
+    patience: 1
+    min_epochs: 1
+    eval_draws_stopping: 1
+    eval_draws_final: 2
+
+paths:
+  results_dir: artifacts/goal3/smoke
+
+outputs:
+  jobs_dir: artifacts/goal3/smoke/jobs

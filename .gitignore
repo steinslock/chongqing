@@ -53,3 +53,11 @@ artifacts/goal2_10/readiness/discarded_recordings.csv
 # are tracked, the uncompressed CSVs exceed GitHub's per-file limit.
 results/goal2_10/all_oof_predictions_standard_cv.csv
 results/goal2_10/all_oof_predictions_group_cv.csv
+
+# Goal3 follows the same OOF policy: the .csv.gz release archive is tracked, the
+# uncompressed CSV exceeds GitHub's per-file limit. The 167 MB of per-job files
+# it is assembled from are regenerable with scripts/run_goal3.py and stay local,
+# as do the single-trial cache and the out-of-fold embedding dumps used by the
+# acquisition-group probe.
+results/goal3/all_oof_predictions.csv
+results/goal3/jobs/

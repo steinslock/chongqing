@@ -1,0 +1,23 @@
+{
+  "task": "oddball",
+  "preprocessing_version": "goal2_8_raw_bdf_event_aware_v1",
+  "preprocessing_config": "configs/goal2_8/eeg.yaml",
+  "note": "re-derivation of the Goal 2.8 epoching, keeping single trials",
+  "cohort_source": "artifacts/goal2_8/eeg/oddball_erp_index.csv",
+  "cohort_requested": 1820,
+  "cohort_missing_raw_dir": [],
+  "subjects_attempted": 1820,
+  "subjects_ok": 1820,
+  "subjects_blocked": 0,
+  "block_reasons": {},
+  "n_trials": 237774,
+  "n_channels": 32,
+  "n_times": 250,
+  "condition_counts": {
+    "standard": 197880,
+    "deviant_target": 39894
+  },
+  "subjects_with_construction_drops": 0,
+  "total_construction_drops": 0,
+  "array": "/data/home/cqm/Project/Code/chongqing/artifacts/goal3/eeg/oddball_trials.npy"
+}

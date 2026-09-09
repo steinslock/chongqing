@@ -1,0 +1,5 @@
+quantity,n,spearman_rho_with_label,p_value,univariate_auroc
+deviant_target,1820,-0.0018,0.94,0.4989
+standard,1820,0.0094,0.687,0.5058
+qc_rejected_rate,1820,-0.0074,0.753,0.4955
+qc_candidate_trials,1820,0.0298,0.204,0.518

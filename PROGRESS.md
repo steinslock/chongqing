@@ -1737,3 +1737,158 @@ device x task units NO_INDEPENDENT_SIGNAL.** No re-extraction is needed to
 defend it. A re-extraction with the anisotropy fixed and features reported in
 degrees would improve an external write-up and is not needed to check the
 answer.
+
+## 2026-09-10 - Goal 3: EEG Oddball deep representation benchmark
+
+Status: complete. **0 of 26 decision rows credit independent signal.**
+
+Goal 3 is the first stage in this project to train a neural network. It exists
+because Goal 2.8 measured 321 hand-crafted features and found no increment over
+demographics, which is a result about features rather than about the recording:
+the correctly recovered Oddball had never been given a deep model under a
+protocol this project would accept. The old v1 EEGNet and InceptionTime runs at
+0.50-0.53 read a cache built with a hardcoded `event_codes: ["22"]`, so the
+standard condition was absent entirely, and used a different split and stopping
+rule. They are historical reference and were not compared against.
+
+The user issued `CONDITIONAL_GO_FOR_GOAL3_EEG_REPRESENTATION_BENCHMARK` on
+2026-09-09, opening EEG Oddball alone. Every other gate stayed closed.
+
+### The design was fixed before anything was trained
+
+`reports/goal3_method_design.md` records the representations, the architectures,
+the closed exploratory family, the decision rule and seven numbered predictions,
+written before the first model. Six of the seven held; the one that missed is
+recorded with its reasoning error.
+
+Two design points came from the user and corrected the first draft.
+
+The first was a real leak. The obvious two-level design monitors early stopping
+on the same inner-val fold that produces the inner-OOF prediction, so that
+prediction is read at an epoch chosen to be good on exactly those subjects, and
+the meta model then learns its weight on an inflated column while meeting an
+honest one at outer-validation time. The fix is a third split level: inside each
+inner-fit pool a 20 percent **stopping subset** makes every training decision,
+and inner-val makes none. It costs each inner model about 14 percent of its
+training subjects.
+
+The second was that the first draft barred every non-primary configuration from
+ever producing a finding, which is a design that can confirm but never discover.
+Replaced with a confirmatory arm of one declared test and an exploratory arm
+that is enumerated, closed, FDR-controlled, and returns
+`EXPLORATORY_SIGNAL_REQUIRES_REPLICATION` rather than a go.
+
+### The measurement gate
+
+Goal 2.8 kept only the condition averages, so the trials had to be rebuilt from
+raw BDF under `configs/goal2_8/eeg.yaml` unchanged. The gate is numerical
+identity, not a qualitative check: averaging the new cache by condition
+reproduces `oddball_erp.npz` over **1820 of 1820** subjects with a worst relative
+difference of **1.10 float32 epsilons** and zero mismatches. Pz P3b recomputed
+from the trials is +6.426 uV, d = 1.079, 88.7 percent positive, parietal
+maximum, Fz -2.483 uV.
+
+### Result
+
+84 jobs, 1260 trained models, 1,019,200 subject-level OOF predictions.
+
+Confirmatory increment `p_Demo + p_EEG` against `p_Demo`: **+0.0016
+[-0.0059, +0.0084]** under Standard CV and **-0.0031 [-0.0150, +0.0094]** under
+Group CV, both comparators above chance. Exploratory family: **0 of 24**
+intervals exclude zero, 0 survive Benjamini-Hochberg. The amplitude ablation
+changes nothing. EEG alone spans 0.4825 to 0.5580 with 16 of 28 rows above
+chance, against demographics at 0.5909 and 0.6023 in the same 1820 subjects.
+
+### What makes this null different from the five before it
+
+The positive controls. Same architecture, same pooling, same subjects, same
+folds, different target: **age 0.8209 / 0.8029, sex 0.7734 / 0.7672**,
+trial-level target-versus-standard **0.8243 / 0.8229** on held-out subjects,
+against the disease label at 0.55. Subject-level aggregation is demonstrably not
+the weak link, so the null is about the label rather than about the pipeline.
+Goal 2.10 established that a null on an unmeasurable quantity is evidence about
+the instrument; this is the converse.
+
+PC1 was a hard gate at 0.70 and all ten folds cleared it. PC2 and PC3 were
+deliberately not gates — gating on them would have staked the stage on a
+literature prior about how decodable sex is from a 1 s ERP epoch.
+
+### The near-miss that the rule caught
+
+Under Group CV, 7 of 14 configurations beat `eeg_traditional` with intervals
+excluding zero, up to +0.0647. Every one is a win over a comparator sitting at
+**0.4933, below chance**. Under Standard CV, where the traditional block is
+above chance, 0 of 14 intervals exclude zero.
+
+The Goal 2.9 above-chance comparator rule was written for demographics
+comparators. Goal 3 extended it to every comparison, from the structure of the
+comparison and before these numbers existed. Without that extension this report
+would have claimed a deep-versus-traditional win, which would have been the
+project's third instance of the same error after Goal 2.9 withdrew eight rows
+and Goal 2.10 withdrew eighteen.
+
+### Two findings that should change how future stages are run
+
+**Cross-fitted stacking removes the dilution artefact.** Goal 2.8 recorded 78
+significantly negative increments over demographics out of 216. Goal 3 records
+**0 negative and 0 positive** out of 56, spanning -0.0078 to +0.0045. EEG did
+not become less harmful; the increment test stopped punishing a block it could
+not ignore. The protocol paragraph explaining that a negative increment means
+absence rather than damage is no longer needed under this design.
+
+**A deep score is seed-unstable at a scale that dwarfs these effects.**
+Between-seed AUROC standard deviation for `eeg_deep` averages 0.0249 under Group
+CV and reaches 0.0527, against increments of about 0.005; one configuration
+spans 0.4775 to 0.5760 across three seeds of the same fit. The paired bootstrap
+resamples subjects and is blind to it. This also sets a detection floor: an
+effect below about 0.02 AUROC was not separable from fit noise here.
+
+### Three amendments, all label-free, all recorded before the matrix was read
+
+- **30 channels, not 32.** Goal 2.8 excluded Fp1/Fp2 from its rejection decision
+  because blinks dominate them, so its 150 uV bound constrains every channel
+  except those two: over 237,774 trials every other channel stays below 144.5 uV
+  while Fp2 reaches **118,990 uV**, and all fifty highest-amplitude subjects peak
+  on Fp1 or Fp2. Goal 2.8's parietal ERP features were insulated; a network on
+  the raw array is not.
+- **The identity gate is relative.** The absolute 1e-10 V tolerance was
+  measuring amplitude, not identity, and its worst offender was the subject with
+  the largest blinks. The relative residual is one float32 epsilon everywhere.
+- **The above-chance rule covers every comparison.** See above.
+
+### Shortcut probes
+
+The EEG embedding decodes the acquisition group at 5.4 to 5.8 times chance under
+Group CV and 1.5 times under Standard CV. The asymmetry is domain shift: under
+Group CV the model meets sites it never trained on and displaces their
+embeddings systematically. Trial count, standard count and rejection rate carry
+no label information (0.4955 to 0.5180 univariate AUROC, all p > 0.2).
+
+### Infrastructure, on a fully contended shared host
+
+All eight GPUs were saturated by other users for most of the run and the CPU
+load reached 400 on 192 cores. Four things were needed and all affect speed
+only, never a fit: per-training device re-query rather than once per job, so a
+job is not locked to CPU by a transient; explicit per-worker thread limits,
+since torch otherwise grabs all 192 cores per worker and 4 threads beat 8 by
+2.4x; the trial cache staged into `/dev/shm`, after `vmstat` showed workers in
+uninterruptible disk wait with a third of the cores idle; and a broadened device
+failure detector.
+
+The last was a real bug. `CUBLAS_STATUS_ALLOC_FAILED when calling
+cublasCreate(handle)` is an allocation failure whose message never contains "out
+of memory", so the fallback declined to handle it and seven jobs died. It only
+appeared once the free-memory threshold was lowered to use other users'
+leftovers. The detector now covers the cuBLAS and cuDNN allocation statuses and
+disables CUDA for the rest of a process once its context has failed, while
+letting genuine errors propagate; a test pins both halves.
+
+Verification: `Ran 262 tests ... OK` (237 before Goal 3, 25 new). All 84 job
+files carry 9100 rows with no truncation and no missing configuration. All
+predictions are CV-only with zero pilot-holdout rows. The split files are
+unchanged.
+
+Reports: `reports/goal3_final_report.md`, `reports/goal3_results.md`,
+`reports/goal3_method_design.md`. Machine-readable: `results/goal3/`.
+
+**Goal 3 does not lift the gate on Goal 4, Goal 5 or multimodal fusion.**

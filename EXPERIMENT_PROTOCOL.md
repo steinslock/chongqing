@@ -19,8 +19,42 @@ below-chance comparator, and 152 were significantly negative.
 
 Five feature layers have now returned no increment over demographics: EEG,
 fNIRS, Face, behaviour and eye tracking. None of these stages is Goal 3, Goal 4,
-Goal 5 or fusion, and none lifts their gate. No go/no-go decision has been
-issued. Do not start Goal 3, Goal 4, Goal 5, or multimodal fusion until one is.
+Goal 5 or fusion.
+
+On 2026-09-09 a **conditional go** was issued for Goal 3 alone:
+
+```
+CONDITIONAL_GO_FOR_GOAL3_EEG_REPRESENTATION_BENCHMARK
+```
+
+Its reasoning was that Goal 2.8 measured hand-crafted features, not
+representations, and that the correctly recovered Oddball had never been given a
+deep model under an acceptable protocol.
+
+**Goal 3's measurement is complete and recorded in
+`reports/goal3_final_report.md`: 0 of 26 decision rows credit independent
+signal**, across three architectures, four representations, two protocols and
+three seeds, with and without per-subject amplitude normalisation. It does not
+lift any gate. **Goal 4, Goal 5 and multimodal fusion remain gated and must not
+be started.**
+
+Three Goal 3 results constrain how any future stage is run.
+
+- A deep null is only readable with **positive controls on the same pipeline**.
+  Goal 3's reach 0.82 for age and 0.77 for sex where the disease label reaches
+  0.55, which is what licenses reading its null as a statement about the label.
+- **Increment tests should use cross-fitted probability stacking**, not feature
+  concatenation. One scalar per component gives an uninformative block a
+  near-zero weight; Goal 2.8's 78 significantly negative increments were the
+  dilution artefact this design removes, and Goal 3 records none.
+- **A deep score must be seed-averaged.** Between-seed AUROC standard deviation
+  reaches 0.0527 here against increments of 0.005, and the paired bootstrap
+  cannot see it.
+
+The above-chance comparator requirement applies to **every** paired comparison,
+not only increments over demographics. Goal 3 would otherwise have reported a
+deep-versus-traditional win in seven configurations, all of them over an
+`eeg_traditional` block sitting at 0.4933 under Group CV.
 
 Two Goal 2.10 results constrain how any future null is read. A feature block
 whose split-half reliability is at zero cannot support a claim about the
