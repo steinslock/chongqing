@@ -1,0 +1,10 @@
+device,task,recordings,in_manifest,cv_subjects,cv_positive_rate,cv_with_eeg,cv_with_fnirs,cv_with_face
+qixin_120,free_viewing,415,409,324,0.3364,271,313,322
+qixin_120,saccade,415,409,323,0.3344,270,312,321
+qixin_120,smooth_pursuit,431,425,336,0.3363,282,325,334
+qixin_500,free_viewing,390,375,306,0.3595,232,291,306
+qixin_500,saccade,404,389,320,0.3594,243,305,320
+qixin_500,smooth_pursuit,416,401,328,0.3506,248,312,327
+tobii,free_viewing,336,328,252,0.3413,206,240,252
+tobii,saccade,337,329,253,0.3399,207,241,253
+tobii,smooth_pursuit,337,329,253,0.3399,207,241,253

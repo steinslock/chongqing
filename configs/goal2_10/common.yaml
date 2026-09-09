@@ -1,0 +1,37 @@
+project_config: configs/default.yaml
+
+run:
+  stage: Goal 2.10
+  seed: 20260909
+  split_group: cv
+  label_column: primary_label_nonhealthy
+  n_jobs: 16
+
+paths:
+  split_file: artifacts/splits/subject_splits_v1.csv
+  group_split_file: artifacts/splits/subject_splits_group_robustness_v1.csv
+  groups_file: artifacts/groups/subject_groups.csv
+  eye_spec: configs/goal2_10/eye_paradigm_spec.yaml
+  stimuli_dir: artifacts/goal2_10/stimuli
+  readiness_dir: artifacts/goal2_10/readiness
+  artifacts_dir: artifacts/goal2_10
+  results_dir: results/goal2_10
+  reports_dir: reports
+
+protocol:
+  pilot_holdout_policy: >-
+    the baseline-exposed pilot holdout is excluded from Goal 2.10 feature
+    extraction, model development, threshold selection, and reporting
+  outer_folds: [0, 1, 2, 3, 4]
+  inner_cv_folds: 3
+  cv_protocols:
+    standard_cv:
+      split_file: artifacts/splits/subject_splits_v1.csv
+      fold_column: cv_fold
+    group_cv:
+      split_file: artifacts/splits/subject_splits_group_robustness_v1.csv
+      fold_column: robustness_fold
+
+demographics:
+  age_min: 9
+  age_max: 20

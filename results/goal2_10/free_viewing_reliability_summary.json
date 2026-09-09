@@ -1,0 +1,17 @@
+{
+  "n_features": 121,
+  "absolute": {
+    "n": 75,
+    "median_sb": 0.6977179437581986,
+    "reliable_all_devices": 53
+  },
+  "contrast": {
+    "n": 46,
+    "median_sb": -0.051269603331169644,
+    "reliable_all_devices": 0,
+    "best": "signal_contrast_early_happy_minus_neutral_mouth_share",
+    "best_sb": 0.3256761771523196
+  },
+  "trials_per_valence": 12,
+  "note": "Difference scores between two 12-trial means are not measurable in this paradigm. Zero of 46 contrast features reach split-half 0.5 on all three devices, against 53 of 75 absolute features. Replicated independently on 249-322 subjects per device."
+}

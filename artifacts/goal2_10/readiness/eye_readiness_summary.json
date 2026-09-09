@@ -1,0 +1,1491 @@
+{
+  "attachment_available": false,
+  "conformance": {
+    "qixin_120/free_viewing": {
+      "expected_segments": 110,
+      "face_duration_error_ms_max_abs": 3.0,
+      "face_duration_error_ms_median": 2.0,
+      "n": 414,
+      "observed_segment_counts": {
+        "110": 414
+      },
+      "timeline_complete": 414,
+      "timeline_complete_rate": 1.0
+    },
+    "qixin_120/saccade": {
+      "expected_segments": 10,
+      "n": 413,
+      "observed_segment_counts": {
+        "10": 413
+      },
+      "timeline_complete": 413,
+      "timeline_complete_rate": 1.0
+    },
+    "qixin_120/smooth_pursuit": {
+      "expected_segments": 2,
+      "n": 431,
+      "observed_segment_counts": {
+        "2": 431
+      },
+      "timeline_complete": 431,
+      "timeline_complete_rate": 1.0
+    },
+    "qixin_500/free_viewing": {
+      "expected_segments": 109,
+      "face_duration_error_ms_max_abs": 10.0,
+      "face_duration_error_ms_median": 2.0,
+      "n": 390,
+      "observed_segment_counts": {
+        "0": 1,
+        "108": 1,
+        "109": 388
+      },
+      "timeline_complete": 388,
+      "timeline_complete_rate": 0.9949
+    },
+    "qixin_500/saccade": {
+      "expected_segments": 10,
+      "n": 404,
+      "observed_segment_counts": {
+        "10": 404
+      },
+      "timeline_complete": 404,
+      "timeline_complete_rate": 1.0
+    },
+    "qixin_500/smooth_pursuit": {
+      "expected_segments": 2,
+      "n": 416,
+      "observed_segment_counts": {
+        "0": 1,
+        "2": 415
+      },
+      "timeline_complete": 415,
+      "timeline_complete_rate": 0.9976
+    },
+    "tobii/free_viewing": {
+      "expected_segments": 109,
+      "face_duration_error_ms_max_abs": 19.56,
+      "face_duration_error_ms_median": -19.48,
+      "n": 336,
+      "observed_segment_counts": {
+        "109": 336
+      },
+      "timeline_complete": 336,
+      "timeline_complete_rate": 1.0
+    },
+    "tobii/saccade": {
+      "expected_segments": 10,
+      "n": 337,
+      "observed_segment_counts": {
+        "10": 337
+      },
+      "timeline_complete": 337,
+      "timeline_complete_rate": 1.0
+    },
+    "tobii/smooth_pursuit": {
+      "expected_segments": 2,
+      "n": 337,
+      "observed_segment_counts": {
+        "2": 337
+      },
+      "timeline_complete": 337,
+      "timeline_complete_rate": 1.0
+    }
+  },
+  "coverage": {
+    "cv_subjects": 919,
+    "device_overlap": {
+      "qixin_120&qixin_500": 1,
+      "qixin_120&tobii": 0,
+      "qixin_500&tobii": 1
+    },
+    "in_manifest": 1158,
+    "per_device": {
+      "qixin_120": {
+        "cv": 336,
+        "subjects": 432
+      },
+      "qixin_500": {
+        "cv": 331,
+        "subjects": 420
+      },
+      "tobii": {
+        "cv": 253,
+        "subjects": 337
+      }
+    },
+    "unique_subjects": 1187
+  },
+  "device_site": {
+    "A02": {
+      "qixin_120": 26,
+      "qixin_500": 46,
+      "tobii": 37
+    },
+    "A04": {
+      "qixin_500": 28,
+      "tobii": 23
+    },
+    "A10": {
+      "qixin_500": 33,
+      "tobii": 20
+    },
+    "B01": {
+      "qixin_500": 26,
+      "tobii": 25
+    },
+    "B03": {
+      "qixin_500": 52,
+      "tobii": 37
+    },
+    "B05": {
+      "qixin_500": 17,
+      "tobii": 12
+    },
+    "B14": {
+      "qixin_120": 35
+    },
+    "B15": {
+      "qixin_120": 18
+    },
+    "B16": {
+      "qixin_120": 23
+    },
+    "C02": {
+      "qixin_120": 17
+    },
+    "C17": {
+      "qixin_120": 10
+    },
+    "C18": {
+      "qixin_120": 102
+    },
+    "D08": {
+      "qixin_120": 54
+    },
+    "D13": {
+      "qixin_500": 37,
+      "tobii": 27
+    },
+    "E06": {
+      "qixin_500": 39,
+      "tobii": 38
+    },
+    "E16": {
+      "qixin_120": 51,
+      "qixin_500": 53,
+      "tobii": 34
+    }
+  },
+  "duplicates": {
+    "duplicate_takes_per_unit": {
+      "qixin_120/free_viewing": 25,
+      "qixin_120/saccade": 22,
+      "qixin_120/smooth_pursuit": 8,
+      "qixin_500/free_viewing": 17,
+      "qixin_500/saccade": 10,
+      "qixin_500/smooth_pursuit": 31
+    },
+    "missing_a_id_examples": [
+      "User1_251028125856",
+      "User1_251028130228",
+      "User1_251028130305",
+      "User1_251104093048",
+      "<name>_251022130431",
+      "User1_251104092807",
+      "<name>_251022125714",
+      "<name>_251022130130",
+      "User1_251013130221",
+      "User1_251104092357",
+      "User1_251104092616",
+      "<name>_251022125329",
+      "A040009_<name>_251118103643",
+      "A041110_<name>_251119125933",
+      "User1_251028124042",
+      "User1_251028124140",
+      "User1_251028124302",
+      "User1_251029081417",
+      "A040009_<name>_251118103406",
+      "A041110_<name>_251119125724"
+    ],
+    "reasons": {
+      "duplicate_take": 113,
+      "missing_a_id": 27
+    }
+  },
+  "environment": {
+    "cuda": {
+      "nvidia_smi": [
+        "0, NVIDIA L40S, 46068 MiB, 7293 MiB, 100 %",
+        "1, NVIDIA L40S, 46068 MiB, 25288 MiB, 45 %",
+        "2, NVIDIA L40S, 46068 MiB, 15864 MiB, 90 %",
+        "3, NVIDIA L40S, 46068 MiB, 15110 MiB, 53 %",
+        "4, NVIDIA L40S, 46068 MiB, 15108 MiB, 49 %",
+        "5, NVIDIA L40S, 46068 MiB, 31134 MiB, 97 %",
+        "6, NVIDIA L40S, 46068 MiB, 44674 MiB, 100 %",
+        "7, NVIDIA L40S, 46068 MiB, 42985 MiB, 100 %"
+      ],
+      "torch_cuda_available": true,
+      "torch_cuda_version": "12.1",
+      "torch_device_count": 8
+    },
+    "executable": "/data/home/cqm/miniconda3/envs/chongqing_v1/bin/python",
+    "packages": {
+      "cv2": "4.12.0",
+      "numpy": "2.4.6",
+      "pandas": "3.0.3",
+      "scipy": "1.17.1",
+      "sklearn": "1.9.0",
+      "torch": "2.5.1+cu121",
+      "torchvision": "0.20.1+cu121",
+      "yaml": "6.0.3"
+    },
+    "platform": "Linux-6.8.0-136-generic-x86_64-with-glibc2.35",
+    "python": "3.11.5 (main, Sep 11 2023, 13:54:46) [GCC 11.2.0]"
+  },
+  "labels_used": false,
+  "manifest_reconciliation": {
+    "a_id_join_subjects": 1187,
+    "flagged_direct_but_not_found": 5,
+    "flagged_name_mapped_but_not_found": 35,
+    "found_but_not_flagged_direct": 911,
+    "manifest_has_eye_direct": 281,
+    "manifest_has_eye_name_mapped": 852,
+    "note": "has_eye_direct is computed by chongqing_binary.audit._extract_l_ids, which greps paths for L\\d+. Eye paths carry A_id only, so the column undercounts. Eye cohorts must join on A_id."
+  },
+  "quality": {
+    "qixin_120": {
+      "attempted": 1258,
+      "clock_scale": {
+        "median": 0.999993,
+        "n": 1258,
+        "q1": 0.999922,
+        "q3": 1.000082
+      },
+      "longest_gap_ms": {
+        "median": 448.429787,
+        "n": 1258,
+        "q1": 207.666743,
+        "q3": 990.880916
+      },
+      "n": 1258,
+      "n_gaps": {
+        "median": 1.0,
+        "n": 1258,
+        "q1": 0.0,
+        "q3": 4.0
+      },
+      "pupil_mean_mm": {
+        "median": 4.801548,
+        "n": 1257,
+        "q1": 4.317706,
+        "q3": 5.336701
+      },
+      "read_failure_examples": [],
+      "read_failures": 0,
+      "sampling_rate_hz": {
+        "median": 120.082916,
+        "n": 1258,
+        "q1": 119.399971,
+        "q3": 120.146
+      },
+      "valid_below_0.5": 1,
+      "valid_sample_fraction": {
+        "median": 0.980351,
+        "n": 1258,
+        "q1": 0.95664,
+        "q3": 0.994109
+      }
+    },
+    "qixin_500": {
+      "attempted": 1210,
+      "clock_scale": {
+        "median": 0.996738,
+        "n": 1208,
+        "q1": 0.995878,
+        "q3": 0.997341
+      },
+      "longest_gap_ms": {
+        "median": 392.871346,
+        "n": 1210,
+        "q1": 186.121914,
+        "q3": 844.592364
+      },
+      "n": 1210,
+      "n_gaps": {
+        "median": 1.0,
+        "n": 1210,
+        "q1": 0.0,
+        "q3": 3.0
+      },
+      "pupil_mean_mm": {
+        "median": 4.534878,
+        "n": 1210,
+        "q1": 3.97141,
+        "q3": 5.223114
+      },
+      "read_failure_examples": [],
+      "read_failures": 0,
+      "sampling_rate_hz": {
+        "median": 501.005184,
+        "n": 1210,
+        "q1": 500.71785,
+        "q3": 501.180056
+      },
+      "valid_below_0.5": 0,
+      "valid_sample_fraction": {
+        "median": 0.975325,
+        "n": 1210,
+        "q1": 0.951973,
+        "q3": 0.987918
+      }
+    },
+    "tobii": {
+      "attempted": 1010,
+      "average_calibration_accuracy_deg": {
+        "median": 0.6,
+        "n": 1010,
+        "q1": 0.42,
+        "q3": 0.84
+      },
+      "duration_agreement": {
+        "median": 1.0,
+        "n": 1010,
+        "q1": 0.999999,
+        "q3": 1.000001
+      },
+      "longest_gap_ms": {
+        "median": 3447.573,
+        "n": 1010,
+        "q1": 1032.5805,
+        "q3": 6626.94825
+      },
+      "n": 1010,
+      "n_gaps": {
+        "median": 5.0,
+        "n": 1010,
+        "q1": 3.0,
+        "q3": 9.0
+      },
+      "pupil_mean_mm": {
+        "median": 4.63873,
+        "n": 1010,
+        "q1": 4.080616,
+        "q3": 5.279409
+      },
+      "read_failure_examples": [],
+      "read_failures": 0,
+      "sampling_rate_hz": {
+        "median": 60.941718,
+        "n": 1010,
+        "q1": 60.54979,
+        "q3": 61.263064
+      },
+      "valid_below_0.5": 9,
+      "valid_sample_fraction": {
+        "median": 0.89652,
+        "n": 1010,
+        "q1": 0.857053,
+        "q3": 0.926347
+      }
+    }
+  },
+  "raw_data_dir": "/data/home/cqm/Project/Dataset/Chongqing",
+  "recordings_audited": 3481,
+  "recordings_discovered": 3621,
+  "recordings_kept": 3481,
+  "spec_path": "configs/goal2_10/eye_paradigm_spec.yaml",
+  "stage": "Goal 2.10 eye readiness",
+  "stimulus_products": {
+    "aoi_geometry": {
+      "detector": "opencv_yunet",
+      "detector_score_min": 0.9067119359970093,
+      "disjoint": true,
+      "eyes_area_share_median": 0.014996615358823039,
+      "face_area_share_median": 0.052878086419753084,
+      "inside_face": true,
+      "mouth_area_share_median": 0.01057946443188449,
+      "n": 36,
+      "outside_examples": [],
+      "overlapping_examples": [],
+      "requirements_met": true
+    },
+    "face_boxes": {
+      "area_fraction_median": 0.052878086419753084,
+      "n": 36,
+      "x_range": [
+        0.4197916666666667,
+        0.5802083333333333
+      ],
+      "y_range": [
+        0.3351851851851852,
+        0.6648148148148149
+      ]
+    },
+    "targets": {
+      "antisaccade_formal": {
+        "duration_ms": 20000.0,
+        "fps": 60.0,
+        "n_frames": 1200,
+        "n_saccade_trials": 8,
+        "n_steps": 15,
+        "unique_x": [
+          0.218,
+          0.36,
+          0.5,
+          0.64,
+          0.782
+        ],
+        "unique_y": [
+          0.5
+        ]
+      },
+      "antisaccade_practice": {
+        "duration_ms": 10000.0,
+        "fps": 60.0,
+        "n_frames": 600,
+        "n_saccade_trials": 4,
+        "n_steps": 7,
+        "unique_x": [
+          0.218,
+          0.36,
+          0.5,
+          0.64,
+          0.782
+        ],
+        "unique_y": [
+          0.5
+        ]
+      },
+      "prosaccade_formal": {
+        "duration_ms": 20000.0,
+        "fps": 60.0,
+        "n_frames": 1200,
+        "n_saccade_trials": 8,
+        "n_steps": 15,
+        "unique_x": [
+          0.218,
+          0.36,
+          0.5,
+          0.64,
+          0.782
+        ],
+        "unique_y": [
+          0.5
+        ]
+      },
+      "prosaccade_practice": {
+        "duration_ms": 10000.0,
+        "fps": 60.0,
+        "n_frames": 600,
+        "n_saccade_trials": 4,
+        "n_steps": 7,
+        "unique_x": [
+          0.218,
+          0.36,
+          0.5,
+          0.64,
+          0.782
+        ],
+        "unique_y": [
+          0.5
+        ]
+      },
+      "pursuit": {
+        "duration_ms": 136000.0,
+        "fps": 60.0,
+        "n_frames": 8160,
+        "n_saccade_trials": 0,
+        "n_steps": 356,
+        "unique_x": [
+          0.202,
+          0.203,
+          0.204,
+          0.205,
+          0.206,
+          0.207,
+          0.208,
+          0.209,
+          0.211,
+          0.212,
+          0.213,
+          0.215,
+          0.216,
+          0.217,
+          0.219,
+          0.22,
+          0.222,
+          0.224,
+          0.226,
+          0.228,
+          0.23,
+          0.232,
+          0.234,
+          0.235,
+          0.236,
+          0.238,
+          0.241,
+          0.243,
+          0.245,
+          0.248,
+          0.251,
+          0.253,
+          0.255,
+          0.256,
+          0.258,
+          0.261,
+          0.262,
+          0.264,
+          0.267,
+          0.27,
+          0.273,
+          0.276,
+          0.278,
+          0.279,
+          0.282,
+          0.285,
+          0.286,
+          0.289,
+          0.292,
+          0.295,
+          0.299,
+          0.303,
+          0.305,
+          0.306,
+          0.309,
+          0.313,
+          0.315,
+          0.317,
+          0.32,
+          0.324,
+          0.328,
+          0.332,
+          0.334,
+          0.336,
+          0.34,
+          0.344,
+          0.345,
+          0.348,
+          0.352,
+          0.356,
+          0.36,
+          0.364,
+          0.367,
+          0.368,
+          0.373,
+          0.377,
+          0.378,
+          0.381,
+          0.385,
+          0.39,
+          0.394,
+          0.398,
+          0.402,
+          0.403,
+          0.407,
+          0.412,
+          0.414,
+          0.417,
+          0.421,
+          0.425,
+          0.426,
+          0.43,
+          0.435,
+          0.437,
+          0.438,
+          0.439,
+          0.444,
+          0.448,
+          0.45,
+          0.453,
+          0.458,
+          0.462,
+          0.463,
+          0.467,
+          0.472,
+          0.475,
+          0.477,
+          0.481,
+          0.486,
+          0.487,
+          0.488,
+          0.491,
+          0.495,
+          0.499,
+          0.5,
+          0.505,
+          0.509,
+          0.512,
+          0.514,
+          0.518,
+          0.523,
+          0.524,
+          0.528,
+          0.532,
+          0.537,
+          0.542,
+          0.546,
+          0.549,
+          0.551,
+          0.556,
+          0.56,
+          0.562,
+          0.565,
+          0.569,
+          0.574,
+          0.579,
+          0.583,
+          0.586,
+          0.587,
+          0.588,
+          0.592,
+          0.596,
+          0.598,
+          0.601,
+          0.605,
+          0.609,
+          0.614,
+          0.618,
+          0.621,
+          0.622,
+          0.627,
+          0.631,
+          0.632,
+          0.635,
+          0.64,
+          0.644,
+          0.647,
+          0.652,
+          0.654,
+          0.656,
+          0.66,
+          0.664,
+          0.665,
+          0.668,
+          0.671,
+          0.675,
+          0.679,
+          0.683,
+          0.685,
+          0.686,
+          0.69,
+          0.694,
+          0.695,
+          0.697,
+          0.701,
+          0.704,
+          0.707,
+          0.711,
+          0.713,
+          0.714,
+          0.717,
+          0.72,
+          0.721,
+          0.723,
+          0.727,
+          0.73,
+          0.733,
+          0.735,
+          0.738,
+          0.739,
+          0.741,
+          0.744,
+          0.745,
+          0.746,
+          0.749,
+          0.752,
+          0.754,
+          0.757,
+          0.758,
+          0.759,
+          0.761,
+          0.764,
+          0.766,
+          0.768,
+          0.77,
+          0.772,
+          0.773,
+          0.775,
+          0.776,
+          0.777,
+          0.779,
+          0.78,
+          0.781,
+          0.782,
+          0.783,
+          0.785,
+          0.786,
+          0.787,
+          0.788,
+          0.789,
+          0.79,
+          0.791,
+          0.792,
+          0.793,
+          0.794,
+          0.795,
+          0.796,
+          0.797,
+          0.798
+        ],
+        "unique_y": [
+          0.1,
+          0.101,
+          0.102,
+          0.103,
+          0.104,
+          0.106,
+          0.107,
+          0.108,
+          0.11,
+          0.112,
+          0.114,
+          0.117,
+          0.119,
+          0.122,
+          0.125,
+          0.128,
+          0.131,
+          0.134,
+          0.138,
+          0.142,
+          0.145,
+          0.149,
+          0.153,
+          0.157,
+          0.162,
+          0.167,
+          0.171,
+          0.176,
+          0.181,
+          0.186,
+          0.192,
+          0.196,
+          0.202,
+          0.208,
+          0.214,
+          0.219,
+          0.226,
+          0.231,
+          0.238,
+          0.244,
+          0.251,
+          0.257,
+          0.265,
+          0.271,
+          0.278,
+          0.285,
+          0.293,
+          0.299,
+          0.3,
+          0.306,
+          0.307,
+          0.314,
+          0.321,
+          0.33,
+          0.337,
+          0.344,
+          0.352,
+          0.36,
+          0.368,
+          0.376,
+          0.384,
+          0.392,
+          0.4,
+          0.408,
+          0.417,
+          0.425,
+          0.432,
+          0.441,
+          0.449,
+          0.457,
+          0.466,
+          0.474,
+          0.482,
+          0.491,
+          0.499,
+          0.5,
+          0.508,
+          0.517,
+          0.525,
+          0.533,
+          0.542,
+          0.55,
+          0.558,
+          0.567,
+          0.574,
+          0.582,
+          0.591,
+          0.599,
+          0.607,
+          0.615,
+          0.623,
+          0.631,
+          0.632,
+          0.639,
+          0.647,
+          0.655,
+          0.662,
+          0.669,
+          0.678,
+          0.685,
+          0.693,
+          0.699,
+          0.7,
+          0.706,
+          0.707,
+          0.714,
+          0.721,
+          0.728,
+          0.734,
+          0.742,
+          0.748,
+          0.755,
+          0.761,
+          0.768,
+          0.773,
+          0.78,
+          0.785,
+          0.791,
+          0.797,
+          0.803,
+          0.807,
+          0.813,
+          0.818,
+          0.819,
+          0.823,
+          0.828,
+          0.832,
+          0.837,
+          0.842,
+          0.846,
+          0.85,
+          0.854,
+          0.857,
+          0.861,
+          0.865,
+          0.868,
+          0.869,
+          0.871,
+          0.874,
+          0.877,
+          0.88,
+          0.882,
+          0.885,
+          0.887,
+          0.889,
+          0.891,
+          0.893,
+          0.894,
+          0.895,
+          0.896,
+          0.897,
+          0.898,
+          0.899,
+          0.9
+        ]
+      }
+    }
+  },
+  "validity": {
+    "qixin_120/free_viewing": {
+      "aoi_eyes_minus_mouth": {
+        "median": 0.33867110218698593,
+        "n": 414,
+        "q1": 0.18352270041282084,
+        "q3": 0.47430597186727314
+      },
+      "aoi_eyes_share": {
+        "median": 0.5244105794363623,
+        "n": 414,
+        "q1": 0.4174416994130774,
+        "q3": 0.6141480020676393
+      },
+      "aoi_face_other_share": {
+        "median": 0.2432050948462512,
+        "n": 414,
+        "q1": 0.19723410709124095,
+        "q3": 0.29261419197000826
+      },
+      "aoi_mouth_share": {
+        "median": 0.1796909234342677,
+        "n": 414,
+        "q1": 0.1302646515146756,
+        "q3": 0.23856369548196898
+      },
+      "aoi_off_face_share": {
+        "median": 0.028756899835430054,
+        "n": 414,
+        "q1": 0.011849233582461635,
+        "q3": 0.0525454989733145
+      },
+      "chance_fraction": {
+        "median": 0.052709311235425244,
+        "n": 414,
+        "q1": 0.052709311235425244,
+        "q3": 0.052709311235425244
+      },
+      "drift_dx": {
+        "median": 0.0022499999999999742,
+        "n": 414,
+        "q1": -0.0040000000000000036,
+        "q3": 0.01200000000000001
+      },
+      "drift_dy": {
+        "median": 0.05625000000000002,
+        "n": 414,
+        "q1": 0.03300000000000003,
+        "q3": 0.08587499999999995
+      },
+      "drift_n_crosses": {
+        "median": 37.0,
+        "n": 414,
+        "q1": 37.0,
+        "q3": 37.0
+      },
+      "on_face_fraction": {
+        "median": 0.97124310016457,
+        "n": 414,
+        "q1": 0.9474545010266855,
+        "q3": 0.9881507664175384
+      },
+      "on_face_over_chance": {
+        "median": 18.426404697768277,
+        "n": 414,
+        "q1": 17.975087870051954,
+        "q3": 18.747176604224247
+      },
+      "raw_aoi_eyes_minus_mouth": {
+        "median": -0.10306468503944649,
+        "n": 414,
+        "q1": -0.3408246851033755,
+        "q3": 0.15344046418086255
+      }
+    },
+    "qixin_120/saccade": {
+      "anti_corr_x": {
+        "median": -0.551675909168331,
+        "n": 413,
+        "q1": -0.6211113407232706,
+        "q3": -0.4655217635906144
+      },
+      "anti_direction_correct_rate": {
+        "median": 1.0,
+        "n": 413,
+        "q1": 1.0,
+        "q3": 1.0
+      },
+      "anti_n_trials_scored": {
+        "median": 8.0,
+        "n": 413,
+        "q1": 8.0,
+        "q3": 8.0
+      },
+      "pro_corr_x": {
+        "median": 0.7710864348428116,
+        "n": 413,
+        "q1": 0.7308353621972525,
+        "q3": 0.8071115250136567
+      },
+      "pro_direction_correct_rate": {
+        "median": 1.0,
+        "n": 413,
+        "q1": 1.0,
+        "q3": 1.0
+      },
+      "pro_n_trials_scored": {
+        "median": 8.0,
+        "n": 413,
+        "q1": 8.0,
+        "q3": 8.0
+      }
+    },
+    "qixin_120/smooth_pursuit": {
+      "pursuit_corr_x": {
+        "median": 0.9417961716165355,
+        "n": 431,
+        "q1": 0.917252691640369,
+        "q3": 0.9649080679435917
+      },
+      "pursuit_corr_y": {
+        "median": 0.920278715153706,
+        "n": 431,
+        "q1": 0.8836464464670761,
+        "q3": 0.9495964987700376
+      }
+    },
+    "qixin_500/free_viewing": {
+      "aoi_eyes_minus_mouth": {
+        "median": 0.2694306999499638,
+        "n": 389,
+        "q1": 0.15895807575587273,
+        "q3": 0.40503406073201703
+      },
+      "aoi_eyes_share": {
+        "median": 0.48123878956199734,
+        "n": 389,
+        "q1": 0.40258027929396756,
+        "q3": 0.5689346774081726
+      },
+      "aoi_face_other_share": {
+        "median": 0.2604398076544529,
+        "n": 389,
+        "q1": 0.224254005585771,
+        "q3": 0.31014673213249755
+      },
+      "aoi_mouth_share": {
+        "median": 0.20781295992599133,
+        "n": 389,
+        "q1": 0.1634950549542187,
+        "q3": 0.2578754578754579
+      },
+      "aoi_off_face_share": {
+        "median": 0.018147930154993133,
+        "n": 389,
+        "q1": 0.006075928150403665,
+        "q3": 0.04372003004217459
+      },
+      "chance_fraction": {
+        "median": 0.052709311235425244,
+        "n": 389,
+        "q1": 0.052709311235425244,
+        "q3": 0.052709311235425244
+      },
+      "drift_dx": {
+        "median": -0.002250000000000002,
+        "n": 390,
+        "q1": -0.007500000000000007,
+        "q3": 0.0044999999999999485
+      },
+      "drift_dy": {
+        "median": 0.052000000000000046,
+        "n": 390,
+        "q1": 0.028624999999999984,
+        "q3": 0.08143749999999994
+      },
+      "drift_n_crosses": {
+        "median": 36.0,
+        "n": 390,
+        "q1": 36.0,
+        "q3": 36.0
+      },
+      "on_face_fraction": {
+        "median": 0.9818520698450068,
+        "n": 389,
+        "q1": 0.9562799699578254,
+        "q3": 0.9939240718495963
+      },
+      "on_face_over_chance": {
+        "median": 18.6276778586535,
+        "n": 389,
+        "q1": 18.142524490343217,
+        "q3": 18.856707639571525
+      },
+      "raw_aoi_eyes_minus_mouth": {
+        "median": -0.14489568501207206,
+        "n": 389,
+        "q1": -0.3236704172199315,
+        "q3": 0.08989519699602083
+      }
+    },
+    "qixin_500/saccade": {
+      "anti_corr_x": {
+        "median": -0.5309692316674602,
+        "n": 404,
+        "q1": -0.5984248262243989,
+        "q3": -0.444109669424172
+      },
+      "anti_direction_correct_rate": {
+        "median": 1.0,
+        "n": 404,
+        "q1": 0.875,
+        "q3": 1.0
+      },
+      "anti_n_trials_scored": {
+        "median": 8.0,
+        "n": 404,
+        "q1": 8.0,
+        "q3": 8.0
+      },
+      "pro_corr_x": {
+        "median": 0.7560813211106598,
+        "n": 404,
+        "q1": 0.7182885853041029,
+        "q3": 0.7919667775602325
+      },
+      "pro_direction_correct_rate": {
+        "median": 1.0,
+        "n": 404,
+        "q1": 1.0,
+        "q3": 1.0
+      },
+      "pro_n_trials_scored": {
+        "median": 8.0,
+        "n": 404,
+        "q1": 8.0,
+        "q3": 8.0
+      }
+    },
+    "qixin_500/smooth_pursuit": {
+      "pursuit_corr_x": {
+        "median": 0.934519660743792,
+        "n": 415,
+        "q1": 0.9132280900237331,
+        "q3": 0.9526527010555392
+      },
+      "pursuit_corr_y": {
+        "median": 0.9031065293219,
+        "n": 415,
+        "q1": 0.86402453122034,
+        "q3": 0.9330480887887278
+      }
+    },
+    "tobii/free_viewing": {
+      "aoi_eyes_minus_mouth": {
+        "median": 0.3617657922736581,
+        "n": 336,
+        "q1": 0.2296257710753466,
+        "q3": 0.52609114675992
+      },
+      "aoi_eyes_share": {
+        "median": 0.5393640954496421,
+        "n": 336,
+        "q1": 0.4460516965924175,
+        "q3": 0.648831930188424
+      },
+      "aoi_face_other_share": {
+        "median": 0.24239858668443093,
+        "n": 336,
+        "q1": 0.18165101886671953,
+        "q3": 0.2785793854537145
+      },
+      "aoi_mouth_share": {
+        "median": 0.17248049302153484,
+        "n": 336,
+        "q1": 0.118217142845404,
+        "q3": 0.22263834466653729
+      },
+      "aoi_off_face_share": {
+        "median": 0.01969511305940441,
+        "n": 336,
+        "q1": 0.007420323623695843,
+        "q3": 0.05016672154974678
+      },
+      "chance_fraction": {
+        "median": 0.052709311235425244,
+        "n": 336,
+        "q1": 0.052709311235425244,
+        "q3": 0.052709311235425244
+      },
+      "drift_dx": {
+        "median": -0.0005859375000000222,
+        "n": 336,
+        "q1": -0.00390625,
+        "q3": 0.002766927083333315
+      },
+      "drift_dy": {
+        "median": 0.015277777777777724,
+        "n": 336,
+        "q1": 0.00063657407407397,
+        "q3": 0.031481481481481444
+      },
+      "drift_n_crosses": {
+        "median": 36.0,
+        "n": 336,
+        "q1": 36.0,
+        "q3": 36.0
+      },
+      "on_face_fraction": {
+        "median": 0.9803048869405956,
+        "n": 336,
+        "q1": 0.9498332784502532,
+        "q3": 0.9925796763763042
+      },
+      "on_face_over_chance": {
+        "median": 18.598324735492756,
+        "n": 336,
+        "q1": 18.020217987820768,
+        "q3": 18.831201795503716
+      },
+      "raw_aoi_eyes_minus_mouth": {
+        "median": 0.24454256295569898,
+        "n": 336,
+        "q1": -0.027411453179407193,
+        "q3": 0.4808592650920201
+      }
+    },
+    "tobii/saccade": {
+      "anti_corr_x": {
+        "median": -0.613642139704419,
+        "n": 337,
+        "q1": -0.672364544887864,
+        "q3": -0.5323597703909428
+      },
+      "anti_direction_correct_rate": {
+        "median": 1.0,
+        "n": 337,
+        "q1": 1.0,
+        "q3": 1.0
+      },
+      "anti_n_trials_scored": {
+        "median": 8.0,
+        "n": 337,
+        "q1": 8.0,
+        "q3": 8.0
+      },
+      "pro_corr_x": {
+        "median": 0.8217339524110416,
+        "n": 337,
+        "q1": 0.7788154086079672,
+        "q3": 0.8494825581728253
+      },
+      "pro_direction_correct_rate": {
+        "median": 1.0,
+        "n": 337,
+        "q1": 1.0,
+        "q3": 1.0
+      },
+      "pro_n_trials_scored": {
+        "median": 8.0,
+        "n": 337,
+        "q1": 8.0,
+        "q3": 8.0
+      }
+    },
+    "tobii/smooth_pursuit": {
+      "pursuit_corr_x": {
+        "median": 0.9707249571161748,
+        "n": 337,
+        "q1": 0.9400146340902501,
+        "q3": 0.986725435038642
+      },
+      "pursuit_corr_y": {
+        "median": 0.9394647638005867,
+        "n": 337,
+        "q1": 0.8921388020336192,
+        "q3": 0.9670758026918537
+      }
+    }
+  },
+  "verdict": {
+    "qixin_120/free_viewing": {
+      "checks": {
+        "eyes_above_mouth": {
+          "pass": true,
+          "threshold": 0.0,
+          "value": 0.33867110218698593
+        },
+        "on_face_over_chance": {
+          "pass": true,
+          "threshold": 5.0,
+          "value": 18.426404697768277
+        },
+        "timeline_complete": {
+          "pass": true,
+          "threshold": 0.9,
+          "value": 1.0
+        },
+        "valid_sample_fraction": {
+          "pass": true,
+          "threshold": 0.7,
+          "value": 0.980351
+        }
+      },
+      "failed": [],
+      "verdict": "READY"
+    },
+    "qixin_120/saccade": {
+      "checks": {
+        "anti_corr_x_negative": {
+          "pass": true,
+          "threshold": 0.0,
+          "value": -0.551675909168331
+        },
+        "pro_corr_x": {
+          "pass": true,
+          "threshold": 0.3,
+          "value": 0.7710864348428116
+        },
+        "timeline_complete": {
+          "pass": true,
+          "threshold": 0.9,
+          "value": 1.0
+        },
+        "valid_sample_fraction": {
+          "pass": true,
+          "threshold": 0.7,
+          "value": 0.980351
+        }
+      },
+      "failed": [],
+      "verdict": "READY"
+    },
+    "qixin_120/smooth_pursuit": {
+      "checks": {
+        "pursuit_corr_x": {
+          "pass": true,
+          "threshold": 0.5,
+          "value": 0.9417961716165355
+        },
+        "timeline_complete": {
+          "pass": true,
+          "threshold": 0.9,
+          "value": 1.0
+        },
+        "valid_sample_fraction": {
+          "pass": true,
+          "threshold": 0.7,
+          "value": 0.980351
+        }
+      },
+      "failed": [],
+      "verdict": "READY"
+    },
+    "qixin_500/free_viewing": {
+      "checks": {
+        "eyes_above_mouth": {
+          "pass": true,
+          "threshold": 0.0,
+          "value": 0.2694306999499638
+        },
+        "on_face_over_chance": {
+          "pass": true,
+          "threshold": 5.0,
+          "value": 18.6276778586535
+        },
+        "timeline_complete": {
+          "pass": true,
+          "threshold": 0.9,
+          "value": 0.9949
+        },
+        "valid_sample_fraction": {
+          "pass": true,
+          "threshold": 0.7,
+          "value": 0.975325
+        }
+      },
+      "failed": [],
+      "verdict": "READY"
+    },
+    "qixin_500/saccade": {
+      "checks": {
+        "anti_corr_x_negative": {
+          "pass": true,
+          "threshold": 0.0,
+          "value": -0.5309692316674602
+        },
+        "pro_corr_x": {
+          "pass": true,
+          "threshold": 0.3,
+          "value": 0.7560813211106598
+        },
+        "timeline_complete": {
+          "pass": true,
+          "threshold": 0.9,
+          "value": 1.0
+        },
+        "valid_sample_fraction": {
+          "pass": true,
+          "threshold": 0.7,
+          "value": 0.975325
+        }
+      },
+      "failed": [],
+      "verdict": "READY"
+    },
+    "qixin_500/smooth_pursuit": {
+      "checks": {
+        "pursuit_corr_x": {
+          "pass": true,
+          "threshold": 0.5,
+          "value": 0.934519660743792
+        },
+        "timeline_complete": {
+          "pass": true,
+          "threshold": 0.9,
+          "value": 0.9976
+        },
+        "valid_sample_fraction": {
+          "pass": true,
+          "threshold": 0.7,
+          "value": 0.975325
+        }
+      },
+      "failed": [],
+      "verdict": "READY"
+    },
+    "tobii/free_viewing": {
+      "checks": {
+        "eyes_above_mouth": {
+          "pass": true,
+          "threshold": 0.0,
+          "value": 0.3617657922736581
+        },
+        "on_face_over_chance": {
+          "pass": true,
+          "threshold": 5.0,
+          "value": 18.598324735492756
+        },
+        "timeline_complete": {
+          "pass": true,
+          "threshold": 0.9,
+          "value": 1.0
+        },
+        "valid_sample_fraction": {
+          "pass": true,
+          "threshold": 0.7,
+          "value": 0.89652
+        }
+      },
+      "failed": [],
+      "verdict": "READY"
+    },
+    "tobii/saccade": {
+      "checks": {
+        "anti_corr_x_negative": {
+          "pass": true,
+          "threshold": 0.0,
+          "value": -0.613642139704419
+        },
+        "pro_corr_x": {
+          "pass": true,
+          "threshold": 0.3,
+          "value": 0.8217339524110416
+        },
+        "timeline_complete": {
+          "pass": true,
+          "threshold": 0.9,
+          "value": 1.0
+        },
+        "valid_sample_fraction": {
+          "pass": true,
+          "threshold": 0.7,
+          "value": 0.89652
+        }
+      },
+      "failed": [],
+      "verdict": "READY"
+    },
+    "tobii/smooth_pursuit": {
+      "checks": {
+        "pursuit_corr_x": {
+          "pass": true,
+          "threshold": 0.5,
+          "value": 0.9707249571161748
+        },
+        "timeline_complete": {
+          "pass": true,
+          "threshold": 0.9,
+          "value": 1.0
+        },
+        "valid_sample_fraction": {
+          "pass": true,
+          "threshold": 0.7,
+          "value": 0.89652
+        }
+      },
+      "failed": [],
+      "verdict": "READY"
+    }
+  }
+}

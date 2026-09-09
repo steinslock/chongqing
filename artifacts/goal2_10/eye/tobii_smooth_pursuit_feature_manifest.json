@@ -1,0 +1,18 @@
+{
+  "device": "tobii",
+  "task": "smooth_pursuit",
+  "feature_version": "goal2_10_eye_trial_level_v1",
+  "status": "extracted",
+  "subject_key": "A_id",
+  "velocity_features_permitted": false,
+  "sampling_rate_hz": 60,
+  "recordings_in_cv": 253,
+  "excluded_low_valid_fraction": 3,
+  "subjects_signal": 250,
+  "subjects_qc": 250,
+  "signal_feature_columns": 35,
+  "failure_reasons": {},
+  "signal_features": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_10/eye/tobii_smooth_pursuit_signal_features.csv",
+  "qc_features": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_10/eye/tobii_smooth_pursuit_qc_features.csv",
+  "split_half_reliability": ""
+}

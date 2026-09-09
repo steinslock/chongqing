@@ -1,0 +1,20 @@
+{
+  "device": "qixin_500",
+  "task": "free_viewing",
+  "feature_version": "goal2_10_eye_trial_level_v1",
+  "status": "extracted",
+  "subject_key": "A_id",
+  "velocity_features_permitted": true,
+  "sampling_rate_hz": 500,
+  "recordings_in_cv": 306,
+  "excluded_low_valid_fraction": 0,
+  "subjects_signal": 305,
+  "subjects_qc": 306,
+  "signal_feature_columns": 121,
+  "failure_reasons": {
+    "no_trials": 1
+  },
+  "signal_features": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_10/eye/qixin_500_free_viewing_signal_features.csv",
+  "qc_features": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_10/eye/qixin_500_free_viewing_qc_features.csv",
+  "split_half_reliability": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_10/eye/qixin_500_free_viewing_split_half_reliability.csv"
+}

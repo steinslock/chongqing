@@ -1,0 +1,61 @@
+{
+  "stage": "Goal 2.10",
+  "n_datasets": 600,
+  "n_prediction_rows": 518592,
+  "n_pooled_rows": 3504,
+  "units": [
+    "tobii_free_viewing",
+    "tobii_saccade",
+    "tobii_smooth_pursuit",
+    "qixin_120_free_viewing",
+    "qixin_120_saccade",
+    "qixin_120_smooth_pursuit",
+    "qixin_500_free_viewing",
+    "qixin_500_saccade",
+    "qixin_500_smooth_pursuit"
+  ],
+  "combined_units": {
+    "tobii": [
+      "free_viewing",
+      "saccade",
+      "smooth_pursuit"
+    ],
+    "qixin_120": [
+      "free_viewing",
+      "saccade",
+      "smooth_pursuit"
+    ],
+    "qixin_500": [
+      "free_viewing",
+      "saccade",
+      "smooth_pursuit"
+    ]
+  },
+  "cv_protocols": [
+    "standard_cv",
+    "group_cv"
+  ],
+  "subject_key_note": "Eye cohorts join on A_id; the feature tables carry L_id from the split so the shared runner, which keys on L_id, is unchanged.",
+  "outputs": {
+    "all_oof_predictions_standard_cv": "/data/home/cqm/Project/Code/chongqing/results/goal2_10/all_oof_predictions_standard_cv.csv",
+    "all_oof_predictions_group_cv": "/data/home/cqm/Project/Code/chongqing/results/goal2_10/all_oof_predictions_group_cv.csv",
+    "all_fold_metrics": "/data/home/cqm/Project/Code/chongqing/results/goal2_10/all_fold_metrics.csv",
+    "all_pooled_metrics": "/data/home/cqm/Project/Code/chongqing/results/goal2_10/all_pooled_metrics.csv",
+    "bootstrap_ci": "/data/home/cqm/Project/Code/chongqing/results/goal2_10/bootstrap_confidence_intervals.csv",
+    "paired_comparisons": "/data/home/cqm/Project/Code/chongqing/results/goal2_10/paired_increment_comparisons.csv",
+    "demographics_decomposition": "/data/home/cqm/Project/Code/chongqing/results/goal2_10/demographics_decomposition.csv",
+    "standard_vs_group_cv": "/data/home/cqm/Project/Code/chongqing/results/goal2_10/standard_vs_group_cv.csv",
+    "face_strict_control_summary": "/data/home/cqm/Project/Code/chongqing/results/goal2_10/face_strict_control_summary.csv",
+    "eeg_event_validity_summary": "/data/home/cqm/Project/Code/chongqing/results/goal2_10/eeg_event_validity_summary.csv",
+    "fnirs_event_validity_summary": "/data/home/cqm/Project/Code/chongqing/results/goal2_10/fnirs_event_validity_summary.csv",
+    "core3_intersection_summary": "/data/home/cqm/Project/Code/chongqing/results/goal2_10/core3_intersection_summary.csv",
+    "threshold_diagnostics": "/data/home/cqm/Project/Code/chongqing/results/goal2_10/threshold_diagnostics.csv",
+    "selected_hyperparameters": "/data/home/cqm/Project/Code/chongqing/results/goal2_10/selected_hyperparameters.csv",
+    "pca_diagnostics": "/data/home/cqm/Project/Code/chongqing/results/goal2_10/pca_diagnostics.csv",
+    "feature_counts": "/data/home/cqm/Project/Code/chongqing/results/goal2_10/feature_counts.csv",
+    "exclusion_summary": "/data/home/cqm/Project/Code/chongqing/results/goal2_10/exclusion_summary.csv",
+    "native_cohort_summary": "/data/home/cqm/Project/Code/chongqing/results/goal2_10/native_cohort_summary.csv",
+    "shortcut_baseline_summary": "/data/home/cqm/Project/Code/chongqing/results/goal2_10/shortcut_baseline_summary.csv",
+    "manifest": "/data/home/cqm/Project/Code/chongqing/artifacts/goal2_10/run_manifest.json"
+  }
+}

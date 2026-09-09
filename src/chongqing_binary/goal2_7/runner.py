@@ -953,10 +953,7 @@ def _bootstrap_table(predictions: pd.DataFrame, config: dict[str, Any]) -> pd.Da
     return pd.DataFrame(rows)
 
 
-def _paired_comparisons(predictions: pd.DataFrame, config: dict[str, Any]) -> pd.DataFrame:
-    if predictions.empty:
-        return pd.DataFrame()
-    pairs = [
+DEFAULT_PAIRED_COMPARISONS = [
         ("signal", "demographics"),
         ("signal_demographics", "demographics"),
         ("signal_qc", "qc"),
@@ -977,7 +974,21 @@ def _paired_comparisons(predictions: pd.DataFrame, config: dict[str, Any]) -> pd
         ("modality", "demographics"),
         ("modality_demographics", "demographics"),
         ("modality_qc_demographics", "qc_demographics"),
-    ]
+]
+
+
+def _paired_comparisons(predictions: pd.DataFrame, config: dict[str, Any]) -> pd.DataFrame:
+    """Paired increment tests over the configured feature-set pairs.
+
+    A goal that declares extra feature sets declares the pairs that test them in
+    `protocol.paired_comparison_pairs`; pairs whose feature sets are absent from
+    a cohort are skipped, so one list can cover every goal.
+    """
+
+    if predictions.empty:
+        return pd.DataFrame()
+    configured = config.get("protocol", {}).get("paired_comparison_pairs")
+    pairs = [(str(item[0]), str(item[1])) for item in configured] if configured else DEFAULT_PAIRED_COMPARISONS
     n_boot = int(config.get("bootstrap", {}).get("paired_n_resamples", 1000))
     seed = int(config.get("bootstrap", {}).get("paired_seed", 20260708))
     rows = []

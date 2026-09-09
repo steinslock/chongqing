@@ -9,9 +9,25 @@ conclusions are superseded, see `reports/goal2_7_superseded_notice.md`.
 Goal 2.9 keeps this protocol unchanged and adds one feature layer: the
 trial-level behavioural logs. Its measurement is complete and recorded in
 `reports/goal2_9_final_report.md`: 0 of 168 increments over demographics are
-credited. It is not Goal 3, Goal 4, Goal 5 or fusion, and it does not lift their
-gate. No go/no-go decision has been issued. Do not start Goal 3, Goal 4, Goal 5,
-or multimodal fusion until one is.
+credited.
+
+Goal 2.10 adds the eye-tracking modality under the same protocol. Its
+measurement is complete and recorded in `reports/goal2_10_final_report.md`: **0
+of 576 increments over demographics are credited** across twelve
+`device x task` units, 18 intervals excluded zero and every one beat a
+below-chance comparator, and 152 were significantly negative.
+
+Five feature layers have now returned no increment over demographics: EEG,
+fNIRS, Face, behaviour and eye tracking. None of these stages is Goal 3, Goal 4,
+Goal 5 or fusion, and none lifts their gate. No go/no-go decision has been
+issued. Do not start Goal 3, Goal 4, Goal 5, or multimodal fusion until one is.
+
+Two Goal 2.10 results constrain how any future null is read. A feature block
+whose split-half reliability is at zero cannot support a claim about the
+construct it was meant to measure, only about the paradigm; and a coarse
+validity check that passes is not evidence that a parse is right, because the
+free-viewing face-box check passed at 18 times chance on every device while a
+device-dependent gaze offset was reversing the eye-versus-mouth contrast.
 
 An increment is only credited over demographics. Wins against background or QC
 are shortcut controls and are reported separately.
@@ -113,6 +129,74 @@ must follow them.
   690/830 nm wavelengths and optode geometry may be named as haemoglobin. Raw
   and log-intensity summaries must still be named as intensity.
 - Bikom files are read in full; a fixed 2000-row cap is forbidden.
+
+## Eye-Tracking Validity
+
+Goal 2.10 adds the eye-tracking modality under this protocol unchanged. Its
+structure comes from `configs/goal2_10/eye_paradigm_spec.yaml` through
+`chongqing_binary.eye.spec`.
+
+- That specification was recovered from the archived stimulus media and the
+  recorded presentation timelines, before any paradigm document existed.
+  `附件/重医眼动范式及参数.docx` arrived 2026-09-09 and confirms it on every
+  quantity it states: all three trial structures, all three trial counts, the
+  12/12/12 valence balance, the 8 saccade trials, and the three pursuit
+  trajectories with fast at exactly twice slow. Where the recorded data
+  contradict the specification, the specification is wrong.
+- The document's **second table is a different device** (集思鸣智, no data in
+  this dataset) and describes a gaze-contingent battery these fixed-length MP4
+  stimuli cannot implement. Only section (1) applies here.
+- Eye subjects join on `A_id`. `has_eye_direct` undercounts because the audit
+  column greps paths for `L\d+`, which no eye path carries.
+- Three devices, near-disjoint cohorts, device collinear with acquisition site.
+  Units are `device x task`; raw features are never merged across devices.
+- Velocity-derived features are forbidden at 60 Hz. Pursuit velocity gain on
+  Tobii carries `timing_confidence: low` and may only support sensitivity
+  analyses, exactly like Bikom VFT in fNIRS.
+- The 七鑫易维 sample clock must be mapped onto the presentation clock with
+  `aligned_time_ms` before any trial-locked use; the F500 device is otherwise
+  misaligned by 300-400 ms.
+- 自由观看 presents one face at a time. Its valence contrast is between trials,
+  not within a trial, and must not be reported as a competitive attentional
+  bias. Presentation order is fixed, so trial index and valence are confounded.
+- Each saccade block holds 8 formal trials. Report split-half reliability with
+  any error-rate feature, and report `Spearman(feature, age)` plus the residual
+  univariate AUROC after regressing out age for developmentally sensitive
+  measures.
+- Free-viewing regions (`eyes`, `mouth`, `face_other`, `off_face`) come from
+  YuNet landmarks on the stimulus images only, are disjoint and exhaustive, and
+  cannot leak. Their geometry parameters carry `source: analysis_choice`.
+- Gaze must be drift-corrected with
+  `chongqing_binary.eye.drift.estimate_drift` before any region feature. The
+  correction is a per-recording median over the paradigm's own fixation
+  crosses; without it the eye-versus-mouth contrast reverses on the two
+  七鑫易维 devices and becomes a site shortcut. The estimated offset itself is
+  a QC feature and must never enter the signal feature set.
+- Fixations come from one dispersion-based detector applied to every device, so
+  the classifier is not a variable across them. Its threshold is a screen
+  fraction of 0.025, which the paradigm document's 6°/12° targets show to be
+  1.078° horizontally — the value it was chosen to approximate.
+- **Axis anisotropy.** x is normalised by screen width, y by screen height, and
+  nothing rescales them, so the same threshold is 0.607° vertically and any
+  two-axis `hypot` mixes units. Affects `scanpath`, `bcea`, 2-D pursuit `rmse`
+  and catch-up detection; not the AOI measures, the drift correction or the
+  single-axis gains. Identical for every subject and device, so it distorts a
+  metric without confounding it.
+- Free-viewing features keep absolute per-valence measures beside contrasts,
+  and every feature carries an odd-even split-half reliability estimate.
+- The free-viewing valence contrasts are unreliable in this paradigm: 0 of 46
+  reach split-half 0.5 on all three devices against 53 of 75 absolute features,
+  because each contrast is a difference of two 12-trial means. Absolute and
+  contrast blocks are therefore separate declared feature sets, and a null on
+  the contrast block is evidence about the paradigm, not about attentional
+  bias as a construct.
+- Label-free validity checks must pass before modelling: free-viewing dwell
+  inside the stimulus face box far above its area share, eye-region dwell above
+  mouth-region dwell, prosaccade gaze-target correlation positive, antisaccade
+  negative, pursuit correlation high. The coarse face-box check alone is not
+  sufficient: the face box is symmetric about screen centre, so a vertical
+  offset passes it and only the eye-versus-mouth check exposes it. These are
+  recorded in `reports/eye_readiness_audit.md`.
 
 ## Behavioural Log Validity
 

@@ -1,0 +1,99 @@
+# Reuses the Goal 2.7 model grids, demographics decomposition and bootstrap
+# settings unchanged, so Goal 2.10 is directly comparable with Goal 2.7, 2.8 and
+# 2.9. Only paths, outputs, units and run metadata are overridden.
+extends: ../goal2_7/models.yaml
+
+run:
+  stage: Goal 2.10
+  seed: 20260909
+  split_group: cv
+  label_column: primary_label_nonhealthy
+  n_jobs: 8
+  # HistGradientBoosting is OpenMP-backed and oversubscribes on a many-core
+  # host, so each fit is capped and throughput comes from concurrent datasets.
+  model_n_jobs: 4
+  dataset_workers: 24
+
+paths:
+  split_file: artifacts/splits/subject_splits_v1.csv
+  group_split_file: artifacts/splits/subject_splits_group_robustness_v1.csv
+  groups_file: artifacts/groups/subject_groups.csv
+  eye_spec: configs/goal2_10/eye_paradigm_spec.yaml
+  eye_dir: artifacts/goal2_10/eye
+  artifacts_dir: artifacts/goal2_10
+  results_dir: results/goal2_10
+  reports_dir: reports
+
+goal2_10:
+  # Nine device x task units. Device is collinear with acquisition site and the
+  # cohorts are near-disjoint, so raw features are never merged across devices,
+  # exactly as for the two fNIRS devices.
+  units:
+    - {device: tobii, task: free_viewing}
+    - {device: tobii, task: saccade}
+    - {device: tobii, task: smooth_pursuit}
+    - {device: qixin_120, task: free_viewing}
+    - {device: qixin_120, task: saccade}
+    - {device: qixin_120, task: smooth_pursuit}
+    - {device: qixin_500, task: free_viewing}
+    - {device: qixin_500, task: saccade}
+    - {device: qixin_500, task: smooth_pursuit}
+  include_combined: true
+  combined_units:
+    tobii: [free_viewing, saccade, smooth_pursuit]
+    qixin_120: [free_viewing, saccade, smooth_pursuit]
+    qixin_500: [free_viewing, saccade, smooth_pursuit]
+  combined_feature_version: goal2_10_eye_combined_v1
+
+protocol:
+  pilot_holdout_policy: >-
+    the baseline-exposed pilot holdout is excluded from Goal 2.10 feature
+    extraction, model development, threshold selection, and reporting
+  # The default pairs plus the four that test the absolute and contrast blocks
+  # separately. Free viewing's valence contrasts have a split-half reliability
+  # of 0 of 46 features above 0.5 on any device, against 53 of 75 for the
+  # absolute measures, so mixing them into one block would depress the result
+  # for a reason unrelated to signal. Pairs whose feature sets are absent from a
+  # cohort are skipped.
+  paired_comparison_pairs:
+    - [signal, demographics]
+    - [signal_demographics, demographics]
+    - [signal_qc, qc]
+    - [signal_qc_demographics, qc_demographics]
+    - [signal_qc_demographics, demographics]
+    - [signal_demographics, signal]
+    - [signal_qc_demographics, signal_qc]
+    - [signal_absolute, demographics]
+    - [signal_absolute_demographics, demographics]
+    - [signal_contrast, demographics]
+    - [signal_contrast_demographics, demographics]
+    - [signal_absolute_demographics, signal_contrast_demographics]
+
+outputs:
+  all_oof_predictions_standard_cv: results/goal2_10/all_oof_predictions_standard_cv.csv
+  all_oof_predictions_group_cv: results/goal2_10/all_oof_predictions_group_cv.csv
+  all_fold_metrics: results/goal2_10/all_fold_metrics.csv
+  all_pooled_metrics: results/goal2_10/all_pooled_metrics.csv
+  bootstrap_ci: results/goal2_10/bootstrap_confidence_intervals.csv
+  paired_comparisons: results/goal2_10/paired_increment_comparisons.csv
+  demographics_decomposition: results/goal2_10/demographics_decomposition.csv
+  standard_vs_group_cv: results/goal2_10/standard_vs_group_cv.csv
+  selected_hyperparameters: results/goal2_10/selected_hyperparameters.csv
+  pca_diagnostics: results/goal2_10/pca_diagnostics.csv
+  feature_counts: results/goal2_10/feature_counts.csv
+  native_cohort_summary: results/goal2_10/native_cohort_summary.csv
+  threshold_diagnostics: results/goal2_10/threshold_diagnostics.csv
+  manifest: artifacts/goal2_10/run_manifest.json
+  # Inherited from goal2_7/common.yaml. Goal 2.10's writer does not emit them,
+  # but they are redirected so no code path holding this config can overwrite a
+  # Goal 2.7, 2.8 or 2.9 result file.
+  core3_intersection_summary: results/goal2_10/core3_intersection_summary.csv
+  shortcut_baseline_summary: results/goal2_10/shortcut_baseline_summary.csv
+  face_strict_control_summary: results/goal2_10/face_strict_control_summary.csv
+  eeg_event_validity_summary: results/goal2_10/eeg_event_validity_summary.csv
+  fnirs_event_validity_summary: results/goal2_10/fnirs_event_validity_summary.csv
+  exclusion_summary: results/goal2_10/exclusion_summary.csv
+
+bootstrap:
+  n_resamples: 1000
+  seed: 20260707

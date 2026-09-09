@@ -1,0 +1,14 @@
+unit,demographic_increment_rows,positive_over_demographics_standard_cv,positive_over_demographics_group_cv,uncredited_positive_comparator_at_chance,negative_over_demographics,positive_on_controls,decision
+qixin_120_combined,48,0,0,3,11,4,NO_INDEPENDENT_SIGNAL
+qixin_120_free_viewing,48,0,0,0,24,0,NO_INDEPENDENT_SIGNAL
+qixin_120_saccade,48,0,0,9,1,0,NO_INDEPENDENT_SIGNAL
+qixin_120_smooth_pursuit,48,0,0,6,2,5,NO_INDEPENDENT_SIGNAL
+qixin_500_combined,48,0,0,0,8,0,NO_INDEPENDENT_SIGNAL
+qixin_500_free_viewing,48,0,0,0,11,0,NO_INDEPENDENT_SIGNAL
+qixin_500_saccade,48,0,0,0,20,0,NO_INDEPENDENT_SIGNAL
+qixin_500_smooth_pursuit,48,0,0,0,25,0,NO_INDEPENDENT_SIGNAL
+tobii_combined,48,0,0,0,20,0,NO_INDEPENDENT_SIGNAL
+tobii_free_viewing,48,0,0,0,22,0,NO_INDEPENDENT_SIGNAL
+tobii_saccade,48,0,0,0,5,0,NO_INDEPENDENT_SIGNAL
+tobii_smooth_pursuit,48,0,0,0,3,0,NO_INDEPENDENT_SIGNAL
+eye_all_units,576,0,0,18,152,9,NO_INDEPENDENT_SIGNAL

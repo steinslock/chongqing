@@ -39,3 +39,17 @@ results/goal2_9/all_oof_predictions_group_cv.csv
 
 # Scratch space for landmark extraction; regenerated on demand.
 artifacts/goal2_8/face/_scratch/
+
+# Goal2.10 eye readiness: these two carry one row per recording, and a recording
+# directory embeds the subject's personal name in `record_name` and `path`
+# (`A02062_<name>_251105161924`). Local audit material only, and regenerable
+# with scripts/audit_eye_readiness.py. Aggregate counts and every per-unit
+# statistic remain in reports/eye_readiness_audit.md and the readiness summary,
+# whose recording names go through chongqing_binary.eye.index.redact_record_name.
+artifacts/goal2_10/readiness/recordings.csv
+artifacts/goal2_10/readiness/discarded_recordings.csv
+
+# Goal2.10 follows the Goal2.7/2.8/2.9 OOF policy: the .csv.gz release archives
+# are tracked, the uncompressed CSVs exceed GitHub's per-file limit.
+results/goal2_10/all_oof_predictions_standard_cv.csv
+results/goal2_10/all_oof_predictions_group_cv.csv

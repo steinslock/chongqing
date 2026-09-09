@@ -1,0 +1,811 @@
+# Chongqing eye-tracking paradigm specification (Goal 2.10)
+#
+# PROVENANCE. This specification was first RECOVERED from recorded data with
+# no attachment to check it against. On 2026-09-09 the hospital supplied
+# `附件/重医眼动范式及参数.docx`, a parameter document for the paradigm. It
+# confirms the recovered structure and is now the authority for the values it
+# states. The recovery is retained because the document does not cover
+# everything the analysis needs (it gives no per-trial timing, no target
+# trajectory, no screen resolution, and no block order).
+#
+# Sources, in order of authority:
+#
+#   paradigm_document       附件/重医眼动范式及参数.docx, section (1)
+#                           七鑫易维、Tobii设备. States durations, eccentricities
+#                           in DEGREES, trajectory frequencies, stimulus
+#                           appearance, the CFAPS stimulus set, and the source
+#                           paper for each task. Section (2) 集思鸣智 is a
+#                           DIFFERENT device that is not in this dataset; see
+#                           `document_scope` below before reading its table.
+#
+#   stimulus_media          the stimulus files archived inside the 七鑫易维
+#                           project directory (PNG faces, MP4 saccade and
+#                           pursuit videos). These define WHAT was shown.
+#   recorded_timeline_qixin 眼动.asdata / 眼动-F500.asdata, key path
+#                           experimentPoMap[*].recordPoMap[*].mediaInRecordMap,
+#                           which carries per-subject per-stimulus startTime and
+#                           endTime in ms. These define WHEN it was shown.
+#   recorded_timeline_tobii the Tobii Pro Lab xlsx export, columns
+#                           `Presented Stimulus name`, `Event`, `Event value`,
+#                           `Timeline name`.
+#
+# Per AGENTS.md "Paradigm-Conformance Rules", a task whose raw data disagrees
+# with this specification is reported, not coerced.
+# `scripts/audit_eye_readiness.py` validates the specification against the
+# recorded data; disagreement now means either the specification or the
+# document is wrong, and which one is settled by the recording.
+
+spec_version: 2
+stage: Goal 2.10
+attachment_available: true
+attachment_path: 附件/重医眼动范式及参数.docx
+attachment_received: 2026-09-09
+attachment_note: >-
+  A parameter document, not a presentation script. It states what was shown and
+  with what geometry; it carries no per-subject log, no marker stream and no
+  per-trial timing, so `recorded_timeline_qixin` and `recorded_timeline_tobii`
+  remain the source for WHEN each stimulus appeared to each subject.
+  It does not supersede any `analysis_choice` value in this file.
+
+document_scope:
+  applies_to: [tobii, qixin_120, qixin_500]
+  applies_to_source: >-
+    The document opens with 七鑫易维与Tobii设备实验范式、呈现参数完全一致,
+    so one table covers all three device entries in this file.
+  second_table_is_a_different_device: true
+  second_table_note: >-
+    The document contains a SECOND table, of five tasks (前扫视, 反扫视,
+    记忆引导扫视, 双步扫视, 平滑追踪) built on gaze-contingent trial control:
+    an 800 ms held central fixation gate, targets at 8 degrees in four
+    directions, 2000 ms timeouts, an 800 ms inter-trial interval, and pursuit
+    as a 5 deg/s linear ramp in one of eight directions. That table sits above
+    the heading （二）集思鸣智, whose own section is empty, and it describes the
+    集思鸣智 device's built-in battery, NOT this dataset. Do not read it as a
+    description of these recordings. Four independent facts settle this:
+      1. it contradicts the first table on the same task names (前扫视 there is
+         gaze-contingent at 8 deg in four directions; here it is a fixed 1.5 s
+         cross then 1.0 s target, horizontal only, at 6 and 12 deg);
+      2. gaze-contingent gating is impossible with these stimuli, which are
+         pre-rendered 60 fps MP4s of fixed length;
+      3. 记忆引导扫视 and 双步扫视 have no stimulus file, no task directory and
+         no timeline name anywhere in the 七鑫易维 projects or the Tobii export;
+      4. 集思鸣智 has no data directory under 眼动/ at all.
+  absent_device:
+    name: 集思鸣智
+    status: named in the document, no data received
+    action: >-
+      A third eye-tracking device exists in the wider study and none of its
+      recordings are in this dataset. Worth asking the hospital whether that
+      cohort exists and was meant to be delivered. Its paradigm differs enough
+      that its features could not be pooled with these three in any case.
+
+viewing_geometry:
+  source: derived
+  derivation: >-
+    The document gives the saccade target eccentricities in degrees (6 and 12)
+    while the decoded stimulus video gives them as screen-width fractions
+    (0.1396 and 0.2823). Two equations, one unknown, and the system is
+    overdetermined, so the fit is also a check. Solving atan(a/D) = theta gives
+    D = 1.3282 from the 6 deg target and D = 1.3281 from the 12 deg target:
+    agreement to four significant figures, and only under a tangent mapping.
+    A linear degrees-per-screen-width scale fits the same two points at 5.967
+    and 12.067 deg, so the paradigm was authored with proper tangent geometry
+    and the video decode is exact.
+  viewing_distance_screen_widths: 1.3282
+  screen_width_deg: 41.26
+  screen_height_deg: 23.91
+  note: >-
+    This fixes the RATIO of viewing distance to screen width, which is all a
+    visual angle needs. The physical screen size and the viewing distance in cm
+    are still unrecorded and are still not asserted anywhere.
+  supersedes: >-
+    Every earlier statement in this project that "viewing distance was not
+    recorded for any device, so a visual angle cannot be computed". A visual
+    angle can now be computed. Those statements are wrong as of spec_version 2.
+  confirms: >-
+    The I-DT dispersion threshold of 0.025 screen widths was chosen as "about
+    one degree at a nominal 60 cm on a 53 cm-wide display", with the nominal
+    geometry flagged as an assumption. Measured against the document it is
+    1.078 deg horizontally. The choice was right; it is now also verified.
+  axis_asymmetry_warning: >-
+    x is normalised by screen width and y by screen height, so the SAME
+    numeric threshold is a different angle on each axis: 0.025 is 1.078 deg
+    horizontally but 0.607 deg vertically. See known_defects/axis_anisotropy.
+
+devices:
+  tobii:
+    label: Tobii Pro Nano
+    root: 眼动/Tobbi原始数据
+    layout: site/date/Data export - 眼动-tobbi/*.xlsx
+    sampling_rate_hz: 60
+    sampling_rate_source: recorded_timeline_tobii
+    event_classifier: Tobii I-VT (Fixation)
+    event_classifier_source: recorded_timeline_tobii  # column `Recording Fixation filter name`
+    provides_per_sample_event_type: true
+    velocity_features_permitted: false
+    velocity_features_note: >-
+      60 Hz cannot resolve saccade peak velocity or pursuit velocity gain.
+      Velocity-derived features are forbidden on this device and must not be
+      pooled with the 120/500 Hz devices.
+  qixin_120:
+    label: 七鑫易维 (7invensun) 120 Hz
+    root: 眼动/七鑫易维原始工程/眼动
+    asdata: 眼动/七鑫易维原始工程/眼动/眼动.asdata
+    layout: task/A_id_name_yymmddHHMMSS/
+    sampling_rate_hz: 120
+    sampling_rate_source: recorded_timeline_qixin  # record.settingGazeRate, confirmed against timestampUs
+    event_classifier: vendor I-DT (asproj filterField/filterField2)
+    event_classifier_source: recorded_timeline_qixin
+    provides_per_sample_event_type: false
+    provides_event_table: true
+    velocity_features_permitted: true
+    velocity_features_confidence: medium
+  qixin_500:
+    label: 七鑫易维 (7invensun) F500 500 Hz
+    root: 眼动/七鑫易维原始工程/眼动-F500
+    asdata: 眼动/七鑫易维原始工程/眼动-F500/眼动-F500.asdata
+    layout: task/A_id_name_yymmddHHMMSS/
+    sampling_rate_hz: 500
+    sampling_rate_source: recorded_timeline_qixin
+    event_classifier: vendor I-DT (asproj filterField/filterField2)
+    event_classifier_source: recorded_timeline_qixin
+    provides_per_sample_event_type: false
+    provides_event_table: true
+    velocity_features_permitted: true
+    velocity_features_confidence: high
+
+# Device cohorts are near-disjoint and collinear with acquisition site.
+# Treat exactly as fNIRS Yiruid/Bikom: model per device, never merge raw
+# features across devices.
+device_cohort_policy:
+  disjoint: true
+  merge_raw_features_across_devices: forbidden
+  reason: >-
+    Only 2 subjects appear under more than one eye device, and each device owns
+    a distinct set of A_id site prefixes, so device and acquisition site cannot
+    be separated.
+
+screen:
+  width_px: 1920
+  height_px: 1080
+  source: stimulus_media  # face stimuli are 1920x1080; Tobii records the same resolution
+  note: >-
+    中央十字.png and 空白_*.png are authored at 2560x1664 and were rescaled by
+    the presentation software. Only the 1920x1080 face stimuli define AOI
+    geometry.
+
+tasks:
+
+  free_viewing:
+    label: 自由观看
+    qixin_dir: 自由观看
+    tobii_filename_suffix: free
+    tobii_timeline_name: 自由观看
+    primary: true
+    design: single-stimulus emotional face free viewing
+    design_note: >-
+      One face is on screen at a time, centred, on a black background. There is
+      no competing stimulus, so this paradigm does NOT yield the competitive
+      attentional-bias score used by most of the free-viewing literature. The
+      available contrast is BETWEEN trials (sad trials vs happy trials vs
+      neutral trials), not within a trial. Never describe a between-trial
+      contrast here as a competitive attentional bias.
+    n_trials: 36
+    n_trials_source: stimulus_media
+    trial_structure:
+      - name: fixation_cross
+        media: 中央十字_{i}
+        duration_ms: 1000
+        duration_source: recorded_timeline_qixin
+        role: pupil_baseline
+      - name: face
+        media: "{order}-{code}"
+        duration_ms: 4000
+        duration_source: recorded_timeline_qixin
+        role: stimulus
+      - name: blank
+        media: 空白_{i}
+        duration_ms: 1000
+        duration_source: recorded_timeline_qixin
+        role: washout
+    events:
+      source: analysis_choice
+      algorithm: I-DT
+      algorithm_note: >-
+        One algorithm for all three devices. Each vendor ships its own
+        classifier (Tobii I-VT per sample, 七鑫易维 I-DT event table); using both
+        would make a feature of the same name mean two different things.
+        Dispersion rather than velocity, because a velocity threshold behaves
+        differently at 60 Hz and 500 Hz while a dispersion threshold does not.
+        The vendor counts are kept as a QC cross-check only.
+      dispersion_screen_fraction: 0.025
+      dispersion_deg_horizontal: 1.078
+      dispersion_deg_vertical: 0.607
+      dispersion_note: >-
+        In normalised screen units. spec_version 1 said a visual angle could not
+        be computed because viewing distance was unrecorded, and chose 0.025 as
+        "about one degree" under an explicitly nominal geometry. The paradigm
+        document's 6 and 12 degree saccade targets now fix the geometry (see
+        `viewing_geometry`) and the threshold measures 1.078 deg horizontally,
+        so the choice is confirmed rather than assumed.
+        It is NOT confirmed vertically. The detector applies the same 0.025 to
+        each axis independently, but y is normalised by screen height, so the
+        vertical criterion is 0.607 deg: 1.8 times stricter than the horizontal
+        one. A fixation drifting vertically is cut into more pieces than the
+        same drift horizontally. See known_defects/axis_anisotropy.
+      min_fixation_ms: 80
+      max_gap_ms: 75
+    pupil:
+      source: analysis_choice
+      baseline_ms: 500
+      baseline_note: >-
+        Pupil is expressed as a change from the tail of the fixation cross that
+        precedes each trial, which removes the slow drift in arousal and
+        ambient adaptation that otherwise dominates absolute pupil size.
+    reliability_finding:
+      source: measured
+      measured_on: 249-322 subjects per device, odd-even split half, Spearman-Brown corrected
+      contrast_features: 46
+      contrast_reliable_on_all_devices: 0
+      contrast_best: 0.326
+      absolute_features: 75
+      absolute_reliable_on_all_devices: 53
+      note: >-
+        A valence contrast here is a difference of two means each estimated
+        from 12 trials, and it does not survive that. This is the
+        difference-score reliability collapse the attentional-bias literature
+        reports, replicated in this dataset on three devices independently. The
+        contrast block is still extracted and modelled, but as a separate
+        feature set, and a null on it is evidence about this paradigm rather
+        than about attentional bias as a construct.
+    analysis_windows:
+      early_ms: [0, 1000]
+      late_ms: [1000, 4000]
+      window_rationale: >-
+        The meta-analytic effect in depression is in sustained attention, not in
+        first-fixation/early orienting. The 4 s presentation here is shorter
+        than the 8-10 s typical of that literature, so the late window is the
+        closest available analogue of sustained attention and must be reported
+        separately from the early window.
+    aoi:
+      source: analysis_choice
+      source_note: >-
+        These are analysis parameters, not recovered paradigm facts. They are
+        kept here so feature code does not hardcode them, and they are marked
+        `analysis_choice` so no reader mistakes them for something the
+        attachments or the recording determined.
+      detector: opencv_yunet
+      detector_checkpoint: artifacts/goal2_7/face/models/face_detection_yunet_2023mar.onnx
+      detector_score_threshold: 0.6
+      detector_fallback_is_qc_failure: true
+      geometry_note: >-
+        Regions are built from YuNet's five landmarks and scaled by the
+        inter-ocular distance, so they adapt to each stimulus rather than
+        assuming a common face size. The literature on depression and face
+        viewing contrasts an eye region against a mouth region, most recently
+        with 68-point landmarks; five points carry enough to place both bands.
+      eyes:
+        x_margin_iod: 0.45
+        y_half_height_iod: 0.40
+      mouth:
+        x_margin_iod: 0.35
+        y_half_height_iod: 0.35
+      priority: [eyes, mouth, face_other, off_face]
+      priority_note: >-
+        A gaze sample is assigned to exactly one region, first match wins, so
+        the four shares sum to one and no sample is double counted.
+      require_disjoint: true
+      require_inside_face: true
+    drift_correction:
+      source: analysis_choice
+      method: recording_median_over_fixation_crosses
+      fixation_media_prefix: 中央十字
+      skip_ms: 200
+      min_samples_per_cross: 5
+      min_crosses: 10
+      apply_to: [free_viewing]
+      note: >-
+        All three trackers report gaze systematically below the true fixation
+        point, by a device-dependent amount: median vertical offset +0.035 of
+        screen height on the 120 Hz device and +0.059 on F500. The eye and
+        mouth bands are each about 0.10 of screen height, so an offset that
+        size moves a large share of samples from one band to the other. Left
+        uncorrected the eye-versus-mouth contrast reverses on both 七鑫易维
+        devices (eyes minus mouth -0.122 and -0.117) while holding on Tobii,
+        and since device is collinear with acquisition site that difference
+        would enter any model as a site shortcut rather than as behaviour.
+        The paradigm supplies its own correction: a 1 s fixation cross at
+        screen centre precedes every trial. Taking the median gaze over a
+        recording's crosses, minus (0.5, 0.5), gives a per-recording offset
+        that uses no label and no trial-level variance. After it, eyes minus
+        mouth is +0.261 and +0.250, and the two 七鑫易维 devices agree to within
+        0.02 on every region share.
+        A recording-level median is used rather than the immediately preceding
+        cross so that trial-level variance is left in the signal instead of
+        being absorbed by the correction.
+      qc_only_note: >-
+        The estimated offset is an acquisition property and belongs to the QC
+        feature set. It must never enter the signal feature set.
+    instruction_media: 自由观看任务说明
+    instruction_duration_ms: null
+    instruction_duration_note: self-paced, varies by subject and operator
+    media_segments_expected_qixin: 110
+    media_segments_expected_qixin_f500: 109
+    media_segments_expected_tobii: 109
+    media_segments_source: recorded_timeline_qixin
+    media_segments_note: >-
+      110 = 1 instruction + 36 x (cross + face + blank) + 1 trailing cross.
+      眼动-F500 and Tobii record 109 because the trailing cross is absent.
+      Tobii calibration runs are tracker housekeeping and are not counted.
+    document_agreement: >-
+      The document states 中央白色十字 1 s, 情绪面孔刺激 4 s, 间隔（黑色背景）1 s,
+      每次屏幕中央呈现单张情绪表情, 中性12 正性(高兴)12 负性(悲伤)12, 男女性别分布
+      平衡. Every one matches what was recovered from the recorded timeline and
+      the stimulus filenames. In particular 呈现单张 confirms `design_note`: one
+      face at a time, so there is no competing stimulus and no within-trial
+      attentional-bias score. That was a judgement call in spec_version 1 and
+      is now a documented fact.
+    source_paper: >-
+      "High-definition transcranial direct current stimulation modulates eye
+      gaze on emotional faces in college students with alexithymia", 2021,
+      SMI-RED. Cited by the paradigm document. Its outcome is dwell time on eye
+      versus mouth regions of emotional faces, which is the contrast the `aoi`
+      block below builds. The AOI choice was made independently from the
+      depression literature and turns out to match the designers' own source.
+    stimulus_set:
+      database: 中国面部情感图片系统 (CFAPS)
+      database_source: paradigm_document
+      database_note: >-
+        spec_version 1 could only say "CFAPS-style" from the filename codes.
+        The document names CFAPS outright. CFAPS ships per-image normed valence
+        and arousal ratings, which this analysis does not use: every sad face is
+        currently weighted equally. Obtaining that norm table would allow trials
+        to be weighted or covaried by rated intensity. See
+        reports/goal2_10_paradigm_document_review.md.
+      naming: "{presentation_order}-{valence}{sex}{image_id}.png"
+      valence_codes:
+        HF: {valence: happy, sex: female}
+        HM: {valence: happy, sex: male}
+        NEF: {valence: neutral, sex: female}
+        NEM: {valence: neutral, sex: male}
+        SAF: {valence: sad, sex: female}
+        SAM: {valence: sad, sex: male}
+      counts_per_code: 6
+      counts_source: stimulus_media
+      balance: valence 12/12/12, sex 18/18, fully crossed
+      fixed_order: true
+      fixed_order_note: >-
+        Presentation order is identical for every subject and is encoded in the
+        filename prefix, so trial index and valence are confounded by design.
+        Any trial-index effect must be reported alongside any valence effect.
+      order:
+        - 1-NEF15
+        - 2-SAM13
+        - 3-NEM44
+        - 4-HM2
+        - 5-SAM32
+        - 6-NEM27
+        - 7-SAM23
+        - 8-HM52
+        - 9-HF6
+        - 10-NEF102
+        - 11-HF1
+        - 12-HF12
+        - 13-SAF16
+        - 14-SAM16
+        - 15-SAF20
+        - 16-SAF36
+        - 17-NEF87
+        - 18-SAF15
+        - 19-NEF63
+        - 20-NEF30
+        - 21-HF38
+        - 22-HM35
+        - 23-NEF62
+        - 24-NEM92
+        - 25-SAM6
+        - 26-NEM104
+        - 27-HM27
+        - 28-HF10
+        - 29-SAF24
+        - 30-HF53
+        - 31-SAM5
+        - 32-HM1
+        - 33-NEM43
+        - 34-HM5
+        - 35-SAF2
+        - 36-NEM99
+
+  saccade:
+    label: 扫视
+    qixin_dir: 扫视
+    tobii_filename_suffix: [saccade, sacaade]
+    tobii_filename_suffix_note: two Tobii files are misspelled `_sacaade.xlsx`
+    tobii_timeline_name: 扫视
+    primary: false
+    design: blocked prosaccade then antisaccade, video-driven target
+    block_order_source: recorded_timeline_qixin
+    blocks:
+      - name: prosaccade_instruction
+        media: 前扫视任务说明
+        duration_ms: null
+        self_paced: true
+      - name: prosaccade_practice
+        media: 前扫视-练习
+        duration_ms: 10000
+        duration_source: stimulus_media  # 600 frames at 60 fps
+        analysed: false
+      - name: prosaccade_formal
+        media: 前扫视-正式
+        duration_ms: 20000
+        duration_source: stimulus_media  # 1200 frames at 60 fps
+        analysed: true
+      - name: antisaccade_instruction
+        media: 反扫视任务说明
+        duration_ms: null
+        self_paced: true
+      - name: antisaccade_practice
+        media: 反扫视-练习
+        duration_ms: 10000
+        duration_source: stimulus_media
+        analysed: false
+      - name: antisaccade_formal
+        media: 反扫视-正式
+        duration_ms: 20000
+        duration_source: stimulus_media
+        analysed: true
+    media_segments_expected: 10
+    media_segments_source: recorded_timeline_qixin
+    trial_structure:
+      n_trials_per_formal_block: 8
+      n_trials_per_practice_block: 4
+      first_trial_onset_ms: 1500
+      trial_onset_period_ms: 2500
+      target_on_ms: 1000
+      target_y_norm: 0.5
+      target_x_norm: [0.2177, 0.3604, 0.5, 0.6396, 0.7823]
+      amplitudes_norm: [0.1396, 0.2823]
+      amplitudes_deg: [6, 12]
+      amplitudes_deg_source: paradigm_document
+      balance: per formal block, 4 leftward and 4 rightward, 4 small and 4 large
+      balance_source: paradigm_document  # 每个位置出现两次，共8个试次
+      source: stimulus_media
+      document_agreement: >-
+        The document states 中央白色十字 1.5 s, 外周刺激物 1 s, horizontal left or
+        right at 6 or 12 degrees, each position twice, 8 trials. The decoded
+        video is 1200 frames at 60 fps = 20.000 s, with target onsets every 150
+        frames from frame 90: a 1.500 s cross then a 1.000 s target, 8 trials,
+        and each of the four peripheral positions used exactly twice in each
+        formal block. Every stated quantity matches, and the two eccentricities
+        pin the viewing geometry; see `viewing_geometry`.
+      target_appearance:
+        prosaccade: 红色实心圆点
+        antisaccade: 红色空心圆点
+        diameter_deg: 0.5
+        central_cross: 白色
+        background: black
+        source: paradigm_document
+        decode_note: >-
+          The antisaccade target is a hollow ring. It is one connected component
+          under the decoder's threshold and its centroid is its centre, so the
+          hollow form is decoded correctly; the antisaccade video yields a
+          target in all 1200 frames, as the prosaccade video does.
+      source_paper: >-
+        "Effective differentiation between depressed patients and controls using
+        discriminative eye movement features", 2022, EyeLink 2000. Cited by the
+        paradigm document. That battery is far longer than 8 trials per
+        condition; see `reliability_note`.
+      reliability_note: >-
+        Eight trials per condition is few. A direction-error rate computed on 8
+        trials has a resolution of 0.125 and low internal consistency, so its
+        split-half reliability must be reported with it and it must not be
+        treated as comparable to the 40-100 trial antisaccade batteries the
+        literature reports.
+    target_positions_source: stimulus_media
+    target_positions_note: >-
+      Target position over time is not logged anywhere. It must be decoded from
+      前扫视-正式.mp4 and 反扫视-正式.mp4 (1920x1080, 60 fps). The two 七鑫易维
+      projects hold byte-identical copies of these videos, and Tobii presented
+      the same files, so one decode serves all three devices.
+    scoring:
+      source: analysis_choice
+      response_offset_screen_fraction: 0.05
+      response_offset_note: >-
+        A trial counts as answered once horizontal gaze is at least this far
+        from screen centre. The two target amplitudes are 0.140 and 0.282, so
+        0.05 is well inside the smaller one and well outside fixation jitter.
+      min_latency_ms: 80
+      max_latency_ms: 800
+      latency_note: >-
+        Responses faster than 80 ms are anticipations, not saccades to the
+        target; the target is on screen for 1000 ms, so 800 ms bounds a
+        genuine response.
+    developmental_confound:
+      field: antisaccade_direction_error_rate
+      note: >-
+        Antisaccade direction errors fall steeply with age and plateau around
+        14-15 years. The development cohort spans ages 9-20, so this measure is
+        expected to be largely absorbed by the age+sex+grade baseline. Report
+        Spearman(feature, age) and the residual univariate AUROC after
+        regressing out age alongside any result on this feature.
+
+  smooth_pursuit:
+    label: 平滑追随
+    qixin_dir: 平滑追随
+    tobii_filename_suffix: smooth
+    tobii_timeline_name: 平滑追随
+    primary: false
+    design: blocked sinusoidal pursuit, three conditions repeated twice
+    design_note: >-
+      Recovered from the stimulus video, not from any attachment. The 136 s
+      recording is NOT one continuous sweep: the target is absent for exactly
+      2.00 s five times, at 21, 44, 67, 90 and 113 s, which divides it into six
+      21 s blocks. Each block is a sinusoid that starts with about 1.0 s
+      stationary at screen centre. An earlier revision of this specification
+      called the task continuous; nothing had read it.
+    blocks:
+      - name: instruction
+        media: 平滑追随任务说明
+        duration_ms: null
+        self_paced: true
+      - name: pursuit
+        media: 平滑追随
+        duration_ms: 136000
+        duration_source: stimulus_media  # 8160 frames at 60 fps
+        analysed: true
+    pursuit_blocks:
+      source: stimulus_media
+      source_note: >-
+        Frequencies from the FFT of the decoded target, amplitudes from its
+        range, block boundaries from the runs where the target is absent.
+        `chongqing_binary.eye.stimuli.pursuit_blocks` re-derives the boundaries
+        from the decoded track so the values below are a conformance check
+        rather than a hardcoded truth.
+      block_duration_ms: 21000
+      gap_duration_ms: 2000
+      settling_ms: 1000
+      motion_duration_ms: 20000
+      timing_reconciliation: >-
+        The document states 每个轨迹20s，每个轨迹重复两次. The decoded video gives
+        six blocks of 21.0 s separated by five 2.0 s gaps, which is the observed
+        136 s. 6 x 21 + 5 x 2 = 136 and 6 x 20 + 5 x 2 = 130, so the block is
+        1.0 s of stationary target plus the document's 20.0 s of motion. The
+        two agree; the document counts motion, the recording counts the block.
+      settling_note: >-
+        Each block opens with the target stationary at centre. Those samples are
+        not pursuit and are excluded.
+      waveform: sinusoid
+      waveform_evidence: crest factor 1.449-1.450, against 1.414 for a sinusoid and 1.732 for a triangle
+      frequency_correction: >-
+        spec_version 1 listed 0.381 / 0.143,0.190 / 0.286,0.381 Hz. Those came
+        from an FFT over the whole 21 s block, which includes the 1.0 s
+        stationary opening, so every one of them was low by the factor 21/20.
+        Each is an exact integer number of cycles over the block (8, 3, 4, 6,
+        8), and dividing those counts by the document's 20 s of motion returns
+        the document's own figures exactly. Corrected below. No feature was
+        computed from these numbers: `_pursuit_block` takes the target from the
+        decoded track and reads only `blocks` from this mapping, so the error
+        was in the description, not in the extraction.
+      frequency_basis: motion window, 20 s, excluding the stationary opening
+      conditions:
+        horizontal:
+          blocks: [0, 1]
+          x_frequency_hz: 0.400
+          y_frequency_hz: 0.0
+          x_cycles: 8
+          y_cycles: 0
+          x_amplitude: 0.298
+          y_amplitude: 0.0
+          x_amplitude_deg: 12.65
+          document_label: 水平正弦波（0.4Hz）
+        lissajous_slow:
+          blocks: [2, 3]
+          x_frequency_hz: 0.150
+          y_frequency_hz: 0.200
+          x_cycles: 3
+          y_cycles: 4
+          x_amplitude: 0.298
+          y_amplitude: 0.400
+          x_amplitude_deg: 12.65
+          y_amplitude_deg: 9.62
+          document_label: 慢速Lissajous（0.2Hz）
+        lissajous_fast:
+          blocks: [4, 5]
+          x_frequency_hz: 0.300
+          y_frequency_hz: 0.400
+          x_cycles: 6
+          y_cycles: 8
+          x_amplitude: 0.298
+          y_amplitude: 0.400
+          x_amplitude_deg: 12.65
+          y_amplitude_deg: 9.62
+          document_label: 快速Lissajous（0.4Hz）
+      document_label_note: >-
+        The single frequency the document quotes per trajectory is the y (the
+        higher) component; the Lissajous ratio is 3:4 on both. The document
+        does not state which block ran first, so the mapping from block index
+        to condition stays measured from the decoded track.
+      amplitude_units_warning: >-
+        x_amplitude is in screen WIDTHS and y_amplitude in screen HEIGHTS, so
+        the pair 0.298 / 0.400 makes the vertical excursion look larger when in
+        degrees it is smaller (12.65 vs 9.62). See known_defects/axis_anisotropy.
+      document_confirms: >-
+        Three conditions repeated twice, fast at exactly twice the frequency of
+        slow at the same amplitude. The fast-minus-slow contrast this
+        specification was built around is a documented feature of the design,
+        not an accident of the stimulus.
+      dot_size_deg: 0.5
+      dot_size_source: paradigm_document
+      background: black
+      background_source: paradigm_document
+      source_paper: >-
+        Benson et al. 2012, "Simple Viewing Tests Can Detect Eye Movement
+        Abnormalities That Distinguish Schizophrenia Cases from Controls with
+        Exceptional Accuracy". Cited by the paradigm document. Note the target
+        condition there is SCHIZOPHRENIA, not depression; this battery was
+        imported from a different clinical question.
+      contrast_note: >-
+        `lissajous_fast` runs at exactly twice the frequency of
+        `lissajous_slow` at the same amplitude, so `fast minus slow` gain is a
+        within-subject measure of how pursuit degrades with target speed, and
+        it cancels each subject's baseline the way the antisaccade minus
+        prosaccade contrast does. Pursuit gain falling with target frequency is
+        one of the oldest results in this literature, so a positive slope would
+        be a parsing failure rather than a finding.
+      repeat_note: >-
+        Every condition is presented twice, which gives a within-session
+        test-retest correlation for each pursuit feature directly, without the
+        odd-even split the free-viewing features need.
+    media_segments_expected: 2
+    media_segments_source: recorded_timeline_qixin
+    target_positions_source: stimulus_media
+    target_positions_note: decode 平滑追随.mp4; identical file in both 七鑫易维 projects
+    scoring:
+      source: analysis_choice
+      catch_up_residual_speed: 0.35
+      catch_up_min_duration_ms: 10
+      velocity_smoothing_ms: 150
+      velocity_smoothing_note: >-
+        Velocity comes from a Savitzky-Golay first derivative over this window,
+        applied identically to gaze and to the decoded target so that
+        first-order attenuation cancels in the ratio. 150 ms is set from the
+        stimulus: the target reverses horizontal direction about every 1.1 s,
+        so the window is roughly a seventh of the dynamics it must preserve,
+        and it spans 18 samples at 120 Hz and 75 at 500 Hz.
+      velocity_max_ratio: 5.0
+      velocity_min_target_speed: 0.005
+      velocity_gate_note: >-
+        Samples whose eye speed exceeds five times the target speed are
+        catch-up saccades, not pursuit, and samples where the target is nearly
+        still carry no gain information.
+      velocity_gain_not_comparable_across_devices: true
+      velocity_gain_note: >-
+        Velocity gain remains sampling-rate dependent no matter how the window
+        is chosen. Measured on the same subjects at windows of 40, 80, 120,
+        160, 200, 240 and 320 ms, the 120 Hz device reads 0.687, 0.782, 0.810,
+        0.856, 0.908, 0.922, 0.936 while the 500 Hz device reads 0.858, 0.862,
+        0.869, 0.876, 0.884, 0.893, 0.914. Neither plateaus and the two cross
+        between 160 and 200 ms, so any window at which they agree is a
+        crossing, not convergence. The window is therefore fixed from the
+        stimulus rather than tuned to make devices agree, and this feature is
+        device-specific: never compare or pool it across devices. Position gain
+        (`pursuit_position_gain_x`), which does not differentiate, is the
+        rate-robust measure.
+      catch_up_note: >-
+        A catch-up saccade is a run of samples whose eye speed exceeds the
+        target speed by more than `catch_up_residual_speed` screen widths per
+        second. An earlier revision counted inter-fixation transitions from the
+        I-DT detector instead, which does not measure saccades at all during
+        pursuit: the eye moves smoothly, so I-DT merely chops that motion at
+        its dispersion threshold and the resulting rate tracks eye speed. That
+        version reported the highest rate in the SLOWEST condition, the reverse
+        of what catch-up saccades do, which is how the error was found. The
+        measure needs velocity and is permitted only where velocity features
+        are.
+      events:
+        algorithm: I-DT
+        dispersion_screen_fraction: 0.025
+        min_fixation_ms: 80
+        max_gap_ms: 75
+    device_restriction:
+      tobii: sensitivity_only
+      tobii_reason: >-
+        Velocity gain at 60 Hz carries timing_confidence low. Handle exactly
+        like Bikom VFT in fNIRS: permitted for sensitivity analysis, not for a
+        primary result.
+
+known_defects:
+  - id: axis_anisotropy
+    scope: all devices, all tasks that use a two-dimensional distance
+    found_by: paradigm document, 2026-09-09
+    description: >-
+      Gaze and target x are normalised by screen width and y by screen height,
+      an aspect ratio of 0.5625, and no code rescales one onto the other. Any
+      two-dimensional distance therefore mixes two units. Until the document
+      arrived there was no way to convert, because the viewing geometry was
+      unknown; `viewing_geometry` now supplies it.
+      Affected: `scanpath` and `bcea` among the free-viewing trial measures,
+      the two-dimensional pursuit `rmse`, and `_catch_up`, whose eye and target
+      speeds are `hypot` of the two axes and whose 0.35 threshold is expressed
+      in that mixed metric. Also the vertical I-DT criterion above.
+      Not affected, and checked rather than assumed: every AOI quantity, because
+      `build_stimulus_aois` works in pixels and the interocular scaling and the
+      region tests are per axis; the drift correction, which is a per-axis
+      median; `position_gain_x/y`, `corr_x/y` and `rmse_x`, which are single
+      axis; and `_velocity_gain`, which is computed on x alone.
+    effect_on_goal_2_10: >-
+      It distorts the metric of five features, it does not confound them. Every
+      recording uses the same 1920x1080 stimulus, so the distortion is identical
+      for every subject on every device and cannot align with acquisition site
+      the way the vertical gaze offset did. It cannot have manufactured the
+      null, and it cannot have hidden a signal that the many unaffected features
+      would not also carry. The credited-increment count of 0 of 576 stands.
+      The correction is worth making because it changes what the numbers MEAN
+      (a bcea in mixed units is not an area in deg^2, and the catch-up
+      threshold is not the speed it appears to be), not because it changes the
+      Goal 2.10 decision.
+    fix: >-
+      Multiply y by `screen.height_px / screen.width_px` before any hypot, and
+      report bcea in deg^2 and speeds in deg/s via `viewing_geometry`. Not yet
+      applied; doing so requires re-extracting and re-running the matrix.
+  - id: qixin_annotation_empty
+    scope: qixin_120, qixin_500
+    description: >-
+      Every per-subject `*_annotation.csv` contains only a header row. Stimulus
+      onsets are NOT in the per-subject export and must come from the project
+      `.asdata` file. Code that expects annotations to be populated is wrong.
+  - id: qixin_sample_clock_drift
+    scope: qixin_500 mainly, qixin_120 negligibly
+    description: >-
+      The sample clock and the presentation clock differ. Sample timestamps span
+      about 0.4 percent longer than the `duration` the project file reports for
+      the same recording on the F500 device (median clock scale 0.996), against
+      0.0002 on the 120 Hz device. Because media start and end times are
+      expressed against `duration`, using raw sample time misaligns the F500 by
+      300-400 ms by the end of a 136 s block. Measured effect on the pursuit
+      gaze-target correlation: 0.64-0.72 uncorrected against 0.95-0.96 after
+      rescaling. Every 七鑫易维 trace must be mapped with
+      `chongqing_binary.eye.qixin.aligned_time_ms` before any trial-locked use.
+  - id: duplicate_recordings
+    scope: qixin_120, qixin_500
+    description: >-
+      Some subjects have more than one recording for the same task. Resolve with
+      a deterministic rule, record the count and the discarded paths, never
+      average across takes.
+  - id: missing_a_id
+    scope: all
+    description: >-
+      Some recording directories and Tobii files carry no A_id
+      (`User1_251028130305`, `<name>_251022130431`, `C17049-<name>`,
+      `B16072--_<name>`, `Recording8.xlsx`). Record and exclude them. Name-based
+      mapping is not permitted; it is the mechanism that produced the unreliable
+      `has_eye_name_mapped` column.
+  - id: manifest_undercounts_eye
+    scope: manifest
+    description: >-
+      `has_eye_direct` counts 291 subjects because
+      `chongqing_binary.audit._extract_l_ids` greps paths for `L\d+` while eye
+      paths carry `A_id`. Eye coverage must be joined on `A_id`.
+
+label_free_validity_checks:
+  - id: on_face_dwell
+    task: free_viewing
+    expectation: >-
+      Dwell inside the stimulus face bounding box must greatly exceed the box's
+      share of screen area. Failure means stimulus timing or the gaze coordinate
+      frame is wrong, not that the subject looked away.
+  - id: antisaccade_direction
+    task: saccade
+    expectation: >-
+      Gaze-target horizontal correlation is positive during 前扫视-正式 and
+      negative during 反扫视-正式. This simultaneously validates block
+      identification and the pro/anti semantics.
+  - id: pursuit_tracking
+    task: smooth_pursuit
+    expectation: >-
+      Gaze-target correlation during 平滑追随 is high and positive; velocity
+      gain falls in a physiological 0.7-1.0 range on the 120/500 Hz devices.
+  - id: paradigm_conformance
+    task: all
+    expectation: >-
+      Recorded media segment counts and durations match this specification.

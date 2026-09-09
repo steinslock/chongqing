@@ -1,0 +1,32 @@
+extends: common.yaml
+
+# Paradigm structure, region geometry, drift correction, event detection and
+# trial scoring all live in configs/goal2_10/eye_paradigm_spec.yaml. Only
+# processing choices belong here.
+eye:
+  feature_version: goal2_10_eye_trial_level_v1
+  outputs_dir: artifacts/goal2_10/eye
+  subject_key: A_id
+  subject_key_note: >-
+    Eye recordings are keyed on A_id, never L_id and never on subject name.
+    has_eye_direct in the manifest undercounts because the audit column greps
+    paths for L\d+, which no eye path carries.
+  recordings_table: artifacts/goal2_10/readiness/recordings.csv
+  recordings_table_note: >-
+    Deduplication, A_id resolution and QC were settled by
+    scripts/audit_eye_readiness.py. The feature layer consumes its output
+    rather than repeating the discovery, so both stages see the same take of
+    each recording.
+  min_valid_sample_fraction: 0.50
+  min_valid_sample_fraction_note: >-
+    Recordings resolving less than half their samples are excluded, following
+    the same rule the closest comparable published cohort applied. The count is
+    recorded per unit rather than absorbed silently.
+  reliability:
+    method: odd_even_split_half
+    correction: spearman_brown
+    min_subjects: 20
+    note: >-
+      Every feature carries its own estimate. Difference scores are the part of
+      this literature whose reliability collapses, so the contrast features must
+      not be assumed adequate because the absolute ones are.

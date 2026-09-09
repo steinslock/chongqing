@@ -1235,3 +1235,505 @@ two categorical columns.
 `EXPERIMENT_PROTOCOL.md` now records that a negative increment means absence of
 signal, not damage, and that a cohort-internal demographics figure must be quoted
 with its cohort.
+
+## 2026-09-08 - Goal 2.10 Step 1: Eye-Tracking Readiness Audit
+
+Status: readiness complete. No features, no models, no labels in any check. No
+go/no-go decision is issued here.
+
+Eye tracking is the last unused objective modality. Before any of it was
+modelled, the literature it would rest on was reviewed and a method was written
+down with its predictions, in `reports/goal2_10_eye_method_design.md`. This
+entry records the audit that followed.
+
+### Coverage: the manifest undercounts eye by a factor of four
+
+`has_eye_direct` records 281 subjects in the split file because
+`chongqing_binary.audit._extract_l_ids` greps paths for `L\d+`, and no eye path
+carries one; they carry `A_id` (`A02062_<name>_251105161924`,
+`眼动-tobbi E16284<name>_free.xlsx`). Joining on `A_id`:
+
+| device | sampling rate | subjects | CV subjects |
+|---|---|---|---|
+| `qixin_120` (七鑫易维) | 120 Hz | 432 | 336 |
+| `qixin_500` (七鑫易维 F500) | 500 Hz | 420 | 331 |
+| `tobii` (Tobii Pro Nano) | 60 Hz | 337 | 253 |
+| union | | 1187 | **919** |
+
+3621 recordings on disk, 3481 kept, all 3481 read. 911 subjects have a recording
+that `has_eye_direct` does not flag; 5 are flagged with no recording found.
+Within the CV cohort about 80 percent also have EEG, 95 percent fNIRS and 99
+percent Face. Positive rate is 0.334 to 0.360 across the nine units.
+
+Only 2 subjects appear under more than one device, and each device owns a
+distinct set of `A_id` site prefixes: `qixin_120` holds B14/B15/B16/C02/C17/C18/
+D08 alone, `qixin_500` holds A04/A10/B01/B03/B05/D13/E06 alone, and Tobii shares
+qixin_500's schools but never its subjects. Device and acquisition site cannot be
+separated, exactly as for the two fNIRS devices, so units are `device x task`
+and raw features are never merged across devices.
+
+### The paradigm was recovered without an attachment
+
+`附件/` holds paradigm scripts for EEG, fNIRS and Face and nothing for eye
+tracking. `configs/goal2_10/eye_paradigm_spec.yaml` is therefore the project's
+first specification that is not attachment-derived, and it says so:
+`attachment_available: false`, with every value naming whether it came from the
+archived stimulus media or from the recorded presentation timeline. The two
+sources agree.
+
+- **自由观看**: 36 trials of cross 1.0 s, single CFAPS-style greyscale face
+  4.0 s, blank 1.0 s. Valence and sex fully crossed: 12 happy, 12 sad, 12
+  neutral, 18 male, 18 female. Presentation order is fixed and identical for
+  every subject, so trial index and valence are confounded by design. One face
+  is on screen at a time, so this yields a between-trial valence contrast, not
+  the competitive attentional-bias score most of the free-viewing literature
+  reports.
+- **扫视**: prosaccade instruction, 10 s practice, 20 s formal; then the same
+  for antisaccade. Each formal block holds exactly **8 trials**, first onset
+  1500 ms, period 2500 ms, target on 1000 ms, four leftward and four rightward,
+  four small (0.140 of screen width) and four large (0.282).
+- **平滑追随**: instruction then a 135.99 s continuous target sweeping 229
+  distinct horizontal positions.
+
+Stimulus onsets are not in the per-subject 七鑫易维 export; every
+`*_annotation.csv` there is header-only. They come from the project `.asdata`
+file. Target positions exist nowhere in the recorded data and were decoded from
+the stimulus videos, which are byte-identical across both 七鑫易维 projects and
+were the same files Tobii presented.
+
+Conformance over all 3481 recordings: timeline complete in 1.000 of units except
+`qixin_500/free_viewing` at 0.995 and `qixin_500/smooth_pursuit` at 0.998. Face
+presentation error against the specified 4000 ms is 2 ms on both 七鑫易维
+devices and -19.5 ms on Tobii, which is one 60 Hz sample interval.
+
+### Two timing defects that would have corrupted every trial-locked feature
+
+- Tobii `Recording timestamp` is in **microseconds** while `Recording duration`
+  is in milliseconds. The reader converts and stores the agreement, which is
+  1.0000.
+- The 七鑫易维 sample clock is not the presentation clock. On F500 the samples
+  span about 0.4 percent longer than the `duration` the project file reports,
+  which accumulates to 300-400 ms by the end of a 136 s block. Measured clock
+  scale is 0.99674 [0.99588, 0.99734] on F500 against 0.99999 [0.99992, 1.00008]
+  at 120 Hz. Uncorrected, the pursuit gaze-target correlation reads 0.64 to 0.72;
+  after mapping the samples onto the presentation clock it reads 0.935 [0.913,
+  0.953], and the residual best lag falls to +100 to +150 ms, which is the
+  ordinary physiological pursuit lag. `chongqing_binary.eye.qixin.aligned_time_ms`
+  applies it and a test pins it.
+
+Neither defect announces itself. Both would have silently rescaled or shifted
+every trial-locked feature on a third of the cohort.
+
+### Label-free validity passes on all nine units
+
+Every threshold is fixed by the paradigm or by physiology, so a failure would
+mean a parsing problem rather than an absent effect. Median [Q1, Q3] over all
+recordings:
+
+| check | tobii | qixin_120 | qixin_500 |
+|---|---|---|---|
+| free-viewing dwell inside the face box | 0.981 [0.953, 0.993] | 0.963 [0.924, 0.984] | 0.972 [0.929, 0.990] |
+| the same, over the box's 0.053 area share | 18.6x | 18.3x | 18.4x |
+| prosaccade gaze-target correlation | 0.822 | 0.771 | 0.756 |
+| antisaccade gaze-target correlation | -0.614 | -0.552 | -0.531 |
+| pursuit gaze-target correlation | 0.971 [0.940, 0.987] | 0.942 [0.917, 0.965] | 0.935 [0.913, 0.953] |
+| trials scored per saccade block | 8 | 8 | 8 |
+
+The antisaccade correlation is negative on all three devices, which validates
+the block identification and the pro/anti semantics at the same time. All 9
+`device x task` units are marked READY.
+
+### Acquisition quality differs by device
+
+| device | valid sample fraction | long gaps | recordings below 0.5 valid |
+|---|---|---|---|
+| `qixin_120` | 0.980 [0.957, 0.994] | 1 [0, 4] | 1 |
+| `qixin_500` | 0.975 [0.952, 0.988] | 1 [0, 3] | 0 |
+| `tobii` | 0.897 [0.857, 0.926] | 5 [3, 9] | 9 |
+
+Tobii resolves less of the recording and loses tracking more often. Since device
+is collinear with site, this is a shortcut candidate, and QC therefore enters as
+its own feature set so the `signal_qc vs qc` control can expose it.
+
+### Defects recorded, not coerced
+
+113 duplicate takes were resolved deterministically, never averaged: complete
+timeline first, then most media segments, then longest recording, then latest,
+every component from the recording and none from the label. 27 recordings carry
+no `A_id` (`User1_251028130305`, `<name>_251022130431`, `C17049-<name>`,
+`B16072--_<name>`, Tobii `Recording8.xlsx`) and are excluded; name-based mapping
+is not permitted, since that is what made `has_eye_name_mapped` unreliable.
+
+### One prediction is already weaker than it was written
+
+The design document predicted that antisaccade error rate would carry a moderate
+univariate signal that the age baseline would then absorb. The audit adds a
+second reason to expect little from it: each block holds only **8 trials**, so a
+direction-error rate has a resolution of 0.125 and cannot be compared with the
+40-100 trial batteries the literature reports. Its split-half reliability must
+be reported with it.
+
+Verification: `Ran 199 tests ... OK` (182 before this stage, 17 new). No label
+column was read by any check in this audit.
+
+Entry point: `python scripts/audit_eye_readiness.py --n-workers 48`.
+Report: `reports/eye_readiness_audit.md`. Machine-readable:
+`artifacts/goal2_10/readiness/`, plus stimulus-side products in
+`artifacts/goal2_10/stimuli/`.
+
+## 2026-09-09 - Goal 2.10 Steps 2-3: Stimulus Regions and Gaze Drift Correction
+
+Status: stimulus-side products complete. Still readiness only, no features, no
+models, no labels in any check.
+
+### Regions
+
+The free-viewing regions are built from YuNet's five landmarks on the 36
+stimulus images and scaled by each stimulus's inter-ocular distance, giving
+`eyes`, `mouth`, `face_other` and `off_face`. A gaze sample falls in exactly one
+region, first match wins, so the four shares sum to one. Because the regions
+depend only on the stimulus images, the same geometry applies to every subject
+in every fold and cannot leak.
+
+YuNet detects all 36 stimuli, lowest score 0.907, so no Haar fallback arises;
+here that fallback would be an error rather than a downgrade, because it would
+change the region geometry for one stimulus only. Eye and mouth bands are
+disjoint on all 36 and both lie inside the visible face. Median screen-area
+share: eyes 0.0150, mouth 0.0106, face 0.0529.
+
+The multipliers live in `configs/goal2_10/eye_paradigm_spec.yaml` under
+`tasks.free_viewing.aoi` and carry `source: analysis_choice`, which distinguishes
+them from the recovered paradigm facts in the same file.
+
+### A device-level gaze offset that the coarse check could not see
+
+Adding the regions immediately failed a check that no earlier one could reach.
+Eye-region dwell exceeds mouth-region dwell in every population studied, so it is
+a parse check rather than a finding. Measured raw, over all 1140 free-viewing
+recordings:
+
+| device | eyes | mouth | eyes minus mouth |
+|---|---|---|---|
+| `tobii` | - | - | +0.245 [-0.027, 0.481] |
+| `qixin_120` | - | - | **-0.103** [-0.341, 0.153] |
+| `qixin_500` | - | - | **-0.145** [-0.324, 0.090] |
+
+The contrast reverses on both 七鑫易维 devices. The cause is a systematic
+downward gaze offset that differs by device: median vertical offset, measured
+against the paradigm's own fixation cross, is +0.015 of screen height on Tobii,
++0.056 at 120 Hz and +0.052 on F500. The eye and mouth bands are each about 0.10
+of screen height, so an offset that size moves a large share of samples from one
+band into the other.
+
+Two things make this worth recording rather than quietly fixing.
+
+First, **the Step 1 face-box check passes with the offset in place**. Dwell
+inside the stimulus face box was 18x its area share on every device. The face box
+spans y 0.335 to 0.665, symmetric about screen centre, so a vertical shift keeps
+gaze inside it. Only a region finer than the face caught this. A coarse validity
+check that passes is not evidence that the coordinate frame is right.
+
+Second, **device is collinear with acquisition site in this dataset**. An
+uncorrected 0.04 difference in reported gaze position between devices would have
+entered any eye-region model as a site shortcut wearing the clothes of a
+behavioural finding. This is the same failure mode as the site proxy that Goal
+2.7 found, arriving through a new door.
+
+### The correction, and what it does
+
+The paradigm supplies its own: a 1 s fixation cross at screen centre precedes
+every trial. `chongqing_binary.eye.drift.estimate_drift` takes the median gaze
+over a recording's crosses, minus (0.5, 0.5), skipping the first 200 ms of each
+cross and requiring at least 10 usable crosses. Recordings have 36 or 37. It uses
+no label, and a recording-level median rather than the immediately preceding
+cross, so trial-level variance stays in the signal instead of being absorbed by
+the correction.
+
+After it, over all 1140 recordings:
+
+| device | eyes | mouth | face_other | off_face | eyes minus mouth |
+|---|---|---|---|---|---|
+| `tobii` | 0.539 | 0.172 | 0.242 | 0.020 | +0.362 [0.230, 0.526] |
+| `qixin_120` | 0.524 | 0.180 | 0.243 | 0.029 | +0.339 [0.184, 0.474] |
+| `qixin_500` | 0.481 | 0.208 | 0.260 | 0.018 | +0.269 [0.159, 0.405] |
+
+The between-device spread in eyes-minus-mouth falls from 0.390 to 0.093, and the
+contrast is positive and large on all three devices, which is what face viewing
+does. The estimated offset is an acquisition property and enters the **QC**
+feature set only; it must never enter the signal feature set.
+
+A residual device difference remains, 0.481 to 0.539 in eye share. It is small
+against the raw spread but it is not zero, so device stays a modelling unit and
+raw features are still never merged across devices.
+
+Verification: all 9 `device x task` units remain READY over all 3481 recordings,
+with `eyes_above_mouth` added to the verdict. `Ran 205 tests ... OK` (23 in the
+eye suite, 6 of them new). No label column was read by any check.
+
+Report: `reports/eye_readiness_audit.md`. Machine-readable:
+`artifacts/goal2_10/readiness/` and `artifacts/goal2_10/stimuli/`, the latter now
+including `free_viewing_aois.json`.
+
+## 2026-09-09 - Goal 2.10: Eye Tracking, the Fifth Feature Layer
+
+Status: measurement complete, results recorded. No go/no-go decision is issued
+here; that remains open.
+
+Eye tracking is the last objective modality no earlier goal used. The protocol
+is unchanged from Goal 2.7, 2.8 and 2.9: same fixed splits, same inner CV, same
+model families and grids, same 1000-resample bootstrap and paired tests, same
+pilot-holdout exclusion, same Goal 2.9 rule that a credited increment must beat
+a comparator that is itself above chance. Only the features are new.
+
+The literature was reviewed and the method, with its predictions, was written
+down before anything was modelled, in `reports/goal2_10_eye_method_design.md`.
+
+### Result
+
+**Over the 576 increments over demographics, 0 are credited.** Eighteen
+intervals excluded zero on the positive side; 152 were significantly negative.
+All twelve `device x task` units return `NO_INDEPENDENT_SIGNAL`. Matrix: 600
+datasets, 518,592 OOF predictions, 3504 pooled metric rows, 864 paired
+comparisons.
+
+Every one of the eighteen positives is Group CV, every one is a `qixin_120`
+cohort, and every comparator sits at 0.435 to 0.467. That device's demographics
+baseline is 0.555-0.563 under Standard CV and collapses to 0.435-0.462 under
+Group CV, while `qixin_500` holds 0.657-0.678 and 0.643-0.659. This is the
+mechanism Goal 2.9 had to withdraw a result over, and the rule caught all
+eighteen. Without it, `qixin_120` would have been reported as showing
+independent eye signal in three of four cohorts.
+
+### Coverage, and a manifest column that undercounts by a factor of four
+
+`has_eye_direct` records 281 subjects because
+`chongqing_binary.audit._extract_l_ids` greps paths for `L\d+` and no eye path
+carries one; they carry `A_id`. Joining on `A_id`: 1187 subjects, **919 in the
+development split**, 3481 recordings, across three devices on near-disjoint
+cohorts (Tobii 60 Hz / 253 CV, 七鑫易维 120 Hz / 336, F500 500 Hz / 331; two
+subjects in common). Each device owns a distinct set of site prefixes, so
+device and site cannot be separated and units are `device x task`.
+
+### The paradigm, recovered without an attachment
+
+`附件/` holds nothing for eye tracking, so
+`configs/goal2_10/eye_paradigm_spec.yaml` is this project's first specification
+that is not attachment-derived and declares itself as such. Recovered from the
+stimulus media and the recorded timeline, which agree:
+
+- 自由观看: 36 trials of cross 1.0 s, one CFAPS-style face 4.0 s, blank 1.0 s;
+  12 happy / 12 sad / 12 neutral, 18 male / 18 female, fixed order.
+- 扫视: pro and anti, 10 s practice and 20 s formal each, **8 trials** per
+  formal block, first onset 1500 ms, period 2500 ms, target on 1000 ms.
+- 平滑追随: six 21 s sinusoidal blocks with 2 s gaps, three conditions twice:
+  horizontal 0.381 Hz, 3:4 Lissajous 0.143/0.190 Hz, and the same Lissajous at
+  exactly double the frequency and identical amplitude. An earlier revision of
+  the specification called this task continuous; nothing had read it.
+
+### Four defects, none of which announced itself
+
+- Tobii `Recording timestamp` is microseconds; `Recording duration` is ms.
+- The 七鑫易维 sample clock is not the presentation clock. F500 samples span
+  about 0.4 percent longer than the recorded `duration`, a 300-400 ms drift by
+  the end of a 136 s block. Uncorrected the pursuit correlation reads 0.64-0.72;
+  corrected, 0.935, with a residual lag of the ordinary physiological 100-150 ms.
+- All three trackers report gaze below the true fixation point, by
+  device-dependent amounts (+0.015, +0.056, +0.052 of screen height). The eye
+  and mouth bands are each about 0.10 of screen height, so uncorrected the
+  eye-minus-mouth contrast reads -0.103 and -0.145 on the two 七鑫易维 devices
+  against +0.245 on Tobii: the universal eyes-above-mouth rule reverses. Since
+  device is collinear with site that is a site shortcut. The paradigm's own 1 s
+  fixation cross corrects it: +0.362 / +0.339 / +0.269, between-device spread
+  down from 0.390 to 0.093.
+- Catch-up saccades cannot be counted with a dispersion detector. During pursuit
+  the eye moves smoothly, so I-DT chops that motion at its threshold and the
+  rate tracks eye speed; that version reported the highest rate in the slowest
+  condition, which is how it was found. A velocity-residual detector gives 1.23,
+  1.26 and 1.84 Hz across horizontal, slow and fast.
+
+The third is the one to carry forward. The face-box check passed with the offset
+in place, at 18x its area share on every device, because the face box is
+symmetric about screen centre. **A coarse validity check that passes is not
+evidence that the coordinate frame is right.**
+
+### Label-free validity passes on all three devices
+
+Medians over all recordings: face-box dwell 18.3-18.6x its area share;
+eye-minus-mouth +0.269 to +0.362; prosaccade gaze-target correlation 0.756-0.822
+and antisaccade -0.531 to -0.614; pursuit 0.935-0.971; prosaccade gain
+1.007-1.019; antisaccade corrected-error rate 1.000.
+
+Three replicate as textbook effects. The **inhibition cost** is +100 / +107 /
++86 ms across devices while absolute latency differs by 84 ms between them, so
+absolute latency is not comparable across devices and the within-subject
+contrast is. **Mouth dwell is highest for happy faces** on all three devices
+(0.231 / 0.242 / 0.262 against 0.121 / 0.124 / 0.144 neutral), which is the
+smile being the diagnostic feature and validates the whole valence-to-region
+chain. **Pursuit degrades with target speed** on every measure: `fast minus
+slow` RMSE +0.014 positive in 83 percent of subjects, smooth fraction -0.055,
+catch-up rate +0.53 Hz positive in 92 percent.
+
+### The measurement result that decides how to read the null
+
+Odd-even split half, Spearman-Brown corrected, 249-322 subjects per device:
+
+| block | features | median | above 0.5 on all three devices |
+|---|---|---|---|
+| absolute per-valence | 75 | 0.698 | **53** |
+| valence contrasts | 46 | -0.051 | **0** |
+
+Best contrast 0.326; 33 of 46 have a negative median. Each contrast is a
+difference of two means estimated from 12 trials each, which keeps both errors
+and cancels the shared true variance. This is the difference-score reliability
+collapse the attentional-bias literature reports, replicated here on three
+devices independently.
+
+The two blocks therefore entered the matrix as separate declared feature sets,
+because mixing 46 unreliable columns into 75 informative ones would depress the
+result for a reason unrelated to signal. And **a null on the contrast block is
+evidence about this paradigm, not about attentional bias as a construct**: the
+valence contrast was the primary theoretical motivation for the whole
+free-viewing analysis and it is not measurable at 12 trials per valence. The
+absolute block, which is measurable, also returns 0 credited increments.
+
+### Controls behave as controls
+
+`signal_qc vs qc` is positive in 6 of 72 rows and negative in 8, median +0.005;
+the signal block's median AUROC of 0.510 is indistinguishable from QC's 0.508.
+`signal_demographics vs signal` is positive in 21 of 72, median +0.025. Adding
+eye features to demographics lowers AUROC in 74 percent of rows, median -0.039,
+which is the dilution already documented. The site proxy alone reaches 0.589
+under Standard CV and 0.420 under Group CV.
+
+### A reporting conflation caught before publication
+
+The first summary counted credited increments over the whole required table,
+which mixed the demographic increments with the controls and reported "1
+credited". The single credited row was
+`signal_absolute_demographics vs signal_contrast_demographics`, a control that
+says the reliable block beats the unreliable one, which is a restatement of the
+reliability finding rather than evidence of signal. The two counts are now
+separated, as they should have been: 0 of 576 over demographics, 1 of 72 on
+controls. Goal 2.8's report had to correct the same class of conflation between
+`demographics` and `demographics_group`.
+
+### What this adds
+
+Eye tracking is the fifth feature layer to return no increment, after EEG,
+fNIRS, Face and behaviour. Three things separate this null.
+
+It is the first where the **primary construct was shown to be unmeasurable
+rather than merely unrewarding**. It is the first with **three independent
+devices** at three sampling rates on three near-disjoint cohorts, whose validity
+checks agree and whose label increments agree in returning nothing. And the
+decision rule earned its keep for the second time.
+
+Verification: `Ran 237 tests ... OK` (182 before Goal 2.10, 55 new). All feature
+tables and OOF predictions are CV-only with zero pilot-holdout rows. Split files
+are unchanged.
+
+Reports: `reports/goal2_10_final_report.md`, `reports/goal2_10_results.md`,
+`reports/eye_readiness_audit.md`. Machine-readable: `results/goal2_10/`.
+
+## 2026-09-09 - Goal 2.10 re-audit against the hospital paradigm document
+
+Status: complete. Goal 2.10 conclusion unchanged.
+
+The hospital supplied `附件/重医眼动范式及参数.docx` after Goal 2.10 had been
+extracted, modelled and reported. It is the first external check on a
+specification this project had recovered entirely from recorded data.
+
+Confirmed, with nothing revised to make it agree:
+
+- Free viewing: cross 1 s, face 4 s, blank 1 s, single centred face, 12 neutral
+  / 12 happy / 12 sad, sex balanced. 呈现单张 confirms as fact what the spec had
+  argued as a judgement call — no competing stimulus, so no within-trial
+  attentional-bias score exists in this paradigm.
+- Saccade: cross 1.5 s, target 1 s, horizontal at 6 deg or 12 deg, each of four
+  positions twice, 8 trials. The decoded video is 1200 frames at 60 fps =
+  8 x (1.5 + 1.0) s exactly.
+- Pursuit: three trajectories, each 20 s, each repeated twice, fast Lissajous at
+  exactly twice the frequency of slow. This confirms the recovered blocked
+  structure and the whole `fast minus slow` contrast.
+- Both quantities that had been corrected mid-analysis after producing
+  implausible results — the 8 saccade trials and the blocked pursuit design —
+  are confirmed by a document written independently of the analysis.
+- The stimulus set is named outright as CFAPS, where the spec could only infer
+  "CFAPS-style" from filename codes.
+- The document's cited source paper for free viewing scores dwell on eye versus
+  mouth regions, the same contrast the AOI block was independently built to
+  measure.
+
+Corrected:
+
+- Pursuit frequencies were quoted 4.8 percent low in spec_version 1 (0.381 /
+  0.143,0.190 / 0.286,0.381 Hz). They came from an FFT over the whole 21 s
+  block, which opens with 1.0 s of stationary target. Each is an exact integer
+  cycle count over the block (8, 3, 4, 6, 8); dividing by the document's 20 s of
+  motion returns the document's own 0.4 / 0.2 / 0.4 Hz. Timing reconciles as
+  6 x 21 + 5 x 2 = 136 s observed, the 21 s block being 1 s settle plus 20 s
+  motion. No feature was affected: `_pursuit_block` reads only `blocks` from
+  that mapping and takes the target from the decoded track.
+- Every statement in the project that a visual angle could not be computed
+  because viewing distance was unrecorded. It can now. The document's 6 deg and
+  12 deg targets against the decoded 0.1396 and 0.2823 screen widths solve to a
+  viewing distance of 1.3282 and 1.3281 screen widths respectively — agreement
+  to four significant figures, and only under a tangent mapping (a linear scale
+  misses at 5.967 and 12.067 deg). Screen subtends 41.26 x 23.91 deg. This
+  confirms the I-DT threshold of 0.025 screen widths as 1.078 deg horizontally,
+  the value it had been chosen to approximate under an explicitly nominal
+  geometry.
+
+Exposed, and previously unfixable rather than overlooked:
+
+- `known_defects/axis_anisotropy`. x is normalised by screen width and y by
+  screen height, aspect 0.5625, and no code rescales them, so every two-axis
+  `hypot` adds different units and the same I-DT threshold is 1.078 deg
+  horizontally but 0.607 deg vertically. Affects `scanpath`, `bcea`, the 2-D
+  pursuit `rmse` and `_catch_up`. Does not affect any AOI quantity (built in
+  pixels, tested per axis), the drift correction (per-axis median), or the
+  single-axis gains and `_velocity_gain`. Every recording used the same
+  1920x1080 stimulus, so the distortion is identical for every subject on every
+  device: it distorts a metric without confounding one, and cannot have
+  produced the null. Not yet fixed; fixing it requires re-extraction.
+
+Scope finding:
+
+- The document contains a second table describing a gaze-contingent battery
+  (800 ms held fixation gate, 8 deg targets in four directions, plus
+  记忆引导扫视 and 双步扫视) that is NOT this dataset. It belongs to 集思鸣智,
+  whose heading follows it and whose section is empty. Settled by four
+  independent facts: it contradicts table 1 on the same task names; gaze-
+  contingent gating is impossible with fixed-length MP4 stimuli; no
+  memory-guided or double-step stimulus, directory or timeline exists in either
+  七鑫易维 project or the Tobii export; and there is no 集思鸣智 directory under
+  `眼动/` at all.
+- **A third eye-tracking device is named in the study protocol and none of its
+  recordings are in this dataset.** Worth asking the hospital whether that
+  cohort exists and was meant to be delivered. Coverage question, not a
+  re-analysis question: its paradigm could not be pooled with these three.
+
+Changed:
+
+- `configs/goal2_10/eye_paradigm_spec.yaml` to spec_version 2: provenance
+  header, `document_scope`, `viewing_geometry`, corrected pursuit frequencies
+  with cycle counts, documented saccade and free-viewing facts, and the new
+  defect entry.
+- `src/chongqing_binary/eye/events.py`, `src/chongqing_binary/eye/spec.py`,
+  `scripts/audit_eye_readiness.py`, `AGENTS.md`, `EXPERIMENT_PROTOCOL.md`,
+  `reports/goal2_10_final_report.md` for the superseded claims.
+- `tests/test_goal2_10_eye.py`: the guard that pinned
+  `attachment_available == False` was rewritten rather than removed, since the
+  risk it protected against has moved — a reader mistaking the document's
+  second table for these recordings. Two tests added, asserting that the
+  viewing geometry closes against the decoded amplitudes under a tangent
+  mapping and that every pursuit frequency is a whole cycle count of the motion
+  window.
+
+New: `reports/goal2_10_paradigm_document_review.md`.
+
+Result: **unchanged. 0 of 576 increments over demographics credited, all twelve
+device x task units NO_INDEPENDENT_SIGNAL.** No re-extraction is needed to
+defend it. A re-extraction with the anisotropy fixed and features reported in
+degrees would improve an external write-up and is not needed to check the
+answer.

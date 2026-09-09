@@ -1,0 +1,32 @@
+{
+  "pooled_rows": 3504,
+  "paired_rows": 864,
+  "required_rows": 648,
+  "demographic_increment_rows": 576,
+  "demographic_significant_positive": 18,
+  "demographic_significant_positive_credited": 0,
+  "demographic_significant_negative": 152,
+  "control_rows": 72,
+  "control_significant_positive": 9,
+  "control_significant_positive_credited": 1,
+  "comparator_chance_auroc": 0.5,
+  "permutation_required_below_n": 500,
+  "reliability": {
+    "n_features": 121,
+    "absolute": {
+      "n": 75,
+      "median_sb": 0.6977179437581986,
+      "reliable_all_devices": 53
+    },
+    "contrast": {
+      "n": 46,
+      "median_sb": -0.051269603331169644,
+      "reliable_all_devices": 0,
+      "best": "signal_contrast_early_happy_minus_neutral_mouth_share",
+      "best_sb": 0.3256761771523196
+    },
+    "trials_per_valence": 12,
+    "note": "Difference scores between two 12-trial means are not measurable in this paradigm. Zero of 46 contrast features reach split-half 0.5 on all three devices, against 53 of 75 absolute features. Replicated independently on 249-322 subjects per device."
+  },
+  "report": "/data/home/cqm/Project/Code/chongqing/reports/goal2_10_results.md"
+}
