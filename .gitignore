@@ -72,3 +72,15 @@ reports/latex/build/*.out
 reports/latex/build/*.toc
 reports/latex/build/*.xdv
 reports/latex/*.tex.bak
+
+# Editor-driven in-place LaTeX builds (VSCode LaTeX Workshop). The tracked PDFs
+# live under reports/latex/build/; these are duplicates and intermediates.
+reports/latex/*.aux
+reports/latex/*.fdb_latexmk
+reports/latex/*.fls
+reports/latex/*.log
+reports/latex/*.out
+reports/latex/*.pdf
+reports/latex/*.synctex.gz
+reports/latex/*.toc
+reports/latex/*.xdv
