@@ -1108,7 +1108,7 @@ demographics in every cohort except one.
 
 A positive result was found and withdrawn. The combined Yiruid cohort returned
 `INDEPENDENT_SIGNAL_SUPPORTED` on 6 Standard-CV and 2 Group-CV increments with
-point estimates +0.079 to +0.089 and all 24 of its rows positive in sign. Every
+point estimates +0.073 to +0.089 and all 24 of its rows positive in sign. Every
 one of the eight beat a demographics baseline that was itself **below chance**:
 0.472-0.520 under Standard CV and 0.429-0.467 under Group CV, against about 0.67
 in the full cohort. That cohort is the intersection of three Yiruid tasks, drawn
@@ -1965,7 +1965,7 @@ and 9 removed nothing and 7 removed everything EEG had. The question is fair to
 ask again at any future stage.
 
 The one objective-modality result in this project that demonstrably survives its
-own setting control remains **Face against background** in Goal 2.8: 8 of 12
+own setting control remains **Face against background** in Goal 2.8: 10 of 12
 intervals positive, strongest +0.1153 [0.0858, 0.1450] under Group CV on the
 within-subject valence contrast, a representation whose background control sits
 at chance because identity, room, camera and site cancel within subject. It is
@@ -1979,3 +1979,49 @@ not kept; the observation itself is recorded above as a description of the Goal
 New: `scripts/recheck_increments_relaxed.py`,
 `reports/increment_criteria_and_relaxed_recheck.md`,
 `results/increment_recheck/`.
+
+## 2026-09-10 - Two reported counts corrected against their own result tables
+
+Status: corrections only. No stage conclusion, decision or result table changes.
+
+Both errors were found while a LaTeX progress report was being written from
+these records, by recounting the source CSVs rather than trusting the prose.
+Both are prose; no result table was wrong.
+
+**Face against background was 10 of 12, not 8 of 12.** The relaxed re-check
+report and the corresponding PROGRESS paragraph both described the Goal 2.8
+`face_vs_background` group as "8 of 12 intervals positive". Recounting
+`results/goal2_8/required_increments.csv`: `face_vs_background` has 12 rows and
+**10** have intervals excluding zero, which is what `reports/goal2_8_final_report.md`
+had said all along ("`face_vs_background` in 10 rows and
+`face_demographics_vs_background_demographics` in 4"). No subset of those 12
+rows yields 8 under any grouping: the valence contrast is 6 of 6, the raw
+segment block 4 of 6, Group CV 6 of 6, Standard CV 4 of 6. The strongest row,
++0.1153 [0.0858, 0.1450], is unaffected, and so is the claim the sentence
+supports.
+
+**The withdrawn Goal 2.9 increments ranged +0.073 to +0.089, not +0.079 to
++0.089.** The eight rows are 0.0731, 0.0791, 0.0846, 0.0848, 0.0848, 0.0848,
+0.0882 and 0.0889; the stated lower bound had silently dropped the smallest.
+The separate figure `+0.079` that appears in the permutation analysis is a
+different quantity — the specific row value used as the permutation threshold,
+`P(gap >= +0.079)` — and is correct as written. It was left alone.
+
+`scripts/verify_goal2_9_positive.py` hardcodes `OBSERVED_MIN_DIFF = 0.0790`,
+which feeds that threshold and `observed_increment_range` in
+`results/goal2_9/positive_result_verification.json`. It was **not** changed.
+Under the narrower reading its own comment states — the smallest increment over
+*pure* demographics — 0.0790 is right: the 0.0731 row compares against
+`qc_demographics`, not `demographics`, so the six pure-demographics rows run
+0.0791 to 0.0889. Editing the constant would move a published tail probability
+(the 17-18 percent), which is a re-analysis, not a typo fix. The prose range and
+the threshold constant answer different questions and both now say so.
+
+Changed: `PROGRESS.md` (the Goal 2.9 withdrawal paragraph and the relaxed
+re-check summary), `reports/goal2_9_final_report.md`,
+`reports/increment_criteria_and_relaxed_recheck.md`. Four sentences in total;
+no result table, script or config was touched.
+
+New: `reports/latex/chongqing_progress_20260907_20260910.tex` and its build, a
+27-page Simplified Chinese technical progress report covering 2026-09-07 to
+2026-09-10.

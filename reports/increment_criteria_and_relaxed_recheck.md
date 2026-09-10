@@ -137,7 +137,7 @@ question again.
 
 The one place in this project where an objective modality demonstrably carries
 information that the recording setting cannot explain is **Face against
-background** in Goal 2.8: 8 of 12 intervals positive, the strongest at +0.1153
+background** in Goal 2.8: 10 of 12 intervals positive, the strongest at +0.1153
 [0.0858, 0.1450] under Group CV on the within-subject valence contrast, a
 representation in which the background control itself sits at chance because
 identity, room, camera and site cancel within subject. That signal is real and

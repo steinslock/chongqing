@@ -61,3 +61,14 @@ results/goal2_10/all_oof_predictions_group_cv.csv
 # acquisition-group probe.
 results/goal3/all_oof_predictions.csv
 results/goal3/jobs/
+
+# LaTeX build intermediates are regenerable with latexmk; the .tex source and
+# the compiled PDF are tracked.
+reports/latex/build/*.aux
+reports/latex/build/*.fdb_latexmk
+reports/latex/build/*.fls
+reports/latex/build/*.log
+reports/latex/build/*.out
+reports/latex/build/*.toc
+reports/latex/build/*.xdv
+reports/latex/*.tex.bak

@@ -218,7 +218,7 @@ direction, adding behaviour to demographics, is the one that does not.
 
 The first run of the decision rule returned `INDEPENDENT_SIGNAL_SUPPORTED` for
 the combined Yiruid cohort: 6 increments over demographics with intervals
-excluding zero under Standard CV and 2 under Group CV, point estimates +0.079 to
+excluding zero under Standard CV and 2 under Group CV, point estimates +0.073 to
 +0.089, with all 24 of its rows positive in sign. That is what a real effect
 looks like from the outside.
 

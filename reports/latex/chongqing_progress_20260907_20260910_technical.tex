@@ -1,0 +1,716 @@
+\documentclass[UTF8,11pt,a4paper]{ctexart}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{amsmath,booktabs,tikz,hyperref}
+\usepackage{tabularx,longtable,array,enumitem,fancyhdr,xcolor}
+\usetikzlibrary{arrows.meta,positioning}
+\hypersetup{colorlinks=true,linkcolor=blue!55!black,urlcolor=blue!55!black,pdftitle={重庆青少年心理健康多模态二分类项目技术进展报告}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcommand{\ubrk}{\textunderscore\allowbreak}
+\newcommand{\src}[1]{\par\smallskip{\footnotesize\raggedright\noindent 出处：{\ttfamily\let\_\ubrk #1}。\par}\smallskip}
+\newcommand{\code}[1]{{\ttfamily\let\_\ubrk #1}}
+\newcommand{\note}[1]{\par\smallskip\noindent\textbf{口径说明：}#1\par\smallskip}
+\setlength{\emergencystretch}{3em}
+\renewcommand{\arraystretch}{1.22}
+\setlength{\tabcolsep}{5pt}
+\setlist{nosep,leftmargin=2em}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small 重庆青少年心理健康项目}
+\fancyhead[R]{\small 技术进展报告}
+\fancyfoot[C]{\thepage}
+\setlength{\headheight}{15pt}
+\ctexset{section={format=\Large\bfseries},subsection={format=\large\bfseries}}
+\title{\textbf{重庆青少年心理健康多模态二分类项目}\\[0.6em]技术进展报告\\[0.4em]\large 从范式重建到独立增量的可信判定}
+\author{项目内部汇报材料}
+\date{报告区间：2026-09-07 至 2026-09-10}
+\begin{document}
+\maketitle
+\begin{abstract}
+本报告整理重庆青少年心理健康二分类项目在报告期内的连续实验与方法修订，核心问题是客观测量能否在人口学变量之上提供可信的独立增量。项目沿用固定被试划分、标准与分组交叉验证、内层选择及配对自助检验，先修复范式误读，重建脑电、近红外和面部特征，再加入行为学与眼动，并完成脑电深度表征基准。五个客观特征层及深度表征均未取得可计入的独立增量。与此同时，面部赢过背景、行为学赢过失效基线、眼动重现同类阳性，推动比较对象与基线有效性规则逐步明确；后续深度比较也受到相同规则约束。眼动分半信度限定了阴性结果的构念解释，深度阳性对照验证了流程的学习能力，交叉拟合堆叠缓解了特征稀释。放宽重核显示，存活结果集中于历史面部质量控制组合和单种子脑电比较。报告保留测量完成与阶段准入决策的区别，记录规则的来源、作用及局限，不将本队列的阴性推广为精神状态不存在客观信号。
+\end{abstract}
+\noindent\textbf{关键词：}人口学基线；配对增量；采集组捷径；测量信度；交叉拟合；结果撤回
+
+\vspace{1em}
+\noindent\textbf{阅读提示。}本报告面向项目导师与合作医院，以仓库记录为事实来源。所有比较均须连同队列、协议和比较对象阅读。文中“未取得独立增量”指现有实验的计入结果，不构成临床诊断工具有效性声明。
+\src{PROJECT\_SPEC.md；reports/goal3\_final\_report.md}
+\clearpage
+\tableofcontents
+\clearpage
+
+\section{引言：为什么必须跨过人口学基线}
+\subsection{任务定义与本期范围}
+项目的监督任务以被试为单位，将健康与非健康、高风险或疾病状态归并为二分类。主标签为\code{primary\_label\_nonhealthy}，其中 0 表示健康，1 表示非健康、高风险或疾病，空标签不参加监督评估。该目标不同于单一疾病的确诊，也不同于严重程度预测。客观输入包括 EEG、fNIRS、面部视频、行为学按键日志和眼动；年龄、性别、年级构成独立报告的人口学基线。
+\src{PROJECT\_SPEC.md}
+
+本期工作覆盖 2026-09-07 至 2026-09-10。起点是发现早期模态结论依赖错误的数据解释，终点是完成 EEG Oddball 深度表征基准，并对逐步增加的增量准则做放宽重核。报告以\code{PROGRESS.md} 第 702 行之后的日期记录组织事件。早期工作仅在说明被保留的实验协议、被作废的前提和本期重核涉及的历史比较时出现。
+
+\begin{table}[htbp]\centering\small
+\caption{报告期内的连续工作与证据推进}
+\begin{tabularx}{\textwidth}{lYY}\toprule
+日期 & 已完成工作 & 对后续解释的影响\\\midrule
+2026-09-07 & 环境统一，Goal 2.7 模态结论作废，范式规格与 EEG、fNIRS、Face 重建 & 先证明测量读取正确，再讨论标签预测\\
+2026-09-08 & Goal 2.8 矩阵、行为学矩阵与阳性撤回、人口学复核、眼动就绪审计 & 区分背景对照与人口学增量，增加比较基线有效性要求\\
+2026-09-09 & 眼动特征与结果、医院文档复审、Goal 3 条件准入与测量门 & 构念信度限制阴性解释；深度试验采用独立停止子集\\
+2026-09-10 & Goal 3 完成，增量准则枚举与放宽重核 & 同时报告种子不稳定性、规则收益与可比性限制\\\bottomrule
+\end{tabularx}
+\end{table}
+\src{PROGRESS.md（第 702 行至末尾）}
+
+\subsection{“能预测”与“提供新信息”的区别}
+全开发队列的人口学模型已具有可重复的区分能力。标准交叉验证中，逻辑回归、随机森林和直方图梯度提升的 AUROC 分别为 0.6688、0.6708、0.6689。因此，客观模态稍高于随机水平，或者胜过背景、采集质量控制变量，都不足以回答项目问题。真正需要比较的是：在同一队列、同一折划分和同一学习协议内，加入该模态后是否改善人口学预测。
+\src{results/demographics\_reference/demographics\_reference.csv}
+
+AUROC 描述预测分数区分两类被试的能力；本项目以 0.5 为随机参照。增量是两个模型在相同被试上的 AUROC 之差。这里的“独立”是相对于已纳入的年龄、性别和年级而言，不能解释为消除了所有混杂，更不能自动解释为发现了病因。采集组、设备、画面背景和质量控制信息因此仍需单独检查。
+\src{EXPERIMENT\_PROTOCOL.md}
+
+\section{共用实验协议：同一问题必须在同一比较面上回答}
+\subsection{固定队列与已暴露的留出集}
+固定划分覆盖 4497 名符合条件的被试，其中 3597 人属于开发交叉验证池，900 人属于原锁定测试集。开发池主标签计数为健康 2499 人、非健康 1098 人。标准协议的验证折人数依次为 720、720、719、719、719。所有模态的窗口、试次、帧和派生表征均继承被试所属折，不允许将同一人的记录随机分散到训练和验证中。
+\src{reports/split\_report.md；EXPERIMENT\_PROTOCOL.md}
+
+原锁定测试集已在基线阶段暴露。旧划分报告仍保留“最终评估使用”的历史表述，而本期治理文件明确将其定性为\textbf{基线已暴露的试点留出集（baseline-exposed pilot holdout）}。本报告采用后者：该集合不能用于特征、模型、阈值、早停或汇报选择，也不能被包装成新的独立验证。重新划分不能使已有暴露消失。
+\src{PROJECT\_SPEC.md；EXPERIMENT\_PROTOCOL.md}
+
+\subsection{标准与分组协议共同报告}
+标准固定交叉验证（Standard CV）读取\code{cv\_fold}；分组固定交叉验证（Group-aware CV，后文简称 Group CV）读取\code{robustness\_fold}。两份文件位于\code{artifacts/splits/}，分别为\code{subject\_splits\_v1.csv}与\code{subject\_splits\_group\_robustness\_v1.csv}。两种协议共同承担证据要求，不能用其中一种的结果替另一种选择模型。
+
+采集分组使用匿名\code{A\_id}的前三位代理。早期审计记录 51 个前缀组，同时明确其现实学校或站点含义尚未直接确认。因此本文使用“采集组／站点代理”，不将其写成已核实的医院身份。Group CV 留出完整代理组，使模型无法直接复用同组标签比例。全队列的组代理模型在该协议下每折 AUROC 都为 0.5，说明这条直接捷径受到限制；这不保证所有间接域差异都被消除。
+\src{reports/site\_batch\_confound\_audit.md；results/demographics\_reference/demographics\_reference.csv}
+
+\subsection{内层选择、评价指标与配对自助法}
+经典阶段使用逻辑回归、随机森林、直方图梯度提升以及既定网格。每个外层训练折内部进行三折被试级交叉验证。缺失值填补、缩放、类别编码、方差筛选、特征选择和视觉 PCA 都只在训练范围拟合；视觉 PCA 不吞并人口学、质量控制或元数据列。阈值由内层折外预测选定，汇总阈值指标时，每名被试使用自己外层折对应的阈值。
+
+主指标为 AUROC 和 AUPRC，辅以平衡准确率、宏平均 F1、敏感度、特异度、准确率、Brier 分数、ECE 及阳性预测率。项目同时保留汇总折外指标、逐折指标、折均值和标准差。固定阈值 0.5 作为单独敏感性结果，不能与内层选择阈值混为一表。
+\src{EXPERIMENT\_PROTOCOL.md}
+
+增量检验要求模型两侧使用相同被试、外层折、模型族、随机种子与协议。1000 次配对被试自助抽样在同一次重采样中同时抽取两个模型的预测，形成 AUROC 与 AUPRC 差异分布及 95\% 区间。这种配对减少了不同被试组成带来的比较噪声，但预测是已拟合模型的输出，重采样没有重训模型。因此其区间不包含全部拟合不稳定性，这一边界在行为学撤回和深度种子分析中成为关键。
+\src{EXPERIMENT\_PROTOCOL.md；reports/goal2\_9\_final\_report.md}
+
+\subsection{泄漏防护与实验产物边界}
+诊断、临床量表、自伤自杀、人工复核及标签代理字段不得作为客观模态预测变量。主标签可留在划分文件中用于监督与审计，但不能进入输入特征。质量控制块只记录采集或日志完整性；行为表现必须留在信号侧，避免“信号加 QC 对 QC”的对照实质上重复使用同一种行为量。
+
+\code{reports/leakage\_audit.md}是早期政策与冒烟路径审计，不能替代本期全部模型的独立认证。本期各阶段报告记录了开发池限定、无试点留出行和固定划分延续。本次报告编写核对已有文档与机器可读产物，不重新训练，也不重复声称这些历史测试是在本次写作中执行。
+\src{reports/leakage\_audit.md；AGENTS.md；PROGRESS.md}
+
+\section{Goal 2.8：范式规格与三模态特征重建}
+\subsection{Goal 2.7 的三个模态结论为何作废}
+Goal 2.7 曾将 EEG 和 fNIRS 标记为任务语义受阻，并将 Face 归为捷径主导。2026-09-07 的核查表明，这些模态结论的测量前提不足，需要标记为\code{SUPERSEDED}。被作废的是基于那些输入的模态解释；既定评估协议和人口学、采集组捷径发现继续保留。
+\src{reports/goal2\_7\_superseded\_notice.md}
+
+\begin{table}[htbp]\centering\small
+\caption{作废前提、错误来源与修复方向}
+\begin{tabularx}{\textwidth}{lYY}\toprule
+对象 & 原前提或实现问题 & 仓库核查与处理\\\midrule
+EEG Oddball & 缓存只有 22，误以为标准刺激不存在 & 313 名抽样被试均有 11 与 22；v1 缓存硬编码\code{event\_codes: ["22"]}，改从原始 BDF 重建\\
+EEG 1BACK & 18／19 被当作未确认的条件码 & 19 是每块首刺激，18 是后续刺激；真正匹配／非匹配仍不可恢复\\
+fNIRS & 只探测文件头，未读\code{SD}；标记被压成二值 & 读取完整\code{.nirs}波长、几何与标记，保留 Bikom 块起止标签\\
+Face & 对多阶段长会话均匀抽帧 & 按网页日志切分情绪电影，再构造被试内效价差\\\bottomrule
+\end{tabularx}
+\end{table}
+
+Oddball 原始事件中，11 对应 500 Hz 标准音，22 对应 1000 Hz 偏差目标音。抽样记录的中位事件数为 123 与 25；范式预期总数为 125 与 25。预期与观测必须区分，不能将缺失试次补造为设计数。1BACK 的 19 每人恰有 2 次，表示两个块的首刺激，刺激间隔为 2.00 s。正确／错误反馈码 66／77 滞后一试次，88 未解决，均不能被强行变成匹配条件。
+\src{reports/goal2\_7\_superseded\_notice.md；configs/goal2\_8/paradigm\_spec.yaml}
+
+fNIRS 的 Yiruid 文件实际具有 690、830 nm 波长、16 个光源、16 个探测器、三维位置与标记矩阵。旧读取器只检查变量名称和形状，导致“波长和几何不明”。Bikom 将\code{A0/A1/B0/B1}丢为二值，以及用首末标记包围整个任务，进一步破坏了分块。Face 的任务会话则混有电影、朗读与问答，早期在整段抽取 16 帧，无法代表指定情绪反应。
+
+\subsection{带出处的规格与一致性校验器}
+\code{configs/goal2\_8/paradigm\_spec.yaml}成为事件、块边界、刺激时长、反应按键和标记意义的集中来源。条目注明附件或原始记录来源，代码通过规格加载器取值。一致性脚本对抽样原始文件完成 68 项检查，全部通过。首轮曾失败 5 项，原因是规格比真实记录更严格，随后修改规格并记录差异。
+\src{PROGRESS.md；reports/goal2\_8\_final\_report.md}
+
+该机制把“文件能读”提升为“读取结果符合实际执行的任务”。它也保留不能修复的空缺：EEG 1BACK 的匹配条件文件与被试日志缺失，Bikom VFT 无直接标记，只能作为低置信度时序的敏感性分析。规格记录反例，防止后续人员再次将相同设备模板或旧设计误认为本批数据的真相。后续行为学还修正了 Doors 的奖励编码，说明规格本身也必须接受实测反证。
+
+\subsection{EEG 从原始 BDF 重建与 P3b 验证}
+\begin{table}[htbp]\centering
+\caption{Goal 2.8 EEG 可用被试与信号特征}
+\begin{tabularx}{\textwidth}{lrrY}\toprule
+任务 & 可用／尝试被试 & 特征数 & 解释范围\\\midrule
+Oddball & 1820 / 1853 & 321 & 目标、标准及目标减标准\\
+1BACK & 1278 / 1413 & 181 & 后续刺激与可恢复时序，不虚构匹配条件\\
+Rest & 1003 / 1043 & 63 & 连续窗口与频谱\\\bottomrule
+\end{tabularx}
+\end{table}
+\src{reports/goal2\_8\_final\_report.md}
+
+重建发现两种 BDF 命名并存，单一\code{*\_data.bdf}模式曾遗漏 329 名 Oddball 被试。另一个问题是把同一峰峰值阈值应用于不同时长任务，使 1BACK 的拒绝率过高；修复后按任务设置阈值，且额极 Fp1／Fp2 不再决定整段试次的拒绝。修复针对读取与伪迹处理，不依赖标签预测结果。
+\src{PROGRESS.md（2026-09-07，WP1/WP2）}
+
+Goal 2.8 报告的目标减标准差波在 Pz 的 0.28--0.55 s 窗为 +6.40 $\mu$V，Cohen $d=1.08$，88.1\% 被试为正，具有顶区最大、额区 Fz 为负的分布。Fz 为 -2.45 $\mu$V。这验证了恢复的条件差异具有可解释的任务反应，但不能替代疾病标签预测。
+
+同一阶段记录健康与非健康被试的 Pz 差波分别为 +6.56 与 +6.06 $\mu$V，Mann--Whitney 检验 $p=0.055$，单变量 AUROC 为 0.528。可见，强任务效应与弱个体标签区分可以同时存在。后续 Goal 3 的重算 P3b 数字另行列示，本文不以新值覆盖历史报告。
+\src{reports/goal2\_8\_final\_report.md；PROGRESS.md（2026-09-07，WP1/WP2）}
+
+\subsection{fNIRS：两设备五任务解锁}
+Yiruid 使用完整读取的波长、光源探测器间距和年龄相关路径长度因子，经修正 Beer--Lambert 转换得到 HbO／HbR；Bikom 保留厂商提供量及原标签。两设备按各自任务分块。Yiruid 的通道映射到 11 个区域，Bikom 使用提供方网络划分，两者不跨设备合并。
+
+\begin{table}[htbp]\centering\small
+\caption{fNIRS 最终报告中的被试数与特征数}
+\begin{tabular}{lrrrr}\toprule
+任务 & Yiruid 被试 & 特征 & Bikom 被试 & 特征\\\midrule
+Rest & 1514 & 38 & 1017 & 40\\
+VFT & 1480 & 80 & 1022 & 40\\
+1BACK & 1423 & 80 & 995 & 86\\
+Oddball & 524 & 80 & 508 & 86\\
+Doors & 825 & 80 & 515 & 86\\\bottomrule
+\end{tabular}
+\end{table}
+\note{此表采用最终报告口径。2026-09-07 的 WP3 进度表中 Bikom 曾记为 23／49 个特征，不能与最终报告的 40／86 混用。Bikom 特征已提取，但被排除在 Goal 2.8 主矩阵之外；VFT 的块时序仍为低置信度。}
+\src{reports/goal2\_8\_final\_report.md；PROGRESS.md；artifacts/goal2\_8/run\_manifest.json}
+
+\begin{table}[htbp]\centering
+\caption{Yiruid 的标签无关血流动力学验证}
+\begin{tabular}{lrrr}\toprule
+任务 & 块数 & HbO 变化（$\mu$M） & HbR 变化（$\mu$M）\\\midrule
+VFT & 4 & +0.343 & -0.128\\
+1BACK & 2 & +0.632 & -0.215\\
+Oddball & 10 & +0.405 & -0.130\\
+Doors & 6 & +0.055 & -0.068\\\bottomrule
+\end{tabular}
+\end{table}
+\src{reports/goal2\_8\_final\_report.md}
+
+各任务恢复出 HbO 上升、HbR 下降，VFT 还显示左侧化，进度记录峰值位于 8.4 s。任务效度支持读取链条，却不能保证疾病判别信号。Yiruid 与 Bikom 特征队列分别有 1527 与 1022 人，仅 1 人重叠；设备与采集组难以分离。Bikom 单变量 AUROC 中位数为 0.502，主矩阵排除它是既有分析选择，应与“两设备均完成特征恢复”分开报告。
+\src{reports/goal2\_8\_final\_report.md；PROGRESS.md}
+
+\subsection{Face：切分会话与被试内效价对比}
+面部电影按正性、中性、负性固定顺序播放，刺激时长分别为 93.16 s、86.64 s、125.00 s。网页日志提供分段边界。索引覆盖 3382 人，其中 3381 人生成特征，每人抽取 48 帧，YuNet 检测率达到 1.000。各块为冻结视觉编码器输出的 512 维表征，主要对比为负性减正性，另保留负性减中性。
+\src{configs/goal2\_8/paradigm\_spec.yaml；reports/goal2\_8\_final\_report.md}
+
+对齐并非所有视频都有高置信音频锚点。\code{start.mp3}在 3382 条录制中只有 474 条达到 0.6 相关阈值；项目结合日志跨度与视频时长处理偏移，可靠记录使用个体偏移，其余继承队列中位数，并从片段中部 80\% 抽帧。全部日志段时长与刺激时长一致，未出现分段时长不匹配。该策略的保留风险是个体偏移仍不完全直接测得。
+\src{PROGRESS.md（2026-09-07，WP4）}
+
+效价差表征的幅度为原始片段表征的 17.4\%，说明较多被试恒定成分在相减后抵消。早期固定 PCA 与逻辑回归探查中，负性脸部片段 AUROC 为 0.6228／0.6096，负性减正性为 0.5499／0.5345，顺序均为 Standard／Group CV。这些是未调参、未带区间的先导测量，不能充当最终显著性证据。正式矩阵随后检验其是否超越人口学。
+\src{PROGRESS.md（2026-09-07，WP4）}
+
+\subsection{模型矩阵与第一处计分错误}
+Goal 2.8 形成 380 个数据集组合、2200 行汇总指标、1,623,018 行被试级折外预测、22,000 行自助区间和 444 项配对比较。其中 required 表有 240 行，必须分成两类理解。
+
+\begin{table}[htbp]\centering
+\caption{Goal 2.8 必需比较的核验口径}
+\begin{tabularx}{\textwidth}{Yrrr}\toprule
+比较组 & 行数 & 显著正向 & 显著负向\\\midrule
+人口学相关增量 & 216 & 0 & 78\\
+背景捷径对照 & 24 & 14 & 1\\
+required 表总计 & 240 & 14 & 79\\\bottomrule
+\end{tabularx}
+\end{table}
+\src{results/goal2\_8/required\_increments.csv；reports/goal2\_8\_final\_report.md}
+
+人口学相关增量中，EEG 为 72 行、显著负向 43 行；fNIRS 为 120 行、显著负向 19 行；Face 为 24 行、显著负向 16 行，均无显著正向。这里的人口学相关集合还包含信号单独对人口学，以及带 QC 的条件比较，因此不是仅“模态加人口学对人口学”的窄集合。重核章节使用另一分母时会再次标明。
+\src{results/goal2\_8/modality\_decision.csv；results/goal2\_8/required\_increments.csv}
+
+第一版判定规则把任何 required 行的胜利都当成独立信号，Face 因 14 个背景胜利被错误计入。修订后规则要求赢过人口学，并将背景控制单列。最强的背景胜利来自 Group CV 下随机森林的效价差：+0.1153 [0.0858, 0.1450]。该结果说明指定 Face 表征胜过其背景控制，尚未取得超越年龄、性别和年级的独立增量。
+
+按 required 表实际分组，\code{face\_vs\_background}为 12 行中 10 行显著正向，\code{face\_demographics\_vs\_background\_demographics}为 12 行中 4 行显著正向。此前重核说明与进度记录曾写作“8 of 12”，与完整分组计数不符，已于 2026-09-10 按 required 表更正为 10／12；阶段结论不受影响。
+\src{results/goal2\_8/required\_increments.csv；reports/goal2\_8\_results.md；reports/increment\_criteria\_and\_relaxed\_recheck.md}
+
+Goal 2.8 的测量已经完成，模态表均为\code{NO\_INDEPENDENT\_SIGNAL}。原报告未发布 go/no-go 决策，本文保留该状态。后续单独给予 EEG Oddball 的条件准入不能回写为本阶段的无条件 go。
+
+\section{Goal 2.9：行为学特征与被撤回的阳性结果}
+\subsection{从客观记录转向被试实际表现}
+每个需要按键的 fNIRS 任务都在神经信号旁保存了试次日志。Goal 2.9 首次系统读取这些日志，提取工作记忆表现、反应速度与变异、错误后减速、注意维持和反馈反应，保持经典模型、划分与自助检验协议不变。它是新的特征层，不是深度阶段，也不改变已有准入边界。
+
+\begin{table}[htbp]\centering
+\caption{行为学特征矩阵的实际覆盖}
+\begin{tabular}{llrr}\toprule
+设备 & 任务／队列 & 被试 & 信号特征\\\midrule
+Yiruid & 1BACK & 1412 & 38\\
+Yiruid & Oddball & 524 & 25\\
+Yiruid & Doors（敏感性） & 843 & 28\\
+Bikom & 1BACK & 955 & 38\\
+Bikom & Doors & 515 & 28\\
+Yiruid & 任务交集 & 342 & 91\\
+Bikom & 任务交集 & 513 & 66\\\bottomrule
+\end{tabular}
+\end{table}
+\src{reports/goal2\_9\_final\_report.md}
+
+1BACK 的条件从刺激序列重新推导，块首无前驱试次被排除，相邻试次统计不跨块。Doors 的反馈由预定序列给出，代码 1 为损失 -1，代码 2 为获益 +2，与实际选门无关。因此“赢后保持、输后切换”反映反馈反应，不能写成从反馈中学习奖励概率。旧附件中另一版本的金额、鼠标反应和块数没有用于本批执行。
+\src{configs/goal2\_8/paradigm\_spec.yaml；reports/goal2\_9\_final\_report.md}
+
+\subsection{日志缺陷限定了可测行为}
+Bikom Oddball 的构建没有正确收集按键。已检查的 640 名被试中，549 人的反应字段为空，610 人的目标命中率为 0.0；厂商参考运行也在 50 次试次中记录 0 次反应。其 fNIRS 信号仍可分析，行为特征不能据此判定被试注意失败。另有 50 名 Bikom 1BACK 被试使用无重复刺激的旧版本，缺乏匹配条件，直接排除。
+
+Yiruid Doors 的反应窗口为 0.0--1.0 s，但门图从 0.5 s 才出现，许多稍晚反应未被记录。最终行为报告中，Yiruid 与 Bikom 的反应率为 0.383 和 0.983，反应时偏度为 -0.65 和 +1.31，可用赢后保持试次对为 6 和 24。相近的反应时中位数不能证明整个分布完整，截断改变了尾部与可配对次数。奖励行为的主设备因此选 Bikom，Yiruid 仅做敏感性分析。
+\src{reports/goal2\_9\_final\_report.md}
+
+\subsection{无标签效度与增量矩阵}
+两设备的 1BACK 日志独立读取后，准确率为 0.929／0.964，$d'$ 为 2.57／2.95，正确反应时为 0.657／0.683 s。错误后减速为 +98／+121 ms，方向为正的被试比例分别为 76.5\%／76.4\%；第二块反应更快的比例均为 76.5\%。Yiruid Oddball 的 $d'$ 为 4.53，命中率 0.99，虚报率 0.004，命中反应时 370 ms。这些效度检查证明日志反映了可解释的任务行为。
+\src{reports/goal2\_9\_final\_report.md}
+
+矩阵含 294 个数据集组合、1708 行汇总指标、622,688 行被试折外预测和 294 项配对比较。人口学相关的 168 行中，有 8 行区间在正侧排除零，但最终没有任何一行可计入；25 行显著负向。行为增加在人口学上的收益，与人口学增加在行为上的收益并不对称：\code{signal\_demographics vs signal}的 42 行中有 19 行显著正向。
+\src{reports/goal2\_9\_final\_report.md；results/goal2\_9/unit\_decision.csv}
+
+\subsection{阳性为何被撤回：比较者先失效了}
+首次规则运行给 Yiruid 任务交集队列返回\code{INDEPENDENT\_SIGNAL\_SUPPORTED}：Standard CV 有 6 个显著正向比较，Group CV 有 2 个。全部来自 342 人的受限队列。交集减少了采集组与年龄变化范围，原报告记录年龄范围从全队列 9--20 岁缩至 12--20 岁，标准差由 2.38 降为 1.66，采集前缀由 51 个降为 10 个。
+
+这些队列变化提供背景，但撤回依据是逐行比较者本身低于随机。对整个队列报告的“最佳人口学模型”不能代表每一条配对基线；即使某个模型略高于随机，实际获胜行也可能比较的是另一个失效模型。下表保留结果报告的显示精度，完整复现全部获胜行的比较方向。
+
+\begin{table}[htbp]\centering\small
+\caption{Yiruid 交集队列被撤回的全部显著正向比较}
+\begin{tabular}{lllrrl}\toprule
+协议 & 模型 & 比较 & 比较者 & 增量 & 95\% 区间\\\midrule
+Group & LR & S+Q+D 对 Q+D & 0.4446 & +0.0731 & [0.0073, 0.1402]\\
+Group & RF & S 对 D & 0.4292 & +0.0846 & [0.0061, 0.1697]\\
+Standard & HGB & S 对 D & 0.4963 & +0.0889 & [0.0111, 0.1761]\\
+Standard & HGB & S+D 对 D & 0.4963 & +0.0848 & [0.0021, 0.1618]\\
+Standard & HGB & S+Q+D 对 Q+D & 0.4963 & +0.0848 & [0.0093, 0.1612]\\
+Standard & HGB & S+Q+D 对 D & 0.4963 & +0.0848 & [0.0051, 0.1661]\\
+Standard & RF & S 对 D & 0.4719 & +0.0882 & [0.0075, 0.1689]\\
+Standard & RF & S+D 对 D & 0.4719 & +0.0791 & [0.0010, 0.1590]\\\bottomrule
+\end{tabular}
+\end{table}
+\noindent\small S 为行为信号，Q 为日志质量控制，D 为人口学；LR、RF、HGB 分别为逻辑回归、随机森林、直方图梯度提升。\normalsize
+\src{reports/goal2\_9\_results.md；results/goal2\_9/required\_increments.csv}
+
+\note{阶段叙述曾将获胜增量概括为 +0.079 至 +0.089，未覆盖八行中最小的 +0.0731（Q+D 比较），已于 2026-09-10 更正为 +0.073 至 +0.089。脚本常量\code{OBSERVED\_MIN\_DIFF}=0.0790 未改动：它是对纯人口学比较的最小增量，用作置换检验阈值，改动会变动已发布的尾部比例。}
+
+\subsection{三项核验：迁移、汇聚与置换}
+\textbf{迁移核验固定被试，改变训练来源。}同样的 342 名被试接受较大单任务队列模型的折外评分，原报告的 Standard CV 汇总如下。较大训练队列中的模型不再产生相同规模的间隙，提示“行为胜利”高度依赖小队列内的拟合方式。该核验仍在已有开发数据内，不能称为外部验证。
+
+\begin{table}[htbp]\centering
+\caption{同一 342 人队列的迁移核验（原报告汇总口径）}
+\begin{tabular}{lrrr}\toprule
+训练来源 & 评分人数 & 人口学 AUROC & 行为 AUROC\\\midrule
+Yiruid 1BACK（1412 人） & 342 & 0.525 & 0.522\\
+Yiruid Oddball（524 人） & 342 & 0.511 & 0.537\\
+Yiruid Doors（843 人） & 342 & 0.507 & 0.545\\
+Yiruid 交集（342 人） & 342 & 0.484 & 0.573\\\bottomrule
+\end{tabular}
+\end{table}
+\src{reports/goal2\_9\_final\_report.md；results/goal2\_9/positive\_result\_verification.json}
+
+\textbf{汇聚核验显示跨折排序可使无信息预测低于随机。}零信息模型每折 AUROC 为 0.500，汇聚后 Standard CV 为 0.404，Group CV 为 0.347。Group CV 折人数分别为 74、169、37、55、7，JSON 中相应患病比例为 0.189、0.556、0.351、0.473、0.429。折内常量分数没有区分能力，不同折却可带不同训练先验；混在一起排序时，折间差异进入汇总 AUROC。因此，汇总低于随机不必然说明模型学到了反向生物学关系。
+\src{reports/goal2\_9\_final\_report.md；results/goal2\_9/positive\_result\_verification.json}
+
+\textbf{置换核验重新拟合，直接观察无标签关系时能产生多大的间隙。}核验使用 342 人、91 个行为特征、既定折，进行 100 次标签置换。下表照录 JSON 中的数值，区别于上文报告摘要的显示精度。
+
+\begin{table}[htbp]\centering\small
+\caption{置换零分布中的比较基线与差异}
+\begin{tabularx}{\textwidth}{Yrr}\toprule
+量 & RF & HGB\\\midrule
+人口学 AUROC 均值 & 0.4859 & 0.4811\\
+人口学低于随机的比例 & 0.58 & 0.67\\
+行为 AUROC 均值 & 0.5002 & 0.5004\\
+行为减人口学的均值 & 0.0143 & 0.0193\\
+差异标准差 & 0.0669 & 0.0672\\
+达到记录的下限效应的比例 & 0.17 & 0.18\\
+达到记录的上限效应的比例 & 0.12 & 0.16\\\bottomrule
+\end{tabularx}
+\end{table}
+\src{results/goal2\_9/positive\_result\_verification.json}
+
+这里的两项尾部比例对应 JSON 中\code{observed\_increment\_range}的 0.079 与 0.0889，不能混称为同一个检验的 $p$ 值。检验复现了无真实标签关系时也会出现的间隙，支持撤回。被试自助法没有捕获的，是小样本下整个拟合过程的变动；八个获胜行都曾通过折方向条件，这进一步说明单一稳定性指标不够。
+
+规则因此新增“实际比较者在该队列与协议下须高于随机”，并要求规模低于 500 人的可计入增量先接受标签置换核验。该要求没有把测量失败变成项目终止决策。Goal 2.9 仍只记录测量结果，未发布 go/no-go。
+\src{EXPERIMENT\_PROTOCOL.md；reports/goal2\_9\_final\_report.md}
+
+\section{人口学基线复核：参考值、队列值与稀释}
+\subsection{全队列参考不等于每个模态的比较者}
+2026-09-08 的复核独立从固定划分重建开发队列，并使用项目原有管线与网格重算人口学参考值。下表保持进度记录的四位显示精度。
+
+\begin{table}[htbp]\centering
+\caption{3597 人开发池的年龄、性别、年级参考 AUROC}
+\begin{tabular}{lrrr}\toprule
+协议 & 逻辑回归 & 随机森林 & 直方图梯度提升\\\midrule
+Standard CV & 0.6688 & 0.6708 & 0.6689\\
+Group CV & 0.6596 & 0.6551 & 0.6430\\\bottomrule
+\end{tabular}
+\end{table}
+\src{PROGRESS.md（2026-09-08，人口学复核）；results/demographics\_reference/}
+
+该参考回答全开发人群的人口学可预测性。模态矩阵内的人口学数值则回答各自受限队列的问题，必须与同队列模态直接配对。不能把 3597 人的 0.6708 减去 1820 人的 EEG 分数得到所谓增量，也不能将某个 342 人交集中的低人口学分数理解为整个队列的人口学基线失效。
+
+输入质量核查显示可用年龄比例为 0.9992。人口学与采集组也应保持分开：全队列的\code{demographics\_site}逻辑回归在 Standard／Group CV 为 0.7062／0.6658，包含采集组代理，不能当作纯年龄、性别和年级。
+\src{results/demographics\_reference/demographics\_reference.json；results/demographics\_reference/demographics\_reference.csv}
+
+\subsection{纠正被混标的 demographics 列}
+Goal 2.8 最佳行摘要曾把 EEG 的 0.6470 和 fNIRS 的 0.6943 标成\code{demographics}。实际对应的是含组或设备的\code{demographics\_group\_device}与\code{demographics\_group}。纠正后，摘要中纯人口学列分别是 0.6074 与 0.5960。Face 的 0.6721 原本就是纯人口学。
+
+这些“最佳行”还可能来自不同任务或不同模型，并非一个可直接相减的配对。本文因此用原有配对表承载增量证据，只把这次更正作为变量命名纪律的案例。一个表头若把组代理隐藏进人口学，读者就无法判断客观测量究竟需要跨过什么比较者。
+\src{reports/goal2\_8\_final\_report.md}
+
+\subsection{加入模态后下降，能说明什么}
+既有经典管线把整个特征块一起填补、缩放并拟合，内层选择超参数，而非允许任意忽略一个无信息块。在有限样本下，增加无信息维度可能使人口学预测变差。项目以随机噪声列进行了直接对照，下面列出全部已记录的噪声维度档位及 AUROC 变化，保留 CSV 原精度。
+
+\begin{table}[htbp]\centering
+\caption{人口学追加随机噪声列的 AUROC 变化}
+\begin{tabular}{rrrr}\toprule
+噪声列数 & 逻辑回归 & 随机森林 & 直方图梯度提升\\\midrule
+0 & 0.0 & 0.0 & 0.0\\
+25 & -0.0128 & -0.0118 & -0.0076\\
+40 & -0.0089 & -0.0177 & -0.0189\\
+80 & -0.0185 & -0.0152 & -0.0159\\
+320 & -0.0552 & -0.0125 & -0.0252\\\bottomrule
+\end{tabular}
+\end{table}
+\src{results/demographics\_reference/demographics\_dilution.csv}
+
+该实验支持将显著负增量解释为现有组合方式未获益，而非客观模态“有害”。它也不能逐行证明每个负值都由同一机制产生。更合适的后续设计是让各块先得到诚实的折外概率，再以相同维度进入组合模型；Goal 3 将这一思路落实为交叉拟合堆叠，并检查负增量是否随之消失。
+
+\section{Goal 2.10：眼动作为第五个客观特征层}
+\subsection{覆盖恢复与设备边界}
+眼动文件主要携带\code{A\_id}，而早期可用性字段按\code{L\_id}路径正则匹配，造成明显漏计。完整就绪审计扫描 3621 条记录，保留 3481 条，涉及 1187 名唯一被试，其中 1158 人进入 manifest，919 人位于开发池。缺少\code{A\_id}的 27 条记录排除，113 条重复录制按时间线完整性、媒体段数、录制长度与日期顺序确定保留，所有条件均不读取标签。
+
+\begin{table}[htbp]\centering
+\caption{眼动就绪审计覆盖，非最终每个任务的可建模样本数}
+\begin{tabular}{lrrr}\toprule
+设备 & 采样率（Hz） & 唯一被试 & 开发池被试\\\midrule
+Tobii Pro Nano & 60 & 337 & 253\\
+七鑫易维\code{qixin\_120} & 120 & 432 & 336\\
+七鑫易维 F500 & 500 & 420 & 331\\\bottomrule
+\end{tabular}
+\end{table}
+\src{reports/eye\_readiness\_audit.md}
+
+只有 2 名被试跨设备出现。三个设备单位并不构成同人换设备的可比实验；采集组与设备高度重叠，原始特征不跨设备合并。实际建模由三个任务的设备单位，加上每设备一个任务交集，共形成 12 个分析单位。设计文件中的预计人数不替代最终任务表。
+
+\subsection{先恢复范式，再校正时钟与坐标}
+眼动初始没有附件范式说明，项目从刺激媒体与工程时间线恢复任务。自由观看为 36 个试次，每次十字 1.0 s、单张人脸 4.0 s、空白 1.0 s；高兴、悲伤、中性各 12 张，男性、女性各 18 张，所有被试的顺序固定。因此效价差是跨试次差异，无法等同于同屏竞争刺激下的注意偏向，且效价与固定试次顺序纠缠。
+
+扫视分前扫视和反扫视，每个正式块 8 个试次；错误率分辨率为 0.125，不能赋予细于任务本身的分辨能力。追随实际由重复的条件块构成，其频率的后续文档更正见下一节。60 Hz 的 Tobii 不用于速度派生主特征，位置、停留和区域比例等指标与高采样设备保持分层。
+\src{reports/goal2\_10\_final\_report.md；configs/goal2\_10/eye\_paradigm\_spec.yaml}
+
+Tobii 的采样时间戳是微秒，录制时长是毫秒。七鑫易维的采样时钟还需映射到呈现时钟，F500 的时钟尺度中位数及四分位区间为 0.99674 [0.99588, 0.99734]，120 Hz 设备为 0.99999 [0.99992, 1.00008]。不校正时，长块末尾会累积时序偏移。审计表记录校正后 F500 追随横向相关为 0.935 [0.913, 0.953]。
+\src{reports/eye\_readiness\_audit.md}
+
+另一问题需要比“注视在人脸框内”更细的检验。以 YuNet 关键点构造眼、嘴、脸部其他与脸外区域后，两台七鑫易维设备原始眼减嘴比例为负，Tobii 为正。人脸框关于屏幕中心对称，粗检查仍会通过。项目以每条记录的十字注视中位数估计漂移，再进行区域分配，偏移量只进入 QC。
+
+\begin{table}[htbp]\centering
+\caption{就绪审计中的眼减嘴比例及漂移校正}
+\begin{tabular}{lrrr}\toprule
+设备 & 原始眼减嘴 & 校正后眼减嘴 & 垂直偏移（屏高）\\\midrule
+Tobii & 0.245 & 0.362 & 0.015\\
+\code{qixin\_120} & -0.103 & 0.339 & 0.056\\
+\code{qixin\_500} & -0.145 & 0.269 & 0.052\\\bottomrule
+\end{tabular}
+\end{table}
+\src{reports/eye\_readiness\_audit.md}
+
+\note{表中采用完整就绪审计的中位数。规格注释与 AGENTS 中另存有早期漂移统计，未提供可统一为本表的明确样本口径；本文不混合两组值。无标签检查通过只能支持相应层次的解析效度，不能担保所有坐标量都正确。}
+
+\subsection{构念信度决定阴性可以说到哪里}
+自由观看的奇偶分半结果暴露了一个直接影响科学解释的问题。绝对效价指标可测，而效价差缺乏稳定的个体差异。报告使用 Spearman--Brown 校正，在各设备 249--322 名被试上评估。
+
+\begin{table}[htbp]\centering
+\caption{自由观看绝对量与效价差的信度差异}
+\begin{tabularx}{\textwidth}{Yrrr}\toprule
+特征块 & 特征数 & 信度中位数 & 三设备均超过 0.5\\\midrule
+各效价绝对指标 & 75 & 0.698 & 53\\
+效价对比 & 46 & -0.051 & 0\\\bottomrule
+\end{tabularx}
+\end{table}
+\src{reports/goal2\_10\_results.md；results/goal2\_10/report\_manifest.json}
+
+最佳对比信度为 0.326，46 个对比中 33 个的中位数为负。每个效价均值来自 12 个试次，两个均值相减保留误差，也会抵消共同的被试差异。项目据此将绝对块与对比块单独列入模型矩阵，避免可靠指标与不可靠差值混合后难以解释。
+
+\textbf{“主构念不可测”在本报告中的严格含义，是本范式的主效价对比无法稳定测量个体差异。}它不意味着注意偏向本身不存在，也不意味着眼动所有指标都不可测。绝对指标的可测性与其最终无独立增量可以同时成立。缺乏信度的构念代理发生阴性，优先约束的是范式，而非临床构念。
+\src{reports/goal2\_10\_final\_report.md}
+
+\subsection{十八个阳性被既有规则拦截}
+Goal 2.10 完成 600 个数据集组合、3504 行汇总指标、518,592 行折外预测和 864 项配对比较。required 表有 648 行，其中人口学相关比较 576 行，显著正向 18 行、可计入 0 行、显著负向 152 行；另有 72 行控制比较，9 行显著正向，其中只有 1 行的比较者高于随机。控制结果不能进入人口学增量总数。
+\src{results/goal2\_10/report\_manifest.json}
+
+\begin{table}[htbp]\centering
+\caption{眼动被拦截的显著正向行分布}
+\begin{tabularx}{\textwidth}{Yrrr}\toprule
+\code{qixin\_120}队列 & 人口学比较行 & 未计入正向 & 显著负向\\\midrule
+自由观看 & 48 & 0 & 24\\
+扫视 & 48 & 9 & 1\\
+平滑追随 & 48 & 6 & 2\\
+任务交集 & 48 & 3 & 11\\\bottomrule
+\end{tabularx}
+\end{table}
+\src{results/goal2\_10/unit\_decision.csv}
+
+18 行全部来自 Group CV 的\code{qixin\_120}，实际比较者在结果报告中为 0.4350--0.4671。比如 HGB 的扫视“信号加人口学对人口学”增量为 +0.1417 [0.0481, 0.2382]，比较者仅 0.4361。表面上这是很大的胜利，实际重现了 Goal 2.9 的机制。没有新增的基线规则，它会使四个该设备队列中的三个看似取得独立眼动信号。
+\src{reports/goal2\_10\_results.md；reports/goal2\_10\_final\_report.md}
+
+其他设备单位同样没有可计入的独立增量，全部 12 个单位为\code{NO\_INDEPENDENT\_SIGNAL}。结论并非“每个眼动模型都低于随机”，而是已执行比较不满足独立增量要求。该阶段仍未发布 go/no-go 决策。
+
+\section{医院范式文档复审：独立确认与尚未修复的量纲问题}
+\subsection{后到文档确认了什么}
+医院于 2026-09-09 补充眼动范式参数文档，此时眼动特征、模型和报告已经完成。文档对自由观看时序、单张人脸呈现、效价平衡、扫视试次数以及追随分块结构提供了独立确认。其意义在于：已有恢复不是为了贴合这份文档而事后修改；两套来源在已陈述的结构上相符。
+
+尤其是每个正式扫视块只有 8 个试次，以及追随分成条件块而非整段连续处理，这两点曾因不合理结果触发检查。后到文档再次确认了修复方向。文档还直接命名了中国面部情感图片系统（CFAPS），而最早规格只能根据文件命名推断刺激来源。
+\src{reports/goal2\_10\_paradigm\_document\_review.md}
+
+\subsection{追随频率修订属于描述更正}
+初版规格以整个 21 s 块做频率描述，包含开头静止段，导致频率偏低。医院文档说明每段运动为 20 s，规格据此将静止 1.0 s 与运动 20.0 s 分开。六个块加五个间隔的时序满足记录中的 $6\times21+5\times2=136$ s。
+
+\begin{table}[htbp]\centering
+\caption{追随频率的旧描述与修订值（Hz）}
+\begin{tabular}{lrrr}\toprule
+条件分量 & 旧规格 & 周期数 & 运动窗修订值\\\midrule
+水平 x & 0.381 & 8 & 0.400\\
+慢 Lissajous x & 0.143 & 3 & 0.150\\
+慢 Lissajous y & 0.190 & 4 & 0.200\\
+快 Lissajous x & 0.286 & 6 & 0.300\\
+快 Lissajous y & 0.381 & 8 & 0.400\\\bottomrule
+\end{tabular}
+\end{table}
+\src{reports/goal2\_10\_paradigm\_document\_review.md；configs/goal2\_10/eye\_paradigm\_spec.yaml}
+
+重新解码运动段得到水平 x 为 0.4001 Hz，慢条件 x／y 为 0.1500／0.2000 Hz，快条件为 0.3001／0.4001 Hz，记录顺序为 AABBCC。原特征代码直接读取解码轨迹，只使用分块映射，没有从错误频率字段计算特征。因此项目记录本次更正不改变已有特征或模型结果。本文将原规格数字仅放在版本对照中，不再作为当前范式参数引用。
+
+\subsection{视角几何与 axis\_anisotropy}
+文档给出的 6°、12°扫视偏心角，对应视频中 0.1396、0.2823 屏宽位移，分别得到视距与屏宽之比 1.3282、1.3281。由此可确定角度变换，而物理屏幕尺寸和厘米视距依旧没有记录。报告采用已记录的屏幕视角 41.26°$\times$23.91°，不根据比值编造硬件尺寸。
+
+视角也揭示了\code{axis\_anisotropy}：x 以屏宽归一化、y 以屏高归一化，在 1920$\times$1080 的刺激下两轴单位不同。相同 0.025 数值相当于水平方向 1.078°、垂直方向 0.607°。混合两轴计算距离，会影响扫描路径、BCEA、二维追随 RMSE、追赶扫视以及垂直 I-DT 判定。像素定义的 AOI、逐轴漂移中位数和单轴增益不受这类混合量纲影响。
+\src{configs/goal2\_10/eye\_paradigm\_spec.yaml；reports/goal2\_10\_paradigm\_document\_review.md}
+
+项目复审认为，各录制使用相同刺激比例，该缺陷不同于随设备变化的垂直漂移，因而保留 0／576 的结论。\textbf{截至报告期末，量纲修正尚未重提取、重跑。}本文将“结论保留”准确归于现有复审判断，不虚构修正后实验或证明其逐项数值完全不变。未来若用于对外解释角度与速度，统一量纲后重提取仍有必要。
+
+\subsection{“第三台设备”是文档范围问题}
+医院文档还出现集思鸣智设备的另一任务表，具有凝视触发控制、记忆引导扫视和双步扫视等内容。复审依据与第一表的冲突、固定 MP4 无法等待凝视、现有工程缺少对应刺激及数据目录，认定它不属于本批已交付眼动数据。
+
+“第三台设备”沿用医院文档的设备体系计数：七鑫易维、Tobii、集思鸣智。现有分析则将七鑫易维分成 120 Hz 与 F500 两个单位，再加 Tobii，已有三个分析设备单位。不能据此推断集思鸣智就是其中一个单位，更不能把其未交付记录纳入样本量。核对该批次是否应交付，是后续数据覆盖问题。
+\src{reports/goal2\_10\_paradigm\_document\_review.md；configs/goal2\_10/eye\_paradigm\_spec.yaml}
+
+\section{Goal 3：EEG Oddball 深度表征基准}
+\subsection{条件准入与三个问题}
+2026-09-09 单独发布的\code{CONDITIONAL\_GO\_FOR\_GOAL3\_EEG\_REPRESENTATION\_BENCHMARK}允许正确恢复的 EEG Oddball 接受深度模型检验。理由是 Goal 2.8 测量了手工特征，尚未穷尽时空表征；这不是对 fNIRS、Face、行为学、眼动或融合的授权。旧 v1 深度结果使用目标刺激单独缓存与不同协议，仅为历史记录，不与新矩阵进行统计比较。
+
+本阶段依次回答：EEG 是否在未见被试上携带标签区分信息；深度表征是否胜过同队列传统特征；EEG 是否给人口学提供增量。第三个问题决定主结论，前两个问题提供解释。预先固定的设计记录了模型、表征、探索家族、阳性对照与预测，后续修订以日期和理由另行保留。
+\src{reports/goal3\_method\_design.md；PROJECT\_SPEC.md}
+
+\subsection{数值同一性门：确保比较的仍是同一批测量}
+单试次从原始 BDF 重建，但滤波、参考、重采样、时间窗与拒绝逻辑沿用 Goal 2.8。缓存共有 237,774 个试次，197,880 个标准、39,894 个目标，1820 人，32 个缓存通道、250 个时间点。模型输入排除 Fp1／Fp2 后使用 30 通道，时间窗为 -0.2 至 0.8 s。
+\src{artifacts/goal3/eeg/oddball\_trial\_manifest.json；reports/goal3\_final\_report.md}
+
+\begin{table}[htbp]\centering
+\caption{Goal 3 测量门及与历史报告的显示值对照}
+\begin{tabularx}{\textwidth}{Yll}\toprule
+检查 & Goal 3 记录 & Goal 2.8 报告\\\midrule
+被试集合 & 1820 / 1820 相同 & 1820 人\\
+最大相对差异 & 1.10 个 float32 epsilon & 参考条件平均数组\\
+超过容差的不匹配 & 0 & ---\\
+Pz 差波 & +6.426 $\mu$V & +6.40 $\mu$V\\
+Pz Cohen $d$ & 1.079 & 1.08\\
+Pz 为正的被试比例 & 88.7\% & 88.1\%\\
+Fz 差波 & -2.483 $\mu$V & -2.45 $\mu$V\\\bottomrule
+\end{tabularx}
+\end{table}
+\src{reports/goal3\_final\_report.md；artifacts/goal3/eeg/oddball\_cache\_verification.json}
+
+数值门比较新缓存条件平均与 Goal 2.8 实际数组，故比定性“看起来像 P3b”更直接。历史 P3b 摘要与重算值存在表中差异；现有记录未完整说明这组摘要差异的原因，本文并列保留，不能将其归因为舍入或范式改变。机器门检验的主体、通道及时间轴相同，最终\code{gate\_passed}为真。
+
+排除额极通道与改用相对容差都是标签无关修订。原拒绝阈值不由 Fp1／Fp2 驱动，使缓存中 Fp2 最大幅度达 118,990 $\mu$V，而其余模型输入通道最大为 144.5 $\mu$V；网络直接接收原数组会受到极端值影响。原绝对容差随信号幅度变化，改为相对容差后检查数值一致性，最终阈值为\code{4e-7}。两处修订均保留全部缓存测量，统一应用于模型输入。
+\src{reports/goal3\_method\_design.md；reports/goal3\_final\_report.md}
+
+\subsection{三层划分堵住 early-stopping 泄漏}
+若内层验证集既用于选择最佳训练轮次，又用于产生训练元模型的折外概率，概率就经过了该批被试标签的选择。它不再是诚实的未见数据分数，元模型在此学习的权重可能无法迁移到外层验证。Goal 3 在内层拟合池中另划 20\% 停止子集，内层验证只产出折外概率。
+
+\begin{figure}[htbp]\centering
+\begin{tikzpicture}[node distance=8mm and 12mm,box/.style={draw,rounded corners,align=center,font=\small,text width=4.0cm,minimum height=10mm},arr/.style={-{Latex},thick}]
+\node[box] (outer) {固定外层训练被试};
+\node[box,right=of outer] (val) {固定外层验证被试\\只做最终折外评分};
+\node[box,below=of outer] (pool) {三折内层划分\\内层拟合池};
+\node[box,below=of val] (inner) {内层验证被试\\只产出 inner-OOF};
+\node[box,below=of pool] (fit) {拟合子集：80\%\\梯度更新};
+\node[box,below=of inner] (stop) {停止子集：20\%\\选择训练轮次};
+\draw[arr] (outer)--(pool);\draw[arr] (outer)--(inner);
+\draw[arr] (pool)--(fit);\draw[arr] (pool)--(stop);
+\end{tikzpicture}
+\caption{Goal 3 的被试隔离。底部比例针对内层拟合池；外层验证由三个内层模型平均预测。}
+\end{figure}
+\src{reports/goal3\_method\_design.md（第 8 节）}
+
+外层预测使用生成内层折外概率的三个模型的平均，不再另训练一个全外层训练模型来替换。这样元模型的训练输入与验证输入来自一致的生成过程。所有表征沿用这套结构，外层标签不参与停止、阈值或模型选择，试点留出集继续排除。
+
+\subsection{表征、模型与对称堆叠}
+预定表征包括目标单独、标准单独、条件感知和差波。标准单独是目标单独的解释对照；若两者相近，就不能宣称疾病区分来自偏差加工。条件感知采用共享编码器，将两种条件的汇聚及其差异作为被试表征。差波保留条件均值差，去掉单试次变异，以判断后者是否贡献信息。
+
+架构为 EEGNet、InceptionTime-1D 与紧凑 EEG-Conformer；基础汇聚为均值加标准差，另在 EEGNet 上预设注意力汇聚变体。每名被试训练时按条件固定抽样配额，避免贡献更多试次的人被赋予更大权重。传统 321 维特征也通过同一内层划分产生概率。
+
+组合模型接收人口学概率与 EEG 概率，各块贡献相同维度的预测量。传统特征组合采用同样方式，因此“深度优于传统”不再只是一个低维概率与一个高维原始块的比较。现有\code{artifacts/goal3/crossfit/}记录两种协议与各随机种子的内层、外层概率和模型选择信息，构成这种对称性的可复查产物。
+\src{reports/goal3\_method\_design.md；artifacts/goal3/crossfit/}
+
+矩阵共 14 个配置：1 个确证、12 个探索、1 个幅度消融；每配置两种协议、三个种子，合计 84 个作业，1260 个训练模型，1,019,200 行被试级折外预测。种子平均结果与逐种子结果均保留，不能以表现最好的种子替代主分数。
+\src{reports/goal3\_final\_report.md}
+
+\subsection{阳性对照使疾病标签阴性可解释}
+PC1 检验未见被试上的目标与标准刺激解码，0.70 为事先定义的硬门。所有外层折均超过该门。PC2 性别和 PC3 年龄二分仅用于校准被试级汇聚能力，事先没有被设为准入阈值。
+
+\begin{table}[htbp]\centering
+\caption{同一深度流程的阳性对照与疾病标签表现}
+\begin{tabularx}{\textwidth}{Yrrl}\toprule
+目标 & Standard CV & Group CV & 样本口径\\\midrule
+PC1：目标对标准 & 0.8243 & 0.8229 & 1820 人继承折划分\\
+PC2：性别 & 0.7734 & 0.7672 & 各协议 1819 人\\
+PC3：年龄二分 & 0.8209 & 0.8029 & 各协议 1819 人\\
+疾病标签最佳 EEG 配置 & 0.5451 & 0.5580 & 各协议 1820 人\\\bottomrule
+\end{tabularx}
+\end{table}
+\src{reports/goal3\_final\_report.md；results/goal3/positive\_controls.csv；results/goal3/control\_pc1\_condition\_decoding.csv}
+
+\note{PC1 数值为阶段报告给出的跨折汇总，不能与被试级 pooled AUROC 混称。PC2／PC3 的机器结果均为 1819 人且为种子 0；因此“相同 1820 人流程”描述的是主队列框架，不代表每个控制目标都评估了全部被试或全部种子。}
+
+对照支持编码器与汇聚能从这些记录提取可重复信息，降低了“整个流程根本没有学习能力”这一解释的可信度。它不能证明模型已达到疾病标签任务的全部可达性能，也不能把年龄、性别可解码转换为疾病存在独立信号。主增量仍需单独检验。
+
+\subsection{确证、探索与传统比较的结果}
+\begin{table}[htbp]\centering\small
+\caption{事先指定的 EEGNet 条件感知确证增量}
+\begin{tabular}{lrlrrr}\toprule
+协议 & 增量 & 95\% 区间 & 比较者 & 正向折 & $p$\\\midrule
+Standard & +0.0016 & [-0.0059, +0.0084] & 0.6023 & 4/5 & 0.634\\
+Group & -0.0031 & [-0.0150, +0.0094] & 0.5909 & 3/5 & 0.626\\\bottomrule
+\end{tabular}
+\end{table}
+\src{reports/goal3\_final\_report.md；results/goal3/goal3\_decision.csv}
+
+两侧人口学比较者均高于随机，两个区间均包含零。12 个探索配置乘两种协议形成 24 个检验，0 个区间在正侧排除零，0 个通过 Benjamini--Hochberg 0.05 控制。探索结果即使通过，也只能记为需独立复现的探索信号，不能替换确证主结果。幅度归一化消融的 Group／Standard 增量为 -0.0046／+0.0038，区间均包含零。
+
+\code{goal3\_decision.csv}实际包含 28 行，其中 26 行为\code{NO\_INDEPENDENT\_SIGNAL}，另 2 行为\code{ABLATION\_NOT\_A\_VERDICT}。所以“0／26”指有判定资格的确证与探索行，不是整个 CSV 的行数。整个矩阵的 EEG 单独 AUROC 范围为 0.4825--0.5580，其中 28 个配置协议组合有 16 个区间排除 0.5，这与“人口学增量为零”并不矛盾。
+\src{results/goal3/goal3\_decision.csv；reports/goal3\_results.md；reports/goal3\_final\_report.md}
+
+另一组险些被误读的阳性来自深度与传统的直接比较：Group CV 下 14 个配置有 7 个区间显著正向，最大增量 +0.0647，但传统比较者为 0.4933。Standard CV 中传统块为 0.5191，14 个配置没有显著胜利，最大差异为 +0.0259 [-0.0029, +0.0554]。Goal 3 在读矩阵前已经把比较者高于随机的规则推广到所有配对比较，因而没有把七个 Group CV 胜利计入深度表征优势。
+\src{reports/goal3\_final\_report.md；results/goal3/paired\_increment\_comparisons.csv}
+
+\subsection{堆叠、种子不稳定与捷径探针}
+种子平均的堆叠人口学增量共 56 行，包含深度与传统两类组合；显著正向和负向均为 0，范围为 -0.0078 至 +0.0045。这与 Goal 2.8 人口学相关比较中的 78 个显著负值不同。项目将其解释为堆叠缓解了无信息列稀释。这里的跨阶段比较支持方法选择，但样本、比较集合与训练方式并非完全相同，不能当作孤立改变堆叠方式的随机对照实验。
+\src{reports/goal3\_final\_report.md；results/goal3/paired\_increment\_comparisons.csv}
+
+Group CV 下 EEG 深度分数的种子间 AUROC 标准差平均为 0.0249，最大为 0.0527；最大波动配置是 InceptionTime 的标准刺激单独表征，三个种子范围为 0.4775--0.5760。这一幅度明显超过确证增量。对已保存预测做被试自助重采样不会自动计入这部分不确定性。原报告对小效应可检测性的讨论属于经验判断，未提供独立功效分析，本文不将其转成精确的检出下限。
+\src{results/goal3/seed\_spread.csv；reports/goal3\_final\_report.md}
+
+EEG 表征仍含采集组信息。原报告的组解码平衡准确率在 Group CV 为 0.537--0.584，随机参照为 0.10；Standard CV 为 0.148--0.152。这里的指标是平衡准确率，不是疾病 AUROC。一个嵌入文件因调度重启写入中断而丢失，预测与诊断文件完整，组探针只使用其余五份嵌入。该限制不应被“全部作业完整”掩盖。
+\src{reports/goal3\_final\_report.md}
+
+Goal 3 回答了既定问题，未获得可计入的独立信号。它不解除 Goal 4、Goal 5 或多模态融合的准入限制。该状态既不把本阶段重新打开，也不以本文替项目发布额外决策。
+
+\section{增量准则：逐条枚举与放宽重核}
+\subsection{九条准则的来源与适用范围}
+这些准则是在真实结果的解释失败中逐步形成的，不是一开始就完整预注册的方案。将它们的来源、适用条件和实际作用分开记录，是判断规则是否过严的必要条件。表\ref{tab:rules}按仓库汇总列出九条要求；这里的“高于随机”依照原项目实现与判读，不自行改写为另一种显著性检验。
+\begin{table}[ht]
+\centering\small
+\caption{增量判断的九条准则及其来源}\label{tab:rules}
+\begin{tabularx}{\textwidth}{@{}r Y l Y@{}}
+\toprule
+编号 & 要求 & 来源 & 对应的问题\\\midrule
+1 & 配对被试自助法的增量区间在正侧排除零 & Goal 2.7 & 普通抽样噪声\\
+2 & 五个外层折至少四个增量为正 & Goal 2.7 & 由单折带动的效果\\
+3 & 两套 CV 协议均为正 & Goal 2.7 & 采集组或站点捷径\\
+4 & 对照组检查不支持占主导的捷径解释 & Goal 2.7 & 背景、设备、质量与元数据通道\\
+5 & 同队列、同协议的比较基线自身高于随机 & Goal 2.9 & 低于随机的基线制造相对胜出\\
+6 & 小于约 500 人队列的可计入增量须做标签置换 & Goal 2.9 & 被试重采样未计入的拟合不稳定\\
+7 & 对三个种子取平均 & Goal 3 & 深度模型拟合方差\\
+8 & 对探索配置族进行 FDR 控制 & Goal 3 & 多重比较\\
+9 & 第 5 条适用于每一种配对比较 & Goal 3 & 深度与传统特征比较也会发生基线塌陷\\
+\bottomrule
+\end{tabularx}
+\end{table}
+前五条用于各阶段；第六条只在小队列条件成立时适用；第七、八条针对深度阶段。第九条把比较基线的要求扩展到人口学以外的比较。第六条中的“约 500”是原记录的适用描述，不是本文估计的样本量。第四条属于对对照结果的人工解释，没有单一数值阈值，也没有任何结果仅因这一条被排除。
+\src{reports/increment\_criteria\_and\_relaxed\_recheck.md}
+
+\subsection{878 行重核：分母与筛选层级}
+放宽重核只抽取“模态加人口学”相对“人口学”的比较，删除第 2、3、6、7、8、9 条的约束，以正增量区间为 L1，再加比较基线高于随机为 L2。L3 是另外加回至少四折为正的敏感性检查。第四条未转化为自动筛选阈值，仍用于解释存活行的性质。因此，表中“通过”只是对应层级通过，不等于完整规则认定独立信号。
+
+\begin{table}[ht]
+\centering\small
+\caption{按模态与阶段分别统计放宽重核；两部分是同一批比较的不同分组}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+分组 & 比较行数 & L1 & L2 & L3\\\midrule
+EEG & 302 & 35 & 35 & 20\\
+面部 & 66 & 12 & 12 & 10\\
+眼动 & 288 & 11 & 0 & 0\\
+行为学 & 84 & 3 & 0 & 0\\
+fNIRS & 138 & 0 & 0 & 0\\\midrule
+Goal 2.7 & 162 & 12 & 12 & 10\\
+Goal 2.8 & 120 & 0 & 0 & 0\\
+Goal 2.9 & 84 & 3 & 0 & 0\\
+Goal 2.10 & 288 & 11 & 0 & 0\\
+Goal 3 & 224 & 35 & 35 & 20\\\bottomrule
+\end{tabular}
+\end{table}
+
+全表共 878 行。fNIRS 在 L1 就没有存活行；眼动和行为学在 L2 归零。这里眼动为 11 行、行为学为 3 行，不应与各阶段完整配对矩阵中的 18 行和 8 行混用，重核只选取了指定比较类型。原重核报告正文把 302 行称为 Goal 3 的行数，而按阶段 CSV 为 224；302 是跨阶段 EEG 的行数。本文分别使用两份 CSV 的分组口径，不沿用这处文字混淆。
+\src{results/increment\_recheck/ladder\_by\_modality.csv；results/increment\_recheck/ladder\_by\_goal.csv；scripts/recheck\_increments\_relaxed.py}
+
+\subsection{两组存活者为何没有改变阶段结论}
+面部的 12 行全部来自已被替代的 Goal 2.7。纯“面部加人口学”对人口学的 18 行无一通过；“面部加质量变量加人口学”的 18 行有 10 行通过，另有 2 行来自三模态交集队列。这意味着多数存活者需要分辨率、帧率、时长、编码等采集元数据。旧特征层尚未切分长会话；Goal 2.8 重建后，其重核子集的 120 行在 L1 全部归零。因此，放宽重核不能恢复旧面部特征的效力，也不能把元数据的贡献直接归给面部心理表征。
+
+EEG 的 35 行全部来自 Goal 3 的单种子结果。其中 28 行集中在 Group CV、种子 2：14 个深度配置和重复列入这些配置行的 14 个传统特征比较同时通过；另有 Standard CV、种子 0 的 6 行，以及 Group CV、种子 0 的 1 行。传统特征在不同配置行中重复出现，不是相互独立的发现。在集中的那个单元，人口学比较基线为 0.5574，另两个种子为 0.5814 和 0.6013；EEG 自身为 0.5075，人口学加 EEG 则被原报告概括为三个种子均处于 0.584。这里保留原汇总精度，不反推未列出的逐配置结果。
+
+这些比较基线仍高于随机，所以第 5 条无法排除它们。记录揭示的是“比较基线在种子间移动而组合表现较平”的机制；项目并未据此新增第十条规则。采用种子平均的深度配置结果为 0/28，与前述包含传统比较的 56 行口径不同。
+\src{reports/increment\_criteria\_and\_relaxed\_recheck.md；reports/goal3\_final\_report.md}
+
+\subsection{规则的代价与可比性限制}
+经典阶段各运行一个种子，深度阶段运行三个种子。取消种子平均后，不同模态获得的拟合抽样机会不相等，且重核混合了已被替代和当前有效的特征版本。878 行是审计比较的分母，不是独立实验次数；不能据此给模态排出优劣名次。
+
+本次重核中，第 2、3、5 条有实际过滤作用，第 7 条消除了 EEG 的单种子存活结果；第 6、8、9 条在这一特定子集没有额外删除结果。原报告对第 3 条的作用给出跨协议解释，阶梯表并未单列其独立删减量。由此能说规则识别了已出现的问题，不能说每条规则都已被证明普遍必要。若未来需要公平比较模态，应先统一种子与比较层级，再讨论规则宽严。
+\src{reports/increment\_criteria\_and\_relaxed\_recheck.md}
+
+\section{综合讨论：主要产出是可追溯的判断规则}
+\subsection{同一个研究问题，五个特征层与一次深度检验}
+截至报告期末，重建的 EEG、fNIRS、面部、行为学和眼动特征，以及 EEG Oddball 深度表征，均未在人口学之上给出可计入的可信独立增量。这一共同结果建立在不同的测量证据上：EEG 有 P3b 和条件解码阳性对照，fNIRS 有任务血流响应，面部有超越背景的表征，行为学有符合任务机制的表现，眼动有可重复的绝对水平指标。没有疾病增量，并不等于数据没有任何信息，也不等于这些客观测量没有其他用途。
+
+研究问题要求的是在相同被试、相同划分和相同人口学信息条件下的额外排序能力。单独模态的 AUROC、胜过背景的效果、胜过塌陷传统基线的深度结果，回答的是不同问题。把这些问题放在同一张结果表里有助于诊断，但将其中任一种胜出自动计为“独立增量”，会系统性抬高结论。
+
+\subsection{规则如何从真实误判中形成}
+\begin{table}[ht]
+\centering\small
+\caption{报告期内判断规则的演化与再检验}
+\begin{tabularx}{\textwidth}{@{}l Y Y@{}}
+\toprule
+阶段 & 曾出现或可能出现的误判 & 修正或拦截机制\\\midrule
+Goal 2.8 & 面部对背景的 14 个阳性被首版决策计分 & 比较对象必须是人口学；背景胜出仅作表征对照\\
+Goal 2.9 & 8 行曾标记为支持独立信号 & 迁移、汇聚与置换揭示低于随机的比较基线；撤回计分\\
+Goal 2.10 & 18 个阳性会让四个相关队列中的三个看似获支持 & 新增的比较基线规则阻止计入\\
+Goal 3 & Group CV 中 7 个深度胜传统配置区间为正 & 将同一要求用于每一种比较；传统基线为 0.4933\\\bottomrule
+\end{tabularx}
+\end{table}
+\src{reports/goal2\_8\_final\_report.md；reports/goal2\_9\_final\_report.md；reports/goal2\_10\_final\_report.md；reports/goal3\_final\_report.md；PROGRESS.md}
+
+这条证据链比单纯汇报一串阴性结果更有价值。比较对象错误、比较基线不稳定和比较范围遗漏，是可以跨模态重复发生的解释问题。规则从面部的首版计分修正，发展到行为学的阳性撤回，再经眼动和深度比较检验，保留了错误是如何产生、又如何被识别的记录。
+
+同时，“假阳性”在此指未能满足本项目增量证据要求的曾计分或表面阳性，不意味着已经证明真实总体效应恰好为零。方法学价值在于阻止现有证据支撑不了的结论；这也要求保留所有未决条件，而不是把严谨性写成确定性。
+
+\subsection{阶段状态与治理边界}
+Goal 2.8、2.9、2.10 均为测量工作完成，未在各自报告中发布 go/no-go 决策，决定仍开放。Goal 3 由 9 月 9 日的有条件授权启动，限于 EEG Oddball 深度验证，9 月 10 日完成。本文沿用上述状态，不把“未检出可信增量”翻译成替项目作出的终止决策，也不据此放行后续阶段或多模态融合。
+\src{PROGRESS.md；EXPERIMENT\_PROTOCOL.md；reports/goal2\_8\_final\_report.md；reports/goal2\_9\_final\_report.md；reports/goal2\_10\_final\_report.md；reports/goal3\_final\_report.md}
+
+\section{局限与下一步}
+\subsection{当前证据的适用边界}
+\begin{enumerate}[leftmargin=*,itemsep=3pt]
+\item \textbf{样本不是同一覆盖范围。}各模态及其任务交集的样本量和标签构成不同。人口学全池参考不能取代小队列中的配对比较；可用性差异也可能影响结果可推广的范围。
+\item \textbf{组代理不等同于已知医院站点。}Group CV 阻断的是已定义采集组的交叉，不足以排除所有设备、批次和质量通道。仍应结合各类对照解释模型利用了什么信息。
+\item \textbf{置信区间不包含全部训练不确定性。}对固定预测进行被试重采样主要反映被试层面的波动；经典阶段只有一个种子，深度阶段的种子平均也不能代表所有可能的训练条件。
+\item \textbf{测量效度存在明确边界。}眼动绝对特征可重复，而效价差值的信度不足；医院文档发现的轴向量纲问题尚无修复重跑证据。旧范式特征已被替代，不能与重建结果作为等效证据混合。
+\item \textbf{严格规则是事后逐步形成的。}保留撤回过程可以提高透明度，却不能把这些规则追溯性地称为完整预注册。多重比较、基线方差与统计功效仍需在新的独立验证中处理。
+\item \textbf{没有未暴露的最终泛化结论。}现有 900 人切分已被定义为暴露过的 pilot-holdout；本报告不将它包装为独立最终测试，也没有临床外部验证结果。
+\end{enumerate}
+\src{EXPERIMENT\_PROTOCOL.md；reports/eye\_readiness\_audit.md；reports/goal2\_10\_paradigm\_document\_review.md；reports/goal3\_final\_report.md；reports/increment\_criteria\_and\_relaxed\_recheck.md}
+
+\subsection{可供后续决策采用的工作顺序}
+以下是依据现有记录整理的建议，不是已获批准的实验计划，也不是本报告期间已完成的工作。首先，应保持数据划分、特征版本、比较对象与结果行之间的可追溯关系，处理本文标出的跨文件计数差异。随后，若批准继续，应先修复眼动轴向量纲并确定受影响特征的重算范围，再验证修正是否改变测量指标与增量判断；目前没有重跑数值可供报告。
+
+对于“规则是否过严”的问题，原重核报告提出两条公平化路径：给经典阶段补充相同的多种子运行，或仅比较深度阶段的种子平均结果。下一轮若获授权，应明确选择哪种比较层级，并在看到结果之前固定准则。对小队列，应保留标签置换与比较基线诊断；对后续采集，应优先保证目标构念的可测性及真正独立的验证条件。
+
+这些建议均不改变 Goal 4、Goal 5 和融合的当前准入边界。下一步是否实施、实施何种新增实验，以及是否继续项目，应由项目已有治理流程决定。
+\src{reports/increment\_criteria\_and\_relaxed\_recheck.md；EXPERIMENT\_PROTOCOL.md；PROGRESS.md}
+
+\section{编写说明}
+\subsection{路由、材料与编排选择}
+本报告按指定的学术写作工作流组织材料，采用内部技术进展报告体例，面向医学背景的导师与医院合作方。固定配置直接采用任务说明；跳过配置访谈、选题收敛和文献检索。结构设计、论证组织、中文摘要与格式自检均在本次写作中完成，未安排独立同行评审，不宣称取得外部评审或统计复核认证。
+
+正文以研究问题和证据解释为主线，按阶段组织，并将人口学复核和医院文档复审单列，便于阅读比较基线与测量定义的变化。专业缩写首次使用时解释；数值密集结果采用表格，三层划分采用示意图。仅提供简体中文摘要，不设英文摘要或参考文献体系。所有出处是相对项目根目录的路径。
+
+实际阅读材料覆盖以下范围：
+\begin{itemize}[leftmargin=*,itemsep=2pt]
+\item \texttt{PROGRESS.md} 第 702 行至本次读取时文件末尾，以及项目规格、实验协议和项目代理指令；
+\item Goal 2.7 替代声明，Goal 2.8、2.9、2.10 和 Goal 3 的指定总结、结果、方法与复审报告，眼动就绪审计及泄漏、站点批次、划分、环境记录；
+\item 指定阶段结果目录中的 CSV、JSON，人口学参考目录与放宽重核阶梯表；
+\item Goal 2.8 运行清单、Goal 3 的缓存与试次索引及交叉拟合记录，两份指定范式配置；
+\item 为解释条件解码与重核口径，补读相应条件解码结果表和重核脚本。
+\end{itemize}
+
+\subsection{数值纪律与未解决事项}
+正文保留所用来源的有效位数。同一指标在报告中已有汇总精度时使用该汇总，不把原始表格重新任意舍入。计数按明确行筛选核对；不把比较行数当作独立实验数。来源不一致时按最贴近对应问题的机器结果或最终报告取值，并在相关章节明确差异，而不是静默统一。
+
+已明确处理的口径包括：Goal 2.8 的 79 个负增量由人口学比较 78 个及背景比较 1 个组成；面部背景比较按 CSV 为 10/12，加入人口学的背景比较为 4/12，未沿用后续文字中的 8/12；Goal 3 在重核中为 224 行，EEG 跨阶段为 302 行；行为学阳性行的增量范围不能忽略较小的 0.0731；条件解码平均值是折均值，疾病诊断表中的比较另有定义。
+
+尚不能由现有记录统一解释的事项包括：眼动旧就绪标记与后续审计的计数差异、P3b 两次汇总的细小数值差别及部分早期特征计数与最终版的差别。本文保留各自上下文，不估算修正值。轴向量纲修复后的性能、缺失厂商系列的实验结果、独立最终测试性能及正式功效阈值，\textbf{该数值未在现有记录中检索到}，因此没有填入数值。环境版本记录按其原日期解释，不据此推断报告期内实际硬件配置。
+
+本次工作读取既有实验产物并完成文档编译，没有重跑训练、改动阶段决策或以新计算覆盖既有结果。排版验证与最终页数记录在 \texttt{reports/latex/writing\_record.md}，以编译后的 PDF 实际页面为准。
+
+\end{document}
