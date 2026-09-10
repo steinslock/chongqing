@@ -62,25 +62,24 @@ results/goal2_10/all_oof_predictions_group_cv.csv
 results/goal3/all_oof_predictions.csv
 results/goal3/jobs/
 
-# LaTeX build intermediates are regenerable with latexmk; the .tex source and
-# the compiled PDF are tracked.
-reports/latex/build/*.aux
-reports/latex/build/*.fdb_latexmk
-reports/latex/build/*.fls
-reports/latex/build/*.log
-reports/latex/build/*.out
-reports/latex/build/*.toc
-reports/latex/build/*.xdv
-reports/latex/*.tex.bak
-
-# Editor-driven in-place LaTeX builds (VSCode LaTeX Workshop). The tracked PDFs
-# live under reports/latex/build/; these are duplicates and intermediates.
-reports/latex/*.aux
-reports/latex/*.fdb_latexmk
-reports/latex/*.fls
-reports/latex/*.log
-reports/latex/*.out
-reports/latex/*.pdf
-reports/latex/*.synctex.gz
-reports/latex/*.toc
-reports/latex/*.xdv
+# LaTeX. Each report lives in its own folder under reports/latex/ with a
+# build/ subdirectory. The compiled PDF in build/ is tracked; everything else
+# latexmk or the editor produces is regenerable and is not.
+reports/latex/*/*.aux
+reports/latex/*/*.fdb_latexmk
+reports/latex/*/*.fls
+reports/latex/*/*.log
+reports/latex/*/*.out
+reports/latex/*/*.pdf
+reports/latex/*/*.synctex.gz
+reports/latex/*/*.tex.bak
+reports/latex/*/*.toc
+reports/latex/*/*.xdv
+reports/latex/*/build/*.aux
+reports/latex/*/build/*.fdb_latexmk
+reports/latex/*/build/*.fls
+reports/latex/*/build/*.log
+reports/latex/*/build/*.out
+reports/latex/*/build/*.synctex.gz
+reports/latex/*/build/*.toc
+reports/latex/*/build/*.xdv
