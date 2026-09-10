@@ -99,83 +99,73 @@
 
 \subsection{总览}
 
-下表每一行都是\key{在同一批孩子身上、用同一套方法}做的对比。
+下表每一行都是\key{在同一批孩子身上、用同一个模型}算出来的三个数：这个模态自己有多强、只用年龄性别年级有多强、以及\key{把两者合起来}有多强。
+
+最后一列是本报告最关键的一个量——\key{把模态加进去之后，判断到底改善了多少}，方括号里是它的 95\% 置信区间。
 
 \vspace{0.4em}
 \begin{center}
-\begin{tabular}{@{}llccc@{}}
+{\small\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}llcccl@{}}
 \toprule
-\textbf{测量} & \textbf{人数} & \textbf{测量单独} & \textbf{年龄性别年级} & \textbf{谁更强} \\
+\textbf{测量} & \textbf{人数} & \textbf{模态单独} & \textbf{只用人口学} & \textbf{人口学+模态} & \textbf{提升与 95\% 区间} \\
 \midrule
-脑电（传统特征） & 1820 & 0.540 & 0.604 & 人口学 \\
-脑电（深度学习） & 1820 & 0.545 & 0.604 & 人口学 \\
-近红外 & 524 & 0.566 & 0.579 & 人口学 \\
-面部视频 & 3381 & 0.624 & 0.672 & 人口学 \\
-行为按键 & 1412 & 0.558 & 0.596 & 人口学 \\
-眼动 & 305 & 0.646 & 0.678 & 人口学 \\
+眼动 & 305 & 0.578 & 0.653 & 0.674 & +0.021\quad[-0.048, +0.089] \\
+行为按键 & 1412 & 0.558 & 0.590 & 0.608 & +0.018\quad[-0.005, +0.040] \\
+近红外 & 524 & 0.547 & 0.579 & 0.592 & +0.013\quad[-0.041, +0.067] \\
+脑电（深度） & 1820 & 0.534 & 0.602 & 0.604 & +0.002\quad[-0.006, +0.008] \\
+面部视频 & 3381 & 0.617 & 0.669 & 0.666 & -0.002\quad[-0.017, +0.011] \\
+脑电（特征） & 1820 & 0.527 & 0.604 & 0.571 & -0.033\quad[-0.059, -0.006] \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{center}
 
 \vspace{0.6em}
 \begin{center}
 \begin{tikzpicture}[x=1cm,y=1cm]
-\def\xs{36}
-\foreach \i/\name/\sig/\dem in {
-  0/眼动/0.646/0.678,
-  1/行为按键/0.558/0.596,
-  2/面部视频/0.624/0.672,
-  3/近红外/0.566/0.579,
-  4/脑电（深度）/0.545/0.604,
-  5/脑电（特征）/0.540/0.604}{
-  \node[anchor=east,font=\small] at (0,\i*0.85) {\name};
+\def\xs{34}
+\def\dy{1.15}
+\foreach \i/\name/\sig/\dem/\comb in {
+  0/眼动/0.578/0.653/0.674,
+  1/行为按键/0.558/0.590/0.608,
+  2/面部视频/0.617/0.669/0.666,
+  3/近红外/0.547/0.579/0.592,
+  4/脑电（深度）/0.534/0.602/0.604,
+  5/脑电（特征）/0.527/0.604/0.571}{
+  \node[anchor=east,font=\small] at (-0.1,\i*\dy) {\name};
   \pgfmathsetmacro\ls{(\sig-0.50)*\xs}
   \pgfmathsetmacro\ld{(\dem-0.50)*\xs}
-  \fill[blue!30] (0,\i*0.85+0.13) rectangle (\ls,\i*0.85+0.33);
-  \fill[orange!55] (0,\i*0.85-0.33) rectangle (\ld,\i*0.85-0.13);
-  \node[anchor=west,font=\scriptsize] at (\ls+0.08,\i*0.85+0.23) {\sig};
-  \node[anchor=west,font=\scriptsize] at (\ld+0.08,\i*0.85-0.23) {\dem};
+  \pgfmathsetmacro\lc{(\comb-0.50)*\xs}
+  \fill[blue!30]   (0,\i*\dy+0.30) rectangle (\ls,\i*\dy+0.48);
+  \fill[orange!55] (0,\i*\dy+0.09) rectangle (\ld,\i*\dy+0.27);
+  \fill[green!45!black!60] (0,\i*\dy-0.12) rectangle (\lc,\i*\dy+0.06);
+  \node[anchor=west,font=\scriptsize] at (\ls+0.08,\i*\dy+0.39) {\sig};
+  \node[anchor=west,font=\scriptsize] at (\ld+0.08,\i*\dy+0.18) {\dem};
+  \node[anchor=west,font=\scriptsize] at (\lc+0.08,\i*\dy-0.03) {\comb};
 }
-\draw[thick,gray] (0,-0.5) -- (0,4.9);
-\node[anchor=north,font=\scriptsize,gray] at (0,-0.55) {0.50（抛硬币）};
-\draw[dashed,red!70] (6.12,-0.5) -- (6.12,4.9);
-\node[anchor=north,font=\scriptsize,red!70] at (6.12,-0.55) {0.67（全体人口学）};
-\fill[blue!30] (7.6,4.6) rectangle (8.1,4.8);
-\node[anchor=west,font=\scriptsize] at (8.15,4.7) {测量单独};
-\fill[orange!55] (7.6,4.2) rectangle (8.1,4.4);
-\node[anchor=west,font=\scriptsize] at (8.15,4.3) {年龄性别年级};
+\draw[thick,gray] (0,-0.45) -- (0,6.4);
+\node[anchor=north,font=\scriptsize,gray] at (0,-0.5) {0.50（抛硬币）};
+\fill[blue!30]   (7.3,6.30) rectangle (7.75,6.46);
+\node[anchor=west,font=\scriptsize] at (7.8,6.38) {模态单独};
+\fill[orange!55] (7.3,6.02) rectangle (7.75,6.18);
+\node[anchor=west,font=\scriptsize] at (7.8,6.10) {只用人口学};
+\fill[green!45!black!60] (7.3,5.74) rectangle (7.75,5.90);
+\node[anchor=west,font=\scriptsize] at (7.8,5.82) {人口学+模态};
 \end{tikzpicture}
 \end{center}
 
 \vspace{0.3em}
-\noindent 每一根蓝条都比它对应的橙条短。但\key{短的原因各不相同}，这正是第 \ref{sec:why} 节要讲的。
+\noindent 图里有两件事值得看。
 
-\subsection{真正做决定的那张表}
+\key{第一，每一根蓝条都是三根里最短的。}任何一个模态单独拿出来，都不如年龄性别年级。但\key{短的原因各不相同}，这正是第 \ref{sec:why} 节要讲的。
 
-上面那张表回答的是“这个模态自己有多强”。但项目真正用来下结论的，是另一个比较：\key{在已经知道年龄性别年级的基础上，再加上这个模态，判断会不会更准。}
+\key{第二，绿条和橙条几乎一样长。}把模态加进去之后，成绩基本没动——这就是全部结论所在。
 
-下表每一行都是\key{同一个模型}在加与不加该模态时的对比。（因此“只用人口学”一列的数值与上表略有出入——上表取的是各自最好的模型，这里必须取同一个。）
+\subsection{为什么“绿条比橙条长一点”还不够}
 
-\vspace{0.4em}
-\begin{center}
-\begin{tabular}{@{}llccl@{}}
-\toprule
-\textbf{测量} & \textbf{人数} & \textbf{只用人口学} & \textbf{加上该模态} & \textbf{差值与 95\% 区间} \\
-\midrule
-眼动 & 305 & 0.6525 & 0.6737 & +0.021\quad[-0.048, +0.089] \\
-行为按键 & 1412 & 0.5903 & 0.6084 & +0.018\quad[-0.005, +0.040] \\
-近红外 & 524 & 0.5792 & 0.5919 & +0.013\quad[-0.041, +0.067] \\
-脑电（深度） & 1820 & 0.6023 & 0.6039 & +0.002\quad[-0.006, +0.008] \\
-面部视频 & 3381 & 0.6687 & 0.6663 & -0.002\quad[-0.017, +0.011] \\
-脑电（特征） & 1820 & 0.6037 & 0.5710 & -0.033\quad[-0.059, -0.006] \\
-\bottomrule
-\end{tabular}
-\end{center}
+看表格最后一列：\key{六组里有四组的提升是正的}（眼动 +0.021、行为 +0.018、近红外 +0.013、深度脑电 +0.002）。这很容易让人得出“那这些模态还是有用的”这一结论。
 
-\vspace{0.3em}
-\noindent\key{六组里有四组的数字确实变高了。}这很容易让人得出“那这些模态还是有用的”这一结论。但这个结论下不得，原因在最后一列。
-
-\subsubsection*{为什么“变高了”还不够}
+但这个结论下不得，原因在方括号里。
 
 方括号里是\key{置信区间}，表示这个差值真实可能落在什么范围内。判断标准只有一条：\key{区间必须整个在零的一侧。}
 
