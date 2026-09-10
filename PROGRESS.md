@@ -1892,3 +1892,90 @@ Reports: `reports/goal3_final_report.md`, `reports/goal3_results.md`,
 `reports/goal3_method_design.md`. Machine-readable: `results/goal3/`.
 
 **Goal 3 does not lift the gate on Goal 4, Goal 5 or multimodal fusion.**
+
+## 2026-09-10 - The increment criteria, enumerated and relaxed
+
+Status: complete. No stage conclusion changes.
+
+Two questions were put directly: what conditions does an increment over
+demographics actually have to satisfy, and how many would be credited if most of
+them were dropped. The concern behind them is legitimate — the rule was never
+designed up front, it accumulated a clause per stage as each artefact was found,
+and that is exactly how a rule becomes strict enough to hide a real effect
+without anyone deciding that it should.
+
+`reports/increment_criteria_and_relaxed_recheck.md` writes the nine criteria out
+in one place with the stage that added each and what it was catching, and then
+re-scores every stage against a relaxed version.
+
+### The relaxed re-check
+
+Criteria 2, 3, 6, 7, 8 and 9 dropped; only "the interval excludes zero" and "the
+comparator is above chance" retained. All 878 `modality + demographics` against
+`demographics` comparisons from Goal 2.7 through Goal 3, five modalities.
+
+| modality | rows | interval excludes zero | + comparator above chance |
+|---|---|---|---|
+| EEG | 302 | 35 | **35** |
+| Face | 66 | 12 | **12** |
+| eye | 288 | 11 | **0** |
+| behaviour | 84 | 3 | **0** |
+| fNIRS | 138 | 0 | **0** |
+
+fNIRS returns nothing even without the comparator clause: 0 of 138. Eye
+tracking's 11 and behaviour's 3 fall only on the comparator clause, and are the
+same rows those stages were originally withdrawn under.
+
+### What the two survivors are
+
+**Face, 12 rows, all Goal 2.7.** Pure `face + demographics` against
+demographics is **0 of 18**. Ten of the twelve are
+`face + QC + demographics`, which adds the acquisition metadata block —
+resolution, frame rate, duration, codec — that Goal 2.7 itself named when it
+called Face `SHORTCUT_DOMINATED`. The other two are the core-3 intersection
+cohort. These features are also the superseded ones, sampled uniformly across an
+unsegmented 11-minute session; Goal 2.8 segmented it properly and returned 0 of
+120 at the same relaxed level.
+
+**EEG, 35 rows, all Goal 3, all single-seed.** Twenty-eight sit in one cell,
+Group CV seed 2, where all fourteen deep configurations **and** the hand-crafted
+321-feature block are credited simultaneously. In that cell the demographics
+comparator is 0.5574 against 0.5814 and 0.6013 in the other seeds, the EEG score
+is at its weakest of the three (0.5075), and `Demo + EEG` is flat at 0.584
+across all three. The comparator is cross-fitted through seed-dependent inner
+splits and moved by 0.044. Recorded as a property of those rows; no criterion
+was added for it, and criterion 5 does not catch it because 0.5574 is above
+chance.
+
+### A comparability limit that constrains reading the table
+
+Goal 2.7, 2.8, 2.9 and 2.10 each ran **one** seed; Goal 3 ran three. Dropping
+the seed-averaging criterion therefore hands EEG three draws no other modality
+received, and 302 of the 878 rows are Goal 3's. EEG's 35 and Face's 12 are not
+on the same denominator. Levelling it would mean running the classical stages at
+three seeds — cheap for the sklearn families — or reading only Goal 3's
+seed-averaged rows, which give 0 of 28. Neither was done.
+
+### What it shows
+
+Relaxing six of nine criteria surfaced no new modality, and both surviving
+groups have a stated character. That is not an argument that every criterion is
+necessary: criteria 2, 3 and 5 each did real work in this re-check, while 6, 8
+and 9 removed nothing and 7 removed everything EEG had. The question is fair to
+ask again at any future stage.
+
+The one objective-modality result in this project that demonstrably survives its
+own setting control remains **Face against background** in Goal 2.8: 8 of 12
+intervals positive, strongest +0.1153 [0.0858, 0.1450] under Group CV on the
+within-subject valence contrast, a representation whose background control sits
+at chance because identity, room, camera and site cancel within subject. It is
+real, and it does not beat age, sex and grade.
+
+An earlier draft of this work also committed a seed-sensitivity analysis as a
+tenth criterion. That was the wrong instrument for a real observation and it was
+not kept; the observation itself is recorded above as a description of the Goal
+3 rows, which is what it is.
+
+New: `scripts/recheck_increments_relaxed.py`,
+`reports/increment_criteria_and_relaxed_recheck.md`,
+`results/increment_recheck/`.

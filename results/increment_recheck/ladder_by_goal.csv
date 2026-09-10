@@ -1,0 +1,6 @@
+goal,rows,L1_interval_excludes_zero,L2_and_comparator_above_chance,L3_and_at_least_4_of_5_folds
+goal2_10,288,11,0,0
+goal2_7,162,12,12,10
+goal2_8,120,0,0,0
+goal2_9,84,3,0,0
+goal3,224,35,35,20

@@ -1,0 +1,6 @@
+modality,rows,L1_interval_excludes_zero,L2_and_comparator_above_chance,L3_and_at_least_4_of_5_folds
+behaviour,84,3,0,0
+eeg,302,35,35,20
+eye,288,11,0,0
+face,66,12,12,10
+fnirs,138,0,0,0
