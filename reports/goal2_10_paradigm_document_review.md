@@ -46,12 +46,14 @@ independent facts settle it:
    自由观看.
 4. There is no 集思鸣智 directory under `眼动/` at all.
 
-**Action for the study team, not for the analysis**: a third eye-tracking device
-is named in the study's own paradigm document and none of its recordings are in
-this dataset. It is worth asking whether that cohort exists and was meant to be
-delivered. Its paradigm differs enough that its features could not be pooled
-with these three in any case, so this is a coverage question, not a re-analysis
-question.
+**This is not a coverage gap.** The study team confirmed on 2026-09-10 that no
+集思鸣智 cohort was ever planned. The device appears in the document only because
+the header lists its built-in paradigm alongside the two that were used
+(集思鸣智为设备自带范式). An earlier revision of this report read the naming as
+evidence that a third cohort might exist and be undelivered; that was an
+over-reading of a document which describes devices, not the sampling plan.
+Nothing about Table 2's exclusion changes: the four facts above stand, and they
+remain the reason no reader should apply its parameters to these recordings.
 
 ---
 

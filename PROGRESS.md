@@ -1708,10 +1708,13 @@ Scope finding:
   memory-guided or double-step stimulus, directory or timeline exists in either
   七鑫易维 project or the Tobii export; and there is no 集思鸣智 directory under
   `眼动/` at all.
-- **A third eye-tracking device is named in the study protocol and none of its
-  recordings are in this dataset.** Worth asking the hospital whether that
-  cohort exists and was meant to be delivered. Coverage question, not a
-  re-analysis question: its paradigm could not be pooled with these three.
+- The 集思鸣智 device is named in the paradigm document and has no recordings
+  here, but **this is not a coverage gap**. The study team confirmed on
+  2026-09-10 that no such cohort was ever planned; the header lists that
+  device's built-in paradigm alongside the two that were used. An earlier
+  revision of this entry read the naming as a possible undelivered batch, which
+  over-read a document that describes devices rather than the sampling plan.
+  Table 2's exclusion is unaffected.
 
 Changed:
 
@@ -2025,3 +2028,37 @@ no result table, script or config was touched.
 New: `reports/latex/chongqing_progress_20260907_20260910.tex` and its build, a
 27-page Simplified Chinese technical progress report covering 2026-09-07 to
 2026-09-10.
+
+## 2026-09-10 - The "third eye-tracking device" was an over-reading
+
+Status: correction only. No result, feature table or stage conclusion changes.
+
+The Goal 2.10 paradigm-document review closed with an action item: 集思鸣智 is
+named in `附件/重医眼动范式及参数.docx` and none of its recordings are in this
+dataset, so the hospital should be asked whether that cohort exists and was
+meant to be delivered.
+
+The study team confirmed today that **no 集思鸣智 cohort was ever planned**. The
+document's own header says why the device is mentioned at all:
+七鑫易维与Tobii设备实验范式、呈现参数完全一致，**集思鸣智为设备自带范式** — it lists
+that device's built-in battery alongside the two paradigms that were actually
+run. The review treated a document describing *devices* as if it described the
+*sampling plan*, and inferred a missing batch from a name.
+
+What the review got right is untouched. Table 2 still does not describe these
+recordings, and the four independent facts that establish it still stand: it
+contradicts Table 1 on shared task names, gaze-contingent gating is impossible
+with fixed-length MP4 stimuli, no memory-guided or double-step stimulus exists
+in either project, and there is no 集思鸣智 directory under `眼动/`. That
+finding is the reason no reader should apply Table 2's parameters here, and it
+is the part worth keeping.
+
+The lesson is narrow and worth recording: **this project has repeatedly been
+right about what the data show and wrong when it inferred intent behind the
+data.** A device named in a vendor-supplied parameter document is evidence about
+devices, not about what anyone planned to collect.
+
+Changed: `PROGRESS.md`, `reports/goal2_10_paradigm_document_review.md`, and both
+reports under `reports/latex/`. `EXPERIMENT_PROTOCOL.md` and `AGENTS.md` needed
+no change — they record only the sound half, that Table 2 is a different device
+and section (1) is the one to read.
